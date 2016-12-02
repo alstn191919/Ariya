@@ -4,7 +4,7 @@ using namespace std;
 
 cVector3::cVector3(void)
 {
-
+	//유지현 ㅉㅉ 노트북 똥컴
 }
 cVector3 ::~cVector3(void)
 {
