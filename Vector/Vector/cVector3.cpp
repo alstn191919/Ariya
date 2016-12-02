@@ -4,7 +4,17 @@ using namespace std;
 
 cVector3::cVector3(void)
 {
-
+	//¤·adsfjdhagkladsg
+	adsgasdhgadsljgladskgjas
+		gadsjghadslgasdadsgiouadsgas
+		adsgadsgauhgs]ags
+		agspahshoahgog[o
+		agjgpghpagphg[
+			gjdsjdgd'jpjagj
+				g
+				
+				sdfjdskf lkj dsf
+				']]
 }
 cVector3 ::~cVector3(void)
 {
