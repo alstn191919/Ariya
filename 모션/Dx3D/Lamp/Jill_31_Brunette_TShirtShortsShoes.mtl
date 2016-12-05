@@ -1,0 +1,138 @@
+# Blender MTL File: 'Jill_31_Brunette_TShirtShortsShoes.blend'
+# Material Count: 12
+
+newmtl Jill_31_BlondeButtonUpShirtBlueJeanshorts:short01:short01ba.001
+Ns 194.117647
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 0.008962 0.013121
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Bump C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\short01_normals.png
+map_Kd C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\jeans_basic_diffuse.png
+map_d C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\jeans_basic_diffuse.png
+
+newmtl Jill_31_BlondeTshirtShortsShoes:shoes02:shoes02
+Ns 800.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.652058 0.030157 1.000000
+Ks 0.078430 0.078430 0.078430
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd D:\\utilities\\Programming\\Blender\\Texture\\clothes\\shoes\\shoes02_whiteWomens.png
+map_d D:\\utilities\\Programming\\Blender\\Texture\\clothes\\shoes\\shoes02_whiteWomens.png
+
+newmtl Jill_31_BlondeTshirtShortsShoes:shoes02:shoes02.001
+Ns 800.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.652058 0.030157 1.000000
+Ks 0.078430 0.078430 0.078430
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd C:\\Users\\clickey\\Documents\\makehuman\\v1\\models\\Jill\\caucasian\\BlondeTshirtShortsShoes\\textures\\shoes02_white.png
+map_d C:\\Users\\clickey\\Documents\\makehuman\\v1\\models\\Jill\\caucasian\\BlondeTshirtShortsShoes\\textures\\shoes02_white.png
+
+newmtl Jill_31_BlondeTshirtShortsShoes:tshirt02:tshirt02Material
+Ns 194.117647
+Ka 0.000000 0.000000 0.000000
+Kd 0.004908 0.008004 1.000000
+Ks 0.031370 0.031370 0.031370
+Ni 1.000000
+d 0.000000
+illum 2
+map_Bump C:\\Users\\clickey\\Documents\\makehuman\\v1\\models\\Jill\\caucasian\\BlondeTshirtShortsShoes\\textures\\tshirt02_normals.png
+map_Kd D:\\utilities\\Programming\\Blender\\Texture\\clothes\\tShirt\\tshirt02_watermelon.png
+map_d D:\\utilities\\Programming\\Blender\\Texture\\clothes\\tShirt\\tshirt02_watermelon.png
+
+newmtl Jill_31_brunett_nude:Fhair01:Female01material
+Ns 500.000000
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.200000 0.200000 0.200000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Bump C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\normals.png
+map_Kd C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\diffuse_black.png
+map_d C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\diffuse_black.png
+
+newmtl Jill_31_nude:Body:Young_caucasian_female
+Ns 500.000000
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.062745 0.050980 0.050980
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\young_lightskinned_female_diffuse.png
+map_d C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\young_lightskinned_female_diffuse.png
+
+newmtl Jill_31_nude:Eyebrow006:Eyebrow006
+Ns 500.000000
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\eyebrow006.png
+map_d C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\eyebrow006.png
+
+newmtl Jill_31_nude:Eyelashes03:Bodymaterial
+Ns 500.000000
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\eyelashes03.png
+map_d C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\eyelashes03.png
+
+newmtl Jill_31_nude:Low-poly:Eyeblue
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\blue_eye.png
+map_d C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\blue_eye.png
+
+newmtl Jill_31_nude:Teeth_shape05:Teethmaterial
+Ns 800.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.854900 0.854900 0.854900
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\teeth.png
+map_d C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\teeth.png
+
+newmtl Jill_31_nude:Tongue01:Tongue01material
+Ns 194.117647
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.031373 0.031373 0.031373
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\tongue01_diffuse.png
+map_d C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\tongue01_diffuse.png
+
+newmtl Jill_31_nude:Vag01:Vag01_caucasian
+Ns 500.000000
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.027451 0.027451 0.027451
+Ni 1.000000
+d 0.000000
+illum 2
+map_Bump C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\vag01_normals.png
+map_Kd C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\vag01_lightskinned_diffuse.png
+map_d C:\\Users\\clickey\\Documents\\makehuman\\v1\\exports\\textures\\vag01_lightskinned_diffuse.png
