@@ -31,7 +31,13 @@
 
 extern HWND	g_hWnd;
 
-#define EPSILON 0.00001f
+#define EPSILON 0.00001f								//float 오차값범위
+#define FOV          (D3DX_PI/4.0f)						// 시야각
+#define WIN_WIDTH		800
+#define WIN_HEIGHT		600
+#define ASPECT_RATIO (WIN_WIDTH/(float)WIN_HEIGHT)		// 화면의 종횡비
+#define NEAR_PLANE   1									// 근접 평면
+#define FAR_PLANE    10000								// 원거리 평면
 
 #define SAFE_ADD_REF(p) if(p) { (p)->AddRef(); }
 #define SAFE_RELEASE(p) if(p) { (p)->Release(); (p) = NULL; }
@@ -56,7 +62,7 @@ public: inline void Set##funName(varType var){ varName = var; }
 #define SYNTHESIZE_PASS_BY_REF(varType, varName, funName)\
 protected: varType varName;\
 public: inline varType& Get##funName(void) { return varName; }\
-public: inline void Set##funName(const varType& var){ varName = var; }
+public: inline void Set##funName( varType& var){ varName = var; }
 
 #define SYNTHESIZE_ADD_REF(varType, varName, funName)    \
 protected: varType varName; \
@@ -142,3 +148,4 @@ struct ST_SPHERE
 #include "cAutoReleasePool.h"
 #include "cObject.h"
 #include "cGameObject.h"
+#include "cShaderManager.h"

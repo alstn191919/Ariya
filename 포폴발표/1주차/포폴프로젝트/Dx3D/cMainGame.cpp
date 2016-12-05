@@ -1,36 +1,17 @@
 #include "StdAfx.h"
 #include "cMainGame.h"
 #include "cCamera.h"
-#include "cCube.h"
 #include "cGrid.h"
 #include "cCrtController.h"
-#include "cPyramid.h"
-#include "cObjMap.h"
-#include "cAseLoader.h"
-#include "cFrame.h"
-#include "cRay.h"
-#include "cMtlTex.h"
-#include "cObjLoader.h"
-#include "cAllocateHierarchy.h"
 #include "cSkinnedMesh.h"
-#include "cFrostumCulling.h"
-#include "cHeightMap.h"
+#include "cMapRender.h"
 
-#define RADIUS 0.3f
-#define Mapsize	1.0f
-#define charsize 0.005f
 cMainGame::cMainGame(void)
 	: m_pCamera(NULL)
-	, m_pRoot(NULL)
 	, m_pGrid(NULL)
 	, m_pController(NULL)
-	, m_pPyramid(NULL)
-	, m_pMap(NULL)
-	, m_pAseRoot(NULL)
-	, m_pMesh(NULL)
-	, m_pMapMesh(NULL)
-	, m_pHeight(NULL)
 	, m_pZealot(NULL)
+	, m_pMap(NULL)
 	, _isRuning(false), FrameCnt(0), TimeElapsed(0.0f), FPS(0.0f)
 {
 }
@@ -38,51 +19,25 @@ cMainGame::cMainGame(void)
 cMainGame::~cMainGame(void)
 {
 	SAFE_DELETE(m_pCamera);
-	SAFE_DELETE(m_pRoot);
 	SAFE_DELETE(m_pGrid);
 	SAFE_DELETE(m_pController);
-	SAFE_DELETE(m_pHeight);
 	SAFE_DELETE(m_pZealot);
-	for each(auto p in m_vecSkinnedMesh)
-	{
-		SAFE_DELETE(p);
-	}
-	SAFE_RELEASE(m_pPyramid);
-	SAFE_RELEASE(m_pMap);
-	SAFE_RELEASE(m_pAseRoot);
-	SAFE_RELEASE(m_pMesh);
-	SAFE_RELEASE(m_pMapMesh);
-	for each (auto p in m_vecMtlTex)
-	{
-		SAFE_RELEASE(p);
-	}
+	SAFE_DELETE(m_pMap);
+	
 	g_pSkinnedMeshManager->Destroy();
 	g_pObjectManager->Destroy();
 	g_pTextureManager->Destroy();
 	g_pDeviceManager->Destroy();
+	g_pLightShaderManager->Destroy();
 }
 
 void cMainGame::Setup()
 {
-
 	m_pCamera = new cCamera;
 	m_pCamera->Setup();
 
 	m_pController = new cCrtController;
 	m_pController->Setup();
-
-	D3DXMATRIXA16 matS, matR, matT, mat;
-	D3DXMatrixTranslation(&matT, 30, -150, -80.0f);
-	D3DXMatrixScaling(&matS, Mapsize, Mapsize, Mapsize);
-	D3DXMatrixRotationX(&matR, 0);
-	mat = matS * matR * matT;
-
-	//cObjMap* pObjMap = new cObjMap;
-	//pObjMap->Load("./obj/2thFloor.obj", NULL, &mat);
-	//m_pMap = pObjMap;
-
-	cObjLoader objloader;
-	m_pMapMesh = objloader.Load("obj/2thFloor.obj", m_vecMtlTex, &mat);
 
 	m_pGrid = new cGrid;
 	m_pGrid->Setup(30);
@@ -90,6 +45,9 @@ void cMainGame::Setup()
 	m_pZealot = new cSkinnedMesh("Character/", "hero.X");
 	m_pZealot->SetAnimationIndex(4);
 	m_pZealot->SetPosition(D3DXVECTOR3(0, 0, 0));
+
+	m_pMap = new cMapRender;
+	m_pMap->Setup();
 
 	SetLight();
 }
@@ -100,15 +58,17 @@ void cMainGame::Update()
 	Getfps(g_pTimeManager->GetDeltaTime());
 
 	if(m_pController)
-		m_pController->Update(m_pMap);
+		m_pController->Update(NULL);
 	
 	if(m_pCamera)
 		m_pCamera->Update(&m_pZealot->GetPosition());
 
 	m_pController->SetfAngleX(m_pCamera->GetfAngleY());
-	//m_pCamera->SetfAngleY(m_pController->GetfAngle());
-	g_pAutoReleasePool->Drain();
 
+	if (m_pMap)
+		m_pMap->Update();
+
+	g_pAutoReleasePool->Drain();
 }
 
 void cMainGame::Render()
@@ -119,35 +79,37 @@ void cMainGame::Render()
 		D3DCOLOR_XRGB(47, 121, 112),
 		//D3DCOLOR_XRGB(0, 0, 255),
 		1.0f, 0);
-
 	g_pD3DDevice->BeginScene();
 
 	D3DXMATRIXA16 matI, matT, matS;
 	D3DXMatrixIdentity(&matI);
 	D3DXMatrixIdentity(&matT);
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matI);
-	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
+	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
 
+	//맵렌더
+	if (m_pMap)
+		m_pMap->Render(m_pCamera->GetvEye());
+	//
 
-	for (size_t i = 0; i < m_vecMtlTex.size(); ++i)
-	{
-		g_pD3DDevice->SetMaterial(&m_vecMtlTex[i]->GetMtl());
-		g_pD3DDevice->SetTexture(0, m_vecMtlTex[i]->GetTexture());
-		m_pMapMesh->DrawSubset(i);
-	}
-
+	//캐릭 랜더
 	D3DXMatrixScaling(&matS, charsize, charsize, charsize);
 	_zMat = *m_pController->GetWorldTM();
 	_zMat = matS * _zMat;
 	m_pZealot->SetPosition(D3DXVECTOR3(_zMat._41,_zMat._42,_zMat._43));
 	m_pZealot->UpdateAndRender(&_zMat);
+	//
 
-	// 그림을 그린다.
+
+	// 그리드
 	m_pGrid->Render();
+	//
 
+	// fps
 	char str[1024];
 	sprintf_s(str, "FPS: %.2f", FPS);
 	SetWindowText(g_hWnd, str);
+	//
 
 	g_pD3DDevice->EndScene();
 	g_pD3DDevice->Present(NULL, NULL, NULL, NULL);

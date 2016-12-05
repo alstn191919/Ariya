@@ -1,38 +1,24 @@
 #pragma once
 
 class cCamera;
-class cCube;
 class cGrid;
 class cCrtController;
-class cPyramid;
-class iMap;
-class cFrame;
-class cMtlTex;
 class cSkinnedMesh;
 class cHeightMap;
+class cMapRender;
+
+#define RADIUS 0.3f
+#define charsize 0.02f
 
 class cMainGame
 {
 private:
-	std::vector<ST_PC_VERTEX>	m_vecVertex;
-	cPyramid*					m_pPyramid;
 	cCamera*					m_pCamera;
-	cCube*						m_pRoot;
 	cGrid*						m_pGrid;
 	cCrtController*				m_pController;
-	iMap*						m_pMap;
-	cFrame*						m_pAseRoot;
-	cHeightMap*					m_pHeight;
 	cSkinnedMesh*				m_pZealot;
-
+	cMapRender*					m_pMap;
 private:
-	std::vector<ST_SPHERE>		m_vecSphere;
-	LPD3DXMESH					m_pMesh;
-	D3DMATERIAL9				m_stMtlNormal;
-	D3DMATERIAL9				m_stMtlPicked;
-	std::vector<cMtlTex*>		m_vecMtlTex;
-	LPD3DXMESH					m_pMapMesh;
-	std::vector<cSkinnedMesh*>	m_vecSkinnedMesh;
 	bool						_isRuning;
 	D3DXMATRIXA16				_zMat;
 	DWORD						FrameCnt;
