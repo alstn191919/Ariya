@@ -31,6 +31,7 @@
 
 extern HWND	g_hWnd;
 
+#define NonSlect 9999									//오브젝트 선택안함
 #define EPSILON 0.00001f								//float 오차값범위
 #define FOV          (D3DX_PI/4.0f)						// 시야각
 #define WIN_WIDTH		800
@@ -62,7 +63,7 @@ public: inline void Set##funName(varType var){ varName = var; }
 #define SYNTHESIZE_PASS_BY_REF(varType, varName, funName)\
 protected: varType varName;\
 public: inline varType& Get##funName(void) { return varName; }\
-public: inline void Set##funName( varType& var){ varName = var; }
+public: inline void Set##funName(const varType& var){ varName = var; }
 
 #define SYNTHESIZE_ADD_REF(varType, varName, funName)    \
 protected: varType varName; \
@@ -141,6 +142,20 @@ struct ST_SPHERE
 		: vCenter(_vCenter), fRadius(_fRadius), isPicked(_isPicked) {}
 };
 
+struct ST_SIZE
+{
+	float fWidth;
+	float fHeight;
+	ST_SIZE() : fWidth(0.0f), fHeight(0.0f) {}
+	ST_SIZE(float w, float h) : fWidth(w), fHeight(h) {}
+};
+
+enum OBJ_TYPE{
+	Switch,			//스위치
+	door,			//문
+	item			//아이템
+};
+
 #include "cDeviceManager.h"
 #include "cTimeManager.h"
 #include "cTextureManager.h"
@@ -149,3 +164,6 @@ struct ST_SPHERE
 #include "cObject.h"
 #include "cGameObject.h"
 #include "cShaderManager.h"
+#include "cObejctManager.h"
+#include "cUIObject.h"
+#include "cFontManager.h"
