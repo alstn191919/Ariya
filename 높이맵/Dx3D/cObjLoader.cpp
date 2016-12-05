@@ -195,7 +195,6 @@ LPD3DXMESH cObjLoader::Load( IN char* szPath,
 			{
 				ST_PNT_VERTEX v;
 				v.p = vecV[aIndex[i][0] - 1];
-				//v.t = vecVT[aIndex[i][1] - 1];
 				v.n = vecVN[aIndex[i][2] - 1];
 				if (aIndex[i][1] - 1 < vecVT.size())
 				{

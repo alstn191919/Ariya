@@ -136,11 +136,6 @@ void cMainGame::Render()
 		m_pMapMesh->DrawSubset(i);
 	}
 
-	//if (m_pMap)
-	//{
-	//	m_pMap->Render();ddfdfdf
-	//}
-
 	D3DXMatrixScaling(&matS, charsize, charsize, charsize);
 	_zMat = *m_pController->GetWorldTM();
 	_zMat = matS * _zMat;

@@ -3,7 +3,7 @@
 
 
 cCamera::cCamera(void)
-	: m_vEye(0, 0, -10)
+	: m_vEye(0, 0, 10)
 	, m_vLookAt(0, 0, 0)
 	, m_vUp(0, 1, 0)
 	, m_isLButtonDown(false)
