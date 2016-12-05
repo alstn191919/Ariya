@@ -24,16 +24,6 @@ void cCrtController::Setup()
 
 void cCrtController::Update(iMap* pMap /*= NULL*/)
 {
-	//if(GetKeyState('A') & 0x8000)
-	//{
-	//	m_fAngle -= 0.1f;
-	//}
-
-	//if(GetKeyState('D') & 0x8000)
-	//{
-	//	m_fAngle += 0.1f;
-	//}
-
 	D3DXMATRIXA16 matRx, matRy, mat;
 	D3DXMatrixRotationY(&matRx, m_fAngleX);
 	//D3DXMatrixRotationX(&matRy, m_fAngleY);
@@ -41,28 +31,26 @@ void cCrtController::Update(iMap* pMap /*= NULL*/)
 	
 	D3DXVec3TransformNormal(&m_vDirection, &D3DXVECTOR3(0, 0, 1), &mat);
 
-	//D3DXVECTOR3 vPosition = m_vPosition;
-
 	if (GetKeyState('A') & 0x8000)
 	{
-		m_vDirection = D3DXVECTOR3(1, 0, 0);
+		D3DXVec3TransformNormal(&m_vDirection, &D3DXVECTOR3(1, 0, 0), &mat);
 		m_vPosition += (m_vDirection * (m_fSpeed - 0.1f));
 	}
 	if (GetKeyState('D') & 0x8000)
 	{
-		m_vDirection = D3DXVECTOR3(1, 0, 0);
+		D3DXVec3TransformNormal(&m_vDirection, &D3DXVECTOR3(1, 0, 0), &mat);
 		m_vPosition -= (m_vDirection * (m_fSpeed - 0.1f));
 	}
 	if(GetKeyState('S') & 0x8000)
 	{
 		//vPosition = m_vPosition + (m_vDirection * m_fSpeed);
-		m_vDirection = D3DXVECTOR3(0, 0, 1);
+		//m_vDirection = D3DXVECTOR3(0, 0, 1);
 		m_vPosition += (m_vDirection * (m_fSpeed - 0.2f));
 	}
 	if(GetKeyState('W') & 0x8000)
 	{
 		//vPosition = m_vPosition - (m_vDirection * m_fSpeed);
-		m_vDirection = D3DXVECTOR3(0, 0, 1);
+		//m_vDirection = D3DXVECTOR3(0, 0, 1);
 		m_vPosition -= (m_vDirection * m_fSpeed);
 	}
 

@@ -18,7 +18,8 @@
 
 #define RADIUS 0.3f
 #define Mapsize	1.0f
-#define charsize 0.005f
+#define charsize 0.05f
+
 cMainGame::cMainGame(void)
 	: m_pCamera(NULL)
 	, m_pRoot(NULL)
@@ -106,7 +107,7 @@ void cMainGame::Update()
 		m_pCamera->Update(&m_pZealot->GetPosition());
 
 	m_pController->SetfAngleX(m_pCamera->GetfAngleY());
-	//m_pCamera->SetfAngleY(m_pController->GetfAngle());
+
 	g_pAutoReleasePool->Drain();
 
 }

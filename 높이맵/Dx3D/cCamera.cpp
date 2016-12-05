@@ -44,7 +44,6 @@ void cCamera::Update(D3DXVECTOR3* pTarget)
 	
 	//D3DXVec3TransformNormal(&m_vLookAt, &D3DXVECTOR3(0, 0, 1), &mat);
 
-
 	D3DXVec3TransformCoord(&m_vEye, &m_vEye, &mat);
 
 
@@ -73,30 +72,27 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 {
 	switch(message)
 	{
-	case WM_LBUTTONDOWN:
-		{
-			m_isLButtonDown = true;
-			m_ptPrevMouse.x = LOWORD(lParam);
-			m_ptPrevMouse.y = HIWORD(lParam);
-		}
-		break;
-	case WM_LBUTTONUP:
-		{
-			m_isLButtonDown = false;
-		}
-		break;
+	//case WM_LBUTTONDOWN:
+	//	{
+	//		m_isLButtonDown = true;
+	//		m_ptPrevMouse.x = LOWORD(lParam);
+	//		m_ptPrevMouse.y = HIWORD(lParam);
+	//	}
+	//	break;
+	//case WM_LBUTTONUP:
+	//	{
+	//		m_isLButtonDown = false;
+	//	}
+	//	break;
 	case WM_MOUSEMOVE:
 		{
-			if(m_isLButtonDown)
-			{
+			//if(m_isLButtonDown)
+			//{
 				POINT pt;
 				pt.x = LOWORD(lParam);
 				pt.y = HIWORD(lParam);
 
-				int nDeltaX = pt.x - m_ptPrevMouse.x;
-				int nDeltaY = pt.y - m_ptPrevMouse.y;
-
-				m_fAngleX += nDeltaY * 0.01f;
+				m_fAngleX = pt.y * 0.01f;
 				
 				if(m_fAngleX > D3DX_PI / 2.0f - EPSILON)
 					m_fAngleX = D3DX_PI / 2.0f - EPSILON;
@@ -104,10 +100,10 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 				if(m_fAngleX < -D3DX_PI / 2.0f + EPSILON)
 					m_fAngleX = -D3DX_PI / 2.0f + EPSILON;
 
-				m_fAngleY += nDeltaX * 0.01f;
+				m_fAngleY = pt.x* 0.01f;
 
 				m_ptPrevMouse = pt;
-			}			
+			//}			
 		}
 		break;
 	case WM_MOUSEWHEEL:
