@@ -7,6 +7,7 @@ cCamera::cCamera(void)
 	, m_vLookAt(0, 0, 0)
 	, m_vUp(0, 1, 0)
 	, m_isLButtonDown(false)
+	, m_isLButtonOBJDown(false)
 	, m_fAngleX(-D3DX_PI)
 	, m_fAngleY(0.0f)
 	, m_fDistance(10.0f)
@@ -71,6 +72,12 @@ D3DXMATRIXA16* cCamera::GetProjMatrix()
 
 void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 {
+
+	if (GetAsyncKeyState(VK_ESCAPE) & 0x8001)
+	{
+		ObjectManager->SetNonSelect();
+
+	}
 	switch(message)
 	{
 	case WM_LBUTTONDOWN:
@@ -78,11 +85,51 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 			m_isLButtonDown = true;
 			m_ptPrevMouse.x = LOWORD(lParam);
 			m_ptPrevMouse.y = HIWORD(lParam);
+
+			if (ObjectManager->isPinked())
+			{
+				m_ptOBJPrevMouse.x = LOWORD(lParam);
+				m_ptOBJPrevMouse.y = HIWORD(lParam);
+				m_isLButtonDown = false;
+				m_isLButtonOBJDown = true;
+
+
+				if (ObjectManager->Getselect_index() == NonSlect && ObjectManager->getPinkedObjType() == OBJ_TYPE::item || ObjectManager->getPinkedObjType() == OBJ_TYPE::door)
+				{
+					ObjectManager->SetSelect();
+					//else
+					//{
+					//	m_isLButtonOBJDown = false;
+					//	//ObjectManager->SetNonSelect();
+					//}
+					m_fAngleX_obj = ObjectManager->getAngleX();
+					m_fAngleY_obj = ObjectManager->getAngleY();
+
+
+
+					break;
+				}
+			}
+
+
+			if (ObjectManager->Getselect_index() != NonSlect)
+			{
+				m_ptOBJPrevMouse.x = LOWORD(lParam);
+				m_ptOBJPrevMouse.y = HIWORD(lParam);
+				m_isLButtonDown = false;
+				m_isLButtonOBJDown = true;
+
+				m_fAngleX_obj = ObjectManager->getAngleX();
+				m_fAngleY_obj = ObjectManager->getAngleY();
+			}
+
 		}
 		break;
 	case WM_LBUTTONUP:
 		{
 			m_isLButtonDown = false;
+			m_isLButtonOBJDown = false;
+			if (ObjectManager->getPinkedObjType() == door)ObjectManager->SetNonSelect();
 		}
 		break;
 	case WM_MOUSEMOVE:
@@ -107,7 +154,29 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 				m_fAngleY += nDeltaX * 0.01f;
 
 				m_ptPrevMouse = pt;
-			}			
+			}	
+			if (m_isLButtonOBJDown)
+			{
+				POINT pt;
+				pt.x = LOWORD(lParam);
+				pt.y = HIWORD(lParam);
+
+				int nDeltaX = pt.x - m_ptOBJPrevMouse.x;
+				int nDeltaY = pt.y - m_ptOBJPrevMouse.y;
+
+				m_fAngleX_obj += nDeltaY * 0.01f;
+				if (m_fAngleX_obj > D3DX_PI / 2.0f - EPSILON)
+					m_fAngleX_obj = D3DX_PI / 2.0f - EPSILON;
+
+				if (m_fAngleX_obj < -D3DX_PI / 2.0f + EPSILON)
+					m_fAngleX_obj = -D3DX_PI / 2.0f + EPSILON;
+
+				m_fAngleY_obj += nDeltaX * 0.01f;
+
+
+				ObjectManager->SetMouseAngle(m_fAngleX_obj, m_fAngleY_obj);
+				m_ptOBJPrevMouse = pt;
+			}
 		}
 		break;
 	case WM_MOUSEWHEEL:

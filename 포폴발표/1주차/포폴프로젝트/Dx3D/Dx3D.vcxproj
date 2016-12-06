@@ -94,6 +94,7 @@
     <ClInclude Include="cCrtController.h" />
     <ClInclude Include="cCube.h" />
     <ClInclude Include="cDeviceManager.h" />
+    <ClInclude Include="cFontManager.h" />
     <ClInclude Include="cFrame.h" />
     <ClInclude Include="cFrostumCulling.h" />
     <ClInclude Include="cGameObject.h" />
@@ -138,6 +139,7 @@
     <ClCompile Include="cCrtController.cpp" />
     <ClCompile Include="cCube.cpp" />
     <ClCompile Include="cDeviceManager.cpp" />
+    <ClCompile Include="cFontManager.cpp" />
     <ClCompile Include="cFrame.cpp" />
     <ClCompile Include="cFrostumCulling.cpp" />
     <ClCompile Include="cGameObject.cpp" />
