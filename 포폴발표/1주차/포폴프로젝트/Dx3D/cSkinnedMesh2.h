@@ -33,6 +33,14 @@ public:
 	void SetAnimationIndex(int n);
 	void SetWolrd(D3DXVECTOR3 p, float size);
 
+	D3DXVECTOR3 GetMin()
+	{
+		return D3DXVECTOR3(2, 0, 2);
+	}
+	D3DXVECTOR3 GetMax()
+	{
+		return D3DXVECTOR3(2, 5, 2);
+	}
 private:
 	void Render(ST_BONE2* pBone);
 	void Update(ST_BONE2* pBone, D3DXMATRIX* pParent);

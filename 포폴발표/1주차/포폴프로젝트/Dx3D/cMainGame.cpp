@@ -10,6 +10,8 @@
 #include "cUIImageView.h"
 #include "cUITextView.h"
 #include "cUIButton.h"
+#include "cOBB.h"
+
 enum eUITag
 {
 	E_TEXTVIEW = 3,
@@ -167,6 +169,7 @@ void cMainGame::Setup()
 	SetUITest();
 
 	SetLight();
+
 }
 
 void cMainGame::Update()
@@ -184,15 +187,16 @@ void cMainGame::Update()
 
 	if (m_pMap)
 		m_pMap->Update();
-	ObjectManager->Update();
+	//ObjectManager->Update();
+
+
+
+	//if (ObjectManager->isPinked() &&
+	//	(ObjectManager->getPinkedObjType() == OBJ_TYPE::Switch) || (ObjectManager->getPinkedObjType() == OBJ_TYPE::door))
+	//{
+	//	pTextView->SetText(ObjectManager->getText());
+	//}
 	g_pAutoReleasePool->Drain();
-
-
-	if (ObjectManager->isPinked() &&
-		(ObjectManager->getPinkedObjType() == OBJ_TYPE::Switch) || (ObjectManager->getPinkedObjType() == OBJ_TYPE::door))
-	{
-		pTextView->SetText(ObjectManager->getText());
-	}
 }
 
 void cMainGame::Render()
@@ -210,6 +214,8 @@ void cMainGame::Render()
 	D3DXMatrixIdentity(&matT);
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matI);
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
+
+
 
 	//¸Ê·»´õ
 	if (m_pMap)
@@ -229,13 +235,35 @@ void cMainGame::Render()
 	m_pGrid->Render();
 	//
 
-	ObjectManager->Render();
+	//ObjectManager->Render();
 
-	if (m_pUIRoot && ObjectManager->isPinked() &&
-		(ObjectManager->getPinkedObjType() == OBJ_TYPE::Switch) || (ObjectManager->getPinkedObjType() == OBJ_TYPE::door))
+	/*cOBB obb_Zealot, obb_Obj;
+	D3DXMATRIXA16 matworld;
+	obb_Zealot.Setup(m_pZealot);
+	obb_Obj.Setup(D3DXVECTOR3(3, 0, 3), D3DXVECTOR3(6, 3, 6));
+	g_pD3DDevice->GetTransform(D3DTS_WORLD, &matworld);
+	obb_Obj.Update(&matworld);
+	matworld._41 = m_pZealot->GetPosition().x;
+	matworld._42 = m_pZealot->GetPosition().y;
+	matworld._43 = m_pZealot->GetPosition().z;
+	obb_Zealot.Update(&matworld);
+	obb_Obj.DebugRender(D3DCOLOR_ARGB(255, 0, 255, 0));
+	obb_Zealot.DebugRender(D3DCOLOR_ARGB(255, 0, 255, 0));
+	if (cOBB::IsCollision(&obb_Zealot, &obb_Obj))
 	{
-		m_pUIRoot->Render(m_pSprite);
+		obb_Obj.DebugRender(D3DCOLOR_ARGB(255, 0, 255, 0));
+		obb_Zealot.DebugRender(D3DCOLOR_ARGB(255, 0, 255, 0));
 	}
+	else
+	{
+		obb_Obj.DebugRender(D3DCOLOR_ARGB(255, 0, 255, 255));
+		obb_Zealot.DebugRender(D3DCOLOR_ARGB(255, 0, 255, 255));
+	}*/
+	//if (m_pUIRoot && ObjectManager->isPinked() &&
+	//	(ObjectManager->getPinkedObjType() == OBJ_TYPE::Switch) || (ObjectManager->getPinkedObjType() == OBJ_TYPE::door))
+	//{
+	//	m_pUIRoot->Render(m_pSprite);
+	//}
 
 	// fps
 	char str[1024];

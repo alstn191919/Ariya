@@ -170,7 +170,6 @@ void cObejctManager::SetSelect()
 		}
 	}
 
-	return;
 }
 
 

@@ -40,6 +40,14 @@ public:
 	{
 		return &m_stBoundingSphere;
 	}
+	D3DXVECTOR3 GetMin()
+	{
+		return D3DXVECTOR3(1,0,1);
+	}
+	D3DXVECTOR3 GetMax()
+	{
+		return D3DXVECTOR3(-1, 4, -1);
+	}
 private:
 	cSkinnedMesh();
 	void Load(char* szFolder, char* szFilename);
