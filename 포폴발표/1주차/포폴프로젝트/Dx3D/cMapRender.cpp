@@ -36,7 +36,7 @@ void cMapRender:: Setup()
 	mat = matS * matT;
 
 	cObjLoader objloader;
-	m_pMapMesh = objloader.Load("objMap/testFloor.obj", m_vecMtlTex, &mat);
+	m_pMapMesh = objloader.Load("obj/2thFloor.obj", m_vecMtlTex, &mat);
 	ST_SHADER s_shader(D3DXVECTOR3(-15.0f, 6.0f, 10.0f));
 	s_shader.Shader = g_pLightShaderManager->Getshader("./shader/Lighting.fx");
 	gpLightingShader.push_back(s_shader);

@@ -172,7 +172,7 @@
       <Filter>매니저</Filter>
     </ClInclude>
     <ClInclude Include="cOBB.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>매니저</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -300,7 +300,7 @@
       <Filter>매니저</Filter>
     </ClCompile>
     <ClCompile Include="cOBB.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>매니저</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

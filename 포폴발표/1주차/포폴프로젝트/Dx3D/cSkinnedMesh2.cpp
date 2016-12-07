@@ -7,6 +7,7 @@ cSkinnedMesh2::cSkinnedMesh2(void)
 	, m_pAnimController(NULL)
 	, m_fAngleX(0)
 	, m_fAngleY(0)
+	, m_Obb(NULL)
 {
 	D3DXMatrixIdentity(&m_wolrd);
 }
@@ -34,7 +35,7 @@ void cSkinnedMesh2::Load( std::string sFolder, std::string sFile )
 		(LPD3DXFRAME*)&m_pRootBone,
 		&m_pAnimController);
 
-//	assert(m_pRootBone);
+	assert(m_pRootBone && "»Ñ¸®µµ ¾ø´Â³Æ!");
 
 	if(m_pRootBone)
 		SetupBoneMatrixPtrs(m_pRootBone);
