@@ -1,0 +1,57 @@
+newmtl Floor
+Kd 1 1 1
+map_Kd null
+illum 2
+
+newmtl Concrete
+Kd 1 1 1
+map_Kd null
+illum 2
+
+newmtl sofa_green
+Kd 1 1 1
+map_Kd null
+illum 2
+
+newmtl tile
+Kd 1 1 1
+map_Kd null
+illum 2
+
+newmtl BIG_WINDOW_88Mat
+Kd 0.8 0.8 0.8
+illum 2
+
+newmtl wordwall
+Kd 1 1 1
+map_Kd null
+illum 2
+
+newmtl Box002_85Mat
+Kd 0.8 0.8 0.8
+illum 2
+
+newmtl BIG_WINDOW_83Mat
+Kd 0.8 0.8 0.8
+illum 2
+
+newmtl BIG_WINDOW_46Mat
+Kd 0.8 0.8 0.8
+illum 2
+
+newmtl Cylinder001_86Mat
+Kd 0.8 0.8 0.8
+illum 2
+
+newmtl BIG_WINDOW_11Mat
+Kd 0.8 0.8 0.8
+illum 2
+
+newmtl Cylinder_44Mat
+Kd 0.8 0.8 0.8
+illum 2
+
+newmtl BIG_WINDOW_57Mat
+Kd 0.8 0.8 0.8
+illum 2
+

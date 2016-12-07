@@ -15,6 +15,12 @@ private:
 
 	float					m_fDistance;
 
+	//오브젝트 용
+	bool					m_isLButtonOBJDown;
+	POINT					m_ptOBJPrevMouse;
+	float					m_fAngleX_obj;
+	float					m_fAngleY_obj;
+
 
 public:
 	cCamera(void);

@@ -5,6 +5,18 @@
 #include "cCrtController.h"
 #include "cSkinnedMesh.h"
 #include "cMapRender.h"
+#include "cAllocateHierarchy2.h"
+#include "cSkinnedMesh2.h"
+#include "cUIImageView.h"
+#include "cUITextView.h"
+#include "cUIButton.h"
+#include "cOBB.h"
+enum eUITag
+{
+	E_TEXTVIEW = 3,
+	E_BUTTON1,
+	E_BUTTON2,
+};
 
 cMainGame::cMainGame(void)
 	: m_pCamera(NULL)
@@ -13,6 +25,7 @@ cMainGame::cMainGame(void)
 	, m_pZealot(NULL)
 	, m_pMap(NULL)
 	, _isRuning(false), FrameCnt(0), TimeElapsed(0.0f), FPS(0.0f)
+	, m_pSkinnedMesh(NULL)
 {
 }
 
@@ -23,12 +36,126 @@ cMainGame::~cMainGame(void)
 	SAFE_DELETE(m_pController);
 	SAFE_DELETE(m_pZealot);
 	SAFE_DELETE(m_pMap);
-	
+	SAFE_DELETE(m_pSkinnedMesh);
+
+	ObjectManager->Destroy();
+	g_pTextureManager->Destroy();
 	g_pSkinnedMeshManager->Destroy();
 	g_pObjectManager->Destroy();
 	g_pTextureManager->Destroy();
 	g_pDeviceManager->Destroy();
 	g_pLightShaderManager->Destroy();
+}
+
+/*
+=============================================================================================================================================
+오브젝트 매니져 매뉴얼 작성자 : 강병민 
+  2016 12 06 
+오브젝트 메뉴얼 사용 가이드 라인 제공
+타입별 샘플 제공
+ADDobject 만 해주시면 나머지 상호작용 처리및 OBB처리는  다 objectManager가 자동으로 처리해줍니다.
+=============================================================================================================================================
+*/
+void cMainGame::SetUITest()
+{
+	D3DXVECTOR3 p(10, 0, 0);				//포지션 위치 설정용
+	ST_SPHERE pt;							//피킹용 구 크기를 잡아줌
+
+	D3DXVECTOR3 Min(-10, 0, -10);			//OBB 크기를 정해줌(위치는 오브젝트 월드좌표 자동으로 따라감)
+	D3DXVECTOR3 Max(12, 30, 10);			//OBB 크기를 정해줌(위치는 오브젝트 월드좌표 자동으로 따라감)
+
+	//1. OBB 충돌 오브젝트 추가 (바운딩 박스 안에 플레이어가 들어올시 이벤트 처리해줄수있습니다.)
+	//ADDobject 오브젝트를 추가합니다.
+	ObjectManager->ADDobject("Lamp", "Lamp.X", p, 0.1,Min,Max);
+
+	p.x = -25;
+	p.z = -15;
+
+	ObjectManager->ADDobject("cot", "baby_cot.X", p, 0.1, Min, Max);
+	//		인자값:      	 폴더명   파일명 , 위치, 오브젝트 크기  -> 이렇게 추가하시면 기능없이 그냥 오브젝트만 추가됩니다.
+
+	p.x = -25;
+	p.y = 2;
+	p.z = 6;
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	//2.상호작용 오브젝트 추가
+	//인자값이 좀더 많이 필요합니다.
+	ObjectManager->ADDobject("Beds", "screen.X", p		,	0.1, pt,			OBJ_TYPE::door, "문 왼쪽마우스 클릭");
+	//인자값				 폴더명    파일명   위치벡터, 크기 ,구(체크용),	 오브젝트 타입 , 충돌시 메세지
+	//오브젝트 타입은 OBJ_TYPE:: 하시면 보실수있습니다. 그냥 door 라고 써도 물론 됩니다.(보기 편하시라고 했어요)
+
+	p.y = 0;
+	p.x = 0;
+	p.z = 30;
+
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("cot", "baby_cot.X", p, 0.1, pt, OBJ_TYPE::Switch, "E버튼을 눌러주세요");
+	//스위치 타입 이벤트 처리는 각각 다른 처리할것같아 따로 안하고 메시지 출력만 해놨습니다.
+	//해당 인덱스 얻어오셔서 처리해 주시면 되겠습니다!
+
+	/*p.y = 0;
+	p.x = 0;
+	p.z = 1;
+
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 10;
+
+	ObjectManager->ADDobject("door3", "Door.obj", p, 1, pt, OBJ_TYPE::Switch, "문인것같다.");*/
+
+
+	//ObjectManager->ADDobject("door", "Door.x", p, 1, pt, OBJ_TYPE::Switch, "문인것같다.");
+	p.z = -30;
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("Medkit", "medkit1.x", p, 0.1, pt, OBJ_TYPE::item, "");
+	//         아이템 타입은 충돌시 클릭하게 되면 카메라 고정될텐데 esc 누르면 풀리게 해놨습니다.
+	p.z = 0;
+
+	
+
+	//밑에는 UI설정
+
+
+	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
+
+	cUIImageView* pImageView = new cUIImageView;
+	D3DXIMAGE_INFO stImageInfo;
+	ZeroMemory(&stImageInfo, sizeof(D3DXIMAGE_INFO));
+	LPDIRECT3DTEXTURE9 pTexture = g_pTextureManager->GetSpriteTexture(
+		"./UI/panel-info.png.png",
+		&stImageInfo);
+	pImageView->SetTexture(pTexture);
+	pImageView->SetSize(ST_SIZE(stImageInfo.Width, stImageInfo.Height));
+	pImageView->SetLocalPos(D3DXVECTOR3(100, 50, 0));
+	m_pUIRoot = pImageView;
+
+
+
+
+	pTextView = new cUITextView;
+	pTextView->SetText("");
+	pTextView->SetFont(g_pFontManager->GetFont(cFontManager::E_FT_NORMAL));
+	pTextView->SetLocalPos(D3DXVECTOR3(100, 100, 0));
+	pTextView->SetSize(ST_SIZE(321, 200));
+	pTextView->SetDrawTextFormat(DT_CENTER | DT_TOP | DT_WORDBREAK);
+	pTextView->SetTextColor(D3DCOLOR_XRGB(255, 255, 0));
+	pTextView->SetTag(E_TEXTVIEW);
+	pTextView->AutoRelease();
+	//	m_pUIRoot = pTextView;
+	m_pUIRoot->AddChild(pTextView);
 }
 
 void cMainGame::Setup()
@@ -49,6 +176,20 @@ void cMainGame::Setup()
 	m_pMap = new cMapRender;
 	m_pMap->Setup();
 
+	//오브젝트 매니져 사용 메뉴얼 
+	SetUITest();
+
+	m_pZealot->SetMin(D3DXVECTOR3(-1, 0, -1));
+	m_pZealot->SetMax(D3DXVECTOR3(1, 3, 1));
+
+
+	m_pObb = new cOBB;
+	m_pObb->Setup(m_pZealot);
+	
+
+	m_pObbObj = new cOBB;
+	m_pObbObj->Setup(m_pZealot);
+
 	SetLight();
 }
 
@@ -67,8 +208,34 @@ void cMainGame::Update()
 
 	if (m_pMap)
 		m_pMap->Update();
-
+	ObjectManager->Update();
 	g_pAutoReleasePool->Drain();
+
+
+	if (ObjectManager->isPinked() &&
+		(ObjectManager->getPinkedObjType() == OBJ_TYPE::Switch) || (ObjectManager->getPinkedObjType() == OBJ_TYPE::door))
+	{
+		pTextView->SetText(ObjectManager->getText());
+	}
+
+
+
+	_zMat = *m_pController->GetWorldTM();
+
+	m_pObb->Update(&_zMat);
+
+
+
+	D3DXMATRIXA16 mat;
+
+	D3DXMatrixIdentity(&mat);
+
+//	m_pObbObj->Update(&mat);
+
+
+
+	
+	
 }
 
 void cMainGame::Render()
@@ -105,12 +272,45 @@ void cMainGame::Render()
 	m_pGrid->Render();
 	//
 
+	
+	//obb 충돌시 처리는 어차피 플레이어에 대한 처리밖에 없으므로 그냥 논리형 반환값으로 가짐
+	//obb 처리는 오브젝트 충돌시 못지나가게 하는용도와 앉을때 장애물 있을시 못일어나게 하는 용도 뿐이라 이렇게 처리함.
+
+	if (ObjectManager->IsCollision(m_pObb))
+		{
+			m_pObb->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
+		}
+		else
+		{
+			m_pObb->DebugRender(D3DCOLOR_XRGB(255, 255, 255));
+		}
+	
+	
+
+	/*if (cOBB::IsCollision(m_pObb, ObjectManager->GetInstance()->`))
+	{
+		m_pObbObj->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
+	}
+	else
+	{
+		m_pObbObj->DebugRender(D3DCOLOR_XRGB(255, 255, 255));
+	}*/
+
+
+	ObjectManager->Render();
+
+	if (m_pUIRoot && ObjectManager->isPinked() &&
+		(ObjectManager->getPinkedObjType() == OBJ_TYPE::Switch) || (ObjectManager->getPinkedObjType() == OBJ_TYPE::door))
+	{
+		m_pUIRoot->Render(m_pSprite);
+	}
+
 	// fps
 	char str[1024];
 	sprintf_s(str, "FPS: %.2f", FPS);
 	SetWindowText(g_hWnd, str);
 	//
-
+	
 	g_pD3DDevice->EndScene();
 	g_pD3DDevice->Present(NULL, NULL, NULL, NULL);
 }

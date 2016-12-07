@@ -2,6 +2,7 @@
 #define ObjectManager cObejctManager::GetInstance()
 
 #include "cSkinnedMesh2.h"
+#include "cSkinnedMesh.h"
 
 
 
@@ -20,7 +21,7 @@ public:
 
 
 	
-	void ADDobject(std::string sFolder, std::string sFile , D3DXVECTOR3 Pogi , float size);				//일단 오브젝트 추가
+	void ADDobject(std::string sFolder, std::string sFile , D3DXVECTOR3 Pogi , float size , D3DXVECTOR3 Min , D3DXVECTOR3 Max);				//일단 오브젝트 추가
 	void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, float size, ST_SPHERE _Sphre, OBJ_TYPE _objtype , std::string _Text);	//상호작용 오브젝트 추가
 
 	void Update();
@@ -40,6 +41,10 @@ public:
 
 	float getAngleX();
 	float getAngleY();
+	
+
+
+	bool IsCollision(cOBB * player);
 	
 	
 };

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "cAllocateHierarchy2.h"
-
+#include "cOBB.h"
 class cSkinnedMesh2
 {
 private:
@@ -9,12 +9,13 @@ private:
 	LPD3DXANIMATIONCONTROLLER	m_pAnimController;
 	D3DXMATRIXA16				m_wolrd;
 	//SYNTHESIZE(ST_SPHERE, m_sSphre, Sphre);
-	SYNTHESIZE(BOOL, m_bInter, Inter);
+	SYNTHESIZE(BOOL, m_bInter, Inter);					//상호충돌 형식 OBJ인가?
 	SYNTHESIZE(OBJ_TYPE, m_eObjType, ObjType);
 
 	SYNTHESIZE(float,m_fAngleX,AngleX);
 	SYNTHESIZE(float,m_fAngleY,AngleY);
 	SYNTHESIZE(std::string, M_sText, Text);		//도어 , 스위치 형식 오브젝트는 항상 값을 셋팅해줘야합니다.
+	SYNTHESIZE(cOBB*, m_Obb, Obb);
 
 	
 	
@@ -32,6 +33,7 @@ public:
 	void ObjEvent();
 	void SetAnimationIndex(int n);
 	void SetWolrd(D3DXVECTOR3 p, float size);
+	D3DXMATRIXA16 * GetWolrd(){ return &m_wolrd; }
 
 private:
 	void Render(ST_BONE2* pBone);

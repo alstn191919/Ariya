@@ -94,6 +94,7 @@
     <ClInclude Include="cCrtController.h" />
     <ClInclude Include="cCube.h" />
     <ClInclude Include="cDeviceManager.h" />
+    <ClInclude Include="cFontManager.h" />
     <ClInclude Include="cFrame.h" />
     <ClInclude Include="cFrostumCulling.h" />
     <ClInclude Include="cGameObject.h" />
@@ -103,6 +104,7 @@
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cMapRender.h" />
     <ClInclude Include="cMtlTex.h" />
+    <ClInclude Include="cOBB.h" />
     <ClInclude Include="cObejctManager.h" />
     <ClInclude Include="cObject.h" />
     <ClInclude Include="cObjLoader.h" />
@@ -138,6 +140,7 @@
     <ClCompile Include="cCrtController.cpp" />
     <ClCompile Include="cCube.cpp" />
     <ClCompile Include="cDeviceManager.cpp" />
+    <ClCompile Include="cFontManager.cpp" />
     <ClCompile Include="cFrame.cpp" />
     <ClCompile Include="cFrostumCulling.cpp" />
     <ClCompile Include="cGameObject.cpp" />
@@ -147,6 +150,7 @@
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cMapRender.cpp" />
     <ClCompile Include="cMtlTex.cpp" />
+    <ClCompile Include="cOBB.cpp" />
     <ClCompile Include="cObejctManager.cpp" />
     <ClCompile Include="cObject.cpp" />
     <ClCompile Include="cObjLoader.cpp" />
