@@ -11,13 +11,13 @@ cObjLoader::~cObjLoader(void)
 {
 }
 
-void cObjLoader::Load( IN char* szPath, OUT std::vector<cGroup*>& vecGroup, IN D3DXMATRIXA16* pmat /*= NULL*/ )
+void cObjLoader::Load(IN char* szPath, OUT std::vector<cGroup*>& vecGroup, IN D3DXMATRIXA16* pmat /*= NULL*/)
 {
-	std::vector<D3DXVECTOR3>	vecV;
-	std::vector<D3DXVECTOR3>	vecVN;
-	std::vector<D3DXVECTOR2>	vecVT;
-	std::vector<ST_PNT_VERTEX>	vecVertex;
-	std::string					sMtlName;
+	std::vector<D3DXVECTOR3>   vecV;
+	std::vector<D3DXVECTOR3>   vecVN;
+	std::vector<D3DXVECTOR2>   vecVT;
+	std::vector<ST_PNT_VERTEX>   vecVertex;
+	std::string               sMtlName;
 
 	cGroup* pGroup = NULL;
 
@@ -25,29 +25,29 @@ void cObjLoader::Load( IN char* szPath, OUT std::vector<cGroup*>& vecGroup, IN D
 
 	fopen_s(&fp, szPath, "r");
 
-	while(!feof(fp))
+	while (!feof(fp))
 	{
-		char szBuf[1024] = {'\0', };
+		char szBuf[1024] = { '\0', };
 		fgets(szBuf, 1024, fp);
 		if (strlen(szBuf) == 0) continue;
-		
-		if (szBuf[0] == '#') 
+
+		if (szBuf[0] == '#')
 		{
 			continue;
 		}
-		else if(szBuf[0] == 'm')
+		else if (szBuf[0] == 'm')
 		{
 			char szMtlPath[1024];
 			sscanf_s(szBuf, "%*s %s", szMtlPath, 1024);
 			LoadMtlLib(szMtlPath);
 		}
-		else if(szBuf[0] == 'u')
+		else if (szBuf[0] == 'u')
 		{
 			char szMtlName[1024];
 			sscanf_s(szBuf, "%*s %s", szMtlName, 1024);
 			sMtlName = std::string(szMtlName);
 		}
-		else if(szBuf[0] == 'g')
+		else if (szBuf[0] == 'g')
 		{
 			if (!vecVertex.empty())
 			{
@@ -56,18 +56,18 @@ void cObjLoader::Load( IN char* szPath, OUT std::vector<cGroup*>& vecGroup, IN D
 				pGroup->SetMtlTex(m_mapMtlTex[sMtlName]);
 				vecGroup.push_back(pGroup);
 				vecVertex.clear();
-				
+
 			}
 		}
-		else if(szBuf[0] == 'v')
+		else if (szBuf[0] == 'v')
 		{
-			if(szBuf[1] == 't')
+			if (szBuf[1] == 't')
 			{
 				float u, v;
 				sscanf_s(szBuf, "%*s %f %f %*f", &u, &v);
 				vecVT.push_back(D3DXVECTOR2(u, v));
 			}
-			else if(szBuf[1] == 'n')
+			else if (szBuf[1] == 'n')
 			{
 				float x, y, z;
 				sscanf_s(szBuf, "%*s %f %f %f", &x, &y, &z);
@@ -80,7 +80,7 @@ void cObjLoader::Load( IN char* szPath, OUT std::vector<cGroup*>& vecGroup, IN D
 				vecV.push_back(D3DXVECTOR3(x, y, z));
 			}
 		}
-		else if(szBuf[0] == 'f')
+		else if (szBuf[0] == 'f')
 		{
 			int aIndex[3][3];
 			sscanf_s(szBuf, "%*s %d/%d/%d %d/%d/%d %d/%d/%d",
@@ -119,17 +119,17 @@ void cObjLoader::Load( IN char* szPath, OUT std::vector<cGroup*>& vecGroup, IN D
 	}
 }
 
-LPD3DXMESH cObjLoader::Load( IN char* szPath,
+LPD3DXMESH cObjLoader::Load(IN char* szPath,
 	OUT std::vector<cMtlTex*>& vecMtlTex,
-	IN D3DXMATRIXA16* pmat /*= NULL*/ )
+	IN D3DXMATRIXA16* pmat /*= NULL*/)
 {
-	std::vector<D3DXVECTOR3>	vecV;
-	std::vector<D3DXVECTOR3>	vecVN;
-	std::vector<D3DXVECTOR2>	vecVT;
-	std::vector<ST_PNT_VERTEX>	vecVertex;
-	std::vector<DWORD>			vecAttr;
+	std::vector<D3DXVECTOR3>   vecV;
+	std::vector<D3DXVECTOR3>   vecVN;
+	std::vector<D3DXVECTOR2>   vecVT;
+	std::vector<ST_PNT_VERTEX>   vecVertex;
+	std::vector<DWORD>         vecAttr;
 
-	std::string					sMtlName;
+	std::string               sMtlName;
 
 	cGroup* pGroup = NULL;
 
@@ -137,40 +137,40 @@ LPD3DXMESH cObjLoader::Load( IN char* szPath,
 
 	fopen_s(&fp, szPath, "r");
 
-	while(!feof(fp))
+	while (!feof(fp))
 	{
-		char szBuf[1024] = {'\0', };
+		char szBuf[1024] = { '\0', };
 		fgets(szBuf, 1024, fp);
 		if (strlen(szBuf) == 0) continue;
 
-		if (szBuf[0] == '#') 
+		if (szBuf[0] == '#')
 		{
 			continue;
 		}
-		else if(szBuf[0] == 'm')
+		else if (szBuf[0] == 'm')
 		{
 			char szMtlPath[1024];
 			sscanf_s(szBuf, "%*s %s", szMtlPath, 1024);
 			LoadMtlLib(szMtlPath, vecMtlTex);
 		}
-		else if(szBuf[0] == 'u')
+		else if (szBuf[0] == 'u')
 		{
 			char szMtlName[1024];
 			sscanf_s(szBuf, "%*s %s", szMtlName, 1024);
 			sMtlName = std::string(szMtlName);
 		}
-		else if(szBuf[0] == 'g')
-		{	
-		}
-		else if(szBuf[0] == 'v')
+		else if (szBuf[0] == 'g')
 		{
-			if(szBuf[1] == 't')
+		}
+		else if (szBuf[0] == 'v')
+		{
+			if (szBuf[1] == 't')
 			{
 				float u, v;
 				sscanf_s(szBuf, "%*s %f %f %*f", &u, &v);
 				vecVT.push_back(D3DXVECTOR2(u, v));
 			}
-			else if(szBuf[1] == 'n')
+			else if (szBuf[1] == 'n')
 			{
 				float x, y, z;
 				sscanf_s(szBuf, "%*s %f %f %f", &x, &y, &z);
@@ -183,7 +183,7 @@ LPD3DXMESH cObjLoader::Load( IN char* szPath,
 				vecV.push_back(D3DXVECTOR3(x, y, z));
 			}
 		}
-		else if(szBuf[0] == 'f')
+		else if (szBuf[0] == 'f')
 		{
 			int aIndex[3][3];
 			sscanf_s(szBuf, "%*s %d/%d/%d %d/%d/%d %d/%d/%d",
@@ -204,7 +204,7 @@ LPD3DXMESH cObjLoader::Load( IN char* szPath,
 				{
 					v.t = D3DXVECTOR2(0, 0);
 				}
-				if(pmat)
+				if (pmat)
 				{
 					D3DXVec3TransformCoord(&v.p, &v.p, pmat);
 					D3DXVec3TransformNormal(&v.n, &v.n, pmat);
@@ -247,7 +247,7 @@ LPD3DXMESH cObjLoader::Load( IN char* szPath,
 
 	std::vector<DWORD> vecAdj(pMesh->GetNumFaces() * 3);
 	pMesh->OptimizeInplace(
-		D3DXMESHOPT_COMPACT | 
+		D3DXMESHOPT_COMPACT |
 		D3DXMESHOPT_ATTRSORT |
 		D3DXMESHOPT_VERTEXCACHE,
 		&vecAdj[0],
@@ -258,27 +258,27 @@ LPD3DXMESH cObjLoader::Load( IN char* szPath,
 	return pMesh;
 }
 
-void cObjLoader::LoadMtlLib( char* szPath )
+void cObjLoader::LoadMtlLib(char* szPath)
 {
 	m_mapMtlTex.clear();
 
 	FILE* fp = NULL;
-	
+
 	std::string sMtlName;
 
 	fopen_s(&fp, szPath, "r");
 
-	while(!feof(fp))
+	while (!feof(fp))
 	{
-		char szBuf[1024] = {'\0', };
+		char szBuf[1024] = { '\0', };
 		fgets(szBuf, 1024, fp);
 		if (strlen(szBuf) == 0) continue;
 
-		if (szBuf[0] == '#') 
+		if (szBuf[0] == '#')
 		{
 			continue;
 		}
-		else if(szBuf[0] == 'n')
+		else if (szBuf[0] == 'n')
 		{
 			char szMtlName[1024];
 			sscanf_s(szBuf, "%*s %s", szMtlName, 1024);
@@ -286,38 +286,49 @@ void cObjLoader::LoadMtlLib( char* szPath )
 
 			m_mapMtlTex[sMtlName] = new cMtlTex;
 		}
-		else if(szBuf[0] == 'K')
+		else if (szBuf[0] == 'K')
 		{
 			D3DMATERIAL9& stMtl = m_mapMtlTex[sMtlName]->GetMtl();
 			float r, g, b;
-			if(szBuf[1] == 'a')
+			if (szBuf[1] == 'a')
 			{
 				sscanf_s(szBuf, "%*s %f %f %f", &r, &g, &b);
 				stMtl.Ambient = D3DXCOLOR(r, g, b, 1.0f);
 			}
-			else if(szBuf[1] == 'd')
+			else if (szBuf[1] == 'd')
 			{
 				sscanf_s(szBuf, "%*s %f %f %f", &r, &g, &b);
 				stMtl.Diffuse = D3DXCOLOR(r, g, b, 1.0f);
 			}
-			else if(szBuf[1] == 's')
+			else if (szBuf[1] == 's')
 			{
 				sscanf_s(szBuf, "%*s %f %f %f", &r, &g, &b);
 				stMtl.Specular = D3DXCOLOR(r, g, b, 1.0f);
 			}
 		}
-		else if(szBuf[0] == 'm')
+		else if (szBuf[0] == 'm')
 		{
 			char szPath[1024];
 			sscanf_s(szBuf, "%*s %s", szPath, 1024);
-			m_mapMtlTex[sMtlName]->SetTexture(g_pTextureManager->GetTexture(szPath));
+			if (szBuf[5] == 'd')
+			{
+				m_mapMtlTex[sMtlName]->SetTexture(g_pTextureManager->GetTexture(szPath));
+			}
+			else if (szBuf[5] == 'n')
+			{
+				m_mapMtlTex[sMtlName]->SetTextureN(g_pTextureManager->GetTexture(szPath));
+			}
+			else if (szBuf[5] == 's')
+			{
+				m_mapMtlTex[sMtlName]->SetTextureS(g_pTextureManager->GetTexture(szPath));
+			}
 		}
 	}
 
 	fclose(fp);
 }
 
-void cObjLoader::LoadMtlLib( char* szPath, OUT std::vector<cMtlTex*>& vecMtlTex )
+void cObjLoader::LoadMtlLib(char* szPath, OUT std::vector<cMtlTex*>& vecMtlTex)
 {
 	m_mapMtlTex.clear();
 
@@ -327,17 +338,17 @@ void cObjLoader::LoadMtlLib( char* szPath, OUT std::vector<cMtlTex*>& vecMtlTex 
 
 	fopen_s(&fp, szPath, "r");
 
-	while(!feof(fp))
+	while (!feof(fp))
 	{
-		char szBuf[1024] = {'\0', };
+		char szBuf[1024] = { '\0', };
 		fgets(szBuf, 1024, fp);
 		if (strlen(szBuf) == 0) continue;
 
-		if (szBuf[0] == '#') 
+		if (szBuf[0] == '#')
 		{
 			continue;
 		}
-		else if(szBuf[0] == 'n')
+		else if (szBuf[0] == 'n')
 		{
 			char szMtlName[1024];
 			sscanf_s(szBuf, "%*s %s", szMtlName, 1024);
@@ -347,47 +358,47 @@ void cObjLoader::LoadMtlLib( char* szPath, OUT std::vector<cMtlTex*>& vecMtlTex 
 			m_mapMtlTex[sMtlName]->SetAttrID(vecMtlTex.size());
 			vecMtlTex.push_back(m_mapMtlTex[sMtlName]);
 		}
-		else if(szBuf[0] == 'K')
+		else if (szBuf[0] == 'K')
 		{
 			D3DMATERIAL9& stMtl = m_mapMtlTex[sMtlName]->GetMtl();
 			float r, g, b;
-			if(szBuf[1] == 'a')
+			if (szBuf[1] == 'a')
 			{
 				sscanf_s(szBuf, "%*s %f %f %f", &r, &g, &b);
 				stMtl.Ambient = D3DXCOLOR(r, g, b, 1.0f);
 			}
-			else if(szBuf[1] == 'd')
+			else if (szBuf[1] == 'd')
 			{
 				sscanf_s(szBuf, "%*s %f %f %f", &r, &g, &b);
 				stMtl.Diffuse = D3DXCOLOR(r, g, b, 1.0f);
 			}
-			else if(szBuf[1] == 's')
+			else if (szBuf[1] == 's')
 			{
 				sscanf_s(szBuf, "%*s %f %f %f", &r, &g, &b);
 				stMtl.Specular = D3DXCOLOR(r, g, b, 1.0f);
 			}
 		}
-		else if(szBuf[0] == 'm')
+		else if (szBuf[0] == 'm')
 		{
 			char szPath[1024];
 			sscanf_s(szBuf, "%*s %s", szPath, 1024);
-			m_mapMtlTex[sMtlName]->SetTexture(g_pTextureManager->GetTexture(szPath));
+			if (szPath[0] != 'n' && szPath[1] != 'u'&& szPath[2] != 'l'&& szPath[3] != 'l')
+			{
+				if (szBuf[5] == 'd')
+				{
+					m_mapMtlTex[sMtlName]->SetTexture(g_pTextureManager->GetTexture(szPath));
+				}
+				else if (szBuf[5] == 'n')
+				{
+					m_mapMtlTex[sMtlName]->SetTextureN(g_pTextureManager->GetTexture(szPath));
+				}
+				else if (szBuf[5] == 's')
+				{
+					m_mapMtlTex[sMtlName]->SetTextureS(g_pTextureManager->GetTexture(szPath));
+				}
+			}
 		}
 	}
 
 	fclose(fp);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
