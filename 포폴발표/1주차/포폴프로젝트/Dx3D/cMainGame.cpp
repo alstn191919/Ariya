@@ -215,8 +215,6 @@ void cMainGame::Render()
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matI);
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
 
-
-
 	//¸Ê·»´õ
 	if (m_pMap)
 		m_pMap->Render(m_pCamera->GetvEye());
