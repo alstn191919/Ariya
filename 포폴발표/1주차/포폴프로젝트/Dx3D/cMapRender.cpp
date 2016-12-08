@@ -8,7 +8,6 @@
 cMapRender::cMapRender() :  
 m_pMapMesh(NULL)
 , gpLightingShader(NULL)
-, gLightColor(D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f))
 {
 	RECT rc;
 	GetClientRect(g_hWnd, &rc);
@@ -18,10 +17,10 @@ cMapRender::~cMapRender()
 {
 	SAFE_RELEASE(m_pMapMesh);
 
-	/*for each(auto p in gpLightingShader)
+	for each(auto p in gpLightingShader)
 	{
 		SAFE_RELEASE(p.Shader);
-	}*/
+	}
 
 	for each(auto p in m_vecMtlTex)
 	{
@@ -43,9 +42,6 @@ void cMapRender:: Setup()
 	s_shader.Shader = g_pLightShaderManager->Getshader("./shader/NormalMapping_test.fx");
 	//s_shader.Shader = g_pLightShaderManager->Getshader("./shader/SpecularMapping.fx");
 	gpLightingShader.push_back(s_shader);
-	//ST_SHADER s_shader2(D3DXVECTOR3(-45.0f, 5.0f, 10.0f));
-	//s_shader2.Shader = g_pLightShaderManager->Getshader("./shader/SpecularMapping.fx");
-	//gpLightingShader.push_back(s_shader2);
 }
 void cMapRender::Update()
 {
@@ -77,24 +73,30 @@ void cMapRender::Render(D3DXVECTOR3 _gWorldCameraPosition)
 		p.Shader->SetFloat("gRange", 20.0f);
 		p.Shader->SetVector("gWorldLightPosition", &p.Position);
 		p.Shader->SetVector("gWorldCameraPosition", &gWorldCameraPosition);
+<<<<<<< .mine
 
 		p.Shader->SetVector("gLightColor", &gLightColor);
-		for (size_t j = 0; j < m_vecMtlTex.size(); ++j)
+=======
+
+
+>>>>>>> .theirs
+		UINT numPasses = 0;
+		p.Shader->Begin(&numPasses, NULL);
 		{
-			p.Shader->SetTexture("DiffuseMap_Tex", m_vecMtlTex[j]->GetTexture());
-			p.Shader->SetTexture("SpecularMap_Tex", m_vecMtlTex[j]->GetTextureS());
-			p.Shader->SetTexture("NormalMap_Tex", m_vecMtlTex[j]->GetTextureN());
-			UINT numPasses = 0;
-			p.Shader->Begin(&numPasses, NULL);
 			for (UINT i = 0; i < numPasses; ++i)
 			{
 				p.Shader->BeginPass(i);
 				{
-					m_pMapMesh->DrawSubset(j);
+					for (size_t i = 0; i < m_vecMtlTex.size(); ++i)
+					{
+						g_pD3DDevice->SetMaterial(&m_vecMtlTex[i]->GetMtl());
+						g_pD3DDevice->SetTexture(0, m_vecMtlTex[i]->GetTexture());
+						m_pMapMesh->DrawSubset(i);
+					}
 				}
 				p.Shader->EndPass();
 			}
-			p.Shader->End();
 		}
+		p.Shader->End();
 	}
 }

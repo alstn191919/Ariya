@@ -310,18 +310,7 @@ void cObjLoader::LoadMtlLib( char* szPath )
 		{
 			char szPath[1024];
 			sscanf_s(szBuf, "%*s %s", szPath, 1024);
-			if (szBuf[5] == 'd')
-			{
-				m_mapMtlTex[sMtlName]->SetTexture(g_pTextureManager->GetTexture(szPath));
-			}
-			else if (szBuf[5] == 'n')
-			{
-				m_mapMtlTex[sMtlName]->SetTextureN(g_pTextureManager->GetTexture(szPath));
-			}
-			else if (szBuf[5] == 's')
-			{
-				m_mapMtlTex[sMtlName]->SetTextureS(g_pTextureManager->GetTexture(szPath));
-			}
+			m_mapMtlTex[sMtlName]->SetTexture(g_pTextureManager->GetTexture(szPath));
 		}
 	}
 
@@ -382,21 +371,7 @@ void cObjLoader::LoadMtlLib( char* szPath, OUT std::vector<cMtlTex*>& vecMtlTex 
 		{
 			char szPath[1024];
 			sscanf_s(szBuf, "%*s %s", szPath, 1024);
-			if (szPath[0] != 'n' && szPath[1] != 'u'&& szPath[2] != 'l'&& szPath[3] != 'l')
-			{
-				if (szBuf[5] == 'd')
-				{
-					m_mapMtlTex[sMtlName]->SetTexture(g_pTextureManager->GetTexture(szPath));
-				}
-				else if (szBuf[5] == 'n')
-				{
-					m_mapMtlTex[sMtlName]->SetTextureN(g_pTextureManager->GetTexture(szPath));
-				}
-				else if (szBuf[5] == 's')
-				{
-					m_mapMtlTex[sMtlName]->SetTextureS(g_pTextureManager->GetTexture(szPath));
-				}
-			}
+			m_mapMtlTex[sMtlName]->SetTexture(g_pTextureManager->GetTexture(szPath));
 		}
 	}
 
