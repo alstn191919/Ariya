@@ -7,7 +7,7 @@ struct ST_SHADER
 
 	ST_SHADER() { Shader = NULL; Position = D3DXVECTOR4(0, 0, 0, 1); }
 	ST_SHADER(D3DXVECTOR3 Pos)
-	{ 
+	{
 		Shader = NULL;
 		Position = D3DXVECTOR4(Pos.x, Pos.y, Pos.z, 1);
 	}
@@ -43,4 +43,3 @@ public:
 	cMapRender();
 	~cMapRender();
 };
-

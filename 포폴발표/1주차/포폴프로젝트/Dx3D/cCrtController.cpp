@@ -3,11 +3,11 @@
 #include "cMapRender.h"
 
 cCrtController::cCrtController(void)
-: m_vPosition(0, 0, 0)
-, m_vDirection(0, 0, 1)
-, m_fSpeed(0.3f)
-, m_fAngleX(0.0f)
-, m_isRight(false)
+	: m_vPosition(0, 0, 0)
+	, m_vDirection(0, 0, 1)
+	, m_fSpeed(0.3f)
+	, m_fAngleX(0.0f)
+	, m_isRight(false)
 
 {
 }
@@ -61,7 +61,7 @@ void cCrtController::Update(cMapRender* pMap /*= NULL*/)
 		{
 			vPosition = m_vPosition - (m_vDirection * (m_fSpeed - 0.2f));
 		}
-	
+
 	}
 	if (GetKeyState('W') & 0x8000)
 	{
@@ -83,7 +83,7 @@ void cCrtController::Update(cMapRender* pMap /*= NULL*/)
 
 	if (pMap)
 	{
-		if(pMap->GetHeight(vPosition.x, vPosition.y, vPosition.z))
+		if (pMap->GetHeight(vPosition.x, vPosition.y, vPosition.z))
 			m_vPosition = vPosition;
 	}
 	else

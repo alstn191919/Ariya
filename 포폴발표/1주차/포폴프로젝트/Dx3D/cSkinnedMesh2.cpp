@@ -5,8 +5,10 @@
 cSkinnedMesh2::cSkinnedMesh2(void)
 	: m_pRootBone(NULL)
 	, m_pAnimController(NULL)
-	, m_fAngleX(0)
-	, m_fAngleY(0)
+	, m_fAngleX(-D3DX_PI / 2.0f + EPSILON)  //3.14/2
+	, m_fAngleY(0.0)
+	, m_Obb(NULL)
+	, b_isOpen(false)
 {
 	D3DXMatrixIdentity(&m_wolrd);
 }
@@ -34,7 +36,7 @@ void cSkinnedMesh2::Load( std::string sFolder, std::string sFile )
 		(LPD3DXFRAME*)&m_pRootBone,
 		&m_pAnimController);
 
-//	assert(m_pRootBone);
+	assert(m_pRootBone && "뿌리가 없어요!");
 
 	if(m_pRootBone)
 		SetupBoneMatrixPtrs(m_pRootBone);
@@ -196,19 +198,27 @@ void cSkinnedMesh2::SetAnimationIndex( int n )
 }
 
 
-void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, float size)
+void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size)
 {
 	D3DXMATRIXA16 mat,matS;
 	
 	D3DXMatrixIdentity(&mat);
 
-	D3DXMatrixScaling(&matS, size, size, size);
+	D3DXMatrixIdentity(&matS);
+	D3DXMatrixScaling(&matS, size.x, size.y, size.z);
 	
-	mat._41 = p.x;
+	/*mat._41 = p.x;
 	mat._42 = p.y;
-	mat._43 = p.z;
+	mat._43 = p.z;*/
 
-	m_wolrd = matS * mat;
+	D3DXMatrixTranslation(&mat, p.x, p.y, p.z);
+
+
+	D3DXMatrixIdentity(&m_wolrd);
+
+	//m_wolrd = matS * mat *m_wolrd;
+
+	m_wolrd = matS * mat *m_wolrd ;
 
 	
 
@@ -223,7 +233,7 @@ void cSkinnedMesh2::ObjRender()
 		D3DXMATRIXA16 matRX, matRY, mat;
 		D3DXMatrixIdentity(&mat);
 
-		mat._43 = -20;
+		mat._43 = -3.5;
 		D3DXMatrixRotationY(&matRX, -m_fAngleX);
 		D3DXMatrixRotationZ(&matRY, -m_fAngleY);
 
@@ -299,5 +309,4 @@ void cSkinnedMesh2::ObjVIEWRender()
 	//g_pD3DDevice->SetTransform(D3DTS_WORLD, &viewmat);
 
 	
-}//우왁씨ㅜㅎ=ㅅㅂ라이맟맟밪ㅇ라 ㅏㄴ치ㅏㅇㄴ밍ㅁㄴ 대가리 터질꺼같아 슝아아ㅔ아아라아핑이라이ㅏㅣㅏㅋㅇㄿ
-//그냥 엔진 쓰게해줘 슈바러어람난라아마나나
+}
