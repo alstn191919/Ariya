@@ -27,8 +27,7 @@ public:
 	~cCamera(void);
 
 	void Setup();
-	void Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection);
-
+	void Update(D3DXVECTOR3* pTarget);
 
 	D3DXMATRIXA16* GetViewMatrix();
 	D3DXMATRIXA16* GetProjMatrix();

@@ -8,7 +8,6 @@ private:
 	bool						m_isRight;
 	float						m_fSpeed;
 	SYNTHESIZE(float, m_fAngleX, fAngleX);
-	SYNTHESIZE(float, m_fAngleY, fAngleY);
 
 	D3DXVECTOR3					m_vPosition;
 	D3DXMATRIXA16				m_matWorld;
