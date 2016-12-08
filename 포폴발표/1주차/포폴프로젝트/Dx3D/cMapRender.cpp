@@ -182,6 +182,6 @@ void cMapRender::Load(char* szSurface)
 				m_vecSurface.push_back(p);
 			}
 		}
-	}
+			}
 	fclose(fp);
 }
