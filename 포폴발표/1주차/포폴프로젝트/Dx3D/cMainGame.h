@@ -8,6 +8,7 @@ class cHeightMap;
 class cMapRender;
 class cSkinnedMesh2;
 class cUITextView;
+class cHero;
 #include "cUIButton.h"
 
 #define RADIUS 0.3f
@@ -19,7 +20,7 @@ private:
 	cCamera*					m_pCamera;
 	cGrid*						m_pGrid;
 	cCrtController*				m_pController;
-	cSkinnedMesh*				m_pZealot;
+	cHero*								m_pHero;
 	cMapRender*					m_pMap;
 private:
 	bool						_isRuning;

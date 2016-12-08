@@ -11,6 +11,7 @@
 #include "cUITextView.h"
 #include "cUIButton.h"
 #include "cOBB.h"
+#include "cHero.h"
 
 enum eUITag
 {
@@ -23,7 +24,7 @@ cMainGame::cMainGame(void)
 	: m_pCamera(NULL)
 	, m_pGrid(NULL)
 	, m_pController(NULL)
-	, m_pZealot(NULL)
+	, m_pHero(NULL)
 	, m_pMap(NULL)
 	, _isRuning(false), FrameCnt(0), TimeElapsed(0.0f), FPS(0.0f)
 	, m_pSkinnedMesh(NULL)
@@ -35,7 +36,7 @@ cMainGame::~cMainGame(void)
 	SAFE_DELETE(m_pCamera);
 	SAFE_DELETE(m_pGrid);
 	SAFE_DELETE(m_pController);
-	SAFE_DELETE(m_pZealot);
+	SAFE_DELETE(m_pHero);
 	SAFE_DELETE(m_pMap);
 	SAFE_DELETE(m_pSkinnedMesh);
 
@@ -158,9 +159,9 @@ void cMainGame::Setup()
 	m_pGrid = new cGrid;
 	m_pGrid->Setup(30);
 
-	m_pZealot = new cSkinnedMesh("Character/", "hero.X");
-	m_pZealot->SetAnimationIndex(4);
-	m_pZealot->SetPosition(D3DXVECTOR3(0, 0, 0));
+	m_pHero = new cHero("Character/", "hero.X");
+	m_pHero->SetAnimationIndex(4);
+	m_pHero->SetPosition(D3DXVECTOR3(0, 0, 0));
 
 	m_pMap = new cMapRender;
 	m_pMap->Setup();
@@ -177,13 +178,12 @@ void cMainGame::Update()
 	g_pTimeManager->Update();
 	Getfps(g_pTimeManager->GetDeltaTime());
 
-	if(m_pController)
-		m_pController->Update(NULL);
-	
 	if(m_pCamera)
-		m_pCamera->Update(&m_pZealot->GetPosition());
-
+		m_pCamera->Update(&m_pHero->GetPosition(),&m_pController->GetDirection());
+	if (m_pController)
+		m_pController->Update(NULL);
 	m_pController->SetfAngleX(m_pCamera->GetfAngleY());
+	m_pController->SetfAngleY(m_pCamera->GetfAngleX());
 
 	if (m_pMap)
 		m_pMap->Update();
@@ -226,8 +226,8 @@ void cMainGame::Render()
 	D3DXMatrixScaling(&matS, charsize, charsize, charsize);
 	_zMat = *m_pController->GetWorldTM();
 	_zMat = matS * _zMat;
-	m_pZealot->SetPosition(D3DXVECTOR3(_zMat._41,_zMat._42,_zMat._43));
-	m_pZealot->UpdateAndRender(&_zMat);
+	m_pHero->SetPosition(D3DXVECTOR3(_zMat._41,_zMat._42,_zMat._43));
+	m_pHero->UpdateAndRender(&_zMat);
 	//
 
 
