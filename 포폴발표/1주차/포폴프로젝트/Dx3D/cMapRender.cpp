@@ -33,16 +33,15 @@ void cMapRender:: Setup()
 {
 	D3DXMATRIXA16 matS, matT, mat;
 	D3DXMatrixTranslation(&matT, MapPositionX, MapPositionY, MapPositionZ);
+	//D3DXMatrixTranslation(&matT, SurPositionX, SurPositionY, SurPositionZ);
 	D3DXMatrixScaling(&matS, Mapsize, Mapsize, Mapsize);
 	mat = matS * matT;
 
 	cObjLoader objloader;
 	m_pMapMesh = objloader.Load("objMap/objmap.obj", m_vecMtlTex, &mat);
 	//m_pMapMesh = objloader.Load("objMap/2Fsurface.obj", m_vecMtlTex, &mat);
-	//ST_SHADER s_shader(D3DXVECTOR3(500.0f, 500.0f, -500.0f));
 	ST_SHADER s_shader(D3DXVECTOR3(-15.0f, 2.0f, -7.0f));
 	s_shader.Shader = g_pLightShaderManager->Getshader("./shader/NormalMapping_Blend.fx");
-	//s_shader.Shader = g_pLightShaderManager->Getshader("./shader/SpecularMapping.fx");
 	gpLightingShader.push_back(s_shader);
 	//ST_SHADER s_shader2(D3DXVECTOR3(-45.0f, 5.0f, 10.0f));
 	//s_shader2.Shader = g_pLightShaderManager->Getshader("./shader/SpecularMapping.fx");
@@ -101,7 +100,6 @@ void cMapRender::Render(D3DXVECTOR3 _gWorldCameraPosition)
 	}
 }
 
-
 bool cMapRender::GetHeight(IN float x, OUT float& y, IN float z)
 {
 	D3DXVECTOR3 vRayPos(x, y + 5, z);
@@ -124,7 +122,7 @@ bool cMapRender::GetHeight(IN float x, OUT float& y, IN float z)
 
 void cMapRender::Load(char* szSurface)
 {
-	/*std::vector<D3DXVECTOR3>	vecV;
+	std::vector<D3DXVECTOR3>	vecV;
 
 	FILE* fp = NULL;
 
@@ -173,14 +171,15 @@ void cMapRender::Load(char* szSurface)
 			for (int i = 0; i < 3; ++i)
 			{
 				D3DXVECTOR3 p = vecV[aIndex[i] - 1];
-				D3DXMATRIXA16 pamt;
-
-					D3DXVec3TransformCoord(&p, &p, pmat);
-				}
+				D3DXMATRIXA16 pmat;
+				D3DXMatrixIdentity(&pmat);
+				pmat._41 = SurPositionX;
+				pmat._42 = SurPositionY;
+				pmat._43 = SurPositionZ;
+				D3DXVec3TransformCoord(&p, &p, &pmat);
 				m_vecSurface.push_back(p);
 			}
 		}
+		fclose(fp);
 	}
-
-	fclose(fp);*/
 }

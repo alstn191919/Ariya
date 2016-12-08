@@ -16,13 +16,14 @@ struct ST_SHADER
 class cMtlTex;
 
 #define Mapsize	1.0f			//맵 전체 크기 비율
-#define MapPositionY -127.5f	//맵 위지 Y축
-#define MapPositionX 0.0f		//맵 위지 X축
-#define MapPositionZ 0.0f		//맵 위지 Z축
 
-#define SurPositionX 1.0f
-#define SurPositionY 1.0f
-#define SurPositionZ 1.0f
+#define MapPositionX 2.0f		//맵 위지 X
+#define MapPositionY -126.5f	//맵 위지 Y
+#define MapPositionZ 8.0f		//맵 위지 Z
+
+#define SurPositionX 15.0f		//서페이스맵 위지 X
+#define SurPositionY -126.5f	//서페이스맵 위지 Y
+#define SurPositionZ 3.0f		//서페이스맵 위지 Z
 class cMapRender
 {
 private:
