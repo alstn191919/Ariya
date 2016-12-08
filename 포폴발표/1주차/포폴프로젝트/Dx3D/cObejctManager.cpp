@@ -2,7 +2,6 @@
 #include "cObejctManager.h"
 #include "cRay.h"
 #include "cCamera.h"
-#include "cOBB.h"
 
 
 cObejctManager::cObejctManager()
@@ -18,7 +17,7 @@ cObejctManager::~cObejctManager()
 
 
 
-void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, float size, D3DXVECTOR3 Min, D3DXVECTOR3 Max)
+void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi,  float size)
 {
 	cSkinnedMesh2* newobject;
 
@@ -29,14 +28,6 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 	newobject->SetWolrd(Pogi, size);
 
 	newobject->SetInter(false);
-
-	cOBB * obb;
-
-	obb = new cOBB;
-
-	obb->Setup(Min, Max);
-
-	newobject->SetObb(obb);
 
 	object.push_back(newobject);
 
@@ -82,10 +73,6 @@ void cObejctManager::Update()
 			object[i]->m_sSphre.isPicked = r.IsPicked(object[i]->m_sSphre);
 			//m_sleect_index = i;
 		}
-		//if (object[i]->GetObb())
-		//{
-		//
-		//}
 
 	}
 
@@ -104,16 +91,6 @@ void cObejctManager::Render()
 	for (int i = 0; i < object.size(); i++)
 	{
 		object[i]->ObjRender();
-		if (GetAsyncKeyState(VK_F1)&0x8001)
-		{
-			if (object[i]->GetObb())
-			{
-			//	object[i]->ObjRender();
-			
-				object[i]->GetObb()->Update(object[i]->GetWolrd());
-				object[i]->GetObb()->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
-			}
-		}
 	}
 
 	//for (int i = 0; i < object.size(); i++)
@@ -193,7 +170,6 @@ void cObejctManager::SetSelect()
 		}
 	}
 
-	return;
 }
 
 
@@ -258,18 +234,4 @@ OBJ_TYPE cObejctManager::getPinkedObjType()
 			return object[i]->GetObjType();
 		}
 	}
-}
-
-
-
-bool cObejctManager::IsCollision(cOBB * player)
-{
-	for (int i = 0; i < object.size(); i++)
-	{
-		if (object[i]->GetObb())
-		{
-			if (cOBB::IsCollision(player, object[i]->GetObb()))return true;
-		}
-	}
-	return false;
 }

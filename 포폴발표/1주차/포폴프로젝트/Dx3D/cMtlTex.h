@@ -6,7 +6,8 @@ private:
 	SYNTHESIZE_PASS_BY_REF(D3DMATERIAL9, m_stMtl, Mtl);
 	SYNTHESIZE(DWORD, m_dwAttrID, AttrID);
 	SYNTHESIZE_ADD_REF(LPDIRECT3DTEXTURE9, m_pTexture, Texture);
-
+	SYNTHESIZE_ADD_REF(LPDIRECT3DTEXTURE9, m_pTextureN, TextureN);
+	SYNTHESIZE_ADD_REF(LPDIRECT3DTEXTURE9, m_pTextureS, TextureS);
 // 	void SetTexture(LPDIRECT3DTEXTURE9 pTexture)
 // 	{
 // 		if(m_pTexture != pTexture)

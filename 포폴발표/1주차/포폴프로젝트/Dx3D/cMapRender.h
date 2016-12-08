@@ -28,7 +28,8 @@ private:
 	LPD3DXMESH					m_pMapMesh;				// 맵 매쉬
 	std::vector<cMtlTex*>		m_vecMtlTex;			// 텍스,메테리얼
 	std::vector<ST_SHADER>		gpLightingShader;		// 쉐이더구조체	
-	D3DXVECTOR4					gWorldLightPosition;	// 빛의 위치	
+	D3DXVECTOR4					gWorldLightPosition;	// 빛의 위치
+	D3DXVECTOR4					gLightColor;			// 빛 컬러
 public:
 	void Setup();
 	void Update();

@@ -1,0 +1,108 @@
+newmtl Floor
+Kd 1 1 1
+Ka 1 1 1
+Ks 1 1 1
+map_Kd ./objMap/Floor.tga
+map_Kn ./objMap/Floor_NRM.tga
+map_Ks ./objMap/Floor_SPEC.tga
+illum 2
+
+newmtl Concrete
+Kd 1 1 1
+Ka 1 1 1
+Ks 1 1 1
+map_Kd ./objMap/Concrete.tga
+map_Kn ./objMap/Concrete_NRM.tga
+map_Ks ./objMap/Concrete_SPEC.tga
+illum 2
+
+newmtl sofa_green
+Kd 1 1 1
+Ka 1 1 1
+Ks 1 1 1
+map_Kd ./objMap/sofa_green.tga
+map_Kn ./objMap/sofa_green_NRM.tga
+map_Ks ./objMap/sofa_green_SPEC.tga
+illum 2
+
+newmtl tile
+Kd 1 1 1
+Ka 1 1 1
+Ks 1 1 1
+map_Kd ./objMap/tile.tga
+map_Kn ./objMap/tile_NRM.tga
+map_Ks ./objMap/tile_SPEC.tga
+illum 2
+
+newmtl BIG_WINDOW_88Mat
+Kd 0.8 0.8 0.8
+Ka 1 1 1
+Ks 1 1 1
+illum 2
+
+newmtl wordwall
+Kd 1 1 1
+Ka 1 1 1
+Ks 1 1 1
+map_Kd ./objMap/wordwall.tga
+map_Kn ./objMap/wordwall_NRM.tga
+map_Ks ./objMap/wordwall_SPEC.tga
+illum 2
+
+newmtl Box002_85Mat
+Kd 0.8 0.8 0.8
+Ka 1 1 1
+Ks 1 1 1
+map_Kd ./objMap/Concrete.tga
+map_Kn ./objMap/Concrete_NRM.tga
+map_Ks ./objMap/Concrete_SPEC.tga
+illum 2
+
+newmtl BIG_WINDOW_83Mat
+Kd 0.8 0.8 0.8
+Ka 1 1 1
+Ks 1 1 1
+map_Kd ./objMap/owt_diffuse.tga
+map_Kn ./objMap/owt_diffuse_NRM.tga
+map_Ks ./objMap/owt_diffuse_SPEC.tga
+illum 2
+
+newmtl BIG_WINDOW_46Mat
+Kd 0.8 0.8 0.8
+Ka 1 1 1
+Ks 1 1 1
+map_Kd ./objMap/owt_diffuse.tga
+map_Kn ./objMap/owt_diffuse_NRM.tga
+map_Ks ./objMap/owt_diffuse_SPEC.tga
+illum 2
+
+newmtl Cylinder001_86Mat
+Kd 0.8 0.8 0.8
+Ka 1 1 1
+Ks 1 1 1
+illum 2
+
+newmtl BIG_WINDOW_11Mat
+Kd 0.8 0.8 0.8
+Ka 1 1 1
+Ks 1 1 1
+map_Kd ./objMap/owt_diffuse.tga
+map_Kn ./objMap/owt_diffuse_NRM.tga
+map_Ks ./objMap/owt_diffuse_SPEC.tga
+illum 2
+
+newmtl Cylinder_44Mat
+Kd 0.8 0.8 0.8
+Ka 1 1 1
+Ks 1 1 1
+illum 2
+
+newmtl BIG_WINDOW_57Mat
+Kd 0.8 0.8 0.8
+Ka 1 1 1
+Ks 1 1 1
+map_Kd ./objMap/owt_diffuse.tga
+map_Kn ./objMap/owt_diffuse_NRM.tga
+map_Ks ./objMap/owt_diffuse_SPEC.tga
+illum 2
+

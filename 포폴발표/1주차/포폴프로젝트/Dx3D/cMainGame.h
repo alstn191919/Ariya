@@ -8,7 +8,6 @@ class cHeightMap;
 class cMapRender;
 class cSkinnedMesh2;
 class cUITextView;
-class cOBB;
 #include "cUIButton.h"
 
 #define RADIUS 0.3f
@@ -22,8 +21,6 @@ private:
 	cCrtController*				m_pController;
 	cSkinnedMesh*				m_pZealot;
 	cMapRender*					m_pMap;
-	cOBB*						m_pObb;
-	cOBB*						m_pObbObj;
 private:
 	bool						_isRuning;
 	D3DXMATRIXA16				_zMat;
