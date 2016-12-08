@@ -1,5 +1,4 @@
 #pragma once
-
 class cOBB
 {
 private:
@@ -17,8 +16,7 @@ public:
 	~cOBB(void);
 
 	void Setup(cSkinnedMesh* pSkinnedMesh);
-	void Setup(cSkinnedMesh2* pSkinnedMesh);
-	void Setup(D3DXVECTOR3 Min, D3DXVECTOR3 Max);
+	void Setup(D3DXVECTOR3 Min , D3DXVECTOR3 Max);
 	void Update(D3DXMATRIXA16* pmatWorld);
 	void DebugRender(D3DCOLOR c);
 

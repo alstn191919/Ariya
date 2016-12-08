@@ -2,10 +2,13 @@
 #include "cObejctManager.h"
 #include "cRay.h"
 #include "cCamera.h"
+#include "cOBB.h"
 
 
 cObejctManager::cObejctManager()
 	:m_select_index(NonSlect)
+	, DoorClose(0.0f)
+	
 {
 }
 
@@ -17,7 +20,7 @@ cObejctManager::~cObejctManager()
 
 
 
-void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi,  float size)
+void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, float size, D3DXVECTOR3 Min, D3DXVECTOR3 Max)
 {
 	cSkinnedMesh2* newobject;
 
@@ -28,6 +31,14 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 	newobject->SetWolrd(Pogi, size);
 
 	newobject->SetInter(false);
+
+	cOBB * obb;
+
+	obb = new cOBB;
+
+	obb->Setup(Min, Max);
+
+	newobject->SetObb(obb);
 
 	object.push_back(newobject);
 
@@ -71,8 +82,22 @@ void cObejctManager::Update()
 		if (object[i]->GetInter())
 		{
 			object[i]->m_sSphre.isPicked = r.IsPicked(object[i]->m_sSphre);
+			if (GetAsyncKeyState('E') & 0x8000)			//디버그용으로 열닫 조절하게 했습니다 나중에 이벤트 신에서 해당 인덱스 만 처리해주는걸로 수정
+			{
+				if (object[i]->GetObjType() == OBJ_TYPE::door )
+				{
+					if (object[i]->GetisOpen())	object[i]->SetisOpen(false);
+					else object[i]->SetisOpen(true);
+				}
+			}
+
+			
 			//m_sleect_index = i;
 		}
+		//if (object[i]->GetObb())
+		//{
+		//
+		//}
 
 	}
 
@@ -91,6 +116,28 @@ void cObejctManager::Render()
 	for (int i = 0; i < object.size(); i++)
 	{
 		object[i]->ObjRender();
+		/*if (GetAsyncKeyState(VK_LBUTTON) & 0x8000 && object[i]->GetAngleX() <= 3.14 / 2)
+		{
+			
+			DoorClose -= 0.000000000000001f;
+			object[i]->SetAngleX(object[i]->GetAngleX() - DoorClose);
+			if (object[i]->GetAngleX() < 3.14 / 2)
+			{
+				object[i]->SetAngleX(3.14 / 2);
+				DoorClose = 0;
+			}
+		}*/
+		
+		if (GetAsyncKeyState(VK_F1)&0x8001)
+		{
+			if (object[i]->GetObb())
+			{
+			//	object[i]->ObjRender();
+			
+				object[i]->GetObb()->Update(object[i]->GetWolrd());
+				object[i]->GetObb()->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
+			}
+		}
 	}
 
 	//for (int i = 0; i < object.size(); i++)
@@ -170,6 +217,7 @@ void cObejctManager::SetSelect()
 		}
 	}
 
+	return;
 }
 
 
@@ -234,4 +282,31 @@ OBJ_TYPE cObejctManager::getPinkedObjType()
 			return object[i]->GetObjType();
 		}
 	}
+}
+
+
+
+bool cObejctManager::IsCollision(cOBB * player)
+{
+	for (int i = 0; i < object.size(); i++)
+	{
+		if (object[i]->GetObb())
+		{
+			if (cOBB::IsCollision(player, object[i]->GetObb()))return true;
+		}
+	}
+	return false;
+}
+
+
+bool cObejctManager::getOpen()
+{
+	for (int i = 0; i < object.size(); i++)
+	{
+		if (object[i]->m_sSphre.isPicked)
+		{
+			return object[i]->GetisOpen();
+		}
+	}
+	return false;
 }

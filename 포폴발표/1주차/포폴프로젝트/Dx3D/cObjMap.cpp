@@ -97,7 +97,7 @@ void cObjMap::Render()
 
 bool cObjMap::GetHeight( IN float x, OUT float& y, IN float z )
 {
-	D3DXVECTOR3 vRayPos(x, y + 5, z);
+	D3DXVECTOR3 vRayPos(x, 1000, z);
 	D3DXVECTOR3 vRayDir( 0,-1, 0);
 	float u, v, d;
 	for (size_t i = 0; i < m_vecSurface.size(); i += 3)
@@ -107,11 +107,10 @@ bool cObjMap::GetHeight( IN float x, OUT float& y, IN float z )
 		D3DXVECTOR3 v2 = m_vecSurface[i + 2];
 		if(D3DXIntersectTri(&v0, &v1, &v2, &vRayPos, &vRayDir, &u, &v, &d))
 		{
-			y = (y + 5) - d;
+			y = 1000 - d;
 			return true;
 		}
 	}
 	y = 0;
 	return false;
 }
-

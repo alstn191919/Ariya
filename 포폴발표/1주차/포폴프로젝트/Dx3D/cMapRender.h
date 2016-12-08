@@ -13,33 +13,28 @@ struct ST_SHADER
 	}
 };
 
+class iMap;
+class cHeightMap;
 class cMtlTex;
 
 #define Mapsize	1.0f			//맵 전체 크기 비율
+#define MapPositionY -127.5f	//맵 위지 Y축
+#define MapPositionX 0.0f		//맵 위지 X축
+#define MapPositionZ 0.0f		//맵 위지 Z축
 
-#define MapPositionX 2.0f		//맵 위지 X
-#define MapPositionY -126.5f	//맵 위지 Y
-#define MapPositionZ 8.0f		//맵 위지 Z
-
-#define SurPositionX 15.0f		//서페이스맵 위지 X
-#define SurPositionY -126.5f	//서페이스맵 위지 Y
-#define SurPositionZ 3.0f		//서페이스맵 위지 Z
 class cMapRender
 {
 private:
 	LPD3DXMESH					m_pMapMesh;				// 맵 매쉬
 	std::vector<cMtlTex*>		m_vecMtlTex;			// 텍스,메테리얼
 	std::vector<ST_SHADER>		gpLightingShader;		// 쉐이더구조체	
-	D3DXVECTOR4					gWorldLightPosition;	// 빛의 위치
-	D3DXVECTOR4					gLightColor;			// 빛 컬러
-private:
-	std::vector<D3DXVECTOR3>	m_vecSurface;			// 서페이스 STL
+	D3DXVECTOR4					gWorldLightPosition;	// 빛의 위치	
 public:
 	void Setup();
 	void Update();
 	void Render(D3DXVECTOR3 _gWorldCameraPosition);
-	bool GetHeight(IN float x, OUT float& y, IN float z);
-	void Load(char* szSurface);
+
+
 	cMapRender();
 	~cMapRender();
 };

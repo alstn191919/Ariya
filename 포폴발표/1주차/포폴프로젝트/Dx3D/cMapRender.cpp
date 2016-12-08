@@ -8,7 +8,6 @@
 cMapRender::cMapRender() :  
 m_pMapMesh(NULL)
 , gpLightingShader(NULL)
-, gLightColor(D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f))
 {
 	RECT rc;
 	GetClientRect(g_hWnd, &rc);
@@ -18,10 +17,10 @@ cMapRender::~cMapRender()
 {
 	SAFE_RELEASE(m_pMapMesh);
 
-	/*for each(auto p in gpLightingShader)
+	for each(auto p in gpLightingShader)
 	{
 		SAFE_RELEASE(p.Shader);
-	}*/
+	}
 
 	for each(auto p in m_vecMtlTex)
 	{
@@ -33,19 +32,14 @@ void cMapRender:: Setup()
 {
 	D3DXMATRIXA16 matS, matT, mat;
 	D3DXMatrixTranslation(&matT, MapPositionX, MapPositionY, MapPositionZ);
-	//D3DXMatrixTranslation(&matT, SurPositionX, SurPositionY, SurPositionZ);
 	D3DXMatrixScaling(&matS, Mapsize, Mapsize, Mapsize);
 	mat = matS * matT;
 
 	cObjLoader objloader;
-	m_pMapMesh = objloader.Load("objMap/objmap.obj", m_vecMtlTex, &mat);
-	//m_pMapMesh = objloader.Load("objMap/2Fsurface.obj", m_vecMtlTex, &mat);
-	ST_SHADER s_shader(D3DXVECTOR3(-15.0f, 2.0f, -7.0f));
-	s_shader.Shader = g_pLightShaderManager->Getshader("./shader/NormalMapping_Blend.fx");
+	m_pMapMesh = objloader.Load("obj/2thFloor.obj", m_vecMtlTex, &mat);
+	ST_SHADER s_shader(D3DXVECTOR3(-15.0f, 6.0f, 10.0f));
+	s_shader.Shader = g_pLightShaderManager->Getshader("./shader/Lighting.fx");
 	gpLightingShader.push_back(s_shader);
-	//ST_SHADER s_shader2(D3DXVECTOR3(-45.0f, 5.0f, 10.0f));
-	//s_shader2.Shader = g_pLightShaderManager->Getshader("./shader/SpecularMapping.fx");
-	//gpLightingShader.push_back(s_shader2);
 }
 void cMapRender::Update()
 {
@@ -62,124 +56,37 @@ void cMapRender::Render(D3DXVECTOR3 _gWorldCameraPosition)
 
 	// 월드,뷰,프로젝션 메트릭스 
 	D3DXMATRIXA16	matWorld, matView, matProjection;
-	D3DXMATRIXA16 matWorldView, matWorldViewProjection;
 	g_pD3DDevice->GetTransform(D3DTS_WORLD, &matWorld);
-	g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
 	g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
-	D3DXMatrixMultiply(&matWorldView, &matWorld, &matView);
-	D3DXMatrixMultiply(&matWorldViewProjection, &matWorldView, &matProjection);
+	g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
 
 	// 쉐이더 렌더링
 	for each(auto p in gpLightingShader)
 	{
 		p.Shader->SetMatrix("gWorldMatrix", &matWorld);
-		p.Shader->SetMatrix("gWorldViewProjectionMatrix", &matWorldViewProjection);
-		p.Shader->SetFloat("gRange", 20.0f); // 빛 범위 설정
-		p.Shader->SetFloat("gAlphaBlend", 0.8f); // 빛 세기 알파값
+		p.Shader->SetMatrix("gViewMatrix", &matView);
+		p.Shader->SetMatrix("gProjectionMatrix", &matProjection);
+
 		p.Shader->SetVector("gWorldLightPosition", &p.Position);
 		p.Shader->SetVector("gWorldCameraPosition", &gWorldCameraPosition);
 
-		p.Shader->SetVector("gLightColor", &gLightColor);
-		for (size_t j = 0; j < m_vecMtlTex.size(); ++j)
+		UINT numPasses = 0;
+		p.Shader->Begin(&numPasses, NULL);
 		{
-			p.Shader->SetTexture("DiffuseMap_Tex", m_vecMtlTex[j]->GetTexture());
-			p.Shader->SetTexture("SpecularMap_Tex", m_vecMtlTex[j]->GetTextureS());
-			p.Shader->SetTexture("NormalMap_Tex", m_vecMtlTex[j]->GetTextureN());
-			UINT numPasses = 0;
-			p.Shader->Begin(&numPasses, NULL);
 			for (UINT i = 0; i < numPasses; ++i)
 			{
 				p.Shader->BeginPass(i);
 				{
-					m_pMapMesh->DrawSubset(j);
+					for (size_t i = 0; i < m_vecMtlTex.size(); ++i)
+					{
+						g_pD3DDevice->SetMaterial(&m_vecMtlTex[i]->GetMtl());
+						g_pD3DDevice->SetTexture(0, m_vecMtlTex[i]->GetTexture());
+						m_pMapMesh->DrawSubset(i);
+					}
 				}
 				p.Shader->EndPass();
 			}
-			p.Shader->End();
 		}
-	}
-}
-
-bool cMapRender::GetHeight(IN float x, OUT float& y, IN float z)
-{
-	D3DXVECTOR3 vRayPos(x, y + 5, z);
-	D3DXVECTOR3 vRayDir(0, -1, 0);
-	float u, v, d;
-	for (size_t i = 0; i < m_vecSurface.size(); i += 3)
-	{
-		D3DXVECTOR3 v0 = m_vecSurface[i];
-		D3DXVECTOR3 v1 = m_vecSurface[i + 1];
-		D3DXVECTOR3 v2 = m_vecSurface[i + 2];
-		if (D3DXIntersectTri(&v0, &v1, &v2, &vRayPos, &vRayDir, &u, &v, &d))
-		{
-			y = (y + 5) - d;
-			return true;
-		}
-	}
-	y = 0;
-	return false;
-}
-
-void cMapRender::Load(char* szSurface)
-{
-	std::vector<D3DXVECTOR3>	vecV;
-
-	FILE* fp = NULL;
-
-	fopen_s(&fp, szSurface, "r");
-
-	while (!feof(fp))
-	{
-		char szBuf[1024] = { '\0', };
-		fgets(szBuf, 1024, fp);
-		if (strlen(szBuf) == 0) continue;
-
-		if (szBuf[0] == '#')
-		{
-			continue;
-		}
-		else if (szBuf[0] == 'm')
-		{
-		}
-		else if (szBuf[0] == 'u')
-		{
-		}
-		else if (szBuf[0] == 'g')
-		{
-		}
-		else if (szBuf[0] == 'v')
-		{
-			if (szBuf[1] == 't')
-			{
-			}
-			else if (szBuf[1] == 'n')
-			{
-			}
-			else
-			{
-				float x, y, z;
-				sscanf_s(szBuf, "%*s %f %f %f", &x, &y, &z);
-				vecV.push_back(D3DXVECTOR3(x, y, z));
-			}
-		}
-		else if (szBuf[0] == 'f')
-		{
-			int aIndex[3];
-			sscanf_s(szBuf, "%*s %d/%*d/%*d %d/%*d/%*d %d/%*d/%*d",
-				&aIndex[0], &aIndex[1], &aIndex[2]);
-
-			for (int i = 0; i < 3; ++i)
-			{
-				D3DXVECTOR3 p = vecV[aIndex[i] - 1];
-				D3DXMATRIXA16 pmat;
-				D3DXMatrixIdentity(&pmat);
-				pmat._41 = SurPositionX;
-				pmat._42 = SurPositionY;
-				pmat._43 = SurPositionZ;
-				D3DXVec3TransformCoord(&p, &p, &pmat);
-				m_vecSurface.push_back(p);
-			}
-		}
-		fclose(fp);
+		p.Shader->End();
 	}
 }
