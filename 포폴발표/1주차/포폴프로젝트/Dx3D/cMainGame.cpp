@@ -178,13 +178,12 @@ void cMainGame::Update()
 	g_pTimeManager->Update();
 	Getfps(g_pTimeManager->GetDeltaTime());
 
-	if(m_pController)
-		m_pController->Update(NULL);
-	
 	if(m_pCamera)
-		m_pCamera->Update(&m_pHero->GetPosition());
-
+		m_pCamera->Update(&m_pHero->GetPosition(),&m_pController->GetDirection());
+	if (m_pController)
+		m_pController->Update(NULL);
 	m_pController->SetfAngleX(m_pCamera->GetfAngleY());
+	m_pController->SetfAngleY(m_pCamera->GetfAngleX());
 
 	if (m_pMap)
 		m_pMap->Update();
