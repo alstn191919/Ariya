@@ -96,9 +96,24 @@ void cSkinnedMesh::Load( char* szDirectory, char* szFilename )
 
 void cSkinnedMesh::UpdateAndRender(D3DXMATRIXA16* pmat)
 {
-	if(m_pAnimController)
+	if (m_pAnimController)
 	{
+		//시간 받아오기
+		m_fPassedAnimTime = g_pTimeManager->GetDeltaTime();
 		m_pAnimController->AdvanceTime(g_pTimeManager->GetDeltaTime(), NULL);
+		
+		//블렌딩 시간을 넘어선 경우
+		if (m_fPassedAnimTime >= m_fBlendTime)	
+		{
+			m_isBlending = false;
+			m_pAnimController->SetTrackEnable(1, false);
+		}
+		else
+		{
+			//블렌딩 중에는 가중치를 계속 바꿔준다
+			m_pAnimController->SetTrackWeight(0, m_fPassedAnimTime);
+			m_pAnimController->SetTrackWeight(1, 1.0f - m_fPassedAnimTime);
+		}
 	}
 
 	if(m_pRootFrame)
@@ -176,7 +191,7 @@ void cSkinnedMesh::Render(ST_BONE* pBone /*= NULL*/)
 
 			m_pEffect->SetMatrix("g_mViewProj", &matViewProj);
 			m_pEffect->SetVector("vLightDiffuse", &D3DXVECTOR4( 1.0f, 1.0f, 1.0f, 1.0f ) );
-			m_pEffect->SetVector("vWorldLightPos", &D3DXVECTOR4( 500.0f, 500.0f, 500.0f, 1.0f ) );
+			m_pEffect->SetVector("vWorldLightPos", &D3DXVECTOR4(-15.0f, 2.0f, -7.0f, 1.0f));
 			m_pEffect->SetVector("vWorldCameraPos", &D3DXVECTOR4( vEye, 1.0f ) );
 			m_pEffect->SetVector("vMaterialAmbient", &D3DXVECTOR4( 0.53f, 0.53f, 0.53f, 0.53f ) );
 			m_pEffect->SetVector("vMaterialDiffuse", &D3DXVECTOR4( 1.0f, 1.0f, 1.0f, 1.0f ) );

@@ -1,6 +1,6 @@
 #pragma once
 
-class iMap;
+class cMapRender;
 
 class cCrtController
 {
@@ -8,6 +8,7 @@ private:
 	bool						m_isRight;
 	float						m_fSpeed;
 	SYNTHESIZE(float, m_fAngleX, fAngleX);
+	SYNTHESIZE(float, m_fAngleY, fAngleY);
 
 	D3DXVECTOR3					m_vPosition;
 	D3DXMATRIXA16				m_matWorld;
@@ -17,13 +18,18 @@ public:
 	~cCrtController(void);
 
 	void Setup();
-	void Update(iMap* pMap = NULL);
+	void Update(cMapRender* pMap = NULL);
 	
 	D3DXVECTOR3* GetPosition()
 	{
 		return &m_vPosition;
 	}
 	
+	void SetPosition(D3DXVECTOR3* v)
+	{
+		m_vPosition = *v;
+	}
+
 	D3DXMATRIXA16* GetWorldTM()
 	{
 		return &m_matWorld;

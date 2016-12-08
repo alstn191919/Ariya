@@ -101,6 +101,7 @@
     <ClInclude Include="cGrid.h" />
     <ClInclude Include="cGroup.h" />
     <ClInclude Include="cHeightMap.h" />
+    <ClInclude Include="cHero.h" />
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cMapRender.h" />
     <ClInclude Include="cMtlTex.h" />
@@ -147,6 +148,7 @@
     <ClCompile Include="cGrid.cpp" />
     <ClCompile Include="cGroup.cpp" />
     <ClCompile Include="cHeightMap.cpp" />
+    <ClCompile Include="cHero.cpp" />
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cMapRender.cpp" />
     <ClCompile Include="cMtlTex.cpp" />

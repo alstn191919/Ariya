@@ -5,7 +5,7 @@
 #include "cHeightMap.h"
 #include "cMtlTex.h"
 
-cMapRender::cMapRender() :
+cMapRender::cMapRender() :  
 m_pMapMesh(NULL)
 , gpLightingShader(NULL)
 , gLightColor(D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f))
@@ -20,7 +20,7 @@ cMapRender::~cMapRender()
 
 	/*for each(auto p in gpLightingShader)
 	{
-	SAFE_RELEASE(p.Shader);
+		SAFE_RELEASE(p.Shader);
 	}*/
 
 	for each(auto p in m_vecMtlTex)
@@ -29,7 +29,7 @@ cMapRender::~cMapRender()
 	}
 }
 
-void cMapRender::Setup()
+void cMapRender:: Setup()
 {
 	D3DXMATRIXA16 matS, matT, mat;
 	D3DXMatrixTranslation(&matT, MapPositionX, MapPositionY, MapPositionZ);
@@ -50,7 +50,7 @@ void cMapRender::Setup()
 }
 void cMapRender::Update()
 {
-
+	
 }
 void cMapRender::Render(D3DXVECTOR3 _gWorldCameraPosition)
 {
@@ -75,7 +75,7 @@ void cMapRender::Render(D3DXVECTOR3 _gWorldCameraPosition)
 	{
 		p.Shader->SetMatrix("gWorldMatrix", &matWorld);
 		p.Shader->SetMatrix("gWorldViewProjectionMatrix", &matWorldViewProjection);
-		p.Shader->SetFloat("gRange", 20.0f); // ºû ¹üÀ§ ¼³Á¤
+		p.Shader->SetFloat("gRange", 1000.0f); // ºû ¹üÀ§ ¼³Á¤
 		p.Shader->SetFloat("gAlphaBlend", 0.8f); // ºû ¼¼±â ¾ËÆÄ°ª
 		p.Shader->SetVector("gWorldLightPosition", &p.Position);
 		p.Shader->SetVector("gWorldCameraPosition", &gWorldCameraPosition);
@@ -103,7 +103,8 @@ void cMapRender::Render(D3DXVECTOR3 _gWorldCameraPosition)
 
 bool cMapRender::GetHeight(IN float x, OUT float& y, IN float z)
 {
-	D3DXVECTOR3 vRayPos(x, y + 5, z);
+	float Y = y + 5;
+	D3DXVECTOR3 vRayPos(x, Y, z);
 	D3DXVECTOR3 vRayDir(0, -1, 0);
 	float u, v, d;
 	for (size_t i = 0; i < m_vecSurface.size(); i += 3)
@@ -113,7 +114,7 @@ bool cMapRender::GetHeight(IN float x, OUT float& y, IN float z)
 		D3DXVECTOR3 v2 = m_vecSurface[i + 2];
 		if (D3DXIntersectTri(&v0, &v1, &v2, &vRayPos, &vRayDir, &u, &v, &d))
 		{
-			y = (y + 5) - d;
+			y = Y - d;
 			return true;
 		}
 	}
@@ -181,6 +182,6 @@ void cMapRender::Load(char* szSurface)
 				m_vecSurface.push_back(p);
 			}
 		}
-		fclose(fp);
 	}
+	fclose(fp);
 }

@@ -130,19 +130,10 @@ STDMETHODIMP cAllocateHierarchy2::DestroyMeshContainer(
 	}
 	pBoneMesh->vecMtlTex.clear();
 	SAFE_RELEASE(pBoneMesh->pSkinInfo);
-	int a = sizeof(pBoneMesh->pBoneOffsetMatrices);
-	if (a>1)
-	{
-		SAFE_DELETE_ARRAY(pBoneMesh->pBoneOffsetMatrices);
-		SAFE_DELETE_ARRAY(pBoneMesh->pCurrentBoneMatrices);
-		SAFE_DELETE_ARRAY(pBoneMesh->ppBoneMatrixPtrs);
-	}
-	else
-	{
-		SAFE_DELETE(pBoneMesh->pBoneOffsetMatrices);
-		SAFE_DELETE(pBoneMesh->pCurrentBoneMatrices);
-		SAFE_DELETE(pBoneMesh->ppBoneMatrixPtrs);
-	}
+	
+	SAFE_DELETE_ARRAY(pBoneMesh->pBoneOffsetMatrices);
+	SAFE_DELETE_ARRAY(pBoneMesh->pCurrentBoneMatrices);
+	SAFE_DELETE_ARRAY(pBoneMesh->ppBoneMatrixPtrs);
 
 	SAFE_DELETE(pMeshContainerToFree);
 
