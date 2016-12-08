@@ -18,6 +18,9 @@ private:
 	// 객체마다 생성
 	LPD3DXANIMATIONCONTROLLER	m_pAnimController;
 	D3DXVECTOR3					m_vPosition;
+	float										m_fBlendTime;
+	float										m_fPassedAnimTime;
+	bool										m_isBlending;
 
 	SYNTHESIZE(D3DXVECTOR3, m_Min, Min);
 	SYNTHESIZE(D3DXVECTOR3, m_Max, Max);
@@ -42,6 +45,14 @@ public:
 	ST_SPHERE* GetBoundingSphere()
 	{
 		return &m_stBoundingSphere;
+	}
+	D3DXVECTOR3 GetMin()
+	{
+		return D3DXVECTOR3(1,0,1);
+	}
+	D3DXVECTOR3 GetMax()
+	{
+		return D3DXVECTOR3(-1, 4, -1);
 	}
 private:
 	cSkinnedMesh();
