@@ -39,9 +39,9 @@ void cMapRender:: Setup()
 	cObjLoader objloader;
 	m_pMapMesh = objloader.Load("objMap/objmap.obj", m_vecMtlTex, &mat);
 	//ST_SHADER s_shader(D3DXVECTOR3(500.0f, 500.0f, -500.0f));
-	ST_SHADER s_shader(D3DXVECTOR3(-15.0f, 3.0f, 10.0f));
-	//s_shader.Shader = g_pLightShaderManager->Getshader("./shader/NormalMapping.fx");
-	s_shader.Shader = g_pLightShaderManager->Getshader("./shader/SpecularMapping.fx");
+	ST_SHADER s_shader(D3DXVECTOR3(-15.0f, 2.0f, -7.0f));
+	s_shader.Shader = g_pLightShaderManager->Getshader("./shader/NormalMapping_test.fx");
+	//s_shader.Shader = g_pLightShaderManager->Getshader("./shader/SpecularMapping.fx");
 	gpLightingShader.push_back(s_shader);
 	//ST_SHADER s_shader2(D3DXVECTOR3(-45.0f, 5.0f, 10.0f));
 	//s_shader2.Shader = g_pLightShaderManager->Getshader("./shader/SpecularMapping.fx");
@@ -62,21 +62,23 @@ void cMapRender::Render(D3DXVECTOR3 _gWorldCameraPosition)
 
 	// 월드,뷰,프로젝션 메트릭스 
 	D3DXMATRIXA16	matWorld, matView, matProjection;
+	D3DXMATRIXA16 matWorldView, matWorldViewProjection;
 	g_pD3DDevice->GetTransform(D3DTS_WORLD, &matWorld);
-	g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
 	g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
+	g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
+	D3DXMatrixMultiply(&matWorldView, &matWorld, &matView);
+	D3DXMatrixMultiply(&matWorldViewProjection, &matWorldView, &matProjection);
 
 	// 쉐이더 렌더링
 	for each(auto p in gpLightingShader)
 	{
 		p.Shader->SetMatrix("gWorldMatrix", &matWorld);
-		p.Shader->SetMatrix("gViewMatrix", &matView);
-		p.Shader->SetMatrix("gProjectionMatrix", &matProjection);
-
+		p.Shader->SetMatrix("gWorldViewProjectionMatrix", &matWorldViewProjection);
+		p.Shader->SetFloat("gRange", 20.0f);
 		p.Shader->SetVector("gWorldLightPosition", &p.Position);
 		p.Shader->SetVector("gWorldCameraPosition", &gWorldCameraPosition);
-		p.Shader->SetVector("gLightColor", &gLightColor);
 
+		p.Shader->SetVector("gLightColor", &gLightColor);
 		for (size_t j = 0; j < m_vecMtlTex.size(); ++j)
 		{
 			p.Shader->SetTexture("DiffuseMap_Tex", m_vecMtlTex[j]->GetTexture());

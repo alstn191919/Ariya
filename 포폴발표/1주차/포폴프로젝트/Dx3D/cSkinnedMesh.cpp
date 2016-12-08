@@ -176,7 +176,7 @@ void cSkinnedMesh::Render(ST_BONE* pBone /*= NULL*/)
 
 			m_pEffect->SetMatrix("g_mViewProj", &matViewProj);
 			m_pEffect->SetVector("vLightDiffuse", &D3DXVECTOR4( 1.0f, 1.0f, 1.0f, 1.0f ) );
-			m_pEffect->SetVector("vWorldLightPos", &D3DXVECTOR4( 500.0f, 500.0f, 500.0f, 1.0f ) );
+			m_pEffect->SetVector("vWorldLightPos", &D3DXVECTOR4(-15.0f, 2.0f, -7.0f, 1.0f));
 			m_pEffect->SetVector("vWorldCameraPos", &D3DXVECTOR4( vEye, 1.0f ) );
 			m_pEffect->SetVector("vMaterialAmbient", &D3DXVECTOR4( 0.53f, 0.53f, 0.53f, 0.53f ) );
 			m_pEffect->SetVector("vMaterialDiffuse", &D3DXVECTOR4( 1.0f, 1.0f, 1.0f, 1.0f ) );
