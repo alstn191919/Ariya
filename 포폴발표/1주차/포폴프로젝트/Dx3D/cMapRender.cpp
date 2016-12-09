@@ -41,12 +41,12 @@ void cMapRender::Setup()
 	m_pMapMesh = objloader.Load("objMap/objmap.obj", m_vecMtlTex, &mat);
 	Load("objMap/2FsurFace.obj");
 	//m_pMapMesh = objloader.Load("objMap/2Fsurface.obj", m_vecMtlTex, &mat);
-	ST_SHADER s_shader(D3DXVECTOR3(-15.0f, 2.0f, -7.0f));
+	ST_SHADER s_shader(D3DXVECTOR3(-10.0f, 2.0f, 4.0f));
 	s_shader.Shader = g_pLightShaderManager->Getshader("./shader/NormalMapping_Blend.fx");
 	gpLightingShader.push_back(s_shader);
-	//ST_SHADER s_shader2(D3DXVECTOR3(-45.0f, 5.0f, 10.0f));
-	//s_shader2.Shader = g_pLightShaderManager->Getshader("./shader/SpecularMapping.fx");
-	//gpLightingShader.push_back(s_shader2);
+	/*ST_SHADER s_shader2(D3DXVECTOR3(-20.0f, 2.0f, 4.0f));
+	s_shader2.Shader = g_pLightShaderManager->Getshader("./shader/NormalMapping_Blend.fx");
+	gpLightingShader.push_back(s_shader2);*/
 }
 void cMapRender::Update()
 {
@@ -69,14 +69,22 @@ void cMapRender::Render(D3DXVECTOR3 _gWorldCameraPosition)
 	g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
 	D3DXMatrixMultiply(&matWorldView, &matWorld, &matView);
 	D3DXMatrixMultiply(&matWorldViewProjection, &matWorldView, &matProjection);
-
+	
 	// ½¦ÀÌ´õ ·»´õ¸µ
 	for each(auto p in gpLightingShader)
 	{
+		if (_X >= 1)
+		{
+			_X = 0.0f;
+		}
+		else
+		{
+			_X += 0.01f;
+		}
 		p.Shader->SetMatrix("gWorldMatrix", &matWorld);
 		p.Shader->SetMatrix("gWorldViewProjectionMatrix", &matWorldViewProjection);
-		p.Shader->SetFloat("gRange", 20.0f); // ºû ¹üÀ§ ¼³Á¤
-		p.Shader->SetFloat("gAlphaBlend", 0.8f); // ºû ¼¼±â ¾ËÆÄ°ª
+		p.Shader->SetFloat("gRange",8.0f); // ºû ¹üÀ§ ¼³Á¤
+		p.Shader->SetFloat("gAlphaBlend", _X); // ºû ¼¼±â ¾ËÆÄ°ª
 		p.Shader->SetVector("gWorldLightPosition", &p.Position);
 		p.Shader->SetVector("gWorldCameraPosition", &gWorldCameraPosition);
 
@@ -98,6 +106,7 @@ void cMapRender::Render(D3DXVECTOR3 _gWorldCameraPosition)
 			}
 			p.Shader->End();
 		}
+		int a = 0;
 	}
 }
 
@@ -113,8 +122,15 @@ bool cMapRender::GetHeight(IN float x, OUT float& y, IN float z)
 		D3DXVECTOR3 v2 = m_vecSurface[i + 2];
 		if (D3DXIntersectTri(&v0, &v1, &v2, &vRayPos, &vRayDir, &u, &v, &d))
 		{
-			y = (y + 5) - d;
-			return true;
+			if (d > 6)
+			{
+				//return false;
+			}
+			else
+			{
+				y = (y + 5) - d;
+				return true;
+			}
 		}
 	}
 	y = 0;

@@ -12,7 +12,9 @@ class cOBB;
 #include "cUIButton.h"
 
 #define RADIUS 0.3f
-#define charsize 0.02f
+#define charsizeX 0.02f
+#define charsizeY 0.018f
+#define charsizeZ 0.02f
 
 class cMainGame
 {

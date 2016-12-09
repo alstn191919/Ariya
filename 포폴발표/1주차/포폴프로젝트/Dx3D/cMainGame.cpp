@@ -260,11 +260,6 @@ void cMainGame::Update()
 	D3DXMatrixIdentity(&mat);
 
 //	m_pObbObj->Update(&mat);
-
-
-
-	
-	
 }
 
 void cMainGame::Render()
@@ -272,7 +267,7 @@ void cMainGame::Render()
 	g_pD3DDevice->Clear(NULL,
 		NULL,
 		D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-		D3DCOLOR_XRGB(47, 121, 112),
+		D3DCOLOR_XRGB(0, 0, 0),
 		//D3DCOLOR_XRGB(0, 0, 255),
 		1.0f, 0);
 	g_pD3DDevice->BeginScene();
@@ -289,7 +284,7 @@ void cMainGame::Render()
 	//
 
 	//캐릭 랜더
-	D3DXMatrixScaling(&matS, charsize, charsize, charsize);
+	D3DXMatrixScaling(&matS, charsizeX, charsizeY, charsizeZ);
 	_zMat = *m_pController->GetWorldTM();
 	_zMat = matS * _zMat;
 	m_pZealot->SetPosition(D3DXVECTOR3(_zMat._41,_zMat._42,_zMat._43));
@@ -298,14 +293,13 @@ void cMainGame::Render()
 
 
 	// 그리드
-//	m_pGrid->Render();
+	//m_pGrid->Render();
 	//
 
-	
 	//obb 충돌시 처리는 어차피 플레이어에 대한 처리밖에 없으므로 그냥 논리형 반환값으로 가짐
 	//obb 처리는 오브젝트 충돌시 못지나가게 하는용도와 앉을때 장애물 있을시 못일어나게 하는 용도 뿐이라 이렇게 처리함.
 
-	if (ObjectManager->IsCollision(m_pObb))
+		if (ObjectManager->IsCollision(m_pObb))
 		{
 			m_pObb->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
 		}
@@ -313,9 +307,6 @@ void cMainGame::Render()
 		{
 			m_pObb->DebugRender(D3DCOLOR_XRGB(255, 255, 255));
 		}
-	
-	
-
 	/*if (cOBB::IsCollision(m_pObb, ObjectManager->GetInstance()->`))
 	{
 		m_pObbObj->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
