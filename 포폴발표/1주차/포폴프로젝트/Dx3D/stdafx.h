@@ -158,6 +158,33 @@ enum OBJ_TYPE{
 	Room,		//¹æ
 };
 
+enum CRT_STATE
+{
+	CRT_IDLE = 0,			//±âº»
+	CRT_WALK,				//°È±â
+	CRT_RUN,				//¶Ù±â
+	CRT_CRAWL,			//±â¾î°¡±â
+	CRT_NONE
+};
+
+enum ENUM_DIRECTION
+{
+	DR_LEFT = 0,				//ÁÂ
+	DR_RIGHT,					//¿ì
+	DR_FORWARD,			//¾Õ
+	DR_BACKWARD,			//µÚ
+	DR_NONE
+};
+
+enum CRT_INTERACTION
+{
+	ACTION_DOOR = 0,
+	ACTION_DESK,
+	ACTION_ITEM,
+	ACTION_CATCH,
+	ACTION_NONE
+};
+
 #include "cDeviceManager.h"
 #include "cTimeManager.h"
 #include "cTextureManager.h"

@@ -1,42 +1,54 @@
 #pragma once
 class cSkinnedMesh;
 
+//주인공 클래스
+//현재 state 및 direction 이넘문으로 작성하였으나 이후 비트연산으로 전환 예정
+//maingame 클래스에서 키입력을 받아 변경하는 방식
+
 class cHero
 {
 private:
 	enum CRT_ANIMLIST
 	{
-		CRT_ANIM_STAY_CRAWL = 0,			//앉아서 제자리
-		CRT_ANIM_BACKWALK_CRAWL,		//앉아서 뒷걸음
-		CRT_ANIM_FORDWALK_CRAWL,		//앉아서 앞으로
-		CRT_ANIM_LEFTWALK,		//좌로 걸음
-		CRT_ANIM_BACKWALK,		//뒤로 걸음
-		CRT_ANIM_FORDWALK,		//앞으로 걸음
-		CRT_ANIM_IDLE,					//제자리
-		CRT_ANIM_JUMPOVER_FAST,	//뛰면서 장애물 넘기
-		CRT_ANIM_STANDUP,			//(앉아있다가) 일어나기
-		CRT_ANIM_CATCH,				//잡히기
-		CRT_ANIM_MISSIONFAILED,	//미션실패
-		CRT_ANIM_OPEN_FAST,		//뛰면서 문열기
-		CRT_ANIM_JUMPOVER,		//장애물 넘기
-		CRT_ANIM_GRAB,				//아이템 줍기
-		CRT_ANIM_JUMP,				//제자리 점프
-		CRT_ANIM_RUN,					//뛰기
-		CRT_ANIM_NONE
+		ANIM_STAY_CRAWL = 0,			//앉아서 제자리
+		ANIM_BACKWALK_CRAWL,		//앉아서 뒷걸음
+		ANIM_FORDWALK_CRAWL,		//앉아서 앞으로
+		ANIM_LEFTWALK,		//좌로 걸음
+		ANIM_BACKWALK,		//뒤로 걸음
+		ANIM_FORDWALK,		//앞으로 걸음
+		ANIM_IDLE,					//제자리
+		ANIM_JUMPOVER_FAST,	//뛰면서 장애물 넘기
+		ANIM_STANDUP,			//(앉아있다가) 일어나기
+		ANIM_CATCH,				//잡히기
+		ANIM_MISSIONFAILED,	//미션실패
+		ANIM_OPEN_FAST,		//뛰면서 문열기
+		ANIM_JUMPOVER,		//장애물 넘기
+		ANIM_GRAB,				//아이템 줍기
+		ANIM_JUMP,				//제자리 점프
+		ANIM_RUN,					//뛰기
+		ANIM_NONE
 	};
 
 private:
 	cSkinnedMesh*						m_pSkinnedMesh;
-	CRT_STATE							m_enumState;
-	ENUM_DIRECTION				m_enumDirection;
-	D3DXVECTOR3					m_Min;
-	D3DXVECTOR3					m_Max;
+	CRT_STATE							m_enumState;				//캐릭터 상태
+	ENUM_DIRECTION				m_enumDirection;			//키보드 방향
+	bool										m_isInteract;					//상호작용 여부
+	CRT_INTERACTION				m_enumInteraction;		//상호작용
+														//바운딩 박스용
+	D3DXVECTOR3						m_Min;
+	D3DXVECTOR3						m_Max;
 
 public:
 	cHero(char* szDirectory, char* szFilename);
 	~cHero();
 
 	void UpdateAndRender(D3DXMATRIXA16* pmat = NULL);
+
+	void SetAnimationCrawl();
+	void SetAnimationIdle();
+	void SetAnimationWalk();
+	void SetAnimationRun();
 
 	/*		SET		*/
 	void SetAnimationIndex(int nIndex);
@@ -49,7 +61,6 @@ public:
 	cSkinnedMesh* GetMesh();
 	D3DXVECTOR3 GetPosition();
 	ST_SPHERE* GetBoundingSphere();
-
 };
 
 /*

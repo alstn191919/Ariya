@@ -11,6 +11,7 @@
 #include "cUITextView.h"
 #include "cUIButton.h"
 #include "cOBB.h"
+#include "cHero.h"
 enum eUITag
 {
 	E_TEXTVIEW = 3,
@@ -22,7 +23,7 @@ cMainGame::cMainGame(void)
 	: m_pCamera(NULL)
 	, m_pGrid(NULL)
 	, m_pController(NULL)
-	, m_pZealot(NULL)
+	, m_pHero(NULL)
 	, m_pMap(NULL)
 	, _isRuning(false), FrameCnt(0), TimeElapsed(0.0f), FPS(0.0f)
 	, m_pSkinnedMesh(NULL)
@@ -34,7 +35,7 @@ cMainGame::~cMainGame(void)
 	SAFE_DELETE(m_pCamera);
 	SAFE_DELETE(m_pGrid);
 	SAFE_DELETE(m_pController);
-	SAFE_DELETE(m_pZealot);
+	SAFE_DELETE(m_pHero);
 	SAFE_DELETE(m_pMap);
 	SAFE_DELETE(m_pSkinnedMesh);
 
@@ -238,9 +239,9 @@ void cMainGame::Setup()
 	m_pGrid = new cGrid;
 	m_pGrid->Setup(30);
 
-	m_pZealot = new cSkinnedMesh("Character/", "hero.X");
-	m_pZealot->SetAnimationIndex(4);
-	m_pZealot->SetPosition(D3DXVECTOR3(0, 0, 0));
+	m_pHero = new cHero("Character/", "hero.X");
+	m_pHero->SetAnimationIndex(6);							//기본(제자리)
+	m_pHero->SetPosition(D3DXVECTOR3(0, 0, 0));
 
 	m_pMap = new cMapRender;
 	m_pMap->Setup();
@@ -248,16 +249,13 @@ void cMainGame::Setup()
 	//오브젝트 매니져 사용 메뉴얼 
 	SetUITest();
 
-	m_pZealot->SetMin(D3DXVECTOR3(-1, 0, -1));
-	m_pZealot->SetMax(D3DXVECTOR3(1, 3, 1));
-
-
+	//캐릭터의 매시는 GetMesh() 메소드 사용
 	m_pObb = new cOBB;
-	m_pObb->Setup(m_pZealot);
-	
+	m_pObb->Setup(m_pHero->GetMesh());
+
 
 	m_pObbObj = new cOBB;
-	m_pObbObj->Setup(m_pZealot);
+	m_pObbObj->Setup(m_pHero->GetMesh());
 
 	SetLight();
 }
@@ -271,7 +269,7 @@ void cMainGame::Update()
 		m_pController->Update(m_pMap);
 	
 	if(m_pCamera)
-		m_pCamera->Update(&m_pZealot->GetPosition(),&m_pController->GetDirection());
+		m_pCamera->Update(&m_pHero->GetPosition(),&m_pController->GetDirection());
 
 	m_pController->SetfAngleX(m_pCamera->GetfAngleY());
 
@@ -328,8 +326,8 @@ void cMainGame::Render()
 	D3DXMatrixScaling(&matS, charsize, charsize, charsize);
 	_zMat = *m_pController->GetWorldTM();
 	_zMat = matS * _zMat;
-	m_pZealot->SetPosition(D3DXVECTOR3(_zMat._41,_zMat._42,_zMat._43));
-	m_pZealot->UpdateAndRender(&_zMat);
+	m_pHero->SetPosition(D3DXVECTOR3(_zMat._41,_zMat._42,_zMat._43));
+	m_pHero->UpdateAndRender(&_zMat);
 	//
 
 
@@ -380,7 +378,7 @@ void cMainGame::Render()
 	g_pD3DDevice->Present(NULL, NULL, NULL, NULL);
 }
 
-void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
+void cMainGame::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (m_pCamera)
 	{
@@ -388,48 +386,139 @@ void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 	}
 
 
-	switch(message)
+	//키보드 처리
+	//현재 임시값 space 누르고 있으면 달린다
+	switch (message)
 	{
 	case WM_KEYDOWN:
+	{
+		switch (wParam)
 		{
-			switch(wParam)
+		case VK_SPACE:
+		{
+			_isRuning = true;
+			m_pHero->SetState(CRT_STATE::CRT_RUN);
+			break;
+		}
+		case 'W':
+		{
+			//방향 설정 : 정면
+			m_pHero->SetDirection(ENUM_DIRECTION::DR_FORWARD);
+			if (!_isRuning)
 			{
-			case 'W':
-			{
-						_isRuning = true;
-						break;
+				if (_isCrawling)
+				{
+					m_pHero->SetState(CRT_STATE::CRT_CRAWL);
+				}
+				else
+				{
+					m_pHero->SetState(CRT_STATE::CRT_WALK);
+				}
 			}
-			case 'S':
+			break;
+		}
+		case 'S':
+		{
+			m_pHero->SetDirection(ENUM_DIRECTION::DR_BACKWARD);
+
+			if (!_isRuning)
 			{
-						_isRuning = true;
-						break;
+				if (_isCrawling)
+				{
+					m_pHero->SetState(CRT_STATE::CRT_CRAWL);
+				}
+				else
+				{
+					m_pHero->SetState(CRT_STATE::CRT_WALK);
+				}
 			}
+			break;
+		}
+		case 'A':
+		{
+			m_pHero->SetDirection(ENUM_DIRECTION::DR_LEFT);
+
+			if (!_isRuning)
+			{
+				if (_isCrawling)
+				{
+					m_pHero->SetState(CRT_STATE::CRT_CRAWL);
+				}
+				else
+				{
+					m_pHero->SetState(CRT_STATE::CRT_WALK);
+				}
 			}
 		}
-		break;
+		case 'D':
+		{
+			m_pHero->SetDirection(ENUM_DIRECTION::DR_RIGHT);
+
+			if (!_isRuning)
+			{
+				if (_isCrawling)
+				{
+					m_pHero->SetState(CRT_STATE::CRT_CRAWL);
+				}
+				else
+				{
+					m_pHero->SetState(CRT_STATE::CRT_WALK);
+				}
+			}
+		}
+		}
+	}
+	break;
+
 	case WM_KEYUP:
 	{
-		   switch (wParam)
-		   {
-		   case 'W':
-		   {
-					   _isRuning = false;
-					   break;
-		   }
-		   case 'S':
-		   {
-					   _isRuning = false;
-					   break;
-		   }
-		   }
-	}
-		break;
-	case WM_LBUTTONDOWN:
+		switch (wParam)
 		{
-			int x = LOWORD(lParam);
-			int y = HIWORD(lParam);
+		case VK_SPACE:
+		{
+			_isRuning = false;
+			m_pHero->SetState(CRT_STATE::CRT_IDLE);
+			break;
 		}
-		break;
+		case 'W':
+		{
+			if (!_isRuning)
+			{
+				m_pHero->SetState(CRT_STATE::CRT_IDLE);
+			}
+			break;
+		}
+		case 'S':
+		{
+			if (!_isRuning)
+			{
+				m_pHero->SetState(CRT_STATE::CRT_IDLE);
+			}
+			break;
+		}
+		case 'A':
+		{
+			if (!_isRuning)
+			{
+				m_pHero->SetState(CRT_STATE::CRT_IDLE);
+			}
+		}
+		case 'D':
+		{
+			if (!_isRuning)
+			{
+				m_pHero->SetState(CRT_STATE::CRT_IDLE);
+			}
+		}
+		}
+	}
+	break;
+	case WM_LBUTTONDOWN:
+	{
+		int x = LOWORD(lParam);
+		int y = HIWORD(lParam);
+	}
+	break;
 	}
 }
 
