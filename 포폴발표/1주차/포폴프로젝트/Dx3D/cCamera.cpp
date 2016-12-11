@@ -28,12 +28,13 @@ void cCamera::Setup()
 	D3DXMatrixPerspectiveFovLH(&m_matProj, D3DX_PI / 4.0f, rc.right / (float)rc.bottom, 1, 1000);
 	g_pD3DDevice->SetTransform(D3DTS_PROJECTION, &m_matProj);
 
+
 }
 
 void cCamera::Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection)
 {
-
-	//SetCursor(NULL);
+	//m_vEye = D3DXVECTOR3(0, 0, -m_fDistance);
+	//m_vLookAt = D3DXVECTOR3(0, 0, 0);
 
 	D3DXMATRIXA16 matRX, matRY, matT, mat;
 	D3DXMatrixRotationX(&matRX, m_fAngleX);
@@ -82,6 +83,13 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		ObjectManager->SetNonSelect();
 
 	}
+	if (GetAsyncKeyState(VK_LBUTTON) & 1)
+	{
+		
+		GetCursorPos(&temp);
+		m_fTempX = m_fAngleX;
+		m_fTempY = m_fAngleY;
+	}
 	switch(message)
 	{
 	case WM_LBUTTONDOWN:
@@ -96,6 +104,8 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 				m_ptOBJPrevMouse.y = HIWORD(lParam);
 				m_isLButtonDown = false;
 				m_isLButtonOBJDown = true;
+
+				
 
 
 				if (ObjectManager->Getselect_index() == NonSlect && ObjectManager->getPinkedObjType() == OBJ_TYPE::item || ObjectManager->getPinkedObjType() == OBJ_TYPE::door)
@@ -115,7 +125,7 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 				}
 			}
 
-
+			//오브젝트  선택 되어있을시 해당 오브젝트의 앵글값을 계속 받아옴
 			if (ObjectManager->Getselect_index() != NonSlect)
 			{
 				m_ptOBJPrevMouse.x = LOWORD(lParam);
@@ -131,6 +141,11 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		break;
 	case WM_LBUTTONUP:
 		{
+			if (m_isLButtonOBJDown)
+			{
+				SetCursorPos(temp.x, temp.y);
+			}
+			
 			m_isLButtonDown = false;
 			m_isLButtonOBJDown = false;
 			if (ObjectManager->getPinkedObjType() == door)ObjectManager->SetNonSelect();
@@ -138,23 +153,26 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		break;
 	case WM_MOUSEMOVE:
 	{
-		//if(m_isLButtonDown)
-			//{
+		if (!m_isLButtonOBJDown)
+			{
 			POINT pt;
 			pt.x = LOWORD(lParam);
 			pt.y = HIWORD(lParam);
 
 			m_fAngleX = pt.y * -0.015f;
 
-			if(m_fAngleX > -D3DX_PI * 0.4f - EPSILON)
-			   m_fAngleX = -D3DX_PI * 0.4f - EPSILON;
+			//if(m_fAngleX > D3DX_PI / 2.0f - EPSILON)
+			//   m_fAngleX = D3DX_PI / 2.0f - EPSILON;
 
 			if (m_fAngleX <= -D3DX_PI * 1.6f + EPSILON)
 				m_fAngleX = -D3DX_PI * 1.6f + EPSILON;
 
 			m_fAngleY = pt.x* 0.015f;
 
-			//커서 다시 중간에 돌려놓기
+			//m_ptPrevMouse = pt;
+
+
+					//커서 다시 중간에 돌려놓기
 			if ((m_fAngleY > D3DX_PI * 4.4f) || (m_fAngleY < D3DX_PI / 2.2f ))
 			{
 				RECT rc;
@@ -163,6 +181,7 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 				ClientToScreen(g_hWnd, &pt);
 				SetCursorPos(pt.x, pt.y);
 			}
+		}
 
 			if (m_isLButtonOBJDown)
 			{

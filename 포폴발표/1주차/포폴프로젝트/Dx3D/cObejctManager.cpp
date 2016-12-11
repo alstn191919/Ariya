@@ -8,6 +8,7 @@
 cObejctManager::cObejctManager()
 	:m_select_index(NonSlect)
 	, DoorClose(0.0f)
+	, b_Collision(false)
 	
 {
 }
@@ -28,10 +29,9 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 
 	newobject->Load(sFolder, sFile);
 
-	newobject->SetInter(false);
-
 	newobject->SetWolrd(Pogi, size);
 
+	newobject->SetInter(false);
 
 	cOBB * obb;
 
@@ -54,15 +54,13 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 
 	newobject->Load(sFolder, sFile);
 
-	newobject->SetInter(true);
-
-	newobject->SetObjType(_objtype);
-
 	newobject->SetWolrd(Pogi, size);
 
 	newobject->m_sSphre = _Sphre;
 
+	newobject->SetInter(true);
 
+	newobject->SetObjType(_objtype);
 
 	if(_Text.size())newobject->SetText(_Text);
 
@@ -71,6 +69,35 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 	//SAFE_DELETE(newobject);
 }
 
+
+void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, ST_SPHERE _Sphre, OBJ_TYPE _objtype, std::string _Text, D3DXVECTOR3 Min, D3DXVECTOR3 Max)
+{
+	cSkinnedMesh2* newobject;
+
+	newobject = new cSkinnedMesh2;
+
+	newobject->Load(sFolder, sFile);
+
+	newobject->SetWolrd(Pogi, size);
+
+	newobject->m_sSphre = _Sphre;
+
+	newobject->SetInter(true);
+
+	newobject->SetObjType(_objtype);
+
+	if (_Text.size())newobject->SetText(_Text);
+
+	cOBB * obb;
+
+	obb = new cOBB;
+
+	obb->Setup(Min, Max);
+
+	newobject->SetObb(obb);
+
+	object.push_back(newobject);
+}
 
 
 void cObejctManager::Update()
@@ -134,7 +161,8 @@ void cObejctManager::Update()
 			//
 			//object[2]->SetWolrd(D3DXVECTOR3(leftp, -17, -105.5f), D3DXVECTOR3(0.06f, 0.07f, 0.06f));
 			//object[3]->SetWolrd(D3DXVECTOR3(rightp, -17, -105.5f), D3DXVECTOR3(0.06f, 0.07f, 0.06f));
-			//여기서 문ㅇㄹ자
+			//여기서 문ㅇㄹ자			}
+
 			
 			//m_sleect_index = i;
 		}
@@ -171,14 +199,21 @@ void cObejctManager::Render()
 				DoorClose = 0;
 			}
 		}*/
-		
+
+		//다음 프로젝트 여는 순간 이 if 업데이트문 지워버려!!! ☆
+		if (object[i]->GetObb())
+		{
+			
+			object[i]->GetObb()->Update(object[i]->GetWolrd());
+		}
+
 		if (GetAsyncKeyState(VK_F1)&0x8001)
 		{
 			if (object[i]->GetObb())
 			{
 			//	object[i]->ObjRender();
-			
-				object[i]->GetObb()->Update(object[i]->GetWolrd());
+				
+				
 				object[i]->GetObb()->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
 			}
 		}
@@ -336,7 +371,8 @@ bool cObejctManager::IsCollision(cOBB * player)
 	{
 		if (object[i]->GetObb())
 		{
-			if (cOBB::IsCollision(player, object[i]->GetObb()))return true;
+			if (cOBB::IsCollision(player, object[i]->GetObb()))
+				return true;
 		}
 	}
 	return false;

@@ -30,8 +30,7 @@ private:
 	bool						_isRuning;
 	bool						_isCrawling;
 	D3DXMATRIXA16				_zMat;
-	DWORD						FrameCnt;
-	float						TimeElapsed;
+	DWORD						FrameCnt;	float						TimeElapsed;
 	float						FPS;
 
 	cSkinnedMesh2*				m_pSkinnedMesh;

@@ -12,7 +12,10 @@ private:
 
 	SYNTHESIZE(float, m_fAngleX, fAngleX);
 	SYNTHESIZE(float, m_fAngleY, fAngleY);
-
+	float             m_fTempX;
+	float             m_fTempY;
+	//HCURSOR temp;
+	POINT temp;
 	float               m_fDistance;
 
 	//오브젝트 용

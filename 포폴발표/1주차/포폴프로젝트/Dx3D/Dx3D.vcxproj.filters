@@ -28,8 +28,8 @@
     <Filter Include="UI">
       <UniqueIdentifier>{454967fe-d046-484f-8d2a-b89624b3eb42}</UniqueIdentifier>
     </Filter>
-    <Filter Include="캐릭터">
-      <UniqueIdentifier>{5367858a-4853-44a5-a93d-6c40c9350882}</UniqueIdentifier>
+    <Filter Include="컨트롤러">
+      <UniqueIdentifier>{fde28639-2337-4666-a3a7-372d6572673c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -55,12 +55,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="cGrid.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cCamera.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cCrtController.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="cObjLoader.h">
@@ -102,6 +96,9 @@
     <ClInclude Include="cRay.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="cSkinnedMesh.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="cFrostumCulling.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -118,6 +115,9 @@
       <Filter>매니저</Filter>
     </ClInclude>
     <ClInclude Include="cDeviceManager.h">
+      <Filter>매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="cAllocateHierarchy.h">
       <Filter>매니저</Filter>
     </ClInclude>
     <ClInclude Include="cAseLoader.h">
@@ -171,14 +171,14 @@
     <ClInclude Include="cOBB.h">
       <Filter>매니저</Filter>
     </ClInclude>
+    <ClInclude Include="cCamera.h">
+      <Filter>컨트롤러</Filter>
+    </ClInclude>
+    <ClInclude Include="cCrtController.h">
+      <Filter>컨트롤러</Filter>
+    </ClInclude>
     <ClInclude Include="cHero.h">
-      <Filter>캐릭터</Filter>
-    </ClInclude>
-    <ClInclude Include="cAllocateHierarchy.h">
-      <Filter>캐릭터</Filter>
-    </ClInclude>
-    <ClInclude Include="cSkinnedMesh.h">
-      <Filter>캐릭터</Filter>
+      <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -189,12 +189,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cGrid.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="cCamera.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="cCrtController.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cObjLoader.cpp">
@@ -233,6 +227,9 @@
     <ClCompile Include="cRay.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="cSkinnedMesh.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="cFrostumCulling.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -240,6 +237,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cDeviceManager.cpp">
+      <Filter>매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="cAllocateHierarchy.cpp">
       <Filter>매니저</Filter>
     </ClCompile>
     <ClCompile Include="cSkinnedMeshManager.cpp">
@@ -302,14 +302,14 @@
     <ClCompile Include="cOBB.cpp">
       <Filter>매니저</Filter>
     </ClCompile>
+    <ClCompile Include="cCamera.cpp">
+      <Filter>컨트롤러</Filter>
+    </ClCompile>
+    <ClCompile Include="cCrtController.cpp">
+      <Filter>컨트롤러</Filter>
+    </ClCompile>
     <ClCompile Include="cHero.cpp">
-      <Filter>캐릭터</Filter>
-    </ClCompile>
-    <ClCompile Include="cAllocateHierarchy.cpp">
-      <Filter>캐릭터</Filter>
-    </ClCompile>
-    <ClCompile Include="cSkinnedMesh.cpp">
-      <Filter>캐릭터</Filter>
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

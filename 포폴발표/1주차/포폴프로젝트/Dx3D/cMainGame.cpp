@@ -11,7 +11,7 @@
 #include "cUITextView.h"
 #include "cUIButton.h"
 #include "cOBB.h"
-#include "cHero.h"
+#include"cHero.h"
 enum eUITag
 {
 	E_TEXTVIEW = 3,
@@ -28,6 +28,7 @@ cMainGame::cMainGame(void)
 	, _isRuning(false), FrameCnt(0), TimeElapsed(0.0f), FPS(0.0f)
 	, m_pSkinnedMesh(NULL)
 {
+	//g_bOBBCollision = false;
 }
 
 cMainGame::~cMainGame(void)
@@ -59,6 +60,8 @@ ADDobject 만 해주시면 나머지 상호작용 처리및 OBB처리는  다 objectManager가 자동�
 */
 void cMainGame::SetUITest()
 {
+
+
 	D3DXVECTOR3 Scal;						//스케일... 
 	D3DXVECTOR3 p(10, 0, 0);				//포지션 위치 설정용
 	ST_SPHERE pt;							//피킹용 구 크기를 잡아줌
@@ -69,7 +72,7 @@ void cMainGame::SetUITest()
 	//1. OBB 충돌 오브젝트 추가 (바운딩 박스 안에 플레이어가 들어올시 이벤트 처리해줄수있습니다.)
 	//ADDobject 오브젝트를 추가합니다.
 	
-	//여기부터 엘리베이터 부분임돠
+//여기부터 엘리베이터 부분임돠
 	//엘리베이터 버튼(구피킹용으로 임시로 medkit 가져옴)
 	Scal = D3DXVECTOR3(0.01, 0.01, 0.01);
 	p = D3DXVECTOR3(63.6, -13.5, -105.5);
@@ -116,9 +119,8 @@ void cMainGame::SetUITest()
 	//문2 (index 3)
 	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, Min, Max);
 
-
 	Scal = D3DXVECTOR3(0.1,0.1,0.1);
-	ObjectManager->ADDobject("Lamp", "Lamp.X", Scal, Scal, Min, Max);
+	ObjectManager->ADDobject("Lamp", "Lamp.X", p, Scal, Min, Max);
 
 	p.x = -25;
 	p.z = -15;
@@ -178,12 +180,16 @@ void cMainGame::SetUITest()
 	pt.isPicked = false;
 	pt.fRadius = 1;
 
+
+	Min = D3DXVECTOR3(-1, 0, -1);
+	Max = D3DXVECTOR3(2, 3, 1);
+
 	Scal = D3DXVECTOR3(0.8, 0.65, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.");
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.",Min,Max);
 	//ObjectManager->ADDobject("Beds", "screen.x", p, 0.1, pt, OBJ_TYPE::door, "문인것같다.");
 
 	Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
-	p.z = -30;
+	p = D3DXVECTOR3(0, 0, 0);
 
 	pt.vCenter = p;
 	pt.isPicked = false;
@@ -192,13 +198,33 @@ void cMainGame::SetUITest()
 	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::item, "");
 	//         아이템 타입은 충돌시 클릭하게 되면 카메라 고정될텐데 esc 누르면 풀리게 해놨습니다.
 	p.z = 0;
+
+
+
+
+
+	p.z = 0;
+	p.y = -0.6;
+	p.x = -25;
+	//0.468685;07.50739;5.85491;
+	/*pt.vCenter = p;
+	pt.vCenter.x = pt.vCenter.x + 2;
+	pt.vCenter.y = pt.vCenter.y + 3;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+
+	Min = D3DXVECTOR3(-1, 0, -1);
+	Max = D3DXVECTOR3(2, 3, 1);
+
+	Scal = D3DXVECTOR3(0.8, 0.65, 0.7);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max);*/
+
 	
 
-
-
-
-
 	//밑에는 UI설정
+
+
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 
 	cUIImageView* pImageView = new cUIImageView;
@@ -249,10 +275,13 @@ void cMainGame::Setup()
 	//오브젝트 매니져 사용 메뉴얼 
 	SetUITest();
 
-	//캐릭터의 매시는 GetMesh() 메소드 사용
+	/*m_pZealot->SetMin(D3DXVECTOR3(-1, 0, -1));
+	m_pZealot->SetMax(D3DXVECTOR3(1, 3, 0));*/
+
+
 	m_pObb = new cOBB;
 	m_pObb->Setup(m_pHero->GetMesh());
-
+	
 
 	m_pObbObj = new cOBB;
 	m_pObbObj->Setup(m_pHero->GetMesh());
@@ -265,8 +294,18 @@ void cMainGame::Update()
 	g_pTimeManager->Update();
 	Getfps(g_pTimeManager->GetDeltaTime());
 
+	//_zMat = *m_pController->GetWorldTM();
+
+	//m_pObb->Update(&_zMat);
+
+
+
+	/*if (ObjectManager->IsCollision(m_pObb))
+		ObjectManager->SetCollision(true);
+	else ObjectManager->SetCollision(false);*/
+
 	if(m_pController)
-		m_pController->Update(m_pMap);
+		m_pController->Update(m_pMap , m_pObb);
 	
 	if(m_pCamera)
 		m_pCamera->Update(&m_pHero->GetPosition(),&m_pController->GetDirection());
@@ -286,18 +325,18 @@ void cMainGame::Update()
 	}
 
 
-
-	_zMat = *m_pController->GetWorldTM();
-
-	m_pObb->Update(&_zMat);
+	
 
 
+	/*D3DXMATRIXA16 mat;
 
-	D3DXMATRIXA16 mat;
-
-	D3DXMatrixIdentity(&mat);
+	D3DXMatrixIdentity(&mat);*/
 
 //	m_pObbObj->Update(&mat);
+
+
+
+	
 	
 }
 
@@ -327,8 +366,8 @@ void cMainGame::Render()
 	_zMat = *m_pController->GetWorldTM();
 	_zMat = matS * _zMat;
 	m_pHero->SetPosition(D3DXVECTOR3(_zMat._41,_zMat._42,_zMat._43));
-	m_pHero->UpdateAndRender(&_zMat);
-	//
+	m_pHero->UpdateAndRender(&_zMat);	//
+
 
 
 	// 그리드
@@ -339,7 +378,10 @@ void cMainGame::Render()
 	//obb 충돌시 처리는 어차피 플레이어에 대한 처리밖에 없으므로 그냥 논리형 반환값으로 가짐
 	//obb 처리는 오브젝트 충돌시 못지나가게 하는용도와 앉을때 장애물 있을시 못일어나게 하는 용도 뿐이라 이렇게 처리함.
 
-	if (ObjectManager->IsCollision(m_pObb))
+
+	
+	g_pD3DDevice->SetTexture(0, NULL);
+	if (ObjectManager->GetCollision())
 		{
 			m_pObb->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
 		}
@@ -348,7 +390,7 @@ void cMainGame::Render()
 			m_pObb->DebugRender(D3DCOLOR_XRGB(255, 255, 255));
 		}
 	
-	
+	ObjectManager->Render();
 
 	/*if (cOBB::IsCollision(m_pObb, ObjectManager->GetInstance()->`))
 	{
@@ -360,7 +402,7 @@ void cMainGame::Render()
 	}*/
 
 
-	ObjectManager->Render();
+	
 
 	if (m_pUIRoot && ObjectManager->isPinked() &&
 		(ObjectManager->getPinkedObjType() == OBJ_TYPE::Switch) || (ObjectManager->getPinkedObjType() == OBJ_TYPE::door))
@@ -373,12 +415,12 @@ void cMainGame::Render()
 	sprintf_s(str, "FPS: %.2f", FPS);
 	SetWindowText(g_hWnd, str);
 	//
-
+	
 	g_pD3DDevice->EndScene();
 	g_pD3DDevice->Present(NULL, NULL, NULL, NULL);
 }
 
-void cMainGame::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 {
 	if (m_pCamera)
 	{

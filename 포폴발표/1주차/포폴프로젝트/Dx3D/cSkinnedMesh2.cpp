@@ -229,12 +229,16 @@ void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size)
 
 	m_wolrd = matS * matR * mat *m_wolrd;
 
+	
+
+
 }
 
 void cSkinnedMesh2::ObjRender()
 {
 	if (m_eObjType == door)
-	{
+	{	
+
 		D3DXMATRIXA16 matRX, matRY, mat;
 		D3DXMatrixIdentity(&mat);
 
@@ -251,9 +255,19 @@ void cSkinnedMesh2::ObjRender()
 		//m_wolrd = mat* m_wolrd;
 
 		g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
+		m_sSphre.vCenter;
+		D3DXMATRIXA16 a = m_Obb->GetmatWorldTM();
+		m_Obb->Update(&mat);
+		
+
+
+		this;
+		printf("aa");
+	//	m_Obb->
 	}
 	else
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_wolrd);
+
 	if (m_pRootBone == NULL) return;
 	Render(m_pRootBone);
 }
@@ -264,8 +278,6 @@ void cSkinnedMesh2::ObjEvent()
 	POINT pt;
 	GetCursorPos(&pt);
 	ScreenToClient(g_hWnd, &pt);
-
-
 
 	bool isLButtonDown = (bool)(GetKeyState(VK_LBUTTON) & 0x8000);
 	if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
@@ -280,6 +292,8 @@ void cSkinnedMesh2::ObjVIEWRender()
 	D3DXMatrixIdentity(&mat);
 
 	g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &inverProj);
+
+
 
 	g_pD3DDevice->GetTransform(D3DTS_VIEW, &viewamat);
 
@@ -311,5 +325,7 @@ void cSkinnedMesh2::ObjVIEWRender()
 	if (m_pRootBone == NULL) return;
 	Render(m_pRootBone);
 
-	//g_pD3DDevice->SetTransform(D3DTS_WORLD, &viewmat);	
+	//g_pD3DDevice->SetTransform(D3DTS_WORLD, &viewmat);
+
+	
 }

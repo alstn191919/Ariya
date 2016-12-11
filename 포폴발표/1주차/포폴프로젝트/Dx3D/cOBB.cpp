@@ -69,6 +69,8 @@ void cOBB::Update( D3DXMATRIXA16* pmatWorld )
 	if(pmatWorld)
 		m_matWorldTM = *pmatWorld;
 
+
+
 	for (int i = 0; i < 3; ++i)
 	{
 		D3DXVec3TransformNormal(

@@ -18,7 +18,6 @@ private:
 	SYNTHESIZE(cOBB*, m_Obb, Obb);				//obb
 	SYNTHESIZE(bool, b_isOpen, isOpen);			//문열였는지 체크
 
-
 	
 	
 public:
