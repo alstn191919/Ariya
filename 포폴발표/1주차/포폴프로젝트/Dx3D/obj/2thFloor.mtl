@@ -1,0 +1,79 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+#
+newmtl DefaultMaterial
+Kd 0.6 0.6 0.6
+Ka  0 0 0
+Ks  0 0 0
+d  1.0
+illum 2
+#
+newmtl owt_diffuse
+Kd 1 1 1
+Ka  0 0 0
+Ks  0 0 0
+d  1.0
+map_Kd ./obj/owt_diffuse.png
+illum 2
+#
+newmtl owt_bump
+Kd 1 1 1
+Ka  0 0 0
+Ks  0 0 0
+d  1.0
+map_Kd ./obj/owt_bump.png
+illum 2
+#
+newmtl sofa_green
+Kd 1 1 1
+Ka  0 0 0
+Ks  0 0 0
+d  1.0
+map_Kd ./obj/sofa_green.png
+illum 2
+#
+newmtl Material
+Kd 0.8 0.8 0.8
+Ka  0 0 0
+Ks  0 0 0
+d  1.0
+illum 2
+#
+newmtl mattrees3
+Kd 1 1 1
+Ka  0 0 0
+Ks  0 0 0
+d  1.0
+map_Kd ./obj/mattrees3.png
+illum 2
+#
+newmtl Material #25
+Kd 0.588 0.588 0.588
+Ka  0 0 0
+Ks  0 0 0
+d  1.0
+illum 2
+#
+newmtl Default-Material
+Kd 1 1 1
+Ka  0 0 0
+Ks  0 0 0
+d  1.0
+illum 2
+#
+newmtl tile
+Kd 1 1 1
+Ka  0 0 0
+Ks  0 0 0
+d  1.0
+map_Kd ./obj/tile.png
+illum 2
+#
+newmtl bayge-2-h
+Kd 1 1 1
+Ka  0 0 0
+Ks  0 0 0
+d  1.0
+map_Kd ./obj/bayge-2-h.png
+illum 2
+#
+# EOF
