@@ -28,6 +28,9 @@
     <Filter Include="UI">
       <UniqueIdentifier>{454967fe-d046-484f-8d2a-b89624b3eb42}</UniqueIdentifier>
     </Filter>
+    <Filter Include="컨트롤러">
+      <UniqueIdentifier>{fde28639-2337-4666-a3a7-372d6572673c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -52,12 +55,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="cGrid.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cCamera.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cCrtController.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="cObjLoader.h">
@@ -174,6 +171,15 @@
     <ClInclude Include="cOBB.h">
       <Filter>매니저</Filter>
     </ClInclude>
+    <ClInclude Include="cCamera.h">
+      <Filter>컨트롤러</Filter>
+    </ClInclude>
+    <ClInclude Include="cCrtController.h">
+      <Filter>컨트롤러</Filter>
+    </ClInclude>
+    <ClInclude Include="cHero.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -183,12 +189,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cGrid.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="cCamera.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="cCrtController.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cObjLoader.cpp">
@@ -301,6 +301,15 @@
     </ClCompile>
     <ClCompile Include="cOBB.cpp">
       <Filter>매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="cCamera.cpp">
+      <Filter>컨트롤러</Filter>
+    </ClCompile>
+    <ClCompile Include="cCrtController.cpp">
+      <Filter>컨트롤러</Filter>
+    </ClCompile>
+    <ClCompile Include="cHero.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

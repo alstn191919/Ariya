@@ -26,6 +26,7 @@
 #include <string>
 #include <assert.h>
 
+
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
 
@@ -153,7 +154,35 @@ struct ST_SIZE
 enum OBJ_TYPE{
 	Switch,			//스위치
 	door,			//문
-	item			//아이템
+	item,			//아이템
+	Room,		//방
+};
+
+enum CRT_STATE
+{
+	CRT_IDLE = 0,			//기본
+	CRT_WALK,				//걷기
+	CRT_RUN,				//뛰기
+	CRT_CRAWL,			//기어가기
+	CRT_NONE
+};
+
+enum ENUM_DIRECTION
+{
+	DR_LEFT = 0,				//좌
+	DR_RIGHT,					//우
+	DR_FORWARD,			//앞
+	DR_BACKWARD,			//뒤
+	DR_NONE
+};
+
+enum CRT_INTERACTION
+{
+	ACTION_DOOR = 0,
+	ACTION_DESK,
+	ACTION_ITEM,
+	ACTION_CATCH,
+	ACTION_NONE
 };
 
 #include "cDeviceManager.h"

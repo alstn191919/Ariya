@@ -1,0 +1,13 @@
+newmtl Floor
+Kd 1 1 1
+Ka 1 1 1
+Ks 1 1 1
+map_Kd ./Elivator/Floor.tga
+illum 2
+
+newmtl tile
+Kd 1 1 1
+Ka 1 1 1
+Ks 1 1 1
+map_Kd ./Elivator/tile.tga
+illum 2

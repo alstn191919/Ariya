@@ -9,6 +9,8 @@ class cMapRender;
 class cSkinnedMesh2;
 class cUITextView;
 class cOBB;
+class cHero;
+
 #include "cUIButton.h"
 
 #define RADIUS 0.3f
@@ -21,16 +23,16 @@ class cMainGame
 private:
 	cCamera*					m_pCamera;
 	cGrid*						m_pGrid;
-	cCrtController*				m_pController;
-	cSkinnedMesh*				m_pZealot;
-	cMapRender*					m_pMap;
+	cCrtController*			m_pController;
+	cHero*						m_pHero;
+	cMapRender*			m_pMap;
 	cOBB*						m_pObb;
 	cOBB*						m_pObbObj;
 private:
 	bool						_isRuning;
+	bool						_isCrawling;
 	D3DXMATRIXA16				_zMat;
-	DWORD						FrameCnt;
-	float						TimeElapsed;
+	DWORD						FrameCnt;	float						TimeElapsed;
 	float						FPS;
 
 	cSkinnedMesh2*				m_pSkinnedMesh;

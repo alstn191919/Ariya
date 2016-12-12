@@ -11,6 +11,7 @@
 #include "cUITextView.h"
 #include "cUIButton.h"
 #include "cOBB.h"
+#include"cHero.h"
 enum eUITag
 {
 	E_TEXTVIEW = 3,
@@ -22,11 +23,12 @@ cMainGame::cMainGame(void)
 	: m_pCamera(NULL)
 	, m_pGrid(NULL)
 	, m_pController(NULL)
-	, m_pZealot(NULL)
+	, m_pHero(NULL)
 	, m_pMap(NULL)
 	, _isRuning(false), FrameCnt(0), TimeElapsed(0.0f), FPS(0.0f)
 	, m_pSkinnedMesh(NULL)
 {
+	//g_bOBBCollision = false;
 }
 
 cMainGame::~cMainGame(void)
@@ -34,7 +36,7 @@ cMainGame::~cMainGame(void)
 	SAFE_DELETE(m_pCamera);
 	SAFE_DELETE(m_pGrid);
 	SAFE_DELETE(m_pController);
-	SAFE_DELETE(m_pZealot);
+	SAFE_DELETE(m_pHero);
 	SAFE_DELETE(m_pMap);
 	SAFE_DELETE(m_pSkinnedMesh);
 
@@ -70,10 +72,55 @@ void cMainGame::SetUITest()
 	//1. OBB 충돌 오브젝트 추가 (바운딩 박스 안에 플레이어가 들어올시 이벤트 처리해줄수있습니다.)
 	//ADDobject 오브젝트를 추가합니다.
 	
+//여기부터 엘리베이터 부분임돠
+	//엘리베이터 버튼(구피킹용으로 임시로 medkit 가져옴)
+	Scal = D3DXVECTOR3(0.01, 0.01, 0.01);
+	p = D3DXVECTOR3(63.6, -13.5, -105.5);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 0.5f;
+	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::Switch, "E버튼을 누르시오");
 
+
+	//Scal = D3DXVECTOR3(30.0f, 30.0f, 30.0f);
+	//p = D3DXVECTOR3(61.6f, -17, -105.5f);
+	//ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, Min, Max);
+	//Scal = D3DXVECTOR3(30.0f, 30.0f, 30.0f);
+	//p = D3DXVECTOR3(64.0f, -17, -105.5f);
+	//ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, Min, Max);
+
+	//엘리베이터 통
+	Scal = D3DXVECTOR3(1.1, 1.1, 1.1);
+	p = D3DXVECTOR3(62, -17, -108);
+	ObjectManager->ADDobject("Elivator", "Elivator.X", p, Scal, pt, OBJ_TYPE::Room, "");
+
+	////엘리베이터 문 2개
+	//Scal = D3DXVECTOR3(0.06f, 0.07f, 0.06f);
+	//p = D3DXVECTOR3(61.6f, -17, -105.5f);
+	////문1 (index 2)
+	//ObjectManager->ADDobject("Elivator/door", "door2.X", p, Scal, Min, Max);
+	//Scal = D3DXVECTOR3(0.06f, 0.07f, 0.06f);
+	//p = D3DXVECTOR3(64.0f, -17, -105.5f);
+	////문2 (index 3)
+	//ObjectManager->ADDobject("Elivator/door", "door2.X", p, Scal, Min, Max);
+	
+
+	//닫힌문 포지션
+	//p = D3DXVECTOR3(60.6f, -17, -105.5f);
+	//p = D3DXVECTOR3(63.0f, -17, -105.5f);
+	
+	//엘리베이터 문 2개
+	Scal = D3DXVECTOR3(27.0f, 27.0f, 27.0f);
+	p = D3DXVECTOR3(60.6f, -17, -105.5f);
+	//문1 (index 2)
+	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, Min, Max);
+	Scal = D3DXVECTOR3(27.0f, 27.0f, 27.0f);
+	p = D3DXVECTOR3(63.0f, -17, -105.5f);
+	//문2 (index 3)
+	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, Min, Max);
 
 	Scal = D3DXVECTOR3(0.1,0.1,0.1);
-	ObjectManager->ADDobject("Lamp", "Lamp.X", Scal, Scal, Min, Max);
+	ObjectManager->ADDobject("Lamp", "Lamp.X", p, Scal, Min, Max);
 
 	p.x = -25;
 	p.z = -15;
@@ -81,16 +128,11 @@ void cMainGame::SetUITest()
 	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, Min, Max);
 	//		인자값:      	 폴더명   파일명 , 위치, 오브젝트 크기  -> 이렇게 추가하시면 기능없이 그냥 오브젝트만 추가됩니다.
 
-	
-
-	
-
 	pt.vCenter.x = 0;
 	pt.vCenter.y = 0;
 	pt.vCenter.z = 0;
 	pt.isPicked = false;
 	pt.fRadius = 1;
-
 
 	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, Min, Max);
 
@@ -138,12 +180,16 @@ void cMainGame::SetUITest()
 	pt.isPicked = false;
 	pt.fRadius = 1;
 
+
+	Min = D3DXVECTOR3(-1, 0, -1);
+	Max = D3DXVECTOR3(2, 3, 1);
+
 	Scal = D3DXVECTOR3(0.8, 0.65, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.");
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.",Min,Max);
 	//ObjectManager->ADDobject("Beds", "screen.x", p, 0.1, pt, OBJ_TYPE::door, "문인것같다.");
 
 	Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
-	p.z = -30;
+	p = D3DXVECTOR3(0, 0, 0);
 
 	pt.vCenter = p;
 	pt.isPicked = false;
@@ -152,6 +198,27 @@ void cMainGame::SetUITest()
 	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::item, "");
 	//         아이템 타입은 충돌시 클릭하게 되면 카메라 고정될텐데 esc 누르면 풀리게 해놨습니다.
 	p.z = 0;
+
+
+
+
+
+	p.z = 0;
+	p.y = -0.6;
+	p.x = -25;
+	//0.468685;07.50739;5.85491;
+	/*pt.vCenter = p;
+	pt.vCenter.x = pt.vCenter.x + 2;
+	pt.vCenter.y = pt.vCenter.y + 3;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+
+	Min = D3DXVECTOR3(-1, 0, -1);
+	Max = D3DXVECTOR3(2, 3, 1);
+
+	Scal = D3DXVECTOR3(0.8, 0.65, 0.7);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max);*/
 
 	
 
@@ -198,9 +265,9 @@ void cMainGame::Setup()
 	m_pGrid = new cGrid;
 	m_pGrid->Setup(30);
 
-	m_pZealot = new cSkinnedMesh("Character/", "hero.X");
-	m_pZealot->SetAnimationIndex(4);
-	m_pZealot->SetPosition(D3DXVECTOR3(0, 0, 0));
+	m_pHero = new cHero("Character/", "hero.X");
+	m_pHero->SetAnimationIndex(6);							//기본(제자리)
+	m_pHero->SetPosition(D3DXVECTOR3(0, 0, 0));
 
 	m_pMap = new cMapRender;
 	m_pMap->Setup();
@@ -208,16 +275,16 @@ void cMainGame::Setup()
 	//오브젝트 매니져 사용 메뉴얼 
 	SetUITest();
 
-	m_pZealot->SetMin(D3DXVECTOR3(-1, 0, -1));
-	m_pZealot->SetMax(D3DXVECTOR3(1, 3, 1));
+	/*m_pZealot->SetMin(D3DXVECTOR3(-1, 0, -1));
+	m_pZealot->SetMax(D3DXVECTOR3(1, 3, 0));*/
 
 
 	m_pObb = new cOBB;
-	m_pObb->Setup(m_pZealot);
+	m_pObb->Setup(m_pHero->GetMesh());
 	
 
 	m_pObbObj = new cOBB;
-	m_pObbObj->Setup(m_pZealot);
+	m_pObbObj->Setup(m_pHero->GetMesh());
 
 	SetLight();
 }
@@ -227,11 +294,21 @@ void cMainGame::Update()
 	g_pTimeManager->Update();
 	Getfps(g_pTimeManager->GetDeltaTime());
 
+	//_zMat = *m_pController->GetWorldTM();
+
+	//m_pObb->Update(&_zMat);
+
+
+
+	/*if (ObjectManager->IsCollision(m_pObb))
+		ObjectManager->SetCollision(true);
+	else ObjectManager->SetCollision(false);*/
+
 	if(m_pController)
-		m_pController->Update(m_pMap);
+		m_pController->Update(m_pMap , m_pObb);
 	
 	if(m_pCamera)
-		m_pCamera->Update(&m_pZealot->GetPosition(),&m_pController->GetDirection());
+		m_pCamera->Update(&m_pHero->GetPosition(),&m_pController->GetDirection());
 
 	m_pController->SetfAngleX(m_pCamera->GetfAngleY());
 
@@ -248,16 +325,12 @@ void cMainGame::Update()
 	}
 
 
-
-	_zMat = *m_pController->GetWorldTM();
-
-	m_pObb->Update(&_zMat);
+	
 
 
+	/*D3DXMATRIXA16 mat;
 
-	D3DXMATRIXA16 mat;
-
-	D3DXMatrixIdentity(&mat);
+	D3DXMatrixIdentity(&mat);*/
 
 //	m_pObbObj->Update(&mat);
 }
@@ -287,9 +360,9 @@ void cMainGame::Render()
 	D3DXMatrixScaling(&matS, charsizeX, charsizeY, charsizeZ);
 	_zMat = *m_pController->GetWorldTM();
 	_zMat = matS * _zMat;
-	m_pZealot->SetPosition(D3DXVECTOR3(_zMat._41,_zMat._42,_zMat._43));
-	m_pZealot->UpdateAndRender(&_zMat);
-	//
+	m_pHero->SetPosition(D3DXVECTOR3(_zMat._41,_zMat._42,_zMat._43));
+	m_pHero->UpdateAndRender(&_zMat);	//
+
 
 
 	// 그리드
@@ -299,7 +372,10 @@ void cMainGame::Render()
 	//obb 충돌시 처리는 어차피 플레이어에 대한 처리밖에 없으므로 그냥 논리형 반환값으로 가짐
 	//obb 처리는 오브젝트 충돌시 못지나가게 하는용도와 앉을때 장애물 있을시 못일어나게 하는 용도 뿐이라 이렇게 처리함.
 
-		if (ObjectManager->IsCollision(m_pObb))
+
+	
+	g_pD3DDevice->SetTexture(0, NULL);
+	if (ObjectManager->GetCollision())
 		{
 			m_pObb->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
 		}
@@ -307,6 +383,9 @@ void cMainGame::Render()
 		{
 			m_pObb->DebugRender(D3DCOLOR_XRGB(255, 255, 255));
 		}
+	
+	ObjectManager->Render();
+
 	/*if (cOBB::IsCollision(m_pObb, ObjectManager->GetInstance()->`))
 	{
 		m_pObbObj->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
@@ -317,7 +396,7 @@ void cMainGame::Render()
 	}*/
 
 
-	ObjectManager->Render();
+	
 
 	if (m_pUIRoot && ObjectManager->isPinked() &&
 		(ObjectManager->getPinkedObjType() == OBJ_TYPE::Switch) || (ObjectManager->getPinkedObjType() == OBJ_TYPE::door))
@@ -343,48 +422,139 @@ void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 	}
 
 
-	switch(message)
+	//키보드 처리
+	//현재 임시값 space 누르고 있으면 달린다
+	switch (message)
 	{
 	case WM_KEYDOWN:
+	{
+		switch (wParam)
 		{
-			switch(wParam)
+		case VK_SPACE:
+		{
+			_isRuning = true;
+			m_pHero->SetState(CRT_STATE::CRT_RUN);
+			break;
+		}
+		case 'W':
+		{
+			//방향 설정 : 정면
+			m_pHero->SetDirection(ENUM_DIRECTION::DR_FORWARD);
+			if (!_isRuning)
 			{
-			case 'W':
-			{
-						_isRuning = true;
-						break;
+				if (_isCrawling)
+				{
+					m_pHero->SetState(CRT_STATE::CRT_CRAWL);
+				}
+				else
+				{
+					m_pHero->SetState(CRT_STATE::CRT_WALK);
+				}
 			}
-			case 'S':
+			break;
+		}
+		case 'S':
+		{
+			m_pHero->SetDirection(ENUM_DIRECTION::DR_BACKWARD);
+
+			if (!_isRuning)
 			{
-						_isRuning = true;
-						break;
+				if (_isCrawling)
+				{
+					m_pHero->SetState(CRT_STATE::CRT_CRAWL);
+				}
+				else
+				{
+					m_pHero->SetState(CRT_STATE::CRT_WALK);
+				}
 			}
+			break;
+		}
+		case 'A':
+		{
+			m_pHero->SetDirection(ENUM_DIRECTION::DR_LEFT);
+
+			if (!_isRuning)
+			{
+				if (_isCrawling)
+				{
+					m_pHero->SetState(CRT_STATE::CRT_CRAWL);
+				}
+				else
+				{
+					m_pHero->SetState(CRT_STATE::CRT_WALK);
+				}
 			}
 		}
-		break;
+		case 'D':
+		{
+			m_pHero->SetDirection(ENUM_DIRECTION::DR_RIGHT);
+
+			if (!_isRuning)
+			{
+				if (_isCrawling)
+				{
+					m_pHero->SetState(CRT_STATE::CRT_CRAWL);
+				}
+				else
+				{
+					m_pHero->SetState(CRT_STATE::CRT_WALK);
+				}
+			}
+		}
+		}
+	}
+	break;
+
 	case WM_KEYUP:
 	{
-		   switch (wParam)
-		   {
-		   case 'W':
-		   {
-					   _isRuning = false;
-					   break;
-		   }
-		   case 'S':
-		   {
-					   _isRuning = false;
-					   break;
-		   }
-		   }
-	}
-		break;
-	case WM_LBUTTONDOWN:
+		switch (wParam)
 		{
-			int x = LOWORD(lParam);
-			int y = HIWORD(lParam);
+		case VK_SPACE:
+		{
+			_isRuning = false;
+			m_pHero->SetState(CRT_STATE::CRT_IDLE);
+			break;
 		}
-		break;
+		case 'W':
+		{
+			if (!_isRuning)
+			{
+				m_pHero->SetState(CRT_STATE::CRT_IDLE);
+			}
+			break;
+		}
+		case 'S':
+		{
+			if (!_isRuning)
+			{
+				m_pHero->SetState(CRT_STATE::CRT_IDLE);
+			}
+			break;
+		}
+		case 'A':
+		{
+			if (!_isRuning)
+			{
+				m_pHero->SetState(CRT_STATE::CRT_IDLE);
+			}
+		}
+		case 'D':
+		{
+			if (!_isRuning)
+			{
+				m_pHero->SetState(CRT_STATE::CRT_IDLE);
+			}
+		}
+		}
+	}
+	break;
+	case WM_LBUTTONDOWN:
+	{
+		int x = LOWORD(lParam);
+		int y = HIWORD(lParam);
+	}
+	break;
 	}
 }
 

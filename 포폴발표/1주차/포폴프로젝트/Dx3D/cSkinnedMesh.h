@@ -9,7 +9,7 @@ class cSkinnedMesh
 private:
 
 	//하나만 생성
-	ST_BONE*					m_pRootFrame;			
+	ST_BONE*					m_pRootFrame;
 	DWORD						m_dwWorkingPaletteSize;
 	D3DXMATRIX*					m_pmWorkingPalette;
 	LPD3DXEFFECT				m_pEffect;
@@ -18,6 +18,9 @@ private:
 	// 객체마다 생성
 	LPD3DXANIMATIONCONTROLLER	m_pAnimController;
 	D3DXVECTOR3					m_vPosition;
+	float										m_fBlendTime;
+	float										m_fPassedAnimTime;
+	bool										m_isBlending;
 
 	SYNTHESIZE(D3DXVECTOR3, m_Min, Min);
 	SYNTHESIZE(D3DXVECTOR3, m_Max, Max);
@@ -25,7 +28,7 @@ private:
 public:
 	cSkinnedMesh(char* szFolder, char* szFilename);
 	~cSkinnedMesh(void);
-	
+
 	void UpdateAndRender(D3DXMATRIXA16* pmat = NULL);
 	void SetAnimationIndex(int nIndex);
 

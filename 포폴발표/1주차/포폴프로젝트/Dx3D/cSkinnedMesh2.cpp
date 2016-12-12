@@ -200,10 +200,10 @@ void cSkinnedMesh2::SetAnimationIndex( int n )
 
 void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size)
 {
-	D3DXMATRIXA16 mat,matS;
+	D3DXMATRIXA16 mat,matS,matR;
 	
 	D3DXMatrixIdentity(&mat);
-
+	D3DXMatrixIdentity(&matR);
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixScaling(&matS, size.x, size.y, size.z);
 	
@@ -213,12 +213,21 @@ void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size)
 
 	D3DXMatrixTranslation(&mat, p.x, p.y, p.z);
 
+	if (m_eObjType == Room)
+	{
+		D3DXMatrixRotationY(&matR,-D3DX_PI/2.0f);
+	}
+
+	if (m_bInter == false)
+	{
+		D3DXMatrixRotationY(&matR, D3DX_PI / 2.0f);
+	}
 
 	D3DXMatrixIdentity(&m_wolrd);
 
 	//m_wolrd = matS * mat *m_wolrd;
 
-	m_wolrd = matS * mat *m_wolrd ;
+	m_wolrd = matS * matR * mat *m_wolrd;
 
 	
 
@@ -246,9 +255,19 @@ void cSkinnedMesh2::ObjRender()
 		//m_wolrd = mat* m_wolrd;
 
 		g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
+		m_sSphre.vCenter;
+		D3DXMATRIXA16 a = m_Obb->GetmatWorldTM();
+		m_Obb->Update(&mat);
+		
+
+
+		this;
+		printf("aa");
+	//	m_Obb->
 	}
 	else
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_wolrd);
+
 	if (m_pRootBone == NULL) return;
 	Render(m_pRootBone);
 }

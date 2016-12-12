@@ -18,7 +18,7 @@ public:
 	~cCrtController(void);
 
 	void Setup();
-	void Update(cMapRender* pMap = NULL);
+	void Update(cMapRender* pMap , cOBB * poBB);
 
 	D3DXVECTOR3* GetPosition()
 	{

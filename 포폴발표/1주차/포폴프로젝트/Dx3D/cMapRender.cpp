@@ -83,8 +83,8 @@ void cMapRender::Render(D3DXVECTOR3 _gWorldCameraPosition)
 		}
 		p.Shader->SetMatrix("gWorldMatrix", &matWorld);
 		p.Shader->SetMatrix("gWorldViewProjectionMatrix", &matWorldViewProjection);
-		p.Shader->SetFloat("gRange",8.0f); // 빛 범위 설정
-		p.Shader->SetFloat("gAlphaBlend", _X); // 빛 세기 알파값
+		p.Shader->SetFloat("gRange", 1000.0f); // 빛 범위 설정
+		p.Shader->SetFloat("gAlphaBlend", 0.8f); // 빛 세기 알파값
 		p.Shader->SetVector("gWorldLightPosition", &p.Position);
 		p.Shader->SetVector("gWorldCameraPosition", &gWorldCameraPosition);
 

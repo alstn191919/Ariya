@@ -9,8 +9,9 @@ private:
 	D3DXVECTOR3 m_vAxisDir[3];		// 상자에 평행한 세 축의 단위벡터
 	float		m_fAxisLen[3];		// 상자의 평행한 세 축의 길이 fAxisLen[n]은 vAxisDir[n]에 각각 대응한다.
 	float		m_fAxisHalfLen[3];
-
-	D3DXMATRIXA16 m_matWorldTM;
+	
+	SYNTHESIZE_PASS_BY_REF(D3DXMATRIXA16, m_matWorldTM, matWorldTM);
+	//D3DXMATRIXA16 m_matWorldTM;
 public:
 	cOBB(void);
 	~cOBB(void);
