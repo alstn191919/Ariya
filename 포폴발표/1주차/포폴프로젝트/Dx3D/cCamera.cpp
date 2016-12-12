@@ -141,7 +141,6 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 				m_fAngleX_obj = ObjectManager->getAngleX();
 				m_fAngleY_obj = ObjectManager->getAngleY();
 			}
-
 		}
 		break;
 	case WM_LBUTTONUP:
@@ -191,15 +190,15 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 			////m_ptPrevMouse = pt;
 
 
-			//		//커서 다시 중간에 돌려놓기
-			//if ((m_fAngleY > D3DX_PI * 4.4f) || (m_fAngleY < D3DX_PI / 2.2f ))
-			//{
-			//	RECT rc;
-			//	GetClientRect(g_hWnd, &rc);
-			//	pt.x = (rc.right - rc.left) / 2;
-			//	ClientToScreen(g_hWnd, &pt);
-			//	SetCursorPos(pt.x, pt.y);
-			//}
+					//커서 다시 중간에 돌려놓기
+			if ((m_fAngleY > D3DX_PI * 4.4f) || (m_fAngleY < D3DX_PI / 2.2f ))
+			{
+				RECT rc;
+				GetClientRect(g_hWnd, &rc);
+				pt.x = (rc.right - rc.left) / 2;
+				ClientToScreen(g_hWnd, &pt);
+				SetCursorPos(pt.x, pt.y);
+			}
 		}
 
 			if (m_isLButtonOBJDown)
