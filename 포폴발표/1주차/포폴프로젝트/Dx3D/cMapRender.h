@@ -35,6 +35,7 @@ private:
 private:
 	std::vector<D3DXVECTOR3>	m_vecSurface;			// 서페이스 STL
 public:
+	float _X = 0;
 	void Setup();
 	void Update();
 	void Render(D3DXVECTOR3 _gWorldCameraPosition);

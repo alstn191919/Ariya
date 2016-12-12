@@ -14,7 +14,9 @@ class cHero;
 #include "cUIButton.h"
 
 #define RADIUS 0.3f
-#define charsize 0.02f
+#define charsizeX 0.02f
+#define charsizeY 0.018f
+#define charsizeZ 0.02f
 
 class cMainGame
 {
@@ -28,10 +30,13 @@ private:
 	cOBB*						m_pObbObj;
 private:
 	bool						_isRuning;
-	bool						_isCrawling;
 	D3DXMATRIXA16				_zMat;
 	DWORD						FrameCnt;	float						TimeElapsed;
 	float						FPS;
+
+	//캐릭터 관련
+	bool						m_isCrtRunning;
+	bool						m_isCrtCrawling;
 
 	cSkinnedMesh2*				m_pSkinnedMesh;
 

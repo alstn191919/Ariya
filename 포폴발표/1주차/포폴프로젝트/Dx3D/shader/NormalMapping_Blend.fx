@@ -177,7 +177,7 @@ float4 NormalMapping_Pass_0_Pixel_Shader_ps_main(PS_INPUT Input) : COLOR
       float3 viewDir = normalize(Input.mViewDir); 
 
       specular = saturate(dot(reflection, -viewDir ));
-      specular = pow(specular, 5.0f);
+      specular = pow(specular, 20.0f);
       
       float4 specularIntensity  = tex2D(SpecularSampler, Input.mUV);
       specular *= specularIntensity.rgb * gLightColor;

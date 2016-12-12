@@ -27,6 +27,8 @@ cMainGame::cMainGame(void)
 	, m_pMap(NULL)
 	, _isRuning(false), FrameCnt(0), TimeElapsed(0.0f), FPS(0.0f)
 	, m_pSkinnedMesh(NULL)
+	, m_isCrtRunning(false)
+	, m_isCrtCrawling(false)
 {
 	//g_bOBBCollision = false;
 }
@@ -335,11 +337,6 @@ void cMainGame::Update()
 	D3DXMatrixIdentity(&mat);*/
 
 //	m_pObbObj->Update(&mat);
-
-
-
-	
-	
 }
 
 void cMainGame::Render()
@@ -347,7 +344,7 @@ void cMainGame::Render()
 	g_pD3DDevice->Clear(NULL,
 		NULL,
 		D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-		D3DCOLOR_XRGB(47, 121, 112),
+		D3DCOLOR_XRGB(0, 0, 0),
 		//D3DCOLOR_XRGB(0, 0, 255),
 		1.0f, 0);
 	g_pD3DDevice->BeginScene();
@@ -364,7 +361,7 @@ void cMainGame::Render()
 	//
 
 	//캐릭 랜더
-	D3DXMatrixScaling(&matS, charsize, charsize, charsize);
+	D3DXMatrixScaling(&matS, charsizeX, charsizeY, charsizeZ);
 	_zMat = *m_pController->GetWorldTM();
 	_zMat = matS * _zMat;
 	m_pHero->SetPosition(D3DXVECTOR3(_zMat._41,_zMat._42,_zMat._43));
@@ -376,7 +373,6 @@ void cMainGame::Render()
 	//m_pGrid->Render();
 	//
 
-	
 	//obb 충돌시 처리는 어차피 플레이어에 대한 처리밖에 없으므로 그냥 논리형 반환값으로 가짐
 	//obb 처리는 오브젝트 충돌시 못지나가게 하는용도와 앉을때 장애물 있을시 못일어나게 하는 용도 뿐이라 이렇게 처리함.
 
@@ -446,11 +442,13 @@ void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		}
 		case 'W':
 		{
+			_isRuning = true;
+
 			//방향 설정 : 정면
 			m_pHero->SetDirection(ENUM_DIRECTION::DR_FORWARD);
-			if (!_isRuning)
+			if (!m_isCrtRunning)
 			{
-				if (_isCrawling)
+				if (m_isCrtCrawling)
 				{
 					m_pHero->SetState(CRT_STATE::CRT_CRAWL);
 				}
@@ -463,11 +461,13 @@ void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		}
 		case 'S':
 		{
+			_isRuning = true;
+
 			m_pHero->SetDirection(ENUM_DIRECTION::DR_BACKWARD);
 
-			if (!_isRuning)
+			if (!m_isCrtRunning)
 			{
-				if (_isCrawling)
+				if (m_isCrtCrawling)
 				{
 					m_pHero->SetState(CRT_STATE::CRT_CRAWL);
 				}
@@ -480,11 +480,13 @@ void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		}
 		case 'A':
 		{
+			_isRuning = true;
+
 			m_pHero->SetDirection(ENUM_DIRECTION::DR_LEFT);
 
-			if (!_isRuning)
+			if (!m_isCrtRunning)
 			{
-				if (_isCrawling)
+				if (m_isCrtCrawling)
 				{
 					m_pHero->SetState(CRT_STATE::CRT_CRAWL);
 				}
@@ -496,11 +498,13 @@ void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		}
 		case 'D':
 		{
+			_isRuning = true;
+
 			m_pHero->SetDirection(ENUM_DIRECTION::DR_RIGHT);
 
-			if (!_isRuning)
+			if (!m_isCrtRunning)
 			{
-				if (_isCrawling)
+				if (m_isCrtCrawling)
 				{
 					m_pHero->SetState(CRT_STATE::CRT_CRAWL);
 				}
@@ -526,6 +530,8 @@ void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		}
 		case 'W':
 		{
+			_isRuning = false;
+
 			if (!_isRuning)
 			{
 				m_pHero->SetState(CRT_STATE::CRT_IDLE);
@@ -534,6 +540,8 @@ void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		}
 		case 'S':
 		{
+
+			_isRuning = false;
 			if (!_isRuning)
 			{
 				m_pHero->SetState(CRT_STATE::CRT_IDLE);
@@ -542,6 +550,8 @@ void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		}
 		case 'A':
 		{
+			_isRuning = false;
+
 			if (!_isRuning)
 			{
 				m_pHero->SetState(CRT_STATE::CRT_IDLE);
@@ -549,6 +559,8 @@ void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		}
 		case 'D':
 		{
+			_isRuning = false;
+
 			if (!_isRuning)
 			{
 				m_pHero->SetState(CRT_STATE::CRT_IDLE);
