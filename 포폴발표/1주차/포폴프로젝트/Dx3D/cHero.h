@@ -2,7 +2,7 @@
 class cSkinnedMesh;
 
 //주인공 클래스
-//현재 state 및 direction 이넘문으로 작성하였으나 이후 비트연산으로 전환 예정 (시간이 된다면)
+//현재 state 및 direction 이넘문으로 작성하였으나 이후 비트연산으로 전환 예정
 //maingame 클래스에서 키입력을 받아 변경하는 방식
 
 class cHero

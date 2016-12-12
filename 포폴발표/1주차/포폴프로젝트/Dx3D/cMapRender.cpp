@@ -28,31 +28,30 @@ cMapRender::~cMapRender()
 		SAFE_RELEASE(p);
 	}
 }
-
-void cMapRender::Setup()
+//(¸Êobj,¼­ÆäÀÌ½º¸Êobj,¸ÊÀ§Ä¡,¼­ÆäÀÌ½º¸ÊÀ§Ä¡,¸ÊÅ©±â)
+void cMapRender::Setup(char* fileName, char* surFace,
+	D3DXVECTOR3 Position, D3DXVECTOR3 sPosition, D3DXVECTOR3 lightPosition, float Scale)
 {
 	D3DXMATRIXA16 matS, matT, mat;
-	D3DXMatrixTranslation(&matT, MapPositionX, MapPositionY, MapPositionZ);
-	//D3DXMatrixTranslation(&matT, SurPositionX, SurPositionY, SurPositionZ);
-	D3DXMatrixScaling(&matS, Mapsize, Mapsize, Mapsize);
+	D3DXMatrixTranslation(&matT, Position.x, Position.y, Position.z);
+	D3DXMatrixScaling(&matS, Scale, Scale, Scale);
 	mat = matS * matT;
 
 	cObjLoader objloader;
-	m_pMapMesh = objloader.Load("objMap/objmap.obj", m_vecMtlTex, &mat);
-	Load("objMap/2FsurFace.obj");
-	//m_pMapMesh = objloader.Load("objMap/2Fsurface.obj", m_vecMtlTex, &mat);
-	ST_SHADER s_shader(D3DXVECTOR3(-10.0f, 2.0f, 4.0f));
+	m_pMapMesh = objloader.Load(fileName, m_vecMtlTex, &mat);
+	if (surFace != NULL)
+	{
+		Load(surFace, sPosition);
+	}
+	ST_SHADER s_shader(lightPosition);
 	s_shader.Shader = g_pLightShaderManager->Getshader("./shader/NormalMapping_Blend.fx");
 	gpLightingShader.push_back(s_shader);
-	/*ST_SHADER s_shader2(D3DXVECTOR3(-20.0f, 2.0f, 4.0f));
-	s_shader2.Shader = g_pLightShaderManager->Getshader("./shader/NormalMapping_Blend.fx");
-	gpLightingShader.push_back(s_shader2);*/
 }
 void cMapRender::Update()
 {
 
 }
-void cMapRender::Render(D3DXVECTOR3 _gWorldCameraPosition)
+void cMapRender::Render(D3DXVECTOR3 _gWorldCameraPosition,float lightRange)
 {
 	//Ä«¸Þ¶ó ´« ¹Þ¾Æ¿È
 	D3DXVECTOR4 gWorldCameraPosition(D3DXVECTOR4(
@@ -62,7 +61,7 @@ void cMapRender::Render(D3DXVECTOR3 _gWorldCameraPosition)
 		1));
 
 	// ¿ùµå,ºä,ÇÁ·ÎÁ§¼Ç ¸ÞÆ®¸¯½º 
-	D3DXMATRIXA16	matWorld, matView, matProjection;
+	D3DXMATRIXA16 matWorld, matView, matProjection;
 	D3DXMATRIXA16 matWorldView, matWorldViewProjection;
 	g_pD3DDevice->GetTransform(D3DTS_WORLD, &matWorld);
 	g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
@@ -73,17 +72,9 @@ void cMapRender::Render(D3DXVECTOR3 _gWorldCameraPosition)
 	// ½¦ÀÌ´õ ·»´õ¸µ
 	for each(auto p in gpLightingShader)
 	{
-		if (_X >= 1)
-		{
-			_X = 0.0f;
-		}
-		else
-		{
-			_X += 0.01f;
-		}
 		p.Shader->SetMatrix("gWorldMatrix", &matWorld);
 		p.Shader->SetMatrix("gWorldViewProjectionMatrix", &matWorldViewProjection);
-		p.Shader->SetFloat("gRange", 1000.0f); // ºû ¹üÀ§ ¼³Á¤
+		p.Shader->SetFloat("gRange", lightRange); // ºû ¹üÀ§ ¼³Á¤
 		p.Shader->SetFloat("gAlphaBlend", 0.8f); // ºû ¼¼±â ¾ËÆÄ°ª
 		p.Shader->SetVector("gWorldLightPosition", &p.Position);
 		p.Shader->SetVector("gWorldCameraPosition", &gWorldCameraPosition);
@@ -106,7 +97,6 @@ void cMapRender::Render(D3DXVECTOR3 _gWorldCameraPosition)
 			}
 			p.Shader->End();
 		}
-		int a = 0;
 	}
 }
 
@@ -137,7 +127,7 @@ bool cMapRender::GetHeight(IN float x, OUT float& y, IN float z)
 	return false;
 }
 
-void cMapRender::Load(char* szSurface)
+void cMapRender::Load(char* szSurface, D3DXVECTOR3 Position)
 {
 	std::vector<D3DXVECTOR3>	vecV;
 
@@ -190,9 +180,9 @@ void cMapRender::Load(char* szSurface)
 				D3DXVECTOR3 p = vecV[aIndex[i] - 1];
 				D3DXMATRIXA16 pmat;
 				D3DXMatrixIdentity(&pmat);
-				pmat._41 = SurPositionX;
-				pmat._42 = SurPositionY;
-				pmat._43 = SurPositionZ;
+				pmat._41 = Position.x;
+				pmat._42 = Position.y;
+				pmat._43 = Position.z;
 				D3DXVec3TransformCoord(&p, &p, &pmat);
 				m_vecSurface.push_back(p);
 			}

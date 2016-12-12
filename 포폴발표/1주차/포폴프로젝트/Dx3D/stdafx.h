@@ -185,6 +185,20 @@ enum CRT_INTERACTION
 	ACTION_NONE
 };
 
+struct ST_SHADER
+{
+	LPD3DXEFFECT Shader;		// ½¦ÀÌ´õ
+	D3DXVECTOR4 Position;		// ½¦ÀÌ´õ À§Ä¡
+
+	ST_SHADER() { Shader = NULL; Position = D3DXVECTOR4(0, 0, 0, 1); }
+	ST_SHADER(D3DXVECTOR3 Pos)
+	{
+		Shader = NULL;
+		Position = D3DXVECTOR4(Pos.x, Pos.y, Pos.z, 1);
+	}
+};
+
+
 #include "cDeviceManager.h"
 #include "cTimeManager.h"
 #include "cTextureManager.h"
@@ -196,3 +210,4 @@ enum CRT_INTERACTION
 #include "cObejctManager.h"
 #include "cUIObject.h"
 #include "cFontManager.h"
+#include "cSceneManager.h"

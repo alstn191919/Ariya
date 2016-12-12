@@ -12,9 +12,6 @@ cSkinnedMesh::cSkinnedMesh(char* szFolder, char* szFilename)
 	, m_pmWorkingPalette(NULL)
 	, m_pEffect(NULL)
 	, m_vPosition(0, 0, 0)
-	, m_fBlendTime(0.6f)
-	, m_fPassedAnimTime(0.0f)
-	, m_isBlending(false)
 {
 	cSkinnedMesh* pSkinnedMesh = g_pSkinnedMeshManager->GetSkinnedMesh(szFolder, szFilename);
 

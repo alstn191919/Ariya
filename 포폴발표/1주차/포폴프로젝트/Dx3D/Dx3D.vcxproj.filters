@@ -31,8 +31,8 @@
     <Filter Include="컨트롤러">
       <UniqueIdentifier>{fde28639-2337-4666-a3a7-372d6572673c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="캐릭터">
-      <UniqueIdentifier>{c5464fae-0fde-4274-ba41-aa18f593d93d}</UniqueIdentifier>
+    <Filter Include="프로젝트씬">
+      <UniqueIdentifier>{d2597f1e-a702-4c44-98db-bf4ca0c507b7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -69,37 +69,16 @@
     <ClInclude Include="cObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="cGameObject.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cAction.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cActionMove.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cActionSeq.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cActionRepeat.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="iMap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="cObjMap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Asciitok.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cAutoReleasePool.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="cRay.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="cFrostumCulling.h">
+    <ClInclude Include="cSkinnedMesh.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="cHeightMap.h">
@@ -115,6 +94,9 @@
       <Filter>매니저</Filter>
     </ClInclude>
     <ClInclude Include="cDeviceManager.h">
+      <Filter>매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="cAllocateHierarchy.h">
       <Filter>매니저</Filter>
     </ClInclude>
     <ClInclude Include="cAseLoader.h">
@@ -174,14 +156,41 @@
     <ClInclude Include="cCrtController.h">
       <Filter>컨트롤러</Filter>
     </ClInclude>
-    <ClInclude Include="cAllocateHierarchy.h">
-      <Filter>캐릭터</Filter>
-    </ClInclude>
     <ClInclude Include="cHero.h">
-      <Filter>캐릭터</Filter>
+      <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="cSkinnedMesh.h">
-      <Filter>캐릭터</Filter>
+    <ClInclude Include="cStartScene.h">
+      <Filter>프로젝트씬</Filter>
+    </ClInclude>
+    <ClInclude Include="c2FScene.h">
+      <Filter>프로젝트씬</Filter>
+    </ClInclude>
+    <ClInclude Include="cSceneManager.h">
+      <Filter>매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="cFrostumCulling.h">
+      <Filter>정크</Filter>
+    </ClInclude>
+    <ClInclude Include="cAutoReleasePool.h">
+      <Filter>정크</Filter>
+    </ClInclude>
+    <ClInclude Include="Asciitok.h">
+      <Filter>정크</Filter>
+    </ClInclude>
+    <ClInclude Include="cAction.h">
+      <Filter>정크</Filter>
+    </ClInclude>
+    <ClInclude Include="cActionMove.h">
+      <Filter>정크</Filter>
+    </ClInclude>
+    <ClInclude Include="cActionRepeat.h">
+      <Filter>정크</Filter>
+    </ClInclude>
+    <ClInclude Include="cActionSeq.h">
+      <Filter>정크</Filter>
+    </ClInclude>
+    <ClInclude Include="cGameObject.h">
+      <Filter>정크</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -203,40 +212,25 @@
     <ClCompile Include="cObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="cGameObject.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="cAction.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="cActionMove.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="cActionSeq.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="cActionRepeat.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="iMap.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cObjMap.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="cAutoReleasePool.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="cRay.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="cFrostumCulling.cpp">
+    <ClCompile Include="cSkinnedMesh.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cHeightMap.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cDeviceManager.cpp">
+      <Filter>매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="cAllocateHierarchy.cpp">
       <Filter>매니저</Filter>
     </ClCompile>
     <ClCompile Include="cSkinnedMeshManager.cpp">
@@ -305,14 +299,38 @@
     <ClCompile Include="cCrtController.cpp">
       <Filter>컨트롤러</Filter>
     </ClCompile>
-    <ClCompile Include="cAllocateHierarchy.cpp">
-      <Filter>캐릭터</Filter>
-    </ClCompile>
     <ClCompile Include="cHero.cpp">
-      <Filter>캐릭터</Filter>
+      <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="cSkinnedMesh.cpp">
-      <Filter>캐릭터</Filter>
+    <ClCompile Include="cStartScene.cpp">
+      <Filter>프로젝트씬</Filter>
+    </ClCompile>
+    <ClCompile Include="c2FScene.cpp">
+      <Filter>프로젝트씬</Filter>
+    </ClCompile>
+    <ClCompile Include="cSceneManager.cpp">
+      <Filter>매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="cFrostumCulling.cpp">
+      <Filter>정크</Filter>
+    </ClCompile>
+    <ClCompile Include="cAutoReleasePool.cpp">
+      <Filter>정크</Filter>
+    </ClCompile>
+    <ClCompile Include="cAction.cpp">
+      <Filter>정크</Filter>
+    </ClCompile>
+    <ClCompile Include="cActionMove.cpp">
+      <Filter>정크</Filter>
+    </ClCompile>
+    <ClCompile Include="cActionRepeat.cpp">
+      <Filter>정크</Filter>
+    </ClCompile>
+    <ClCompile Include="cActionSeq.cpp">
+      <Filter>정크</Filter>
+    </ClCompile>
+    <ClCompile Include="cGameObject.cpp">
+      <Filter>정크</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
