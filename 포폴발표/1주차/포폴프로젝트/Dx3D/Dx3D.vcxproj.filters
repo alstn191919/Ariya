@@ -31,6 +31,9 @@
     <Filter Include="컨트롤러">
       <UniqueIdentifier>{fde28639-2337-4666-a3a7-372d6572673c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="캐릭터">
+      <UniqueIdentifier>{c5464fae-0fde-4274-ba41-aa18f593d93d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -96,9 +99,6 @@
     <ClInclude Include="cRay.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="cSkinnedMesh.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="cFrostumCulling.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -115,9 +115,6 @@
       <Filter>매니저</Filter>
     </ClInclude>
     <ClInclude Include="cDeviceManager.h">
-      <Filter>매니저</Filter>
-    </ClInclude>
-    <ClInclude Include="cAllocateHierarchy.h">
       <Filter>매니저</Filter>
     </ClInclude>
     <ClInclude Include="cAseLoader.h">
@@ -177,8 +174,14 @@
     <ClInclude Include="cCrtController.h">
       <Filter>컨트롤러</Filter>
     </ClInclude>
+    <ClInclude Include="cAllocateHierarchy.h">
+      <Filter>캐릭터</Filter>
+    </ClInclude>
     <ClInclude Include="cHero.h">
-      <Filter>소스 파일</Filter>
+      <Filter>캐릭터</Filter>
+    </ClInclude>
+    <ClInclude Include="cSkinnedMesh.h">
+      <Filter>캐릭터</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -227,9 +230,6 @@
     <ClCompile Include="cRay.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="cSkinnedMesh.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="cFrostumCulling.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -237,9 +237,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cDeviceManager.cpp">
-      <Filter>매니저</Filter>
-    </ClCompile>
-    <ClCompile Include="cAllocateHierarchy.cpp">
       <Filter>매니저</Filter>
     </ClCompile>
     <ClCompile Include="cSkinnedMeshManager.cpp">
@@ -308,8 +305,14 @@
     <ClCompile Include="cCrtController.cpp">
       <Filter>컨트롤러</Filter>
     </ClCompile>
+    <ClCompile Include="cAllocateHierarchy.cpp">
+      <Filter>캐릭터</Filter>
+    </ClCompile>
     <ClCompile Include="cHero.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>캐릭터</Filter>
+    </ClCompile>
+    <ClCompile Include="cSkinnedMesh.cpp">
+      <Filter>캐릭터</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

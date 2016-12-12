@@ -28,10 +28,13 @@ private:
 	cOBB*						m_pObbObj;
 private:
 	bool						_isRuning;
-	bool						_isCrawling;
 	D3DXMATRIXA16				_zMat;
 	DWORD						FrameCnt;	float						TimeElapsed;
 	float						FPS;
+
+	//캐릭터 관련
+	bool						m_isCrtRunning;
+	bool						m_isCrtCrawling;
 
 	cSkinnedMesh2*				m_pSkinnedMesh;
 

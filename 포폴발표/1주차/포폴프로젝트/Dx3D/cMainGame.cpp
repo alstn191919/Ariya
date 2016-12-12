@@ -27,6 +27,8 @@ cMainGame::cMainGame(void)
 	, m_pMap(NULL)
 	, _isRuning(false), FrameCnt(0), TimeElapsed(0.0f), FPS(0.0f)
 	, m_pSkinnedMesh(NULL)
+	, m_isCrtRunning(false)
+	, m_isCrtCrawling(false)
 {
 	//g_bOBBCollision = false;
 }
@@ -444,11 +446,13 @@ void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		}
 		case 'W':
 		{
+			_isRuning = true;
+
 			//방향 설정 : 정면
 			m_pHero->SetDirection(ENUM_DIRECTION::DR_FORWARD);
-			if (!_isRuning)
+			if (!m_isCrtRunning)
 			{
-				if (_isCrawling)
+				if (m_isCrtCrawling)
 				{
 					m_pHero->SetState(CRT_STATE::CRT_CRAWL);
 				}
@@ -461,11 +465,13 @@ void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		}
 		case 'S':
 		{
+			_isRuning = true;
+
 			m_pHero->SetDirection(ENUM_DIRECTION::DR_BACKWARD);
 
-			if (!_isRuning)
+			if (!m_isCrtRunning)
 			{
-				if (_isCrawling)
+				if (m_isCrtCrawling)
 				{
 					m_pHero->SetState(CRT_STATE::CRT_CRAWL);
 				}
@@ -478,11 +484,13 @@ void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		}
 		case 'A':
 		{
+			_isRuning = true;
+
 			m_pHero->SetDirection(ENUM_DIRECTION::DR_LEFT);
 
-			if (!_isRuning)
+			if (!m_isCrtRunning)
 			{
-				if (_isCrawling)
+				if (m_isCrtCrawling)
 				{
 					m_pHero->SetState(CRT_STATE::CRT_CRAWL);
 				}
@@ -494,11 +502,13 @@ void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		}
 		case 'D':
 		{
+			_isRuning = true;
+
 			m_pHero->SetDirection(ENUM_DIRECTION::DR_RIGHT);
 
-			if (!_isRuning)
+			if (!m_isCrtRunning)
 			{
-				if (_isCrawling)
+				if (m_isCrtCrawling)
 				{
 					m_pHero->SetState(CRT_STATE::CRT_CRAWL);
 				}
@@ -524,6 +534,8 @@ void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		}
 		case 'W':
 		{
+			_isRuning = false;
+
 			if (!_isRuning)
 			{
 				m_pHero->SetState(CRT_STATE::CRT_IDLE);
@@ -532,6 +544,8 @@ void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		}
 		case 'S':
 		{
+
+			_isRuning = false;
 			if (!_isRuning)
 			{
 				m_pHero->SetState(CRT_STATE::CRT_IDLE);
@@ -540,6 +554,8 @@ void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		}
 		case 'A':
 		{
+			_isRuning = false;
+
 			if (!_isRuning)
 			{
 				m_pHero->SetState(CRT_STATE::CRT_IDLE);
@@ -547,6 +563,8 @@ void cMainGame::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		}
 		case 'D':
 		{
+			_isRuning = false;
+
 			if (!_isRuning)
 			{
 				m_pHero->SetState(CRT_STATE::CRT_IDLE);
