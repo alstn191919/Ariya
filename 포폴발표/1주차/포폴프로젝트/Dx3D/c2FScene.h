@@ -28,8 +28,8 @@ private:
 	cOBB*						m_pObb;
 	cOBB*						m_pObbObj;
 private:
-	bool						_isRuning;
-	bool						_isCrawling;
+	bool						m_isCrtRunning;
+	bool						m_isCrtCrawling;
 	D3DXMATRIXA16				_zMat;
 	cSkinnedMesh2*				m_pSkinnedMesh;
 	LPD3DXSPRITE				m_pSprite;

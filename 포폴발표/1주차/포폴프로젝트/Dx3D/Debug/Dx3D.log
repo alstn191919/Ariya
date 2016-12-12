@@ -1,61 +1,117 @@
-﻿빌드 시작: 2016-12-12 오후 9:23:34
-     1>2 노드의 "C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Dx3D\Dx3D.vcxproj" 프로젝트(Build 대상)입니다.
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Dx3D.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt cStartScene.cpp
-         cStartScene.cpp
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(33): warning C4316: 'cCamera': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(36): warning C4316: 'cCrtController': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Debug\Dx3D.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Debug\Dx3D.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Debug\Dx3D.lib" /MACHINE:X86 Debug\Dx3D.res
-         Debug\c2FScene.obj
-         Debug\cAction.obj
-         Debug\cActionMove.obj
-         Debug\cActionRepeat.obj
-         Debug\cActionSeq.obj
-         Debug\cAllocateHierarchy.obj
-         Debug\cAllocateHierarchy2.obj
-         Debug\cAseLoader.obj
-         Debug\cAutoReleasePool.obj
-         Debug\cCamera.obj
-         Debug\cCrtController.obj
-         Debug\cCube.obj
-         Debug\cDeviceManager.obj
-         Debug\cFontManager.obj
-         Debug\cFrame.obj
-         Debug\cFrostumCulling.obj
-         Debug\cGameObject.obj
-         Debug\cGrid.obj
-         Debug\cGroup.obj
-         Debug\cHeightMap.obj
-         Debug\cHero.obj
-         Debug\cMainGame.obj
-         Debug\cMapRender.obj
-         Debug\cMtlTex.obj
-         Debug\cOBB.obj
-         Debug\cObejctManager.obj
-         Debug\cObject.obj
-         Debug\cObjLoader.obj
-         Debug\cObjMap.obj
-         Debug\cPyramid.obj
-         Debug\cRay.obj
-         Debug\cSceneManager.obj
-         Debug\cShaderManager.obj
-         Debug\cSkinnedMesh.obj
-         Debug\cSkinnedMesh2.obj
-         Debug\cSkinnedMeshManager.obj
-         Debug\cStartScene.obj
-         Debug\cTextureManager.obj
-         Debug\cTimeManager.obj
-         Debug\cUIButton.obj
-         Debug\cUIImageView.obj
-         Debug\cUIObject.obj
-         Debug\cUITextView.obj
-         Debug\Dx3D.obj
-         Debug\iMap.obj
-         Debug\stdafx.obj
-         Dx3D.vcxproj -> C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Debug\Dx3D.exe
-     1>"C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Dx3D\Dx3D.vcxproj" 프로젝트를 빌드했습니다(Build 대상).
-
-빌드했습니다.
-
-경과 시간: 00:00:02.51
+﻿  stdafx.cpp
+  iMap.cpp
+  Dx3D.cpp
+  cUITextView.cpp
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cuitextview.cpp(20): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  cUIObject.cpp
+  cUIImageView.cpp
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cuiimageview.cpp(18): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  cUIButton.cpp
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cuibutton.cpp(36): warning C4244: '=': 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cuibutton.cpp(37): warning C4244: '=': 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cuibutton.cpp(53): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cuibutton.cpp(55): warning C4800: 'int': 'true' 또는 'false'로 bool 값을 강제하고 있습니다(성능 경고).
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cuibutton.cpp(90): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  cTimeManager.cpp
+  cTextureManager.cpp
+  cStartScene.cpp
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cstartscene.cpp(33): warning C4316: 'cCamera': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cstartscene.cpp(36): warning C4316: 'cCrtController': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  cSkinnedMeshManager.cpp
+  cSkinnedMesh2.cpp
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cskinnedmesh2.cpp(282): warning C4800: 'int': 'true' 또는 'false'로 bool 값을 강제하고 있습니다(성능 경고).
+  cSkinnedMesh.cpp
+  cShaderManager.cpp
+  cSceneManager.cpp
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cscenemanager.cpp(24): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cscenemanager.cpp(53): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cscenemanager.cpp(64): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cscenemanager.cpp(93): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cscenemanager.cpp(106): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cscenemanager.cpp(117): warning C4316: 'c2FScene': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cscenemanager.cpp(131): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cscenemanager.cpp(143): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cscenemanager.cpp(166): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
+  cRay.cpp
+  cPyramid.cpp
+  cObjMap.cpp
+  cObjLoader.cpp
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobjloader.cpp(95): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobjloader.cpp(199): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  cObject.cpp
+  cObejctManager.cpp
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(28): warning C4316: 'cSkinnedMesh2': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(38): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(53): warning C4316: 'cSkinnedMesh2': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(77): warning C4316: 'cSkinnedMesh2': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(93): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(188): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(269): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(287): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(305): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(337): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(357): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(370): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(384): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  코드를 생성하고 있습니다...
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(312): warning C4715: 'cObejctManager::getText': 모든 제어 경로에서 값을 반환하지는 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(364): warning C4715: 'cObejctManager::getPinkedObjType': 모든 제어 경로에서 값을 반환하지는 않습니다.
+  컴파일하고 있습니다...
+  cOBB.cpp
+  cMtlTex.cpp
+  cMapRender.cpp
+  cMainGame.cpp
+  cHero.cpp
+  cHeightMap.cpp
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cheightmap.cpp(29): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cheightmap.cpp(68): warning C4018: '>=': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cheightmap.cpp(82): warning C4018: '>': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cheightmap.cpp(93): warning C4018: '>': signed 또는 unsigned가 일치하지 않습니다.
+  cGroup.cpp
+  cGrid.cpp
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cgrid.cpp(58): warning C4316: 'cPyramid': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cgrid.cpp(64): warning C4316: 'cPyramid': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cgrid.cpp(70): warning C4316: 'cPyramid': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  cGameObject.cpp
+  cFrostumCulling.cpp
+  cFrame.cpp
+  cFontManager.cpp
+  cDeviceManager.cpp
+  cCube.cpp
+  cCrtController.cpp
+  cCamera.cpp
+  cAutoReleasePool.cpp
+  cAseLoader.cpp
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\caseloader.cpp(222): warning C4316: 'cFrame': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  cAllocateHierarchy2.cpp
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\callocatehierarchy2.cpp(23): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(119): note: 'strcpy' 선언을 참조하십시오.
+  cAllocateHierarchy.cpp
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\callocatehierarchy.cpp(19): warning C4316: 'ST_BONE': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\callocatehierarchy.cpp(26): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(119): note: 'strcpy' 선언을 참조하십시오.
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+  cActionSeq.cpp
+  cActionRepeat.cpp
+  cActionMove.cpp
+  cAction.cpp
+  c2FScene.cpp
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(68): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(69): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(84): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(113): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(165): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(178): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(182): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(198): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(221): warning C4316: 'cUIImageView': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(228): warning C4244: '인수': 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(235): warning C4316: 'cUITextView': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(250): warning C4316: 'cCamera': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(253): warning C4316: 'cCrtController': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(272): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(275): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  코드를 생성하고 있습니다...
+  Dx3D.vcxproj -> C:\Users\user\Desktop\Ariya\포폴발표\1주차\포폴프로젝트\Debug\Dx3D.exe
+  Dx3D.vcxproj -> C:\Users\user\Desktop\Ariya\포폴발표\1주차\포폴프로젝트\Debug\Dx3D.pdb (Full PDB)

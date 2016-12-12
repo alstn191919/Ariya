@@ -25,7 +25,8 @@ c2FScene::c2FScene() : m_pCamera(NULL)
 , m_pController(NULL)
 , m_pHero(NULL)
 , m_pMap(NULL)
-, _isRuning(false)
+, m_isCrtRunning(false)
+, m_isCrtCrawling(false)
 , m_pSkinnedMesh(NULL)
 {
 	//g_bOBBCollision = false;
@@ -374,7 +375,7 @@ void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		   {
 		   case VK_SPACE:
 		   {
-							_isRuning = true;
+			   m_isCrtRunning = true;
 							m_pHero->SetState(CRT_STATE::CRT_RUN);
 							break;
 		   }
@@ -382,9 +383,9 @@ void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		   {
 					   //방향 설정 : 정면
 					   m_pHero->SetDirection(ENUM_DIRECTION::DR_FORWARD);
-					   if (!_isRuning)
+					   if (!m_isCrtRunning)
 					   {
-						   if (_isCrawling)
+						   if (m_isCrtCrawling)
 						   {
 							   m_pHero->SetState(CRT_STATE::CRT_CRAWL);
 						   }
@@ -399,9 +400,9 @@ void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		   {
 					   m_pHero->SetDirection(ENUM_DIRECTION::DR_BACKWARD);
 
-					   if (!_isRuning)
+					   if (!m_isCrtRunning)
 					   {
-						   if (_isCrawling)
+						   if (m_isCrtCrawling)
 						   {
 							   m_pHero->SetState(CRT_STATE::CRT_CRAWL);
 						   }
@@ -416,9 +417,9 @@ void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		   {
 					   m_pHero->SetDirection(ENUM_DIRECTION::DR_LEFT);
 
-					   if (!_isRuning)
+					   if (!m_isCrtRunning)
 					   {
-						   if (_isCrawling)
+						   if (m_isCrtCrawling)
 						   {
 							   m_pHero->SetState(CRT_STATE::CRT_CRAWL);
 						   }
@@ -432,9 +433,9 @@ void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		   {
 					   m_pHero->SetDirection(ENUM_DIRECTION::DR_RIGHT);
 
-					   if (!_isRuning)
+					   if (!m_isCrtRunning)
 					   {
-						   if (_isCrawling)
+						   if (m_isCrtCrawling)
 						   {
 							   m_pHero->SetState(CRT_STATE::CRT_CRAWL);
 						   }
@@ -454,13 +455,13 @@ void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					 {
 					 case VK_SPACE:
 					 {
-									  _isRuning = false;
+									 m_isCrtRunning = false;
 									  m_pHero->SetState(CRT_STATE::CRT_IDLE);
 									  break;
 					 }
 					 case 'W':
 					 {
-								 if (!_isRuning)
+								 if (!m_isCrtCrawling)
 								 {
 									 m_pHero->SetState(CRT_STATE::CRT_IDLE);
 								 }
@@ -468,7 +469,7 @@ void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					 }
 					 case 'S':
 					 {
-								 if (!_isRuning)
+								 if (!m_isCrtCrawling)
 								 {
 									 m_pHero->SetState(CRT_STATE::CRT_IDLE);
 								 }
@@ -476,14 +477,14 @@ void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					 }
 					 case 'A':
 					 {
-								 if (!_isRuning)
+								 if (!m_isCrtCrawling)
 								 {
 									 m_pHero->SetState(CRT_STATE::CRT_IDLE);
 								 }
 					 }
 					 case 'D':
 					 {
-								 if (!_isRuning)
+								 if (!m_isCrtCrawling)
 								 {
 									 m_pHero->SetState(CRT_STATE::CRT_IDLE);
 								 }
