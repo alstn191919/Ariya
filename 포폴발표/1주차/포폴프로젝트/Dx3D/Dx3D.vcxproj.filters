@@ -34,6 +34,9 @@
     <Filter Include="프로젝트씬">
       <UniqueIdentifier>{d2597f1e-a702-4c44-98db-bf4ca0c507b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="캐릭터">
+      <UniqueIdentifier>{97850960-480a-4770-8487-51ab7b09e742}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -78,9 +81,6 @@
     <ClInclude Include="cRay.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="cSkinnedMesh.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="cHeightMap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -94,9 +94,6 @@
       <Filter>매니저</Filter>
     </ClInclude>
     <ClInclude Include="cDeviceManager.h">
-      <Filter>매니저</Filter>
-    </ClInclude>
-    <ClInclude Include="cAllocateHierarchy.h">
       <Filter>매니저</Filter>
     </ClInclude>
     <ClInclude Include="cAseLoader.h">
@@ -156,9 +153,6 @@
     <ClInclude Include="cCrtController.h">
       <Filter>컨트롤러</Filter>
     </ClInclude>
-    <ClInclude Include="cHero.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
     <ClInclude Include="cStartScene.h">
       <Filter>프로젝트씬</Filter>
     </ClInclude>
@@ -192,6 +186,15 @@
     <ClInclude Include="cGameObject.h">
       <Filter>정크</Filter>
     </ClInclude>
+    <ClInclude Include="cAllocateHierarchy.h">
+      <Filter>캐릭터</Filter>
+    </ClInclude>
+    <ClInclude Include="cHero.h">
+      <Filter>캐릭터</Filter>
+    </ClInclude>
+    <ClInclude Include="cSkinnedMesh.h">
+      <Filter>캐릭터</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -221,16 +224,10 @@
     <ClCompile Include="cRay.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="cSkinnedMesh.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="cHeightMap.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cDeviceManager.cpp">
-      <Filter>매니저</Filter>
-    </ClCompile>
-    <ClCompile Include="cAllocateHierarchy.cpp">
       <Filter>매니저</Filter>
     </ClCompile>
     <ClCompile Include="cSkinnedMeshManager.cpp">
@@ -299,9 +296,6 @@
     <ClCompile Include="cCrtController.cpp">
       <Filter>컨트롤러</Filter>
     </ClCompile>
-    <ClCompile Include="cHero.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="cStartScene.cpp">
       <Filter>프로젝트씬</Filter>
     </ClCompile>
@@ -331,6 +325,15 @@
     </ClCompile>
     <ClCompile Include="cGameObject.cpp">
       <Filter>정크</Filter>
+    </ClCompile>
+    <ClCompile Include="cAllocateHierarchy.cpp">
+      <Filter>캐릭터</Filter>
+    </ClCompile>
+    <ClCompile Include="cHero.cpp">
+      <Filter>캐릭터</Filter>
+    </ClCompile>
+    <ClCompile Include="cSkinnedMesh.cpp">
+      <Filter>캐릭터</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

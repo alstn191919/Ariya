@@ -2,8 +2,9 @@
 class cSkinnedMesh;
 
 //주인공 클래스
-//현재 state 및 direction 이넘문으로 작성하였으나 이후 비트연산으로 전환 예정
 //maingame 클래스에서 키입력을 받아 변경하는 방식
+//오브젝트에서 입력을 받아 사용하고 싶을 때에는 외부에서 m_enumInteraction을 변경합니다.
+//메소드는 SetInteraction(CRT_INTERACTION interaction)
 
 class cHero
 {
@@ -30,12 +31,17 @@ private:
 	};
 
 private:
-	cSkinnedMesh*						m_pSkinnedMesh;
-	CRT_STATE							m_enumState;				//캐릭터 상태
-	ENUM_DIRECTION				m_enumDirection;			//키보드 방향
-	bool										m_isInteract;					//상호작용 여부
-	CRT_INTERACTION				m_enumInteraction;		//상호작용
-														//바운딩 박스용
+	cSkinnedMesh*					m_pSkinnedMesh;
+	CRT_STATE							m_enumState;					//캐릭터 상태
+	ENUM_DIRECTION				m_enumDirection;				//키보드 방향
+
+	CRT_STATE							m_enumPrevState;			//캐릭터 이전 상태
+	ENUM_DIRECTION				m_enumPrevDirection;		//키보드 이전 방향
+
+	bool										m_isInteract;						//상호작용 여부
+	CRT_INTERACTION				m_enumInteraction;			//상호작용
+
+	//바운딩 박스용
 	D3DXVECTOR3						m_Min;
 	D3DXVECTOR3						m_Max;
 
@@ -55,6 +61,7 @@ public:
 	void SetPosition(D3DXVECTOR3 v);
 	void SetState(CRT_STATE chrtState);
 	void SetDirection(ENUM_DIRECTION direction);
+	void SetInteraction(CRT_INTERACTION interaction);
 
 
 	/*		GET		*/
