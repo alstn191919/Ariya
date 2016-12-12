@@ -311,6 +311,8 @@ void cMainGame::Update()
 		m_pCamera->Update(&m_pHero->GetPosition(),&m_pController->GetDirection());
 
 	m_pController->SetfAngleX(m_pCamera->GetfAngleY());
+	//m_pController->SetfAngleY(m_pCamera->GetfAngleX());
+
 
 	if (m_pMap)
 		m_pMap->Update();

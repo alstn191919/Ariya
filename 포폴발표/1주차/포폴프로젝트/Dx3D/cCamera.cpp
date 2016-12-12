@@ -4,7 +4,7 @@
 
 cCamera::cCamera(void)
 	: m_vEye(0, 0, 10)
-	, m_vLookAt(0, 0, 0)
+	, m_vLookAt(0, 0, -1)
 	, m_vUp(0, 1, 0)
 	, m_isLButtonDown(false)
 	, m_isLButtonOBJDown(false)
@@ -29,6 +29,11 @@ void cCamera::Setup()
 	g_pD3DDevice->SetTransform(D3DTS_PROJECTION, &m_matProj);
 
 
+	GetClientRect(g_hWnd, &rc);
+	m_ptPrevMouse.x = (rc.right - rc.left) / 2;
+	m_ptPrevMouse.y = (rc.bottom - rc.top) / 2;
+	ClientToScreen(g_hWnd, &m_ptPrevMouse);
+	SetCursorPos(m_ptPrevMouse.x, m_ptPrevMouse.y);
 }
 
 void cCamera::Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection)
@@ -43,7 +48,7 @@ void cCamera::Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection)
 	mat = matRX * matRY;
 
 	D3DXVECTOR3 templook;
-	D3DXVec3TransformNormal(&templook, &D3DXVECTOR3(0, 0, 1), &mat);
+	D3DXVec3TransformNormal(&templook, &D3DXVECTOR3(0, 0, -1), &mat);
 
 	//D3DXVec3TransformNormal(&m_vLookAt, &D3DXVECTOR3(0, 0, 1), &mat);
 
@@ -159,28 +164,42 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 			pt.x = LOWORD(lParam);
 			pt.y = HIWORD(lParam);
 
-			m_fAngleX = pt.y * -0.015f;
+			int nDeltaX = pt.x - m_ptPrevMouse.x;
+			int nDeltaY = pt.y - m_ptPrevMouse.y;
+
+			m_fAngleX += -nDeltaY * 0.01f;
+			if (m_fAngleX > D3DX_PI / 2.0f - EPSILON)
+				m_fAngleX = D3DX_PI / 2.0f - EPSILON;
+
+			if (m_fAngleX < -D3DX_PI / 2.0f + EPSILON)
+				m_fAngleX = -D3DX_PI / 2.0f + EPSILON;
+
+			m_fAngleY += nDeltaX * 0.01f;
+
+			m_ptPrevMouse = pt;
+
+			//m_fAngleX = pt.y * -0.015f;
 
 			//if(m_fAngleX > D3DX_PI / 2.0f - EPSILON)
 			//   m_fAngleX = D3DX_PI / 2.0f - EPSILON;
 
-			if (m_fAngleX <= -D3DX_PI * 1.6f + EPSILON)
-				m_fAngleX = -D3DX_PI * 1.6f + EPSILON;
+			//if (m_fAngleX <= -D3DX_PI * 1.6f + EPSILON)
+			//	m_fAngleX = -D3DX_PI * 1.6f + EPSILON;
 
-			m_fAngleY = pt.x* 0.015f;
+			//m_fAngleY = pt.x* 0.015f;
 
-			//m_ptPrevMouse = pt;
+			////m_ptPrevMouse = pt;
 
 
-					//커서 다시 중간에 돌려놓기
-			if ((m_fAngleY > D3DX_PI * 4.4f) || (m_fAngleY < D3DX_PI / 2.2f ))
-			{
-				RECT rc;
-				GetClientRect(g_hWnd, &rc);
-				pt.x = (rc.right - rc.left) / 2;
-				ClientToScreen(g_hWnd, &pt);
-				SetCursorPos(pt.x, pt.y);
-			}
+			//		//커서 다시 중간에 돌려놓기
+			//if ((m_fAngleY > D3DX_PI * 4.4f) || (m_fAngleY < D3DX_PI / 2.2f ))
+			//{
+			//	RECT rc;
+			//	GetClientRect(g_hWnd, &rc);
+			//	pt.x = (rc.right - rc.left) / 2;
+			//	ClientToScreen(g_hWnd, &pt);
+			//	SetCursorPos(pt.x, pt.y);
+			//}
 		}
 
 			if (m_isLButtonOBJDown)
