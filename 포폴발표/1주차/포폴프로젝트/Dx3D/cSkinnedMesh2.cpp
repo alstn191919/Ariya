@@ -9,6 +9,7 @@ cSkinnedMesh2::cSkinnedMesh2(void)
 	, m_fAngleY(0.0)
 	, m_Obb(NULL)
 	, b_isOpen(false)
+	
 {
 	D3DXMatrixIdentity(&m_wolrd);
 }
@@ -205,35 +206,31 @@ void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size)
 	D3DXMatrixIdentity(&mat);
 	D3DXMatrixIdentity(&matR);
 	D3DXMatrixIdentity(&matS);
+
+
 	D3DXMatrixScaling(&matS, size.x, size.y, size.z);
 	
 	/*mat._41 = p.x;
 	mat._42 = p.y;
 	mat._43 = p.z;*/
-
-	D3DXMatrixTranslation(&mat, p.x, p.y, p.z);
-
 	if (m_eObjType == Room)
 	{
-		D3DXMatrixRotationY(&matR,-D3DX_PI/2.0f);
+		D3DXMatrixRotationY(&matR, -D3DX_PI / 2.0f);
 	}
 
-	if (m_bInter == false)
+	if (m_eObjType == Eledoor)
 	{
-		D3DXMatrixRotationY(&matR, D3DX_PI / 2.0f);
+		D3DXMatrixRotationY(&matR, -D3DX_PI / 2.0f);
 	}
+	D3DXMatrixTranslation(&mat, p.x, p.y, p.z);
+
+
 
 	D3DXMatrixIdentity(&m_wolrd);
 
 	//m_wolrd = matS * mat *m_wolrd;
 
 	m_wolrd = matS * matR * mat *m_wolrd;
-
-	//
-
-	
-
-
 }
 
 void cSkinnedMesh2::ObjRender()

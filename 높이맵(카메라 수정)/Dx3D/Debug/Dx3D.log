@@ -1,10 +1,62 @@
-﻿빌드 시작: 2016-12-08 오전 1:23:35
-     1>2 노드의 "C:\Users\Yoo Ji Hyeon\Desktop\높이맵 - 복사본\Dx3D\Dx3D.vcxproj" 프로젝트(Build 대상)입니다.
+﻿빌드 시작: 2016-12-12 오후 1:32:23
+     1>2 노드의 "C:\Users\Yoo Ji Hyeon\Desktop\Ariya\높이맵(카메라 수정)\Dx3D\Dx3D.vcxproj" 프로젝트(Build 대상)입니다.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Dx3D.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt cCrtController.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\Dx3D.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Dx3D.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt cAction.cpp cActionMove.cpp cActionRepeat.cpp cActionSeq.cpp cAllocateHierarchy.cpp cAseLoader.cpp cAutoReleasePool.cpp cCamera.cpp cCrtController.cpp cCube.cpp cDeviceManager.cpp cFrame.cpp cFrostumCulling.cpp cGameObject.cpp cGrid.cpp cGroup.cpp cHeightMap.cpp cMainGame.cpp cMtlTex.cpp cObject.cpp cObjLoader.cpp cObjMap.cpp cPyramid.cpp cRay.cpp cSkinnedMesh.cpp cSkinnedMeshManager.cpp cTextureManager.cpp cTimeManager.cpp Dx3D.cpp iMap.cpp
+         iMap.cpp
+         Dx3D.cpp
+     1>c:\users\yoo ji hyeon\desktop\ariya\높이맵(카메라 수정)\dx3d\dx3d.cpp(49): warning C4316: 'cMainGame': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+         cTimeManager.cpp
+         cTextureManager.cpp
+         cSkinnedMeshManager.cpp
+         cSkinnedMesh.cpp
+         cRay.cpp
+         cPyramid.cpp
+         cObjMap.cpp
+         cObjLoader.cpp
+     1>c:\users\yoo ji hyeon\desktop\ariya\높이맵(카메라 수정)\dx3d\cobjloader.cpp(95): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
+     1>c:\users\yoo ji hyeon\desktop\ariya\높이맵(카메라 수정)\dx3d\cobjloader.cpp(199): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
+         cObject.cpp
+         cMtlTex.cpp
+         cMainGame.cpp
+     1>c:\users\yoo ji hyeon\desktop\ariya\높이맵(카메라 수정)\dx3d\cmaingame.cpp(69): warning C4316: 'cCamera': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\yoo ji hyeon\desktop\ariya\높이맵(카메라 수정)\dx3d\cmaingame.cpp(72): warning C4316: 'cCrtController': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+         cHeightMap.cpp
+     1>c:\users\yoo ji hyeon\desktop\ariya\높이맵(카메라 수정)\dx3d\cheightmap.cpp(29): warning C4244: '인수' : 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\yoo ji hyeon\desktop\ariya\높이맵(카메라 수정)\dx3d\cheightmap.cpp(68): warning C4018: '>=' : signed 또는 unsigned가 일치하지 않습니다.
+     1>c:\users\yoo ji hyeon\desktop\ariya\높이맵(카메라 수정)\dx3d\cheightmap.cpp(82): warning C4018: '>' : signed 또는 unsigned가 일치하지 않습니다.
+     1>c:\users\yoo ji hyeon\desktop\ariya\높이맵(카메라 수정)\dx3d\cheightmap.cpp(93): warning C4018: '>' : signed 또는 unsigned가 일치하지 않습니다.
+         cGroup.cpp
+         cGrid.cpp
+     1>c:\users\yoo ji hyeon\desktop\ariya\높이맵(카메라 수정)\dx3d\cgrid.cpp(58): warning C4316: 'cPyramid': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\yoo ji hyeon\desktop\ariya\높이맵(카메라 수정)\dx3d\cgrid.cpp(64): warning C4316: 'cPyramid': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\yoo ji hyeon\desktop\ariya\높이맵(카메라 수정)\dx3d\cgrid.cpp(70): warning C4316: 'cPyramid': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+         cGameObject.cpp
+         cFrostumCulling.cpp
+         cFrame.cpp
+         cDeviceManager.cpp
+         코드를 생성하고 있습니다...
+         컴파일하고 있습니다...
+         cCube.cpp
          cCrtController.cpp
+         cCamera.cpp
+         cAutoReleasePool.cpp
+         cAseLoader.cpp
+     1>c:\users\yoo ji hyeon\desktop\ariya\높이맵(카메라 수정)\dx3d\caseloader.cpp(222): warning C4316: 'cFrame': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+         cAllocateHierarchy.cpp
+     1>c:\users\yoo ji hyeon\desktop\ariya\높이맵(카메라 수정)\dx3d\callocatehierarchy.cpp(19): warning C4316: 'ST_BONE': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\yoo ji hyeon\desktop\ariya\높이맵(카메라 수정)\dx3d\callocatehierarchy.cpp(26): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(112) : 'strcpy' 선언을 참조하십시오.
+         cActionSeq.cpp
+         cActionRepeat.cpp
+         cActionMove.cpp
+         cAction.cpp
+         코드를 생성하고 있습니다...
+       ResourceCompile:
+         C:\Program Files (x86)\Windows Kits\8.1\bin\x86\rc.exe /l"0x0409" /nologo /fo"Debug\Dx3D.res" Dx3D.rc 
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Yoo Ji Hyeon\Desktop\높이맵 - 복사본\Debug\Dx3D.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Yoo Ji Hyeon\Desktop\높이맵 - 복사본\Debug\Dx3D.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Yoo Ji Hyeon\Desktop\높이맵 - 복사본\Debug\Dx3D.lib" /MACHINE:X86 Debug\Dx3D.res
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Yoo Ji Hyeon\Desktop\Ariya\높이맵(카메라 수정)\Debug\Dx3D.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Yoo Ji Hyeon\Desktop\Ariya\높이맵(카메라 수정)\Debug\Dx3D.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Yoo Ji Hyeon\Desktop\Ariya\높이맵(카메라 수정)\Debug\Dx3D.lib" /MACHINE:X86 Debug\Dx3D.res
          Debug\cAction.obj
          Debug\cActionMove.obj
          Debug\cActionRepeat.obj
@@ -36,9 +88,10 @@
          Debug\Dx3D.obj
          Debug\iMap.obj
          Debug\stdafx.obj
-         Dx3D.vcxproj -> C:\Users\Yoo Ji Hyeon\Desktop\높이맵 - 복사본\Debug\Dx3D.exe
-     1>"C:\Users\Yoo Ji Hyeon\Desktop\높이맵 - 복사본\Dx3D\Dx3D.vcxproj" 프로젝트를 빌드했습니다(Build 대상).
+         LINK : C:\Users\Yoo Ji Hyeon\Desktop\Ariya\높이맵(카메라 수정)\Debug\Dx3D.exe을(를) 찾을 수 없거나 마지막 증분 링크에 의해 빌드되지 않았습니다. 전체 링크를 수행하고 있습니다.
+         Dx3D.vcxproj -> C:\Users\Yoo Ji Hyeon\Desktop\Ariya\높이맵(카메라 수정)\Debug\Dx3D.exe
+     1>"C:\Users\Yoo Ji Hyeon\Desktop\Ariya\높이맵(카메라 수정)\Dx3D\Dx3D.vcxproj" 프로젝트를 빌드했습니다(Build 대상).
 
 빌드했습니다.
 
-경과 시간: 00:00:00.46
+경과 시간: 00:00:09.46

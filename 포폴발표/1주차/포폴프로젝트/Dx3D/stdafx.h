@@ -155,7 +155,10 @@ enum OBJ_TYPE{
 	Switch,			//스위치
 	door,			//문
 	item,			//아이템
-	Room,		//방
+	Room,			//방
+	EleSwitch,		//엘리베이터 스위치
+	Eledoor,		//엘리베이터 문
+	bed
 };
 
 enum CRT_STATE
@@ -197,7 +200,6 @@ struct ST_SHADER
 		Position = D3DXVECTOR4(Pos.x, Pos.y, Pos.z, 1);
 	}
 };
-
 
 #include "cDeviceManager.h"
 #include "cTimeManager.h"
