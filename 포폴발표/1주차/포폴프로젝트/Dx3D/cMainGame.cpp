@@ -12,6 +12,8 @@
 #include "cUIButton.h"
 #include "cOBB.h"
 #include"cHero.h"
+
+
 enum eUITag
 {
 	E_TEXTVIEW = 3,
@@ -74,28 +76,45 @@ void cMainGame::SetUITest()
 	//1. OBB 충돌 오브젝트 추가 (바운딩 박스 안에 플레이어가 들어올시 이벤트 처리해줄수있습니다.)
 	//ADDobject 오브젝트를 추가합니다.
 	
-//여기부터 엘리베이터 부분임돠
+	//여기부터 엘리베이터 부분임돠
 	//엘리베이터 버튼(구피킹용으로 임시로 medkit 가져옴)
 	Scal = D3DXVECTOR3(0.01, 0.01, 0.01);
 	p = D3DXVECTOR3(63.6, -13.5, -105.5);
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 0.5f;
-	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::Switch, "E버튼을 누르시오");
+	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::EleSwitch, "E버튼을 누르시오");
 
-
-	//Scal = D3DXVECTOR3(30.0f, 30.0f, 30.0f);
-	//p = D3DXVECTOR3(61.6f, -17, -105.5f);
-	//ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, Min, Max);
-	//Scal = D3DXVECTOR3(30.0f, 30.0f, 30.0f);
-	//p = D3DXVECTOR3(64.0f, -17, -105.5f);
-	//ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, Min, Max);
 
 	//엘리베이터 통
 	Scal = D3DXVECTOR3(1.1, 1.1, 1.1);
 	p = D3DXVECTOR3(62, -17, -108);
 	ObjectManager->ADDobject("Elivator", "Elivator.X", p, Scal, pt, OBJ_TYPE::Room, "");
 
+
+
+	//Scal = D3DXVECTOR3(26.0f, 27.0f, 26.0f);
+	//p = D3DXVECTOR3(-15,0,5);
+	//Min = D3DXVECTOR3(-0.025, 0, -0.045);
+	//Max = D3DXVECTOR3(0.025, 0.075, 0.045);
+	////문1 (index 2)
+	//ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, OBJ_TYPE::Eledoor, Min, Max);
+	//엘리베이터 문 2개
+	Scal = D3DXVECTOR3(26.0f, 27.0f, 26.0f);
+	p = D3DXVECTOR3(60.35f, -17, -105.5f);
+	Min = D3DXVECTOR3(-0.035, 0, -0.035);
+	Max = D3DXVECTOR3(0.035, 0.075, 0.035);
+	//문1 (index 2)
+	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, OBJ_TYPE::Eledoor, Min, Max);
+	Scal = D3DXVECTOR3(26.0f, 27.0f, 26.0f);
+	p = D3DXVECTOR3(62.95f, -17, -105.5f);
+	Min = D3DXVECTOR3();
+	Max = D3DXVECTOR3();
+	//문2 (index 3)
+	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, OBJ_TYPE::Eledoor, Min, Max);
+
+	Min = D3DXVECTOR3(-10, 0, -10);
+	Max = D3DXVECTOR3(12, 30, 10);
 	////엘리베이터 문 2개
 	//Scal = D3DXVECTOR3(0.06f, 0.07f, 0.06f);
 	//p = D3DXVECTOR3(61.6f, -17, -105.5f);
@@ -111,32 +130,16 @@ void cMainGame::SetUITest()
 	//p = D3DXVECTOR3(60.6f, -17, -105.5f);
 	//p = D3DXVECTOR3(63.0f, -17, -105.5f);
 	
-	//엘리베이터 문 2개
-	Scal = D3DXVECTOR3(27.0f, 27.0f, 27.0f);
-	p = D3DXVECTOR3(60.6f, -17, -105.5f);
-	//문1 (index 2)
-	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, Min, Max);
-	Scal = D3DXVECTOR3(27.0f, 27.0f, 27.0f);
-	p = D3DXVECTOR3(63.0f, -17, -105.5f);
-	//문2 (index 3)
-	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, Min, Max);
+
 
 	Scal = D3DXVECTOR3(0.1,0.1,0.1);
-	ObjectManager->ADDobject("Lamp", "Lamp.X", p, Scal, Min, Max);
-
+	p = D3DXVECTOR3(10,0,0);
+	ObjectManager->ADDobject("Lamp", "Lamp.X", p, Scal, OBJ_TYPE::item ,Min, Max);
+	
 	p.x = -25;
 	p.z = -15;
-
-	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, Min, Max);
+	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, OBJ_TYPE::bed , Min, Max);
 	//		인자값:      	 폴더명   파일명 , 위치, 오브젝트 크기  -> 이렇게 추가하시면 기능없이 그냥 오브젝트만 추가됩니다.
-
-	pt.vCenter.x = 0;
-	pt.vCenter.y = 0;
-	pt.vCenter.z = 0;
-	pt.isPicked = false;
-	pt.fRadius = 1;
-
-	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, Min, Max);
 
 	//2.상호작용 오브젝트 추가
 	//인자값이 좀더 많이 필요합니다.
@@ -148,7 +151,7 @@ void cMainGame::SetUITest()
 	//인자값				 폴더명    파일명   위치벡터, 크기 ,구(체크용),	 오브젝트 타입 , 충돌시 메세지
 	//오브젝트 타입은 OBJ_TYPE:: 하시면 보실수있습니다. 그냥 door 라고 써도 물론 됩니다.(보기 편하시라고 했어요)
 
-	p.y = 10;
+	/*p.y = 10;
 	p.x = 0;
 	p.z = 0;
 
@@ -157,20 +160,10 @@ void cMainGame::SetUITest()
 	pt.isPicked = false;
 	pt.fRadius = 1;
 
-	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, pt, OBJ_TYPE::Switch, "E버튼을 눌러주세요");
+	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, pt, OBJ_TYPE::Switch, "E버튼을 눌러주세요");*/
 	//스위치 타입 이벤트 처리는 각각 다른 처리할것같아 따로 안하고 메시지 출력만 해놨습니다.
 	//해당 인덱스 얻어오셔서 처리해 주시면 되겠습니다!
 
-	/*p.y = 0;
-	p.x = 0;
-	p.z = 1;
-
-
-	pt.vCenter = p;
-	pt.isPicked = false;
-	pt.fRadius = 10;
-
-	ObjectManager->ADDobject("door3", "Door.obj", p, 1, pt, OBJ_TYPE::Switch, "문인것같다.");*/
 
 	p.z =0;
 	p.y = -0.6;
@@ -188,7 +181,6 @@ void cMainGame::SetUITest()
 
 	Scal = D3DXVECTOR3(0.8, 0.65, 0.7);
 	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.",Min,Max);
-	//ObjectManager->ADDobject("Beds", "screen.x", p, 0.1, pt, OBJ_TYPE::door, "문인것같다.");
 
 	Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
 	p = D3DXVECTOR3(0, 0, 0);
@@ -201,26 +193,6 @@ void cMainGame::SetUITest()
 	//         아이템 타입은 충돌시 클릭하게 되면 카메라 고정될텐데 esc 누르면 풀리게 해놨습니다.
 	p.z = 0;
 
-
-
-
-
-	p.z = 0;
-	p.y = -0.6;
-	p.x = -25;
-	//0.468685;07.50739;5.85491;
-	/*pt.vCenter = p;
-	pt.vCenter.x = pt.vCenter.x + 2;
-	pt.vCenter.y = pt.vCenter.y + 3;
-	pt.isPicked = false;
-	pt.fRadius = 1;
-
-
-	Min = D3DXVECTOR3(-1, 0, -1);
-	Max = D3DXVECTOR3(2, 3, 1);
-
-	Scal = D3DXVECTOR3(0.8, 0.65, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max);*/
 
 	
 

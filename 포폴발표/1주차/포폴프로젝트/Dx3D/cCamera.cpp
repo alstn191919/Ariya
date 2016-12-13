@@ -40,6 +40,7 @@ void cCamera::Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection)
 {
 	//m_vEye = D3DXVECTOR3(0, 0, -m_fDistance);
 	//m_vLookAt = D3DXVECTOR3(0, 0, 0);
+	SetCursor(NULL);
 
 	D3DXMATRIXA16 matRX, matRY, matT, mat;
 	D3DXMatrixRotationX(&matRX, m_fAngleX);
@@ -163,17 +164,39 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 			pt.x = LOWORD(lParam);
 			pt.y = HIWORD(lParam);
 
+			RECT rc;
+			GetClientRect(g_hWnd, &rc);
+			if (pt.x >= rc.right - 200 || pt.x <= rc.left + 200)
+			{
+				pt.x = (rc.right - rc.left) / 2;
+				m_ptPrevMouse = pt;
+				ClientToScreen(g_hWnd, &pt);
+				SetCursorPos(pt.x, pt.y);
+				break;
+			}
+			else if (pt.y >= rc.bottom - 100 || pt.y <= rc.top + 100)
+			{
+				pt.y = (rc.bottom - rc.top) / 2;
+				m_ptPrevMouse = pt;
+				ClientToScreen(g_hWnd, &pt);
+				SetCursorPos(pt.x, pt.y);
+				break;
+			}
+
 			int nDeltaX = pt.x - m_ptPrevMouse.x;
 			int nDeltaY = pt.y - m_ptPrevMouse.y;
 
 			m_fAngleX += -nDeltaY * 0.01f;
-			if (m_fAngleX > D3DX_PI / 2.0f - EPSILON)
-				m_fAngleX = D3DX_PI / 2.0f - EPSILON;
-
-			if (m_fAngleX < -D3DX_PI / 2.0f + EPSILON)
-				m_fAngleX = -D3DX_PI / 2.0f + EPSILON;
-
+			if (m_fAngleX > D3DX_PI / 1.5f - EPSILON)
+			{
+				m_fAngleX = D3DX_PI / 1.5f - EPSILON;
+			}
+			if (m_fAngleX < -D3DX_PI / 1.5f + EPSILON)
+			{
+				m_fAngleX = -D3DX_PI / 1.5f + EPSILON;
+			}
 			m_fAngleY += nDeltaX * 0.01f;
+
 
 			m_ptPrevMouse = pt;
 
@@ -190,15 +213,15 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 			////m_ptPrevMouse = pt;
 
 
-					//커서 다시 중간에 돌려놓기
-			if ((m_fAngleY > D3DX_PI * 4.4f) || (m_fAngleY < D3DX_PI / 2.2f ))
-			{
-				RECT rc;
-				GetClientRect(g_hWnd, &rc);
-				pt.x = (rc.right - rc.left) / 2;
-				ClientToScreen(g_hWnd, &pt);
-				SetCursorPos(pt.x, pt.y);
-			}
+			//		//커서 다시 중간에 돌려놓기
+			//if ((m_fAngleY > D3DX_PI * 4.4f) || (m_fAngleY < D3DX_PI / 2.2f ))
+			//{
+			//	RECT rc;
+			//	GetClientRect(g_hWnd, &rc);
+			//	pt.x = (rc.right - rc.left) / 2;
+			//	ClientToScreen(g_hWnd, &pt);
+			//	SetCursorPos(pt.x, pt.y);
+			//}
 		}
 
 			if (m_isLButtonOBJDown)

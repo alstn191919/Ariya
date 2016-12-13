@@ -40,6 +40,15 @@ void cOBB::Setup( cSkinnedMesh* pSkinnedMesh )
 
 void cOBB::Setup(D3DXVECTOR3 Min, D3DXVECTOR3 Max)
 {
+	if ((fabsf(Min.x) < 1.0f) || (fabsf(Min.y) < 1.0f) || (fabsf(Min.z) < 1.0f))
+	{
+		Min = D3DXVECTOR3(-1, 0, -1);
+	}
+	if ((fabsf(Max.x) < 1.0f) || (fabsf(Max.y) < 1.0f) || (fabsf(Max.z) < 1.0f))
+	{
+		Max = D3DXVECTOR3(1, 1, 1);
+	}
+
 
 	D3DXVECTOR3 vMin = Min;
 	D3DXVECTOR3 vMax = Max;
@@ -68,8 +77,6 @@ void cOBB::Update( D3DXMATRIXA16* pmatWorld )
 {
 	if(pmatWorld)
 		m_matWorldTM = *pmatWorld;
-
-
 
 	for (int i = 0; i < 3; ++i)
 	{

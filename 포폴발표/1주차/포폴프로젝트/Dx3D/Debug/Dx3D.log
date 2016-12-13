@@ -1,0 +1,53 @@
+﻿빌드 시작: 2016-12-13 오후 1:38:39
+     1>2 노드의 "C:\Users\Yoo Ji Hyeon\Desktop\포폴프로젝트\Dx3D\Dx3D.vcxproj" 프로젝트(Build 대상)입니다.
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Yoo Ji Hyeon\Desktop\포폴프로젝트\Debug\Dx3D.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Yoo Ji Hyeon\Desktop\포폴프로젝트\Debug\Dx3D.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Yoo Ji Hyeon\Desktop\포폴프로젝트\Debug\Dx3D.lib" /MACHINE:X86 Debug\Dx3D.res
+         Debug\cAction.obj
+         Debug\cActionMove.obj
+         Debug\cActionRepeat.obj
+         Debug\cActionSeq.obj
+         Debug\cAllocateHierarchy.obj
+         Debug\cAllocateHierarchy2.obj
+         Debug\cAseLoader.obj
+         Debug\cAutoReleasePool.obj
+         Debug\cCamera.obj
+         Debug\cCrtController.obj
+         Debug\cCube.obj
+         Debug\cDeviceManager.obj
+         Debug\cFontManager.obj
+         Debug\cFrame.obj
+         Debug\cFrostumCulling.obj
+         Debug\cGameObject.obj
+         Debug\cGrid.obj
+         Debug\cGroup.obj
+         Debug\cHeightMap.obj
+         Debug\cHero.obj
+         Debug\cMainGame.obj
+         Debug\cMapRender.obj
+         Debug\cMtlTex.obj
+         Debug\cOBB.obj
+         Debug\cObejctManager.obj
+         Debug\cObject.obj
+         Debug\cObjLoader.obj
+         Debug\cObjMap.obj
+         Debug\cPyramid.obj
+         Debug\cRay.obj
+         Debug\cShaderManager.obj
+         Debug\cSkinnedMesh.obj
+         Debug\cSkinnedMesh2.obj
+         Debug\cSkinnedMeshManager.obj
+         Debug\cTextureManager.obj
+         Debug\cTimeManager.obj
+         Debug\cUIButton.obj
+         Debug\cUIImageView.obj
+         Debug\cUIObject.obj
+         Debug\cUITextView.obj
+         Debug\Dx3D.obj
+         Debug\iMap.obj
+         Debug\stdafx.obj
+         Dx3D.vcxproj -> C:\Users\Yoo Ji Hyeon\Desktop\포폴프로젝트\Debug\Dx3D.exe
+     1>"C:\Users\Yoo Ji Hyeon\Desktop\포폴프로젝트\Dx3D\Dx3D.vcxproj" 프로젝트를 빌드했습니다(Build 대상).
+
+빌드했습니다.
+
+경과 시간: 00:00:00.35
