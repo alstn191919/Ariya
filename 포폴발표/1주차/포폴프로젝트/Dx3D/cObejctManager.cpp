@@ -200,12 +200,12 @@ void cObejctManager::Render()
 			}
 		}*/
 
-		//다음 프로젝트 여는 순간 이 if 업데이트문 지워버려!!! ☆
-		if (object[i]->GetObb())
-		{
-			
-			object[i]->GetObb()->Update(object[i]->GetWolrd());
-		}
+		////다음 프로젝트 여는 순간 이 if 업데이트문 지워버려!!! ☆
+		//if (object[i]->GetObb())
+		//{
+		//	
+		//	object[i]->GetObb()->Update(object[i]->GetWolrd());
+		//}
 
 		if (GetAsyncKeyState(VK_F1)&0x8001)
 		{

@@ -81,32 +81,31 @@ void cCrtController::Update(cMapRender* pMap , cOBB * poBB)
 			vPosition = m_vPosition + (m_vDirection * (m_fSpeed - 0.1f));
 		}
 	}
-	bool col = false;
-	if (poBB)
-	{
-		temp = *poBB;
+	temp = *poBB;
 
-		D3DXMATRIXA16 tempMat;
+	D3DXMATRIXA16 tempMat;
+
+	bool col=false;
+	D3DXMATRIXA16 matTT;
+	D3DXMatrixTranslation(&matTT, vPosition.x, vPosition.y, vPosition.z);
+	tempMat = mat * matTT;
+
+	temp.Update(&tempMat);
+
+	if (ObjectManager->IsCollision(&temp))
+	{
+		ObjectManager->SetCollision(true);
+		col = true;
+	}
+	else
+	{
+		ObjectManager->SetCollision(false);
+	//	poBB = &temp; 
+		poBB->Update(&tempMat);
+	}
 
 		
-		D3DXMATRIXA16 matTT;
-		D3DXMatrixTranslation(&matTT, vPosition.x, vPosition.y, vPosition.z);
-		tempMat = mat * matTT;
 
-		temp.Update(&tempMat);
-
-		if (ObjectManager->IsCollision(&temp))
-		{
-			ObjectManager->SetCollision(true);
-			col = true;
-		}
-		else
-		{
-			ObjectManager->SetCollision(false);
-			//	poBB = &temp; 
-			poBB->Update(&tempMat);
-		}
-	}
 
 	if (pMap)
 	{
@@ -128,4 +127,10 @@ void cCrtController::Update(cMapRender* pMap , cOBB * poBB)
 	D3DXMATRIXA16 matT;
 	D3DXMatrixTranslation(&matT, m_vPosition.x, m_vPosition.y, m_vPosition.z);
 	m_matWorld = mat * matT;
+
+	
+	
+	
+
+	
 }

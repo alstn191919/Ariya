@@ -92,5 +92,4 @@ void cGrid::Render()
 	{
 		p->Render();
 	}
-	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
-}
+	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);}
