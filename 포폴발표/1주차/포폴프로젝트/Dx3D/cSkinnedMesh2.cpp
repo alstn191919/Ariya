@@ -9,6 +9,7 @@ cSkinnedMesh2::cSkinnedMesh2(void)
 	, m_fAngleY(0.0)
 	, m_Obb(NULL)
 	, b_isOpen(false)
+	
 {
 	D3DXMatrixIdentity(&m_wolrd);
 }
@@ -205,33 +206,31 @@ void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size)
 	D3DXMatrixIdentity(&mat);
 	D3DXMatrixIdentity(&matR);
 	D3DXMatrixIdentity(&matS);
+
+
 	D3DXMatrixScaling(&matS, size.x, size.y, size.z);
 	
 	/*mat._41 = p.x;
 	mat._42 = p.y;
 	mat._43 = p.z;*/
-
-	D3DXMatrixTranslation(&mat, p.x, p.y, p.z);
-
 	if (m_eObjType == Room)
 	{
-		D3DXMatrixRotationY(&matR,-D3DX_PI/2.0f);
+		D3DXMatrixRotationY(&matR, -D3DX_PI / 2.0f);
 	}
 
-	if (m_bInter == false)
+	if (m_eObjType == Eledoor)
 	{
-		D3DXMatrixRotationY(&matR, D3DX_PI / 2.0f);
+		D3DXMatrixRotationY(&matR, -D3DX_PI / 2.0f);
 	}
+	D3DXMatrixTranslation(&mat, p.x, p.y, p.z);
+
+
 
 	D3DXMatrixIdentity(&m_wolrd);
 
 	//m_wolrd = matS * mat *m_wolrd;
 
 	m_wolrd = matS * matR * mat *m_wolrd;
-
-	
-
-
 }
 
 void cSkinnedMesh2::ObjRender()
@@ -239,31 +238,44 @@ void cSkinnedMesh2::ObjRender()
 	if (m_eObjType == door)
 	{	
 
-		D3DXMATRIXA16 matRX, matRY, mat;
+		D3DXMATRIXA16 matRX, matRY, mat , matOBB;
 		D3DXMatrixIdentity(&mat);
+		D3DXMatrixIdentity(&matOBB);
 
 		mat._43 = -3.5;
+		//matOBB._43 = -3.5;
 		D3DXMatrixRotationY(&matRX, -m_fAngleX);
 		D3DXMatrixRotationZ(&matRY, -m_fAngleY);
 
 		mat = ( mat  *  matRX * matRY);
 
+
+		D3DXMatrixRotationY(&matRX, -m_fAngleX);
+		D3DXMatrixRotationZ(&matRY, -m_fAngleY);
+
+		matOBB = (matOBB  *  matRX * matRY);
 		//D3DXMatrixTranslation(&mat, m_wolrd._41, m_wolrd._42, m_wolrd._43);
 
 		mat = mat * m_wolrd;
+		matOBB = matOBB * m_wolrd;
 		//m_wolrd = mat;
 		//m_wolrd = mat* m_wolrd;
+	/*	pt.vCenter = p;
+		pt.vCenter.x = pt.vCenter.x + 2;
+		pt.vCenter.y = pt.vCenter.y + 3;*/
+		D3DXVECTOR3 tempP;
 
-		g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
-		m_sSphre.vCenter;
-		D3DXMATRIXA16 a = m_Obb->GetmatWorldTM();
-		m_Obb->Update(&mat);
+		
+		tempP.x = matOBB._41 + 4;
+		tempP.y = matOBB._42 + 3;
+		tempP.z = matOBB._43;
 		
 
-
-		this;
-		printf("aa");
-	//	m_Obb->
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
+		m_sSphre.vCenter= tempP;
+		D3DXMATRIXA16 a = m_Obb->GetmatWorldTM();
+		m_Obb->Update(&matOBB);
+	
 	}
 	else
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_wolrd);

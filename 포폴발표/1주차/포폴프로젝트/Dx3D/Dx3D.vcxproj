@@ -27,7 +27,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -82,7 +82,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Asciitok.h" />
-    <ClInclude Include="c2FScene.h" />
     <ClInclude Include="cAction.h" />
     <ClInclude Include="cActionMove.h" />
     <ClInclude Include="cActionRepeat.h" />
@@ -114,12 +113,10 @@
     <ClInclude Include="cParticle.h" />
     <ClInclude Include="cPyramid.h" />
     <ClInclude Include="cRay.h" />
-    <ClInclude Include="cSceneManager.h" />
     <ClInclude Include="cShaderManager.h" />
     <ClInclude Include="cSkinnedMesh.h" />
     <ClInclude Include="cSkinnedMesh2.h" />
     <ClInclude Include="cSkinnedMeshManager.h" />
-    <ClInclude Include="cStartScene.h" />
     <ClInclude Include="cTextureManager.h" />
     <ClInclude Include="cTimeManager.h" />
     <ClInclude Include="cUIButton.h" />
@@ -133,7 +130,6 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="c2FScene.cpp" />
     <ClCompile Include="cAction.cpp" />
     <ClCompile Include="cActionMove.cpp" />
     <ClCompile Include="cActionRepeat.cpp" />
@@ -165,12 +161,10 @@
     <ClCompile Include="cParticle.cpp" />
     <ClCompile Include="cPyramid.cpp" />
     <ClCompile Include="cRay.cpp" />
-    <ClCompile Include="cSceneManager.cpp" />
     <ClCompile Include="cShaderManager.cpp" />
     <ClCompile Include="cSkinnedMesh.cpp" />
     <ClCompile Include="cSkinnedMesh2.cpp" />
     <ClCompile Include="cSkinnedMeshManager.cpp" />
-    <ClCompile Include="cStartScene.cpp" />
     <ClCompile Include="cTextureManager.cpp" />
     <ClCompile Include="cTimeManager.cpp" />
     <ClCompile Include="cUIButton.cpp" />
