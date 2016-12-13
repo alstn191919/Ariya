@@ -40,49 +40,6 @@ void cOBB::Setup( cSkinnedMesh* pSkinnedMesh )
 
 void cOBB::Setup(D3DXVECTOR3 Min, D3DXVECTOR3 Max)
 {
-#include "StdAfx.h"
-#include "cOBB.h"
-#include "cSkinnedMesh.h"
-
-cOBB::cOBB(void)
-{
-}
-
-
-cOBB::~cOBB(void)
-{
-}
-
-void cOBB::Setup( cSkinnedMesh* pSkinnedMesh )
-{
-	
-	D3DXVECTOR3 vMin = pSkinnedMesh->GetMin();
-	D3DXVECTOR3 vMax = pSkinnedMesh->GetMax();
-	m_vOrgCenterPos = (vMin + vMax) / 2.f;
-
-	m_vOrgAxisDir[0] = D3DXVECTOR3(1, 0, 0);
-	m_vOrgAxisDir[1] = D3DXVECTOR3(0, 1, 0);
-	m_vOrgAxisDir[2] = D3DXVECTOR3(0, 0, 1);
-
-	m_fAxisLen[0] = fabs(vMax.x - vMin.x);
-	m_fAxisLen[1] = fabs(vMax.y - vMin.y);
-	m_fAxisLen[2] = fabs(vMax.z - vMin.z);
-
-	m_fAxisHalfLen[0] = m_fAxisLen[0] / 2.0f;
-	m_fAxisHalfLen[1] = m_fAxisLen[1] / 2.0f;
-	m_fAxisHalfLen[2] = m_fAxisLen[2] / 2.0f;
-
-	D3DXMatrixIdentity(&m_matWorldTM);
-// 	D3DXMatrixTranslation(&m_matWorldTM,
-// 		m_vOrgCenterPos.x,
-// 		m_vOrgCenterPos.y,
-// 		m_vOrgCenterPos.z);
-}
-
-
-void cOBB::Setup(D3DXVECTOR3 Min, D3DXVECTOR3 Max)
-{
-
 	D3DXVECTOR3 vMin = Min;
 	D3DXVECTOR3 vMax = Max;
 	m_vOrgCenterPos = (vMin + vMax) / 2.f;
@@ -110,8 +67,6 @@ void cOBB::Update( D3DXMATRIXA16* pmatWorld )
 {
 	if(pmatWorld)
 		m_matWorldTM = *pmatWorld;
-
-
 
 	for (int i = 0; i < 3; ++i)
 	{

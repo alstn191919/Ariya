@@ -200,7 +200,6 @@ struct ST_SHADER
 		Position = D3DXVECTOR4(Pos.x, Pos.y, Pos.z, 1);
 	}
 };
-
 #include "cDeviceManager.h"
 #include "cTimeManager.h"
 #include "cTextureManager.h"
@@ -212,4 +211,3 @@ struct ST_SHADER
 #include "cObejctManager.h"
 #include "cUIObject.h"
 #include "cFontManager.h"
-#include "cSceneManager.h"
