@@ -1,10 +1,27 @@
-﻿빌드 시작: 2016-12-12 오후 9:23:34
+﻿빌드 시작: 2016-12-13 오후 5:48:17
      1>2 노드의 "C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Dx3D\Dx3D.vcxproj" 프로젝트(Build 대상)입니다.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Dx3D.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt cStartScene.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Dx3D.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt cSceneManager.cpp cStartScene.cpp
          cStartScene.cpp
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(33): warning C4316: 'cCamera': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(36): warning C4316: 'cCrtController': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(37): warning C4316: 'cCamera': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(41): warning C4316: 'cCrtController': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(44): warning C4316: 'cUIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(56): warning C4244: '=' : 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(57): warning C4244: '=' : 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(74): warning C4244: '인수' : 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+         코드를 생성하고 있습니다...
+         컴파일하고 있습니다...
+         cSceneManager.cpp
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cscenemanager.cpp(24): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cscenemanager.cpp(53): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cscenemanager.cpp(64): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cscenemanager.cpp(93): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cscenemanager.cpp(106): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cscenemanager.cpp(117): warning C4316: 'c2FScene': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cscenemanager.cpp(131): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cscenemanager.cpp(143): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cscenemanager.cpp(166): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
+         코드를 생성하고 있습니다...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Debug\Dx3D.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Debug\Dx3D.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Debug\Dx3D.lib" /MACHINE:X86 Debug\Dx3D.res
          Debug\c2FScene.obj
@@ -36,6 +53,7 @@
          Debug\cObject.obj
          Debug\cObjLoader.obj
          Debug\cObjMap.obj
+         Debug\cParticle.obj
          Debug\cPyramid.obj
          Debug\cRay.obj
          Debug\cSceneManager.obj
@@ -58,4 +76,4 @@
 
 빌드했습니다.
 
-경과 시간: 00:00:02.51
+경과 시간: 00:00:05.90

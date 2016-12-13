@@ -319,9 +319,7 @@ void  cObejctManager::Destroy()
 	for each(auto it in object)
 	{
 		SAFE_DELETE(it);
-	}
-
-	
+	}	
 }
 
 

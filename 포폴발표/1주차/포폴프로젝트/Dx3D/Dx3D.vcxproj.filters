@@ -192,6 +192,9 @@
     <ClInclude Include="cGameObject.h">
       <Filter>정크</Filter>
     </ClInclude>
+    <ClInclude Include="cParticle.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -331,6 +334,9 @@
     </ClCompile>
     <ClCompile Include="cGameObject.cpp">
       <Filter>정크</Filter>
+    </ClCompile>
+    <ClCompile Include="cParticle.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
