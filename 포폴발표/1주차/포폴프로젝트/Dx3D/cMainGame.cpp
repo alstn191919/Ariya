@@ -12,10 +12,9 @@ cMainGame::~cMainGame(void)
 	g_pTextureManager->Destroy();
 	g_pSkinnedMeshManager->Destroy();
 	g_pSceneManager->Destroy();
-	g_pLightShaderManager->Destroy();
-
 	g_pObjectManager->Destroy();
 	g_pDeviceManager->Destroy();
+	g_pLightShaderManager->Destroy();
 }
 
 
@@ -23,8 +22,9 @@ cMainGame::~cMainGame(void)
 void cMainGame::Setup()
 {
 	SetLight();
-	//g_pSceneManager->ChangeScene(Scene_2F);
-	g_pSceneManager->ChangeScene(Scene_Main);
+	g_pSceneManager->ChangeScene(Scene_2F);
+	//g_pSceneManager->ChangeScene(Scene_Main);
+
 }
 
 void cMainGame::Update()
@@ -48,6 +48,8 @@ void cMainGame::Render()
 	g_pSceneManager->Render();
 
 
+
+
 	// fps
 	char str[1024];
 	sprintf_s(str, "FPS: %.2f", FPS);
@@ -55,7 +57,7 @@ void cMainGame::Render()
 
 	g_pD3DDevice->EndScene();
 	g_pD3DDevice->Present(NULL, NULL, NULL, NULL);
-} 
+}
 
 void cMainGame::SetLight()
 {

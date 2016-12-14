@@ -34,6 +34,9 @@
     <Filter Include="캐릭터">
       <UniqueIdentifier>{c5464fae-0fde-4274-ba41-aa18f593d93d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="씬관리">
+      <UniqueIdentifier>{2ec258d2-5045-481e-81c8-d410ac4c9aba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -183,8 +186,14 @@
     <ClInclude Include="cSkinnedMesh.h">
       <Filter>캐릭터</Filter>
     </ClInclude>
-    <ClInclude Include="cParticle.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="cSceneManager.h">
+      <Filter>매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="cStartScene.h">
+      <Filter>씬관리</Filter>
+    </ClInclude>
+    <ClInclude Include="c2FScene.h">
+      <Filter>씬관리</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -317,8 +326,14 @@
     <ClCompile Include="cSkinnedMesh.cpp">
       <Filter>캐릭터</Filter>
     </ClCompile>
-    <ClCompile Include="cParticle.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="cSceneManager.cpp">
+      <Filter>매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="c2FScene.cpp">
+      <Filter>씬관리</Filter>
+    </ClCompile>
+    <ClCompile Include="cStartScene.cpp">
+      <Filter>씬관리</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

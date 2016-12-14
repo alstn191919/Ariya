@@ -33,6 +33,7 @@ void cTextureManager::Destroy()
 	{
 		SAFE_RELEASE(it.second);
 	}
+
 	for each(auto it in m_mapSpriteTexture)
 	{
 		SAFE_RELEASE(it.second);

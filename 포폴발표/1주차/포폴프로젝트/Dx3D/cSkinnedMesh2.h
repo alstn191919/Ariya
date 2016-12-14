@@ -34,6 +34,8 @@ public:
 	void ObjEvent();
 	void SetAnimationIndex(int n);
 	void SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size);
+	void SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size, float Angle);
+
 	D3DXMATRIXA16 * GetWolrd(){ return &m_wolrd; }
 
 private:

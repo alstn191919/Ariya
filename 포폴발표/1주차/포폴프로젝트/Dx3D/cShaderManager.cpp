@@ -48,9 +48,5 @@ LPD3DXEFFECT cShaderManager::Getshader(std::string szPath)
 }
 void cShaderManager::Destroy()
 {
-	for each(auto p in gpLightingShader)
-	{
-		SAFE_RELEASE(p.second);
-	}
-	int a = 0;
+
 }

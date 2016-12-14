@@ -26,15 +26,16 @@ public:
 
 
 	
-	void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, OBJ_TYPE _objtype, D3DXVECTOR3 Min, D3DXVECTOR3 Max);				//일단 오브젝트 추가
+	void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max);				//일단 오브젝트 추가
 	void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, ST_SPHERE _Sphre, OBJ_TYPE _objtype, std::string _Text);	//상호작용 오브젝트 추가
-	void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, ST_SPHERE _Sphre, OBJ_TYPE _objtype, std::string _Text, D3DXVECTOR3 Min, D3DXVECTOR3 Max);	//상호작용 OBB추가타입
+	void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, ST_SPHERE _Sphre, OBJ_TYPE _objtype, std::string _Text, D3DXVECTOR3 Min, D3DXVECTOR3 Max , float Angle);	//상호 작용 + obb + 로테이션 타입
 
 	void Update();
 
 	void Render();
 	
 	bool isPinked();
+	int getIndex();												//픽킹인덱스값을 가져옵니다.
 	void SetSelect();
 	void SetNonSelect() { m_select_index = NonSlect; }			//셀렉트 초기화
 	void Destroy();

@@ -4,7 +4,7 @@
 
 cCamera::cCamera(void)
 	: m_vEye(0, 0, 10)
-	, m_vLookAt(0, 0, -1)
+	, m_vLookAt(0, 0, 0)
 	, m_vUp(0, 1, 0)
 	, m_isLButtonDown(false)
 	, m_isLButtonOBJDown(false)
@@ -29,18 +29,12 @@ void cCamera::Setup()
 	g_pD3DDevice->SetTransform(D3DTS_PROJECTION, &m_matProj);
 
 
-	GetClientRect(g_hWnd, &rc);
-	m_ptPrevMouse.x = (rc.right - rc.left) / 2;
-	m_ptPrevMouse.y = (rc.bottom - rc.top) / 2;
-	ClientToScreen(g_hWnd, &m_ptPrevMouse);
-	SetCursorPos(m_ptPrevMouse.x, m_ptPrevMouse.y);
 }
 
 void cCamera::Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection)
 {
 	//m_vEye = D3DXVECTOR3(0, 0, -m_fDistance);
 	//m_vLookAt = D3DXVECTOR3(0, 0, 0);
-	SetCursor(NULL);
 
 	D3DXMATRIXA16 matRX, matRY, matT, mat;
 	D3DXMatrixRotationX(&matRX, m_fAngleX);
@@ -49,7 +43,7 @@ void cCamera::Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection)
 	mat = matRX * matRY;
 
 	D3DXVECTOR3 templook;
-	D3DXVec3TransformNormal(&templook, &D3DXVECTOR3(0, 0, -1), &mat);
+	D3DXVec3TransformNormal(&templook, &D3DXVECTOR3(0, 0, 1), &mat);
 
 	//D3DXVec3TransformNormal(&m_vLookAt, &D3DXVECTOR3(0, 0, 1), &mat);
 
@@ -142,6 +136,7 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 				m_fAngleX_obj = ObjectManager->getAngleX();
 				m_fAngleY_obj = ObjectManager->getAngleY();
 			}
+
 		}
 		break;
 	case WM_LBUTTONUP:
@@ -164,64 +159,28 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 			pt.x = LOWORD(lParam);
 			pt.y = HIWORD(lParam);
 
-			RECT rc;
-			GetClientRect(g_hWnd, &rc);
-			if (pt.x >= rc.right - 200 || pt.x <= rc.left + 200)
-			{
-				pt.x = (rc.right - rc.left) / 2;
-				m_ptPrevMouse = pt;
-				ClientToScreen(g_hWnd, &pt);
-				SetCursorPos(pt.x, pt.y);
-				break;
-			}
-			else if (pt.y >= rc.bottom - 100 || pt.y <= rc.top + 100)
-			{
-				pt.y = (rc.bottom - rc.top) / 2;
-				m_ptPrevMouse = pt;
-				ClientToScreen(g_hWnd, &pt);
-				SetCursorPos(pt.x, pt.y);
-				break;
-			}
-
-			int nDeltaX = pt.x - m_ptPrevMouse.x;
-			int nDeltaY = pt.y - m_ptPrevMouse.y;
-
-			m_fAngleX += -nDeltaY * 0.01f;
-			if (m_fAngleX > D3DX_PI / 1.5f - EPSILON)
-			{
-				m_fAngleX = D3DX_PI / 1.5f - EPSILON;
-			}
-			if (m_fAngleX < -D3DX_PI / 1.5f + EPSILON)
-			{
-				m_fAngleX = -D3DX_PI / 1.5f + EPSILON;
-			}
-			m_fAngleY += nDeltaX * 0.01f;
-
-
-			m_ptPrevMouse = pt;
-
-			//m_fAngleX = pt.y * -0.015f;
+			m_fAngleX = pt.y * -0.015f;
 
 			//if(m_fAngleX > D3DX_PI / 2.0f - EPSILON)
 			//   m_fAngleX = D3DX_PI / 2.0f - EPSILON;
 
-			//if (m_fAngleX <= -D3DX_PI * 1.6f + EPSILON)
-			//	m_fAngleX = -D3DX_PI * 1.6f + EPSILON;
+			if (m_fAngleX <= -D3DX_PI * 1.6f + EPSILON)
+				m_fAngleX = -D3DX_PI * 1.6f + EPSILON;
 
-			//m_fAngleY = pt.x* 0.015f;
+			m_fAngleY = pt.x* 0.015f;
 
-			////m_ptPrevMouse = pt;
+			//m_ptPrevMouse = pt;
 
 
-			//		//커서 다시 중간에 돌려놓기
-			//if ((m_fAngleY > D3DX_PI * 4.4f) || (m_fAngleY < D3DX_PI / 2.2f ))
-			//{
-			//	RECT rc;
-			//	GetClientRect(g_hWnd, &rc);
-			//	pt.x = (rc.right - rc.left) / 2;
-			//	ClientToScreen(g_hWnd, &pt);
-			//	SetCursorPos(pt.x, pt.y);
-			//}
+					//커서 다시 중간에 돌려놓기
+			if ((m_fAngleY > D3DX_PI * 4.4f) || (m_fAngleY < D3DX_PI / 2.2f ))
+			{
+				RECT rc;
+				GetClientRect(g_hWnd, &rc);
+				pt.x = (rc.right - rc.left) / 2;
+				ClientToScreen(g_hWnd, &pt);
+				SetCursorPos(pt.x, pt.y);
+			}
 		}
 
 			if (m_isLButtonOBJDown)
@@ -239,19 +198,22 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 				{
 					if (ObjectManager->getOpen())
 					{
-						if (m_fAngleX_obj > D3DX_PI / 2.0f - EPSILON)
+						if (m_fAngleX_obj > -1.5)
+							m_fAngleX_obj = -1.5;
+					/*	if (m_fAngleX_obj > D3DX_PI / 2.0f - EPSILON)
 							m_fAngleX_obj = D3DX_PI / 2.0f - EPSILON;
 
 						if (m_fAngleX_obj < -D3DX_PI / 2.0f + EPSILON)
-							m_fAngleX_obj = -D3DX_PI / 2.0f + EPSILON;
+							m_fAngleX_obj = -D3DX_PI / 2.0f + EPSILON;*/
 					}
 					else
 					{
 						if (m_fAngleX_obj > -1.5)
 							m_fAngleX_obj = -1.5;
 
-						if (-D3DX_PI / 2.0f + EPSILON)
-							-D3DX_PI / 2.0f + EPSILON;
+						if (m_fAngleX_obj < -1.6)
+							m_fAngleX_obj = -1.6;
+
 					}
 				}
 				else

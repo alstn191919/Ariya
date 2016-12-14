@@ -162,6 +162,7 @@ void c2FScene::SetUITest()
 
 	ObjectManager->ADDobject("door3", "Door.obj", p, 1, pt, OBJ_TYPE::Switch, "문인것같다.");*/
 
+	//화장실문
 	p.z = 0;
 	p.y = -0.6;
 	p.x = -17;
@@ -173,11 +174,11 @@ void c2FScene::SetUITest()
 	pt.fRadius = 1;
 
 
-	Min = D3DXVECTOR3(-1, 0, -1);
-	Max = D3DXVECTOR3(2, 3, 1);
+	Min = D3DXVECTOR3(0, 0, -1);
+	Max = D3DXVECTOR3(-0.5, 3, 3);
 
 	Scal = D3DXVECTOR3(0.8, 0.65, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max,NULL);
 	//ObjectManager->ADDobject("Beds", "screen.x", p, 0.1, pt, OBJ_TYPE::door, "문인것같다.");
 
 	Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
@@ -189,30 +190,180 @@ void c2FScene::SetUITest()
 
 	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::item, "");
 	//         아이템 타입은 충돌시 클릭하게 되면 카메라 고정될텐데 esc 누르면 풀리게 해놨습니다.
-	p.z = 0;
+	//처음방 문
 
-
-
-
-
-	p.z = 0;
+	p.z = 5;
 	p.y = -0.6;
-	p.x = -25;
+	p.x = -23;
 	//0.468685;07.50739;5.85491;
-	/*pt.vCenter = p;
-	pt.vCenter.x = pt.vCenter.x + 2;
+	pt.vCenter = p;
+	pt.vCenter.x = pt.vCenter.x;
+	pt.vCenter.y = pt.vCenter.y + 3;
+	pt.vCenter.z = pt.vCenter.z - 3.8;
+	pt.isPicked = false;
+	pt.fRadius = 1.5;
+
+
+	Min = D3DXVECTOR3(0, 0, -1);
+	Max = D3DXVECTOR3(-0.5, 3, 3);
+
+	Scal = D3DXVECTOR3(1.3, 0.65, 0.7);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI/2);
+
+
+	p.z = -23.5;
+	p.y = -0.6;
+	p.x = -16.5;
+	//0.468685;07.50739;5.85491;
+	pt.vCenter = p;
+	pt.vCenter.x = pt.vCenter.x - 3;
 	pt.vCenter.y = pt.vCenter.y + 3;
 	pt.isPicked = false;
 	pt.fRadius = 1;
 
 
-	Min = D3DXVECTOR3(-1, 0, -1);
-	Max = D3DXVECTOR3(2, 3, 1);
+	Min = D3DXVECTOR3(0, 0, -1);
+	Max = D3DXVECTOR3(-0.5, 3, 3);
 
-	Scal = D3DXVECTOR3(0.8, 0.65, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max);*/
+	Scal = D3DXVECTOR3(1.5, 0.65, 0.7);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI);
+
+	p.z = -23.5;
+	p.y = -0.6;
+	p.x = 8;
+	//0.468685;07.50739;5.85491;
+	pt.vCenter = p;
+	pt.vCenter.x = pt.vCenter.x - 3;
+	pt.vCenter.y = pt.vCenter.y + 3;
+	pt.isPicked = false;
+	pt.fRadius = 1;
 
 
+	Min = D3DXVECTOR3(0, 0, -1);
+	Max = D3DXVECTOR3(-0.5, 3, 3);
+
+	Scal = D3DXVECTOR3(1.5, 0.65, 0.7);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI);
+
+	p.z = -23.5;
+	p.y = -0.6;
+	p.x = -30;
+	//0.468685;07.50739;5.85491;
+	pt.vCenter = p;
+	pt.vCenter.x = pt.vCenter.x + 2;
+	pt.vCenter.y = pt.vCenter.y + 3;
+	pt.isPicked = false;
+	pt.fRadius = 3;
+
+
+	Min = D3DXVECTOR3(0, 0, -1);
+	Max = D3DXVECTOR3(-0.5, 3, 3);
+
+	Scal = D3DXVECTOR3(1.9, 0.65, 0.7);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, NULL);
+
+
+	//여기 부터 밑에층 문
+	// -6.9, -16.9, -57.7
+	p.x = -6;
+	p.y = -17.5;
+	p.z = -53;
+	
+	//0.468685;07.50739;5.85491;
+	pt.vCenter = p;
+	pt.vCenter.x = pt.vCenter.x + 2;
+	pt.vCenter.y = pt.vCenter.y + 3;
+	pt.vCenter.z = pt.vCenter.z - 2;
+	pt.isPicked = false;
+	pt.fRadius = 2;
+
+
+	Min = D3DXVECTOR3(0, 0, -1);
+	Max = D3DXVECTOR3(-0.5, 3, 3);
+
+	Scal = D3DXVECTOR3(1.5, 1, 0.7);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI/2);
+
+	//6.3   , -16.9 , -44.3
+	p.x = 11;
+	p.y = -17.5;
+	p.z = -45;
+
+	//0.468685;07.50739;5.85491;
+	pt.vCenter = p;
+	pt.vCenter.x = pt.vCenter.x - 3;
+	pt.vCenter.y = pt.vCenter.y + 3;
+	pt.isPicked = false;
+	pt.fRadius = 2;
+
+
+	Min = D3DXVECTOR3(0, 0, -1);
+	Max = D3DXVECTOR3(-0.5, 3, 3);
+
+	Scal = D3DXVECTOR3(1.5, 1, 0.7);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI);
+
+	//35.8  , -17.5 , -44.5
+
+	p.x = 41;
+	p.y = -17.5;
+	p.z = -45;
+
+	//0.468685;07.50739;5.85491;
+	pt.vCenter = p;
+	pt.vCenter.x = pt.vCenter.x - 3;
+	pt.vCenter.y = pt.vCenter.y + 3;
+	pt.isPicked = false;
+	pt.fRadius = 2;
+
+
+	Min = D3DXVECTOR3(0, 0, -1);
+	Max = D3DXVECTOR3(-0.5, 3, 3);
+
+	Scal = D3DXVECTOR3(1.5, 1, 0.7);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI);
+
+
+	//63.7 , -17.5 ,44.5
+
+	p.x = 68;
+	p.y = -17.5;
+	p.z = -45;
+
+	//0.468685;07.50739;5.85491;
+	pt.vCenter = p;
+	pt.vCenter.x = pt.vCenter.x - 3;
+	pt.vCenter.y = pt.vCenter.y + 3;
+	pt.isPicked = false;
+	pt.fRadius = 2;
+
+
+	Min = D3DXVECTOR3(0, 0, -1);
+	Max = D3DXVECTOR3(-0.5, 3, 3);
+
+	Scal = D3DXVECTOR3(1.5, 1, 0.7);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI);
+
+	//	77, -17.5, -51
+	// -6.9, -16.9, -57.7
+	p.x = 76.5;
+	p.y = -17.5;
+	p.z = -57;
+
+	//0.468685;07.50739;5.85491;
+	pt.vCenter = p;
+//	pt.vCenter.x = pt.vCenter.x + 2;
+	pt.vCenter.y = pt.vCenter.y + 4;
+	pt.vCenter.z = pt.vCenter.z + 3.8;
+	pt.isPicked = false;
+	pt.fRadius = 2;
+
+
+	Min = D3DXVECTOR3(0, 0, -1);
+	Max = D3DXVECTOR3(-0.5, 3, 3);
+
+	Scal = D3DXVECTOR3(1.5, 1, 0.7);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2);
 
 	//밑에는 UI설정
 
