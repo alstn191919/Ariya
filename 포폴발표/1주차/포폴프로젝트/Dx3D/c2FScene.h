@@ -22,11 +22,15 @@ class c2FScene
 private:
 	cCamera*					m_pCamera;
 	cGrid*						m_pGrid;
-	cCrtController*			m_pController;
+	cCrtController*				m_pController;
 	cHero*						m_pHero;
-	cMapRender*				m_pMap;
+	cMapRender*					m_pMap;
 	cOBB*						m_pObb;
 	cOBB*						m_pObbObj;
+	std::vector<ID3DXMesh*>		m_vecText;
+	float						m_fPassedActionTime;
+	float						m_fActionTime;
+
 private:
 	bool						m_isCrtRunning;
 	bool						m_isCrtCrawling;

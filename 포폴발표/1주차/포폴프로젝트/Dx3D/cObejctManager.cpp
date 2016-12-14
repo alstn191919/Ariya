@@ -4,6 +4,9 @@
 #include "cCamera.h"
 #include "cOBB.h"
 
+float closeSpeed = 0.0167f;
+float eleLeft = 60.35f;
+float eleRight = 62.95f;
 
 cObejctManager::cObejctManager()
 	:m_select_index(NonSlect)
@@ -81,7 +84,6 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 	if (Angle)
 	newobject->SetWolrd(Pogi, size, Angle);
 	else newobject->SetWolrd(Pogi, size);
-
 	newobject->m_sSphre = _Sphre;
 
 	newobject->SetInter(true);
@@ -104,9 +106,13 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 
 void cObejctManager::Update()
 {
+	//Ray를 클라이언트 중간에서 쏘기
+	RECT rc;
 	POINT pt;
-	GetCursorPos(&pt);
-	ScreenToClient(g_hWnd, &pt);
+	//ClientToScreen(g_hWnd, &pt);
+	GetClientRect(g_hWnd, &rc);
+	pt.x = (rc.right - rc.left) / 2;
+	pt.y = (rc.bottom - rc.top) / 2;
 	int index;
 
 	cRay r = cRay::RayAtWorldSpace(pt.x, pt.y);
@@ -172,12 +178,51 @@ void cObejctManager::Update()
 			
 			//m_sleect_index = i;
 		}
+		//엘베 스위치 눌렀을 때 행동
+		if (object[0]->m_sSphre.isPicked)
+		{
+			if (GetAsyncKeyState('E') & 0x8000)			//디버그용으로 열닫 조절하게 했습니다 나중에 이벤트 신에서 해당 인덱스 만 처리해주는걸로 수정
+			{
+				if (object[i]->GetObjType() == OBJ_TYPE::Switch)
+				{
+					if (object[i]->GetisOpen())	object[i]->SetisOpen(false);
+					else object[i]->SetisOpen(true);
+				}
+			}
+		}
 		//if (object[i]->GetObb())
 		//{
 		//
 		//}
-
 	}
+	//문열고 닫고 
+	if (object[0]->GetisOpen() == true)
+	{
+		object[2]->SetWolrd(D3DXVECTOR3(eleLeft, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
+		eleLeft -= closeSpeed;
+		object[3]->SetWolrd(D3DXVECTOR3(eleRight, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
+		eleRight += closeSpeed;
+
+		if (eleRight > 64.95f && eleLeft < 58.35f)
+		{
+			eleRight = 64.95f;
+			eleLeft = 58.35f;
+		}
+	}
+	else if (object[0]->GetisOpen() == false)
+	{
+		object[2]->SetWolrd(D3DXVECTOR3(eleLeft, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
+		eleLeft += closeSpeed;
+		object[3]->SetWolrd(D3DXVECTOR3(eleRight, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
+		eleRight -= closeSpeed;
+		if (eleRight <= 62.95f && eleLeft >= 60.35f)
+		{
+			eleRight = 62.95f;
+			eleLeft = 60.35f;
+		}
+	}
+
+
 
 	if (m_select_index != NonSlect && object[m_select_index]->GetObjType()==OBJ_TYPE::item)
 	{
@@ -411,10 +456,4 @@ bool cObejctManager::getOpen()
 		}
 	}
 	return false;
-}
-
-
-bool cObejctManager::getIndexOpen(int _index)
-{
-	return object[_index]->GetisOpen();
 }

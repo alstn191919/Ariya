@@ -218,11 +218,6 @@ void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size)
 		D3DXMatrixRotationY(&matR,-D3DX_PI/2.0f);
 	}
 
-	if (m_bInter == false)
-	{
-		D3DXMatrixRotationY(&matR, D3DX_PI / 2.0f);
-	}
-
 	D3DXMatrixIdentity(&m_wolrd);
 
 	//m_wolrd = matS * mat *m_wolrd;
@@ -303,9 +298,8 @@ void cSkinnedMesh2::ObjRender()
 		tempP.y = matOBB._42 + 3;
 		tempP.z = matOBB._43;
 		
-		
 		g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
-	//	m_sSphre.vCenter= tempP;
+		//m_sSphre.vCenter= tempP;
 		D3DXMATRIXA16 a = m_Obb->GetmatWorldTM();
 		m_Obb->Update(&matOBB);
 	

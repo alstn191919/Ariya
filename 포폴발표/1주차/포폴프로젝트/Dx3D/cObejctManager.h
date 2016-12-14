@@ -35,9 +35,9 @@ public:
 	void Render();
 	
 	bool isPinked();
-	int getIndex();												//픽킹인덱스값을 가져옵니다.
+	int getIndex();												//픽킹인덱스값을 가져옵니다.	void SetSelect();
 	void SetSelect();
-	void SetNonSelect() { m_select_index = NonSlect; }			//셀렉트 초기화
+	void SetNonSelect() { m_select_index = NonSlect; }			//셀렉트 초기화	
 	void Destroy();
 
 	OBJ_TYPE getPinkedObjType();
@@ -50,7 +50,6 @@ public:
 	float getAngleY();
 
 	bool getOpen();
-	bool getIndexOpen(int _index);
 	
 
 

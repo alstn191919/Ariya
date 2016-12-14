@@ -28,6 +28,8 @@ c2FScene::c2FScene() : m_pCamera(NULL)
 , m_isCrtRunning(false)
 , m_isCrtCrawling(false)
 , m_pSkinnedMesh(NULL)
+, m_fPassedActionTime(0.0f)
+, m_fActionTime(2.0f)
 {
 	//g_bOBBCollision = false;
 }
@@ -70,63 +72,58 @@ void c2FScene::SetUITest()
 	p = D3DXVECTOR3(63.6, -13.5, -105.5);
 	pt.vCenter = p;
 	pt.isPicked = false;
-	pt.fRadius = 0.5f;
+	pt.fRadius = 1.5f;
 	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::Switch, "E버튼을 누르시오");
-
-
-	//Scal = D3DXVECTOR3(30.0f, 30.0f, 30.0f);
-	//p = D3DXVECTOR3(61.6f, -17, -105.5f);
-	//ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, Min, Max);
-	//Scal = D3DXVECTOR3(30.0f, 30.0f, 30.0f);
-	//p = D3DXVECTOR3(64.0f, -17, -105.5f);
-	//ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, Min, Max);
 
 	//엘리베이터 통
 	Scal = D3DXVECTOR3(1.1, 1.1, 1.1);
 	p = D3DXVECTOR3(62, -17, -108);
 	ObjectManager->ADDobject("Elivator", "Elivator.X", p, Scal, pt, OBJ_TYPE::Room, "");
 
-	////엘리베이터 문 2개
-	//Scal = D3DXVECTOR3(0.06f, 0.07f, 0.06f);
-	//p = D3DXVECTOR3(61.6f, -17, -105.5f);
-	////문1 (index 2)
-	//ObjectManager->ADDobject("Elivator/door", "door2.X", p, Scal, Min, Max);
-	//Scal = D3DXVECTOR3(0.06f, 0.07f, 0.06f);
-	//p = D3DXVECTOR3(64.0f, -17, -105.5f);
-	////문2 (index 3)
-	//ObjectManager->ADDobject("Elivator/door", "door2.X", p, Scal, Min, Max);
-
-
-	//닫힌문 포지션
-	//p = D3DXVECTOR3(60.6f, -17, -105.5f);
-	//p = D3DXVECTOR3(63.0f, -17, -105.5f);
-
 	//엘리베이터 문 2개
-	Scal = D3DXVECTOR3(27.0f, 27.0f, 27.0f);
-	p = D3DXVECTOR3(60.6f, -17, -105.5f);
+	Scal = D3DXVECTOR3(26.0f, 27.0f, 26.0f);
+	p = D3DXVECTOR3(60.35f, -17, -105.5f);
+	Min = D3DXVECTOR3(-0.035, 0, -0.035);
+	Max = D3DXVECTOR3(0.035, 0.075, 0.035);
 	//문1 (index 2)
 	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, Min, Max);
-	Scal = D3DXVECTOR3(27.0f, 27.0f, 27.0f);
-	p = D3DXVECTOR3(63.0f, -17, -105.5f);
+	Scal = D3DXVECTOR3(26.0f, 27.0f, 26.0f);
+	p = D3DXVECTOR3(62.95f, -17, -105.5f);
 	//문2 (index 3)
 	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, Min, Max);
 
-	Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
-	ObjectManager->ADDobject("Lamp", "Lamp.X", p, Scal, Min, Max);
+	//엘리베이터 숫자 띄우기위한 폰트설정
+	LOGFONT	lf;
+	HDC hdc = CreateCompatibleDC(0);
+	ZeroMemory(&lf, sizeof(LOGFONT));
+	lf.lfHeight = 0.1;
+	lf.lfWidth = 0.1;
+	lf.lfWeight = 1;
+	lf.lfItalic = false;
+	lf.lfUnderline = false;
+	lf.lfStrikeOut = false;
+	lf.lfCharSet = DEFAULT_CHARSET;
 
-	p.x = -25;
-	p.z = -15;
+	strcpy(lf.lfFaceName, "Times New Roman");
 
-	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, Min, Max);
-	//		인자값:      	 폴더명   파일명 , 위치, 오브젝트 크기  -> 이렇게 추가하시면 기능없이 그냥 오브젝트만 추가됩니다.
+	HFONT hFont, hFontOld;
+	hFont = CreateFontIndirect(&lf);
+	hFontOld = (HFONT)SelectObject(hdc, hFont);
+	
 
-	pt.vCenter.x = 0;
-	pt.vCenter.y = 0;
-	pt.vCenter.z = 0;
-	pt.isPicked = false;
-	pt.fRadius = 1;
+	m_vecText.resize(4);
 
-	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, Min, Max);
+	D3DXCreateText(g_pD3DDevice, hdc, "1", 0.1f, 0.01f, &m_vecText[0], 0, 0);
+	D3DXCreateText(g_pD3DDevice, hdc, "2", 0.1f, 0.01f, &m_vecText[1], 0, 0);
+	D3DXCreateText(g_pD3DDevice, hdc, "3", 0.1f, 0.01f, &m_vecText[2], 0, 0);
+	D3DXCreateText(g_pD3DDevice, hdc, "4", 0.1f, 0.01f, &m_vecText[3], 0, 0);
+ObjectManager->getOpen();
+
+	SelectObject(hdc, hFontOld);
+	DeleteObject(hFont);
+	DeleteDC(hdc);
+
+
 
 	//2.상호작용 오브젝트 추가
 	//인자값이 좀더 많이 필요합니다.
@@ -365,6 +362,7 @@ void c2FScene::SetUITest()
 	Scal = D3DXVECTOR3(1.5, 1, 0.7);
 	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2);
 
+
 	//밑에는 UI설정
 
 
@@ -380,8 +378,6 @@ void c2FScene::SetUITest()
 	pImageView->SetSize(ST_SIZE(stImageInfo.Width, stImageInfo.Height));
 	pImageView->SetLocalPos(D3DXVECTOR3(100, 50, 0));
 	m_pUIRoot = pImageView;
-
-
 
 
 	pTextView = new cUITextView;
@@ -492,6 +488,7 @@ void c2FScene::Render()
 
 	ObjectManager->Render();
 
+
 	/*if (cOBB::IsCollision(m_pObb, ObjectManager->GetInstance()->`))
 	{
 	m_pObbObj->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
@@ -506,6 +503,23 @@ void c2FScene::Render()
 	{
 		m_pUIRoot->Render(m_pSprite);
 	}
+
+
+	D3DXMATRIXA16 a;
+	D3DXMatrixIdentity(&a);
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, &a);
+
+	m_fPassedActionTime += g_pTimeManager->GetDeltaTime();
+	float t = m_fPassedActionTime / m_fActionTime;
+
+	if (t > 0.0f && t <= 10.0f)
+		m_vecText[0]->DrawSubset(0);
+	else if (t > 10.0f && t <= 20.0f)
+		m_vecText[1]->DrawSubset(0);
+	else if (t > 20.0f && t <= 30.0f)
+		m_vecText[2]->DrawSubset(0);
+	else if (t > 30.0f && t <= 40.0f)
+		m_vecText[3]->DrawSubset(0);
 
 }
 

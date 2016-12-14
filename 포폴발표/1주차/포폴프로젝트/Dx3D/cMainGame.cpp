@@ -49,7 +49,6 @@ void cMainGame::Render()
 
 
 
-
 	// fps
 	char str[1024];
 	sprintf_s(str, "FPS: %.2f", FPS);
