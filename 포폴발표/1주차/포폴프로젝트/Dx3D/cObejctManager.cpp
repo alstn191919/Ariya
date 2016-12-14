@@ -412,3 +412,9 @@ bool cObejctManager::getOpen()
 	}
 	return false;
 }
+
+
+bool cObejctManager::getIndexOpen(int _index)
+{
+	return object[_index]->GetisOpen();
+}
