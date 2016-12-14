@@ -217,19 +217,17 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 					{
 						if (m_fAngleX_obj > -1.5)
 							m_fAngleX_obj = -1.5;
-					/*	if (m_fAngleX_obj > D3DX_PI / 2.0f - EPSILON)
-							m_fAngleX_obj = D3DX_PI / 2.0f - EPSILON;
 
-						if (m_fAngleX_obj < -D3DX_PI / 2.0f + EPSILON)
-							m_fAngleX_obj = -D3DX_PI / 2.0f + EPSILON;*/
+						if (m_fAngleX_obj < -D3DX_PI - EPSILON)
+							m_fAngleX_obj = -D3DX_PI - EPSILON;
 					}
 					else
 					{
 						if (m_fAngleX_obj > -1.5)
 							m_fAngleX_obj = -1.5;
 
-						if (m_fAngleX_obj < -1.6)
-							m_fAngleX_obj = -1.6;
+						if (m_fAngleX_obj < -D3DX_PI / 2.0 - EPSILON)
+							m_fAngleX_obj = -D3DX_PI / 2.0 - EPSILON;
 
 					}
 				}

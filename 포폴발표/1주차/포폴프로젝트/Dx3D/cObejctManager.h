@@ -50,6 +50,7 @@ public:
 	float getAngleY();
 
 	bool getOpen();
+	bool getIndexOpen(int _index);
 	
 
 
