@@ -25,13 +25,8 @@ c2FScene::c2FScene() : m_pCamera(NULL)
 , m_pController(NULL)
 , m_pHero(NULL)
 , m_pMap(NULL)
-, m_isCrtRunning(false)
-, m_isCrtCrawling(false)
+, _isRuning(false)
 , m_pSkinnedMesh(NULL)
-, m_fPassedActionTime(0.0f)
-, m_fActionTime(2.0f)
-, m_b1stFloor(true)
-, m_bisClicked(false)
 {
 	//g_bOBBCollision = false;
 }
@@ -74,68 +69,98 @@ void c2FScene::SetUITest()
 	p = D3DXVECTOR3(63.6, -13.5, -105.5);
 	pt.vCenter = p;
 	pt.isPicked = false;
-	pt.fRadius = 1.5f;
-	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::Switch, "E눌러주세요");
+	pt.fRadius = 0.5f;
+	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::Switch, "E버튼을 누르시오");
+
+
+	//Scal = D3DXVECTOR3(30.0f, 30.0f, 30.0f);
+	//p = D3DXVECTOR3(61.6f, -17, -105.5f);
+	//ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, Min, Max);
+	//Scal = D3DXVECTOR3(30.0f, 30.0f, 30.0f);
+	//p = D3DXVECTOR3(64.0f, -17, -105.5f);
+	//ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, Min, Max);
 
 	//엘리베이터 통
 	Scal = D3DXVECTOR3(1.1, 1.1, 1.1);
 	p = D3DXVECTOR3(62, -17, -108);
-	pt.vCenter = p;
-	pt.isPicked = false;
-	pt.fRadius = 0;
-	ObjectManager->ADDobject("Elivator", "Elivator.X", p, Scal, pt, OBJ_TYPE::Room, "341", D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 0), -D3DX_PI / 2);
+	ObjectManager->ADDobject("Elivator", "Elivator.X", p, Scal, pt, OBJ_TYPE::Room, "");
+
+	////엘리베이터 문 2개
+	//Scal = D3DXVECTOR3(0.06f, 0.07f, 0.06f);
+	//p = D3DXVECTOR3(61.6f, -17, -105.5f);
+	////문1 (index 2)
+	//ObjectManager->ADDobject("Elivator/door", "door2.X", p, Scal, Min, Max);
+	//Scal = D3DXVECTOR3(0.06f, 0.07f, 0.06f);
+	//p = D3DXVECTOR3(64.0f, -17, -105.5f);
+	////문2 (index 3)
+	//ObjectManager->ADDobject("Elivator/door", "door2.X", p, Scal, Min, Max);
+
+
+	//닫힌문 포지션
+	//p = D3DXVECTOR3(60.6f, -17, -105.5f);
+	//p = D3DXVECTOR3(63.0f, -17, -105.5f);
 
 	//엘리베이터 문 2개
-	Scal = D3DXVECTOR3(26.0f, 27.0f, 26.0f);
-	p = D3DXVECTOR3(60.35f, -17, -105.5f);
-	Min = D3DXVECTOR3(-0.035, 0, -0.035);
-	Max = D3DXVECTOR3(0.035, 0.075, 0.035);
+	Scal = D3DXVECTOR3(27.0f, 27.0f, 27.0f);
+	p = D3DXVECTOR3(60.6f, -17, -105.5f);
 	//문1 (index 2)
-	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, pt, OBJ_TYPE::Eledoor,"123" ,Min, Max, -D3DX_PI / 2);
-	Scal = D3DXVECTOR3(26.0f, 27.0f, 26.0f);
-	p = D3DXVECTOR3(62.95f, -17, -105.5f);
+	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, Min, Max);
+	Scal = D3DXVECTOR3(27.0f, 27.0f, 27.0f);
+	p = D3DXVECTOR3(63.0f, -17, -105.5f);
 	//문2 (index 3)
-	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, pt, OBJ_TYPE::Eledoor, "123", Min, Max, -D3DX_PI / 2);
+	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, Min, Max);
 
-	//엘리베이터 숫자 띄우기위한 폰트설정
-	LOGFONT	lf;
-	HDC hdc = CreateCompatibleDC(0);
-	ZeroMemory(&lf, sizeof(LOGFONT));
-	lf.lfHeight = 0.1;
-	lf.lfWidth = 0.1;
-	lf.lfWeight = 1;
-	lf.lfItalic = false;
-	lf.lfUnderline = false;
-	lf.lfStrikeOut = false;
-	lf.lfCharSet = DEFAULT_CHARSET;
+	Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
+	ObjectManager->ADDobject("Lamp", "Lamp.X", p, Scal, Min, Max);
 
-	strcpy(lf.lfFaceName, "Times New Roman");
+	p.x = -25;
+	p.z = -15;
 
-	HFONT hFont, hFontOld;
-	hFont = CreateFontIndirect(&lf);
-	hFontOld = (HFONT)SelectObject(hdc, hFont);
-	
+	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, Min, Max);
+	//		인자값:      	 폴더명   파일명 , 위치, 오브젝트 크기  -> 이렇게 추가하시면 기능없이 그냥 오브젝트만 추가됩니다.
 
-	m_vecText.resize(4);
+	pt.vCenter.x = 0;
+	pt.vCenter.y = 0;
+	pt.vCenter.z = 0;
+	pt.isPicked = false;
+	pt.fRadius = 1;
 
-	D3DXCreateText(g_pD3DDevice, hdc, "1", 0.1f, 0.01f, &m_vecText[0], 0, 0);
-	D3DXCreateText(g_pD3DDevice, hdc, "2", 0.1f, 0.01f, &m_vecText[1], 0, 0);
-	D3DXCreateText(g_pD3DDevice, hdc, "3", 0.1f, 0.01f, &m_vecText[2], 0, 0);
-	D3DXCreateText(g_pD3DDevice, hdc, "4", 0.1f, 0.01f, &m_vecText[3], 0, 0);
-
-	ZeroMemory(&m_TextMtl, sizeof(_D3DMATERIAL9));
-	m_TextMtl.Ambient = m_TextMtl.Diffuse = m_TextMtl.Specular = D3DXCOLOR(0.6f, 0.1f, 0.1f, 1.0f);
-
-	SelectObject(hdc, hFontOld);
-	DeleteObject(hFont);
-	DeleteDC(hdc);
-
-
+	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, Min, Max);
 
 	//2.상호작용 오브젝트 추가
 	//인자값이 좀더 많이 필요합니다.
 
-	//화장실문
+	/*p.y = -658 * 0.7;
+	p.x = 357 * 0.7;
+	p.z = 680 * 0.7;
+	ObjectManager->ADDobject("door", "door.X", p		,	0.7, pt,			OBJ_TYPE::door, "문 왼쪽마우스 클릭");*/
+	//인자값				 폴더명    파일명   위치벡터, 크기 ,구(체크용),	 오브젝트 타입 , 충돌시 메세지
+	//오브젝트 타입은 OBJ_TYPE:: 하시면 보실수있습니다. 그냥 door 라고 써도 물론 됩니다.(보기 편하시라고 했어요)
+
+	p.y = 10;
+	p.x = 0;
+	p.z = 0;
+
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, pt, OBJ_TYPE::Switch, "E버튼을 눌러주세요");
+	//스위치 타입 이벤트 처리는 각각 다른 처리할것같아 따로 안하고 메시지 출력만 해놨습니다.
+	//해당 인덱스 얻어오셔서 처리해 주시면 되겠습니다!
+
+	/*p.y = 0;
+	p.x = 0;
+	p.z = 1;
+
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 10;
+
+	ObjectManager->ADDobject("door3", "Door.obj", p, 1, pt, OBJ_TYPE::Switch, "문인것같다.");*/
+
 	p.z = 0;
 	p.y = -0.6;
 	p.x = -17;
@@ -147,185 +172,45 @@ void c2FScene::SetUITest()
 	pt.fRadius = 1;
 
 
-	Min = D3DXVECTOR3(0, 0, -1);
-	Max = D3DXVECTOR3(-0.5, 3, 3);
+	Min = D3DXVECTOR3(-1, 0, -1);
+	Max = D3DXVECTOR3(2, 3, 1);
 
 	Scal = D3DXVECTOR3(0.8, 0.65, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max,NULL);
-	//처음방 문
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max);
+	//ObjectManager->ADDobject("Beds", "screen.x", p, 0.1, pt, OBJ_TYPE::door, "문인것같다.");
 
-	p.z = 5;
-	p.y = -0.6;
-	p.x = -23;
-	//0.468685;07.50739;5.85491;
+	Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
+	p = D3DXVECTOR3(0, 0, 0);
+
 	pt.vCenter = p;
-	pt.vCenter.x = pt.vCenter.x;
-	pt.vCenter.y = pt.vCenter.y + 3;
-	pt.vCenter.z = pt.vCenter.z - 3.8;
 	pt.isPicked = false;
-	pt.fRadius = 1.5;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::item, "");
+	//         아이템 타입은 충돌시 클릭하게 되면 카메라 고정될텐데 esc 누르면 풀리게 해놨습니다.
+	p.z = 0;
 
 
-	Min = D3DXVECTOR3(0, 0, -1);
-	Max = D3DXVECTOR3(-0.5, 3, 3);
-
-	Scal = D3DXVECTOR3(1.3, 0.65, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI/2);
 
 
-	p.z = -23.5;
+
+	p.z = 0;
 	p.y = -0.6;
-	p.x = -16.5;
+	p.x = -25;
 	//0.468685;07.50739;5.85491;
-	pt.vCenter = p;
-	pt.vCenter.x = pt.vCenter.x - 3;
+	/*pt.vCenter = p;
+	pt.vCenter.x = pt.vCenter.x + 2;
 	pt.vCenter.y = pt.vCenter.y + 3;
 	pt.isPicked = false;
 	pt.fRadius = 1;
 
 
-	Min = D3DXVECTOR3(0, 0, -1);
-	Max = D3DXVECTOR3(-0.5, 3, 3);
+	Min = D3DXVECTOR3(-1, 0, -1);
+	Max = D3DXVECTOR3(2, 3, 1);
 
-	Scal = D3DXVECTOR3(1.5, 0.65, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI);
+	Scal = D3DXVECTOR3(0.8, 0.65, 0.7);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max);*/
 
-	p.z = -23.5;
-	p.y = -0.6;
-	p.x = 8;
-	//0.468685;07.50739;5.85491;
-	pt.vCenter = p;
-	pt.vCenter.x = pt.vCenter.x - 3;
-	pt.vCenter.y = pt.vCenter.y + 3;
-	pt.isPicked = false;
-	pt.fRadius = 1;
-
-
-	Min = D3DXVECTOR3(0, 0, -1);
-	Max = D3DXVECTOR3(-0.5, 3, 3);
-
-	Scal = D3DXVECTOR3(1.5, 0.65, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI);
-
-	p.z = -23.5;
-	p.y = -0.6;
-	p.x = -30;
-	//0.468685;07.50739;5.85491;
-	pt.vCenter = p;
-	pt.vCenter.x = pt.vCenter.x + 2;
-	pt.vCenter.y = pt.vCenter.y + 3;
-	pt.isPicked = false;
-	pt.fRadius = 3;
-
-
-	Min = D3DXVECTOR3(0, 0, -1);
-	Max = D3DXVECTOR3(-0.5, 3, 3);
-
-	Scal = D3DXVECTOR3(1.9, 0.65, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, NULL);
-
-
-	//여기 부터 밑에층 문
-	// -6.9, -16.9, -57.7
-	p.x = -6;
-	p.y = -17.5;
-	p.z = -53;
-	
-	//0.468685;07.50739;5.85491;
-	pt.vCenter = p;
-	pt.vCenter.x = pt.vCenter.x + 2;
-	pt.vCenter.y = pt.vCenter.y + 3;
-	pt.vCenter.z = pt.vCenter.z - 2;
-	pt.isPicked = false;
-	pt.fRadius = 2;
-
-
-	Min = D3DXVECTOR3(0, 0, -1);
-	Max = D3DXVECTOR3(-0.5, 3, 3);
-
-	Scal = D3DXVECTOR3(1.5, 1, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI/2);
-
-	//6.3   , -16.9 , -44.3
-	p.x = 11;
-	p.y = -17.5;
-	p.z = -45;
-
-	//0.468685;07.50739;5.85491;
-	pt.vCenter = p;
-	pt.vCenter.x = pt.vCenter.x - 3;
-	pt.vCenter.y = pt.vCenter.y + 3;
-	pt.isPicked = false;
-	pt.fRadius = 2;
-
-
-	Min = D3DXVECTOR3(0, 0, -1);
-	Max = D3DXVECTOR3(-0.5, 3, 3);
-
-	Scal = D3DXVECTOR3(1.5, 1, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI);
-
-	//35.8  , -17.5 , -44.5
-
-	p.x = 41;
-	p.y = -17.5;
-	p.z = -45;
-
-	//0.468685;07.50739;5.85491;
-	pt.vCenter = p;
-	pt.vCenter.x = pt.vCenter.x - 3;
-	pt.vCenter.y = pt.vCenter.y + 3;
-	pt.isPicked = false;
-	pt.fRadius = 2;
-
-
-	Min = D3DXVECTOR3(0, 0, -1);
-	Max = D3DXVECTOR3(-0.5, 3, 3);
-
-	Scal = D3DXVECTOR3(1.5, 1, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI);
-
-
-	//63.7 , -17.5 ,44.5
-
-	p.x = 68;
-	p.y = -17.5;
-	p.z = -45;
-
-	//0.468685;07.50739;5.85491;
-	pt.vCenter = p;
-	pt.vCenter.x = pt.vCenter.x - 3;
-	pt.vCenter.y = pt.vCenter.y + 3;
-	pt.isPicked = false;
-	pt.fRadius = 2;
-
-
-	Min = D3DXVECTOR3(0, 0, -1);
-	Max = D3DXVECTOR3(-0.5, 3, 3);
-
-	Scal = D3DXVECTOR3(1.5, 1, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI);
-
-	//	77, -17.5, -51
-	// -6.9, -16.9, -57.7
-	p.x = 76.5;
-	p.y = -17.5;
-	p.z = -57;
-
-	//0.468685;07.50739;5.85491;
-	pt.vCenter = p;
-//	pt.vCenter.x = pt.vCenter.x + 2;
-	pt.vCenter.y = pt.vCenter.y + 4;
-	pt.vCenter.z = pt.vCenter.z + 3.8;
-	pt.isPicked = false;
-	pt.fRadius = 2;
-
-
-	Min = D3DXVECTOR3(0, 0, -1);
-	Max = D3DXVECTOR3(-0.5, 3, 3);
-
-	Scal = D3DXVECTOR3(1.5, 1, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2);
 
 
 	//밑에는 UI설정
@@ -343,6 +228,8 @@ void c2FScene::SetUITest()
 	pImageView->SetSize(ST_SIZE(stImageInfo.Width, stImageInfo.Height));
 	pImageView->SetLocalPos(D3DXVECTOR3(100, 50, 0));
 	m_pUIRoot = pImageView;
+
+
 
 
 	pTextView = new cUITextView;
@@ -377,7 +264,7 @@ void c2FScene::Setup()
 	m_pMap->Setup("objMap/objmap.obj",
 		"objMap/2FsurFace.obj",
 		D3DXVECTOR3(2.0f, -126.5f, 9.0f),
-		D3DXVECTOR3(15.0f, -126.5f, 7.0f), D3DXVECTOR3(-10.0f, 2.0f, 4.0f), 1.0f);
+		D3DXVECTOR3(15.0f, -126.5f, 7.0f), D3DXVECTOR3(2.1f, 4.0f, 3.1f), 1.0f);
 
 	//오브젝트 매니져 사용 메뉴얼 
 	SetUITest();
@@ -387,6 +274,7 @@ void c2FScene::Setup()
 
 	m_pObbObj = new cOBB;
 	m_pObbObj->Setup(m_pHero->GetMesh());
+
 
 }
 void c2FScene::Update()
@@ -423,7 +311,7 @@ void c2FScene::Render()
 
 	//맵렌더
 	if (m_pMap)
-		m_pMap->Render(m_pCamera->GetvEye(),1000.0f);
+		m_pMap->Render(m_pCamera->GetvEye(),30.0f);
 	//
 
 	//캐릭 랜더
@@ -453,7 +341,6 @@ void c2FScene::Render()
 
 	ObjectManager->Render();
 
-
 	/*if (cOBB::IsCollision(m_pObb, ObjectManager->GetInstance()->`))
 	{
 	m_pObbObj->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
@@ -469,152 +356,8 @@ void c2FScene::Render()
 		m_pUIRoot->Render(m_pSprite);
 	}
 
-
-	//여기 엘리베이터 동작하는곳 ( 엘리베이터 밖 )
-	D3DXMATRIXA16 matES,matET,matER, matEWorld;
-	D3DXMatrixScaling(&matES, 0.4f, 0.4f, 0.4f);
-	D3DXMatrixIdentity(&matET);
-	D3DXMatrixTranslation(&matET, 61.75f, -11.4f, -105.f);
-	D3DXMatrixRotationY(&matER, D3DX_PI);
-	matEWorld = matES * matER * matET;
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matEWorld);
-	g_pD3DDevice->SetMaterial(&m_TextMtl);
-
-	if (ObjectManager->getPinkedObjType() == OBJ_TYPE::Switch)
-	{
-		if (GetAsyncKeyState('E') & 0x8000)
-		{
-			m_bisClicked = true;
-		}
-	}
-	float t = 0;
-	if (m_b1stFloor)
-	{
-		if (m_bisClicked)
-		{
-			m_fPassedActionTime += g_pTimeManager->GetDeltaTime();
-			t = m_fPassedActionTime / m_fActionTime;
-
-			if (t <= 3.0f)
-				m_vecText[0]->DrawSubset(0);
-			else if (t > 3.0f && t <= 6.0f)
-				m_vecText[1]->DrawSubset(0);
-			else if (t > 6.0f && t <= 9.0f)
-				m_vecText[2]->DrawSubset(0);
-			else if (t > 9.0)
-			{
-				m_vecText[3]->DrawSubset(0);
-				t = 10;
-				ObjectManager->setIndexOpen(true);
-				if (ObjectManager->getPinkedObjType() == OBJ_TYPE::Switch)
-				{
-					if (GetAsyncKeyState('E') & 0x8000)
-					{
-						ObjectManager->setIndexOpen(false);
-						m_bisClicked = true;
-						m_b1stFloor = false;
-						m_fPassedActionTime = 0;
-					}
-				}
-			}
-
-		}
-	}
-	else
-	{
-		if (m_bisClicked)
-		{
-			m_fPassedActionTime += g_pTimeManager->GetDeltaTime();
-			t = m_fPassedActionTime / m_fActionTime;
-
-			if (t <= 3.0f)
-				m_vecText[3]->DrawSubset(0);
-			else if (t > 3.0f && t <= 6.0f)
-				m_vecText[2]->DrawSubset(0);
-			else if (t > 6.0f && t <= 9.0f)
-				m_vecText[1]->DrawSubset(0);
-			else if (t > 9.0f)
-			{
-				m_vecText[0]->DrawSubset(0);
-				t = 10;
-				ObjectManager->setIndexOpen(true);
-			}
-
-		}
-	}
-
-	//여기 엘리베이터 동작하는곳 ( 엘리베이터 안쪽 숫자 )
-	D3DXMatrixScaling(&matES, 0.4f, 0.4f, 0.4f);
-	D3DXMatrixIdentity(&matET);
-	D3DXMatrixTranslation(&matET, 61.55f, -11.56f, -105.9f);
-	matEWorld = matES * matET;
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matEWorld);
-
-	if (ObjectManager->getPinkedObjType() == OBJ_TYPE::Switch)
-	{
-		if (GetAsyncKeyState('E') & 0x8000)
-		{
-			m_bisClicked = true;
-		}
-	}
-	//float t = 0;
-	if (m_b1stFloor)
-	{
-		if (m_bisClicked)
-		{
-			m_fPassedActionTime += g_pTimeManager->GetDeltaTime();
-			t = m_fPassedActionTime / m_fActionTime;
-
-			if (t <= 3.0f)
-				m_vecText[0]->DrawSubset(0);
-			else if (t > 3.0f && t <= 6.0f)
-				m_vecText[1]->DrawSubset(0);
-			else if (t > 6.0f && t <= 9.0f)
-				m_vecText[2]->DrawSubset(0);
-			else if (t > 9.0)
-			{
-				m_vecText[3]->DrawSubset(0);
-				t = 10;
-				ObjectManager->setIndexOpen(true);
-				if (ObjectManager->getPinkedObjType() == OBJ_TYPE::Switch)
-				{
-					if (GetAsyncKeyState('E') & 0x8000)
-					{
-						ObjectManager->setIndexOpen(false);
-						m_bisClicked = true;
-						m_b1stFloor = false;
-						m_fPassedActionTime = 0;
-					}
-				}
-			}
-
-		}
-	}
-	else
-	{
-		if (m_bisClicked)
-		{
-			m_fPassedActionTime += g_pTimeManager->GetDeltaTime();
-			t = m_fPassedActionTime / m_fActionTime;
-
-			if (t <= 3.0f)
-				m_vecText[3]->DrawSubset(0);
-			else if (t > 3.0f && t <= 6.0f)
-				m_vecText[2]->DrawSubset(0);
-			else if (t > 6.0f && t <= 9.0f)
-				m_vecText[1]->DrawSubset(0);
-			else if (t > 9.0f)
-			{
-				m_vecText[0]->DrawSubset(0);
-				t = 10;
-				ObjectManager->setIndexOpen(true);
-			}
-
-		}
-	}
-
-
 }
+
 void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (m_pCamera)
@@ -632,51 +375,51 @@ void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		   {
 		   case VK_SPACE:
 		   {
-				m_isCrtRunning = true;
-				m_pHero->SetState(CRT_STATE::CRT_RUN);
-				break;
+							_isRuning = true;
+							m_pHero->SetState(CRT_STATE::CRT_RUN);
+							break;
 		   }
 		   case 'W':
 		   {
-				//방향 설정 : 정면
-				m_pHero->SetDirection(ENUM_DIRECTION::DR_FORWARD);
-				if (!m_isCrtRunning)
-				{
-					if (m_isCrtCrawling)
-					{
-						m_pHero->SetState(CRT_STATE::CRT_CRAWL);
-					}
-					else
-					{
-						m_pHero->SetState(CRT_STATE::CRT_WALK);
-					}
-				}
-				break;
+					   //방향 설정 : 정면
+					   m_pHero->SetDirection(ENUM_DIRECTION::DR_FORWARD);
+					   if (!_isRuning)
+					   {
+						   if (_isCrawling)
+						   {
+							   m_pHero->SetState(CRT_STATE::CRT_CRAWL);
+						   }
+						   else
+						   {
+							   m_pHero->SetState(CRT_STATE::CRT_WALK);
+						   }
+					   }
+					   break;
 		   }
 		   case 'S':
 		   {
-				m_pHero->SetDirection(ENUM_DIRECTION::DR_BACKWARD);
+					   m_pHero->SetDirection(ENUM_DIRECTION::DR_BACKWARD);
 
-				if (!m_isCrtRunning)
-				{
-					if (m_isCrtCrawling)
-					{
-						m_pHero->SetState(CRT_STATE::CRT_CRAWL);
-					}
-					else
-					{
-						m_pHero->SetState(CRT_STATE::CRT_WALK);
-					}
-				}
-				break;
+					   if (!_isRuning)
+					   {
+						   if (_isCrawling)
+						   {
+							   m_pHero->SetState(CRT_STATE::CRT_CRAWL);
+						   }
+						   else
+						   {
+							   m_pHero->SetState(CRT_STATE::CRT_WALK);
+						   }
+					   }
+					   break;
 		   }
 		   case 'A':
 		   {
 					   m_pHero->SetDirection(ENUM_DIRECTION::DR_LEFT);
 
-					   if (!m_isCrtRunning)
+					   if (!_isRuning)
 					   {
-						   if (m_isCrtCrawling)
+						   if (_isCrawling)
 						   {
 							   m_pHero->SetState(CRT_STATE::CRT_CRAWL);
 						   }
@@ -690,9 +433,9 @@ void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		   {
 					   m_pHero->SetDirection(ENUM_DIRECTION::DR_RIGHT);
 
-					   if (!m_isCrtRunning)
+					   if (!_isRuning)
 					   {
-						   if (m_isCrtCrawling)
+						   if (_isCrawling)
 						   {
 							   m_pHero->SetState(CRT_STATE::CRT_CRAWL);
 						   }
@@ -712,13 +455,13 @@ void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					 {
 					 case VK_SPACE:
 					 {
-									 m_isCrtRunning = false;
+									  _isRuning = false;
 									  m_pHero->SetState(CRT_STATE::CRT_IDLE);
 									  break;
 					 }
 					 case 'W':
 					 {
-								 if (!m_isCrtCrawling)
+								 if (!_isRuning)
 								 {
 									 m_pHero->SetState(CRT_STATE::CRT_IDLE);
 								 }
@@ -726,7 +469,7 @@ void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					 }
 					 case 'S':
 					 {
-								 if (!m_isCrtCrawling)
+								 if (!_isRuning)
 								 {
 									 m_pHero->SetState(CRT_STATE::CRT_IDLE);
 								 }
@@ -734,14 +477,14 @@ void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					 }
 					 case 'A':
 					 {
-								 if (!m_isCrtCrawling)
+								 if (!_isRuning)
 								 {
 									 m_pHero->SetState(CRT_STATE::CRT_IDLE);
 								 }
 					 }
 					 case 'D':
 					 {
-								 if (!m_isCrtCrawling)
+								 if (!_isRuning)
 								 {
 									 m_pHero->SetState(CRT_STATE::CRT_IDLE);
 								 }

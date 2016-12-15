@@ -9,6 +9,12 @@ cMapRender::cMapRender() :
 m_pMapMesh(NULL)
 , gpLightingShader(NULL)
 , gLightColor(D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f))
+, gpShadowRenderTarget(NULL)
+, gpShadowDepthStencil(NULL)
+, gpApplyShadowShader(NULL)
+, gpCreateShadowShader(NULL)
+, LogoSprite(NULL)
+, gpFont(NULL)
 {
 	RECT rc;
 	GetClientRect(g_hWnd, &rc);
@@ -27,6 +33,8 @@ cMapRender::~cMapRender()
 	{
 		SAFE_RELEASE(p);
 	}
+	SAFE_RELEASE(LogoSprite);
+	SAFE_RELEASE(gpFont);
 }
 //(맵obj,서페이스맵obj,맵위치,서페이스맵위치,맵크기)
 void cMapRender::Setup(char* fileName, char* surFace,
@@ -43,9 +51,11 @@ void cMapRender::Setup(char* fileName, char* surFace,
 	{
 		Load(surFace, sPosition);
 	}
-	ST_SHADER s_shader(lightPosition);
-	s_shader.Shader = g_pLightShaderManager->Getshader("./shader/NormalMapping_Blend.fx");
-	gpLightingShader.push_back(s_shader);
+	gWorldLightPosition = lightPosition;
+	Shadowinit();
+	D3DXCreateFont(g_pD3DDevice, 20, 10, FW_BOLD, 1, FALSE, DEFAULT_CHARSET,
+		OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, (DEFAULT_PITCH | FF_DONTCARE),
+		"Arial", &gpFont);
 }
 void cMapRender::Update()
 {
@@ -53,50 +63,26 @@ void cMapRender::Update()
 }
 void cMapRender::Render(D3DXVECTOR3 _gWorldCameraPosition,float lightRange)
 {
-	//카메라 눈 받아옴
-	D3DXVECTOR4 gWorldCameraPosition(D3DXVECTOR4(
-		_gWorldCameraPosition.x
-		, _gWorldCameraPosition.y
-		, _gWorldCameraPosition.z,
-		1));
-
-	// 월드,뷰,프로젝션 메트릭스 
-	D3DXMATRIXA16 matWorld, matView, matProjection;
-	D3DXMATRIXA16 matWorldView, matWorldViewProjection;
-	g_pD3DDevice->GetTransform(D3DTS_WORLD, &matWorld);
-	g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
-	g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
-	D3DXMatrixMultiply(&matWorldView, &matWorld, &matView);
-	D3DXMatrixMultiply(&matWorldViewProjection, &matWorldView, &matProjection);
-	
-	// 쉐이더 렌더링
-	for each(auto p in gpLightingShader)
+	shaderRender(gWorldLightPosition, _gWorldCameraPosition, lightRange);
+	if (GetKeyState('Q'))
 	{
-		p.Shader->SetMatrix("gWorldMatrix", &matWorld);
-		p.Shader->SetMatrix("gWorldViewProjectionMatrix", &matWorldViewProjection);
-		p.Shader->SetFloat("gRange", lightRange); // 빛 범위 설정
-		p.Shader->SetFloat("gAlphaBlend", 0.8f); // 빛 세기 알파값
-		p.Shader->SetVector("gWorldLightPosition", &p.Position);
-		p.Shader->SetVector("gWorldCameraPosition", &gWorldCameraPosition);
+		DebugRender();
+	}
+	if (GetKeyState('2'))
+	{
+		D3DCOLOR fontColor = D3DCOLOR_ARGB(255, 255, 255, 255);
 
-		p.Shader->SetVector("gLightColor", &gLightColor);
-		for (size_t j = 0; j < m_vecMtlTex.size(); ++j)
-		{
-			p.Shader->SetTexture("DiffuseMap_Tex", m_vecMtlTex[j]->GetTexture());
-			p.Shader->SetTexture("SpecularMap_Tex", m_vecMtlTex[j]->GetTextureS());
-			p.Shader->SetTexture("NormalMap_Tex", m_vecMtlTex[j]->GetTextureN());
-			UINT numPasses = 0;
-			p.Shader->Begin(&numPasses, NULL);
-			for (UINT i = 0; i < numPasses; ++i)
-			{
-				p.Shader->BeginPass(i);
-				{
-					m_pMapMesh->DrawSubset(j);
-				}
-				p.Shader->EndPass();
-			}
-			p.Shader->End();
-		}
+		// 텍스트를 출력할 위치
+		RECT rct;
+		rct.left = 5;
+		rct.right = WIN_WIDTH / 3;
+		rct.top = 5;
+		rct.bottom = WIN_HEIGHT / 3;
+
+		// 키 입력 정보를 출력
+		char str[1024];
+		sprintf(str, "%f %f %f", _gWorldCameraPosition.x, _gWorldCameraPosition.y, _gWorldCameraPosition.z);
+		gpFont->DrawText(NULL, str, -1, &rct, 0, fontColor);
 	}
 }
 
@@ -125,6 +111,197 @@ bool cMapRender::GetHeight(IN float x, OUT float& y, IN float z)
 	}
 	y = 0;
 	return false;
+}
+
+void cMapRender::shaderRender(D3DXVECTOR3 _gWorldLightPosition, D3DXVECTOR3 _gWorldCameraPosition, float lightRange)
+{
+	// 광원-뷰 행렬을 만든다.
+	D3DXMATRIXA16 matLightView;
+	{
+		D3DXVECTOR3 vEyePt(_gWorldLightPosition.x, _gWorldLightPosition.y, _gWorldLightPosition.z);
+		D3DXVECTOR3 vLookatPt(0.0f, 0.0f, 0.0f);
+		D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f);
+		D3DXMatrixLookAtLH(&matLightView, &vEyePt, &vLookatPt, &vUpVec);
+	}
+
+	// 광원-투영 행렬을 만든다.
+	D3DXMATRIXA16 matLightProjection;
+	{
+		D3DXMatrixPerspectiveFovLH(&matLightProjection, D3DX_PI / 4.0f, 1, 1, 3000);
+	}
+
+	// 뷰/투영행렬을 만든다.
+	D3DXMATRIXA16 matViewProjection;
+	{
+		// 뷰 행렬을 만든다.
+		D3DXMATRIXA16 matView;
+		D3DXMATRIXA16 matProjection;
+		g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
+		g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
+		D3DXMatrixMultiply(&matViewProjection, &matView, &matProjection);
+	}
+
+	// 원환체의 월드행렬을 만든다.
+	D3DXMATRIXA16			matTorusWorld;
+	D3DXMatrixIdentity(&matTorusWorld);
+
+	// 디스크의 월드행렬을 만든다.
+	D3DXMATRIXA16			matDiscWorld;
+	D3DXMatrixIdentity(&matDiscWorld);
+
+	// 현재 하드웨어 벡버퍼와 깊이버퍼
+	LPDIRECT3DSURFACE9 pHWBackBuffer = NULL;
+	LPDIRECT3DSURFACE9 pHWDepthStencilBuffer = NULL;
+	g_pD3DDevice->GetRenderTarget(0, &pHWBackBuffer);
+	g_pD3DDevice->GetDepthStencilSurface(&pHWDepthStencilBuffer);
+
+	//////////////////////////////
+	// 1. 그림자 만들기
+	//////////////////////////////
+
+	// 그림자 맵의 렌더타깃과 깊이버퍼를 사용한다.
+	LPDIRECT3DSURFACE9 pShadowSurface = NULL;
+	if (SUCCEEDED(gpShadowRenderTarget->GetSurfaceLevel(0, &pShadowSurface)))
+	{
+		g_pD3DDevice->SetRenderTarget(0, pShadowSurface);
+		pShadowSurface->Release();
+		pShadowSurface = NULL;
+	}
+	g_pD3DDevice->SetDepthStencilSurface(gpShadowDepthStencil);
+
+	// 저번 프레임에 그렸던 그림자 정보를 지움
+	g_pD3DDevice->Clear(0, NULL, (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER),
+		D3DCOLOR_ARGB(255, 255, 255, 255), 
+		1.0f, 0);
+
+	D3DXMATRIXA16 matWorld, matView, matProjection;
+	D3DXMATRIXA16 matWorldView, matWorldViewProjection;
+	g_pD3DDevice->GetTransform(D3DTS_WORLD, &matWorld);
+	g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
+	g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
+	D3DXMatrixMultiply(&matWorldView, &matWorld, &matView);
+	D3DXMatrixMultiply(&matWorldViewProjection, &matWorldView, &matProjection);
+
+	// 그림자 만들기 쉐이더 전역변수들을 설정
+	gpCreateShadowShader->SetMatrix("gWorldMatrix", &matTorusWorld);
+	gpCreateShadowShader->SetMatrix("gLightViewMatrix", &matLightView);
+	gpCreateShadowShader->SetMatrix("gLightProjectionMatrix", &matLightProjection);
+
+	// 그림자 만들기 쉐이더를 시작
+	
+		UINT numPasses = 0;
+		gpCreateShadowShader->Begin(&numPasses, NULL);
+		{
+			for (UINT i = 0; i < numPasses; ++i)
+			{
+				gpCreateShadowShader->BeginPass(i);
+				{
+					for (size_t j = 0; j < m_vecMtlTex.size(); ++j)
+					{
+						m_pMapMesh->DrawSubset(j);
+					}
+				}
+				gpCreateShadowShader->EndPass();
+			}
+		}
+		gpCreateShadowShader->End();
+	
+
+
+	//////////////////////////////
+	// 2. 그림자 입히기
+	//////////////////////////////
+
+	// 하드웨어 백버퍼/깊이버퍼를 사용한다.
+	g_pD3DDevice->SetRenderTarget(0, pHWBackBuffer);
+	g_pD3DDevice->SetDepthStencilSurface(pHWDepthStencilBuffer);
+
+	pHWBackBuffer->Release();
+	pHWBackBuffer = NULL;
+	pHWDepthStencilBuffer->Release();
+	pHWDepthStencilBuffer = NULL;
+
+
+	// 그림자 입히기 쉐이더 전역변수들을 설정
+	gpApplyShadowShader->SetMatrix("gViewProjectionMatrix", &matViewProjection);
+	gpApplyShadowShader->SetMatrix("gLightViewMatrix", &matLightView);
+	gpApplyShadowShader->SetMatrix("gLightProjectionMatrix", &matLightProjection);
+	gpApplyShadowShader->SetMatrix("gWorldMatrix", &matTorusWorld);
+	gpApplyShadowShader->SetMatrix("gWorldViewProjectionMatrix", &matWorldViewProjection);
+
+	gpApplyShadowShader->SetVector("gWorldLightPosition", &D3DXVECTOR4(_gWorldLightPosition,1));
+	gpApplyShadowShader->SetVector("gObjectColor", &D3DXVECTOR4(1, 1, 1, 1));
+	gpApplyShadowShader->SetVector("gWorldCameraPosition", &D3DXVECTOR4(_gWorldCameraPosition, 1));
+
+	gpApplyShadowShader->SetTexture("ShadowMap_Tex", gpShadowRenderTarget);
+
+	gpApplyShadowShader->SetFloat("gRange", lightRange); // 빛 범위 설정
+	gpApplyShadowShader->SetFloat("gAlphaBlend", 0.8f); // 빛 세기 알파값
+
+	for (size_t j = 0; j < m_vecMtlTex.size(); j++)
+	{
+		gpApplyShadowShader->SetTexture("DiffuseMap_Tex", m_vecMtlTex[j]->GetTexture());
+		gpApplyShadowShader->SetTexture("SpecularMap_Tex", m_vecMtlTex[j]->GetTextureS());
+		gpApplyShadowShader->SetTexture("NormalMap_Tex", m_vecMtlTex[j]->GetTextureN());
+		// 쉐이더를 시작
+		numPasses = 0;
+		gpApplyShadowShader->Begin(&numPasses, NULL);
+		{
+			for (UINT i = 0; i < numPasses; ++i)
+			{
+				gpApplyShadowShader->BeginPass(i);
+				{
+					m_pMapMesh->DrawSubset(j);
+				}
+				gpApplyShadowShader->EndPass();
+			}
+		gpApplyShadowShader->End();
+		}
+	}
+}
+
+void cMapRender:: DebugRender()
+{
+	if (!LogoSprite)
+	{
+		D3DXCreateSprite(g_pD3DDevice, &LogoSprite);
+	}
+	D3DXMATRIXA16 m_matWorld;
+	g_pD3DDevice->GetTransform(D3DTS_WORLD, &m_matWorld);
+	RECT rc;
+	SetRect(&rc, 0, 0, 512, 512);
+
+	LogoSprite->Begin(D3DXSPRITE_SORT_TEXTURE);
+	LogoSprite->SetTransform(&m_matWorld);
+	LogoSprite->Draw(gpShadowRenderTarget,
+		&rc,
+		NULL,
+		&D3DXVECTOR3(0, 0, 0),
+		D3DCOLOR_XRGB(255, 255, 255));
+	LogoSprite->End();
+}
+
+void cMapRender:: Shadowinit()
+{
+	// 렌더타깃을 만든다.
+	const int shadowMapSize = 512;
+	if (FAILED(g_pD3DDevice->CreateTexture(shadowMapSize, shadowMapSize,
+		1, D3DUSAGE_RENDERTARGET, D3DFMT_R32F,
+		D3DPOOL_DEFAULT, &gpShadowRenderTarget, NULL)))
+	{
+		assert("렌더타깃 생성실패", false);
+	}
+
+	// 그림자 맵과 동일한 크기의 깊이버퍼도 만들어줘야 한다.
+	if (FAILED(g_pD3DDevice->CreateDepthStencilSurface(shadowMapSize, shadowMapSize,
+		D3DFMT_D24X8, D3DMULTISAMPLE_NONE, 0, TRUE,
+		&gpShadowDepthStencil, NULL)))
+	{
+		assert("깊이버퍼 생성실패", false);
+	}
+
+	gpApplyShadowShader = g_pLightShaderManager->Getshader("./shader/ApplyShadow.fx");
+	gpCreateShadowShader = g_pLightShaderManager->Getshader("./shader/CreateShadow.fx");
 }
 
 void cMapRender::Load(char* szSurface, D3DXVECTOR3 Position)
