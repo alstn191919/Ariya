@@ -213,7 +213,7 @@ void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size)
 
 	D3DXMatrixTranslation(&mat, p.x, p.y, p.z);
 
-	if (m_eObjType == Room)
+	if (m_eObjType == Eledoor)
 	{
 		D3DXMatrixRotationY(&matR,-D3DX_PI/2.0f);
 	}

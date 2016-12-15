@@ -156,6 +156,7 @@ enum OBJ_TYPE{
 	door,			//문
 	item,			//아이템
 	Room,		//방
+	Eledoor
 };
 
 enum CRT_STATE

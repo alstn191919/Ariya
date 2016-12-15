@@ -130,71 +130,24 @@ void cObejctManager::Update()
 						if (object[index]->GetisOpen())	object[index]->SetisOpen(false);
 						else object[index]->SetisOpen(true);
 					}
-					//엘베 스위치 눌렀을 때 행동
-					if (object[i]->GetObjType() == OBJ_TYPE::Switch)
-					{
-						//if (object[2]->GetisOpen())	object[2]->SetisOpen(false);
-						//else object[2]->SetisOpen(true);
-
-						//if (object[3]->GetisOpen())	object[3]->SetisOpen(false);
-						//else object[3]->SetisOpen(true);
-
-						//float closeSpeed = 0.567f;
-						//float leftp = 61.6f;
-						//float rightp = 64.0f;
-						//
-						//leftp -= closeSpeed;
-						//rightp += closeSpeed;
-						//
-						//object[2]->SetWolrd(D3DXVECTOR3(leftp, -17, -105.5f), D3DXVECTOR3(0.06f, 0.07f, 0.06f));
-						//object[3]->SetWolrd(D3DXVECTOR3(rightp, -17, -105.5f), D3DXVECTOR3(0.06f, 0.07f, 0.06f));
-
-
-
-						//p = D3DXVECTOR3(61.6f, -17, -105.5f);
-						//p = D3DXVECTOR3(64.0f, -17, -105.5f);
-
-						//엘베 문을 열꺼야
-
-
-					}
-
-
-				}
-			}
-
-
-			//float closeSpeed = 0.567f;
-			//float leftp = 61.6f;
-			//float rightp = 64.0f;
-			//
-			//leftp -= closeSpeed;
-			//rightp += closeSpeed;
-			//
-			//object[2]->SetWolrd(D3DXVECTOR3(leftp, -17, -105.5f), D3DXVECTOR3(0.06f, 0.07f, 0.06f));
-			//object[3]->SetWolrd(D3DXVECTOR3(rightp, -17, -105.5f), D3DXVECTOR3(0.06f, 0.07f, 0.06f));
-			//여기서 문ㅇㄹ자			}
-
-			
-			//m_sleect_index = i;
-		}
-		//엘베 스위치 눌렀을 때 행동
-		if (object[0]->m_sSphre.isPicked)
-		{
-			if (GetAsyncKeyState('E') & 0x8000)			//디버그용으로 열닫 조절하게 했습니다 나중에 이벤트 신에서 해당 인덱스 만 처리해주는걸로 수정
-			{
-				if (object[i]->GetObjType() == OBJ_TYPE::Switch)
-				{
-					if (object[i]->GetisOpen())	object[i]->SetisOpen(false);
-					else object[i]->SetisOpen(true);
 				}
 			}
 		}
-		//if (object[i]->GetObb())
+
+		////엘베 스위치 눌렀을 때 행동
+		//if (object[0]->m_sSphre.isPicked)
 		//{
-		//
+		//	if (GetAsyncKeyState('E') & 0x8000)			//디버그용으로 열닫 조절하게 했습니다 나중에 이벤트 신에서 해당 인덱스 만 처리해주는걸로 수정
+		//	{
+		//		if (object[i]->GetObjType() == OBJ_TYPE::Switch)
+		//		{
+		//			if (object[i]->GetisOpen())	object[i]->SetisOpen(false);
+		//			else object[i]->SetisOpen(true);
+		//		}
+		//	}
 		//}
 	}
+
 	//문열고 닫고 
 	if (object[0]->GetisOpen() == true)
 	{
@@ -239,24 +192,6 @@ void cObejctManager::Render()
 	for (int i = 0; i < object.size(); i++)
 	{
 		object[i]->ObjRender();
-		/*if (GetAsyncKeyState(VK_LBUTTON) & 0x8000 && object[i]->GetAngleX() <= 3.14 / 2)
-		{
-			
-			DoorClose -= 0.000000000000001f;
-			object[i]->SetAngleX(object[i]->GetAngleX() - DoorClose);
-			if (object[i]->GetAngleX() < 3.14 / 2)
-			{
-				object[i]->SetAngleX(3.14 / 2);
-				DoorClose = 0;
-			}
-		}*/
-
-		////다음 프로젝트 여는 순간 이 if 업데이트문 지워버려!!! ☆
-		//if (object[i]->GetObb())
-		//{
-		//	
-		//	object[i]->GetObb()->Update(object[i]->GetWolrd());
-		//}
 
 		if (GetAsyncKeyState(VK_F1)&0x8001)
 		{
@@ -458,8 +393,12 @@ bool cObejctManager::getOpen()
 	return false;
 }
 
-
 bool cObejctManager::getIndexOpen(int _index)
 {
 	return object[_index]->GetisOpen();
+}
+
+void cObejctManager::setIndexOpen(bool _isOpen)
+{
+	object[0]->SetisOpen(_isOpen);
 }

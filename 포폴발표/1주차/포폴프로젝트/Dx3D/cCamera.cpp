@@ -8,9 +8,10 @@ cCamera::cCamera(void)
 	, m_vUp(0, 1, 0)
 	, m_isLButtonDown(false)
 	, m_isLButtonOBJDown(false)
-	, m_fAngleX(0.0f)
-	, m_fAngleY(0.0f)
+	, m_fAngleX(-D3DX_PI/1.9f)
+	, m_fAngleY(D3DX_PI/1.2f)
 	, m_fDistance(10.0f)
+	, m_LockupMouse(false)
 {
 }
 
@@ -37,7 +38,9 @@ void cCamera::Setup()
 
 void cCamera::Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection)
 {
-	SetCursor(NULL);
+	//마우스 가두기
+	if (m_LockupMouse)
+		SetCursor(NULL);
 
 
 	D3DXMATRIXA16 matRX, matRY, matT, mat;
@@ -81,6 +84,12 @@ D3DXMATRIXA16* cCamera::GetProjMatrix()
 
 void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 {
+	//마우스 가두기
+	if (GetAsyncKeyState(VK_CONTROL) & 0x8001)
+	{
+		if(m_LockupMouse) m_LockupMouse = false;
+		else m_LockupMouse = true;
+	}
 
 	if (GetAsyncKeyState(VK_ESCAPE) & 0x8001)
 	{
@@ -163,41 +172,44 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 			pt.x = LOWORD(lParam);
 			pt.y = HIWORD(lParam);
 
-			RECT rc;
-			GetClientRect(g_hWnd, &rc);
-			if (pt.x >= rc.right - 200 || pt.x <= rc.left + 200)
+			if (m_LockupMouse)
 			{
-				pt.x = (rc.right - rc.left) / 2;
+				RECT rc;
+				GetClientRect(g_hWnd, &rc);
+				if (pt.x >= rc.right - 200 || pt.x <= rc.left + 200)
+				{
+					pt.x = (rc.right - rc.left) / 2;
+					m_ptPrevMouse = pt;
+					ClientToScreen(g_hWnd, &pt);
+					SetCursorPos(pt.x, pt.y);
+					break;
+				}
+				else if (pt.y >= rc.bottom - 100 || pt.y <= rc.top + 100)
+				{
+					pt.y = (rc.bottom - rc.top) / 2;
+					m_ptPrevMouse = pt;
+					ClientToScreen(g_hWnd, &pt);
+					SetCursorPos(pt.x, pt.y);
+					break;
+				}
+				int nDeltaX = pt.x - m_ptPrevMouse.x;
+				int nDeltaY = pt.y - m_ptPrevMouse.y;
+
+				m_fAngleX += -nDeltaY * 0.01f;
+				if (m_fAngleX > D3DX_PI / 1.5f - EPSILON)
+				{
+					m_fAngleX = D3DX_PI / 1.5f - EPSILON;
+				}
+				if (m_fAngleX < -D3DX_PI / 1.5f + EPSILON)
+				{
+					m_fAngleX = -D3DX_PI / 1.5f + EPSILON;
+				}
+				m_fAngleY += nDeltaX * 0.01f;
+
+
 				m_ptPrevMouse = pt;
-				ClientToScreen(g_hWnd, &pt);
-				SetCursorPos(pt.x, pt.y);
-				break;
-			}
-			else if (pt.y >= rc.bottom - 100 || pt.y <= rc.top + 100)
-			{
-				pt.y = (rc.bottom - rc.top) / 2;
-				m_ptPrevMouse = pt;
-				ClientToScreen(g_hWnd, &pt);
-				SetCursorPos(pt.x, pt.y);
-				break;
 			}
 
-			int nDeltaX = pt.x - m_ptPrevMouse.x;
-			int nDeltaY = pt.y - m_ptPrevMouse.y;
-
-			m_fAngleX += -nDeltaY * 0.01f;
-			if (m_fAngleX > D3DX_PI / 1.5f - EPSILON)
-			{
-				m_fAngleX = D3DX_PI / 1.5f - EPSILON;
-			}
-			if (m_fAngleX < -D3DX_PI / 1.5f + EPSILON)
-			{
-				m_fAngleX = -D3DX_PI / 1.5f + EPSILON;
-			}
-			m_fAngleY += nDeltaX * 0.01f;
-
-
-			m_ptPrevMouse = pt;
 		}
 
 			if (m_isLButtonOBJDown)

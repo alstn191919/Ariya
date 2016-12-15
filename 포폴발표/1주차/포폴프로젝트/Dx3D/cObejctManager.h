@@ -51,8 +51,7 @@ public:
 
 	bool getOpen();
 	bool getIndexOpen(int _index);
-	
-
+	void setIndexOpen(bool _isOpen);
 
 	bool IsCollision(cOBB * player);
 	
