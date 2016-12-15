@@ -85,6 +85,15 @@ public: virtual void Set##funName(varType var){\
 // 6. Diffuse Color (DWORD)						: D3DFVF_DIFFUSE
 // 7. Specular Color (DWORD)                    : D3DFVF_SPECULAR
 // 8. Texture Coordinate Set 1 (float)          : D3DFVF_TEX0 - D3DFVF_TEX8
+class cOBB;
+struct ST_Event
+{
+	bool _switch;
+	cOBB * obb;
+
+	void EVENT(){};
+
+};
 
 struct ST_PC_VERTEX
 {
@@ -156,8 +165,7 @@ enum OBJ_TYPE{
 	door,			//문
 	item,			//아이템
 	Room,		//방
-	Eledoor
-};
+	Eledoor};
 
 enum CRT_STATE
 {

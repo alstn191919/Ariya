@@ -10,7 +10,6 @@ float eleRight = 62.95f;
 
 cObejctManager::cObejctManager()
 	:m_select_index(NonSlect)
-	, DoorClose(0.0f)
 	, b_Collision(false)
 	
 {
@@ -114,7 +113,15 @@ void cObejctManager::Update()
 	pt.x = (rc.right - rc.left) / 2;
 	pt.y = (rc.bottom - rc.top) / 2;
 	int index;
+	Event1();
 
+	std::map<std::string, cEvent *>::iterator it;
+	for (it=m_Event.begin(); it != m_Event.end(); it++)
+	{
+		m_Event[it->first]->update();
+		
+		//it->second->update();
+	}
 	cRay r = cRay::RayAtWorldSpace(pt.x, pt.y);
 	for (size_t i = 0; i < object.size(); ++i)
 	{
@@ -130,23 +137,17 @@ void cObejctManager::Update()
 						if (object[index]->GetisOpen())	object[index]->SetisOpen(false);
 						else object[index]->SetisOpen(true);
 					}
+
 				}
 			}
-		}
 
-		////엘베 스위치 눌렀을 때 행동
-		//if (object[0]->m_sSphre.isPicked)
-		//{
-		//	if (GetAsyncKeyState('E') & 0x8000)			//디버그용으로 열닫 조절하게 했습니다 나중에 이벤트 신에서 해당 인덱스 만 처리해주는걸로 수정
-		//	{
-		//		if (object[i]->GetObjType() == OBJ_TYPE::Switch)
-		//		{
-		//			if (object[i]->GetisOpen())	object[i]->SetisOpen(false);
-		//			else object[i]->SetisOpen(true);
-		//		}
-		//	}
-		//}
+
+		}
+		
 	}
+
+
+	
 
 	//문열고 닫고 
 	if (object[0]->GetisOpen() == true)
@@ -192,6 +193,7 @@ void cObejctManager::Render()
 	for (int i = 0; i < object.size(); i++)
 	{
 		object[i]->ObjRender();
+	
 
 		if (GetAsyncKeyState(VK_F1)&0x8001)
 		{
@@ -205,13 +207,7 @@ void cObejctManager::Render()
 		}
 	}
 
-	//for (int i = 0; i < object.size(); i++)
-	//{
-	//	if (object[i]->m_sSphre.isPicked)
-	//	{
-	//		object[i]->ObjVIEWRender();
-	//	}
-	//}
+
 
 	if (m_select_index != NonSlect && object[m_select_index]->GetObjType()==item)
 	{
@@ -225,43 +221,23 @@ void cObejctManager::Render()
 
 float cObejctManager::getAngleX()
 {
-	/*for (int i = 0; i < object.size(); i++)
-	{
-		if (object[i]->m_sSphre.isPicked)
-		{
-			return	object[i]->GetAngleX();
-		}
-	}*/
-
 	return	object[m_select_index]->GetAngleX();
 }
 float cObejctManager::getAngleY()
 {
-	/*for (int i = 0; i < object.size(); i++)
-	{
-		if (object[i]->m_sSphre.isPicked)
-		{
-			return object[i]->GetAngleY();
-		}
-	}*/
-
 	return	object[m_select_index]->GetAngleX();
 }
 
 bool cObejctManager::isPinked()		//카메라 처리용입니다.
 {
-	/*int size = object.size();
-	int count = 0;*/
+
 	for (int i = 0; i < object.size(); i++)
 	{
 		if (object[i]->m_sSphre.isPicked)
 		{
 			return true;
 		}
-		else
-		{
-	//		count++;
-		}
+
 	}
 
 	return false;
@@ -275,10 +251,6 @@ int cObejctManager::getIndex()
 		{
 			return i;
 		}
-		else
-		{
-			//		없음
-		}
 	}
 	return NonSlect;
 }
@@ -291,10 +263,6 @@ void cObejctManager::SetSelect()
 		if (object[i]->m_sSphre.isPicked)
 		{
 			m_select_index = i;
-		}
-		else
-		{
-			//		count++;
 		}
 	}
 
@@ -316,14 +284,10 @@ std::string cObejctManager::getText()
 
 void  cObejctManager::Destroy()
 {
-
-
 	for each(auto it in object)
 	{
 		SAFE_DELETE(it);
-	}
-
-	
+	}	
 }
 
 
@@ -347,10 +311,7 @@ void cObejctManager::SetMouseAngle(float x, float y)
 				}
 			}
 		}
-	}
-
-
-	
+	}	
 }
 
 
@@ -393,9 +354,134 @@ bool cObejctManager::getOpen()
 	return false;
 }
 
+
 bool cObejctManager::getIndexOpen(int _index)
 {
 	return object[_index]->GetisOpen();
+}
+
+
+
+void cObejctManager::evt()//이벤트 사용예제
+{
+	
+
+	class bac:public cEvent
+	{
+		virtual void EVENT(){assert(false && "얍얍");}
+
+	};
+
+	cEvent * test;
+
+	test = new bac;
+
+
+	cOBB * obb;
+
+	obb = new cOBB;
+
+	obb->Setup(D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(1, 1, 1));
+
+	test->obb = obb;
+
+
+	test->_switch = false;
+	
+
+	v_Event.push_back(test);
+
+	class atoz :public cEvent
+	{
+		virtual void EVENT(){ assert(false && "2번컨테이너"); }
+
+	};
+
+	
+
+	test = new atoz;
+
+
+	cOBB * obb2;
+
+	obb2 = new cOBB;
+
+	obb->Setup(D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(1, 1, 1));
+
+	test->obb = obb2;
+
+
+	test->_switch = true;
+
+
+	
+
+
+	v_Event.push_back(test);
+
+
+	class asd :public cEvent
+	{
+		virtual void EVENT(){ assert(false && "asd클라스"); }
+
+	};
+
+
+
+	test = new asd;
+
+
+	test->obb = obb2;
+
+
+	test->_switch = true;
+	std::string a = "이벤트";
+	
+	m_Event.insert(std::pair<std::string, cEvent *> (a, test));
+
+	class 유지현 :public cEvent
+	{
+		virtual void EVENT(){ assert(false && "유지현클라스"); }
+
+	};
+
+
+	test = new 유지현;
+
+	test->obb = obb2;
+
+	test->_switch = true;
+
+	m_Event["유지현"] = test;
+
+
+
+
+}
+
+
+void cObejctManager::Event1()
+{
+	
+	//printf("qqqqqqqq");
+
+	
+
+	class 이벤트1 :public cEvent
+	{
+		void update(){
+			if (ObjectManager->Getselect_index() == 6)
+			{
+				ObjectManager->getObject(5)->SetisOpen(true);
+			}
+		}
+	};
+
+	cEvent * _event;
+	_event = new 이벤트1;
+
+
+	m_Event["이벤트1"] = _event;
 }
 
 void cObejctManager::setIndexOpen(bool _isOpen)
