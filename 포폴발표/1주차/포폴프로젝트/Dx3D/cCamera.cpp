@@ -11,8 +11,7 @@ cCamera::cCamera(void)
 	, m_fAngleX(-D3DX_PI/1.9f)
 	, m_fAngleY(D3DX_PI/1.2f)
 	, m_fDistance(10.0f)
-	, m_LockupMouse(false)
-{
+	, m_LockupMouse(false){
 }
 
 cCamera::~cCamera(void)
@@ -42,7 +41,6 @@ void cCamera::Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection)
 	if (m_LockupMouse)
 		SetCursor(NULL);
 
-
 	D3DXMATRIXA16 matRX, matRY, matT, mat;
 	D3DXMatrixRotationX(&matRX, m_fAngleX);
 	D3DXMatrixRotationY(&matRY, m_fAngleY);
@@ -63,6 +61,8 @@ void cCamera::Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection)
 		pTarget->y += 3.5f;
 		m_vEye = *pTarget;
 		m_vLookAt = *pTarget + *pDirection + templook;
+
+		
 	}
 
 	D3DXMatrixLookAtLH(&m_matView, &m_vEye, &m_vLookAt, &m_vUp);
@@ -90,7 +90,6 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		if(m_LockupMouse) m_LockupMouse = false;
 		else m_LockupMouse = true;
 	}
-
 	if (GetAsyncKeyState(VK_ESCAPE) & 0x8001)
 	{
 		ObjectManager->SetNonSelect();

@@ -324,6 +324,23 @@ void cSkinnedMesh2::ObjEvent()
 
 	}
 }
+
+void cSkinnedMesh2::ObjVIEWRender(D3DXVECTOR3 pogi)
+{
+	
+	D3DXMATRIXA16 mat;
+
+	mat = m_wolrd;
+
+	mat._41 = pogi.x;
+	mat._42 = pogi.y;
+	mat._43 = pogi.z;
+
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
+
+	if (m_pRootBone == NULL) return;
+	Render(m_pRootBone);
+}
 void cSkinnedMesh2::ObjVIEWRender()
 {
 	D3DXMATRIXA16 mat ,viewamat, inverview,inverProj;
@@ -337,16 +354,17 @@ void cSkinnedMesh2::ObjVIEWRender()
 	g_pD3DDevice->GetTransform(D3DTS_VIEW, &viewamat);
 
 
-	
+	D3DXMatrixInverse(&inverview, 0, &viewamat);
 
 		D3DXMATRIXA16 matRX, matRY;
 		D3DXMatrixRotationY(&matRX, m_fAngleX);
 		D3DXMatrixRotationZ(&matRY, m_fAngleY);
 
-		mat = mat * matRX * matRY;
+		mat = inverview;
 	
 
 
+		mat._42 = mat._42 + 1;
 	//g_pD3DDevice->GetTransform(D3DTS_WORLD, &mat);
 
 //	D3DXMatrixInverse(&inverview, 0, &viewamat);

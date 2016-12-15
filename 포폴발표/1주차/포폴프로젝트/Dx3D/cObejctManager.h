@@ -3,6 +3,7 @@
 
 #include "cSkinnedMesh2.h"
 #include "cSkinnedMesh.h"
+#include "cEvent.h"
 
 
 
@@ -12,20 +13,14 @@ private:
 	SINGLETONE(cObejctManager);
 private:
 
-	float DoorClose;
-
 	std::vector<cSkinnedMesh2*> object;			//오브젝트
 	SYNTHESIZE(int, m_select_index, select_index);								//선택된 오브젝트 인덱스
 	SYNTHESIZE(bool, b_Collision, Collision);
-	//int m_select_index;
-//	D3DXVECTOR3	camera;					//카메라 위치
 
+	
 		
 public:
-	
-
-
-	
+		
 	void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max);				//일단 오브젝트 추가
 	void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, ST_SPHERE _Sphre, OBJ_TYPE _objtype, std::string _Text);	//상호작용 오브젝트 추가
 	void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, ST_SPHERE _Sphre, OBJ_TYPE _objtype, std::string _Text, D3DXVECTOR3 Min, D3DXVECTOR3 Max , float Angle);	//상호 작용 + obb + 로테이션 타입
@@ -39,6 +34,7 @@ public:
 	void SetSelect();
 	void SetNonSelect() { m_select_index = NonSlect; }			//셀렉트 초기화	
 	void Destroy();
+	void evt();
 
 	OBJ_TYPE getPinkedObjType();
 	std::string getText();
@@ -52,9 +48,14 @@ public:
 	bool getOpen();
 	bool getIndexOpen(int _index);
 	void setIndexOpen(bool _isOpen);
-
 	bool IsCollision(cOBB * player);
-	
-	
+
+	cSkinnedMesh2* getObject(int index){ return object[index]; }
+
+
+	void Event1();
+
+	std::vector<cEvent *>v_Event;
+	std::map<std::string, cEvent *>m_Event;
 };
 

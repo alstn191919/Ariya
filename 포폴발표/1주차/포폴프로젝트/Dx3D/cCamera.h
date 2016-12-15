@@ -3,14 +3,14 @@ class cCamera
 {
 private:
 	SYNTHESIZE(D3DXVECTOR3, m_vEye, vEye);
-	D3DXVECTOR3            m_vLookAt;
+	SYNTHESIZE(D3DXVECTOR3, m_vLookAt, vLookat);
+	//D3DXVECTOR3            m_vLookAt;
 	D3DXVECTOR3            m_vUp;
 	D3DXMATRIXA16         m_matView;
 	D3DXMATRIXA16         m_matProj;
 	POINT               m_ptPrevMouse;
 	bool               m_isLButtonDown;
 	bool				m_LockupMouse;
-
 	SYNTHESIZE(float, m_fAngleX, fAngleX);
 	SYNTHESIZE(float, m_fAngleY, fAngleY);
 	float             m_fTempX;
