@@ -379,7 +379,7 @@ void c2FScene::Setup()
 	m_pMap = new cMapRender;
 	m_pMap->Setup("objMap/objmap.obj",
 		"objMap/2FsurFace.obj",
-		D3DXVECTOR3(2.0f, -126.5f, 9.0f),
+		D3DXVECTOR3(-30.94f, -255.0f, 38.5f),
 		D3DXVECTOR3(15.0f, -126.5f, 7.0f),D3DXVECTOR3(2.1f, 4.0f, 3.1f), 1.0f);
 
 	//오브젝트 매니져 사용 메뉴얼 
@@ -426,7 +426,7 @@ void c2FScene::Render()
 
 	//맵렌더
 	if (m_pMap)
-		m_pMap->Render(m_pCamera->GetvEye(),30.0f);
+		m_pMap->Render(m_pCamera->GetvEye(),1000.0f);
 
 	if (ObjectManager->Getselect_index()==6)
 	{
@@ -482,7 +482,7 @@ void c2FScene::Render()
 	D3DXMATRIXA16 matES,matET,matER, matEWorld;
 	D3DXMatrixScaling(&matES, 0.4f, 0.4f, 0.4f);
 	D3DXMatrixIdentity(&matET);
-	D3DXMatrixTranslation(&matET, 61.75f, -11.4f, -105.f);
+	D3DXMatrixTranslation(&matET, 61.75f, -11.3f, -105.f);
 	D3DXMatrixRotationY(&matER, D3DX_PI);
 	matEWorld = matES * matER * matET;
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matEWorld);

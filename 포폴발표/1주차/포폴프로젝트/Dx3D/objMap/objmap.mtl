@@ -1,4 +1,22 @@
-newmtl Floor
+newmtl Concrete
+Kd 1 1 1
+Ka 1 1 1
+Ks 1 1 1
+map_Kd ./objMap/texture/Concrete.tga
+map_Kn ./objMap/texture/Concrete_NRM.tga
+map_Ks ./objMap/texture/Concrete_SPEC.tga
+illum 2
+
+newmtl wordwall
+Kd 1 1 1
+Ka 1 1 1
+Ks 1 1 1
+map_Kd ./objMap/texture/wordwall.tga
+map_Kn ./objMap/texture/wordwall_NRM.tga
+map_Ks ./objMap/texture/wordwall_SPEC.tga
+illum 2
+
+newmtl NewFloor
 Kd 1 1 1
 Ka 1 1 1
 Ks 1 1 1
@@ -7,13 +25,13 @@ map_Kn ./objMap/texture/Floor_NRM.tga
 map_Ks ./objMap/texture/Floor_SPEC.tga
 illum 2
 
-newmtl Concrete
+newmtl owt_diffuse
 Kd 1 1 1
 Ka 1 1 1
 Ks 1 1 1
-map_Kd ./objMap/texture/Concrete.tga
-map_Kn ./objMap/texture/Concrete_NRM.tga
-map_Ks ./objMap/texture/Concrete_SPEC.tga
+map_Kd ./objMap/texture/owt_diffuse.tga
+map_Kn ./objMap/texture/owt_diffuse_NRM.tga
+map_Ks ./objMap/texture/owt_diffuse_SPEC.tga
 illum 2
 
 newmtl sofa_green
@@ -32,77 +50,5 @@ Ks 1 1 1
 map_Kd ./objMap/texture/tile.tga
 map_Kn ./objMap/texture/tile_NRM.tga
 map_Ks ./objMap/texture/tile_SPEC.tga
-illum 2
-
-newmtl BIG_WINDOW_88Mat
-Kd 0.8 0.8 0.8
-Ka 1 1 1
-Ks 1 1 1
-illum 2
-
-newmtl wordwall
-Kd 1 1 1
-Ka 1 1 1
-Ks 1 1 1
-map_Kd ./objMap/texture/wordwall.tga
-map_Kn ./objMap/texture/wordwall_NRM.tga
-map_Ks ./objMap/texture/wordwall_SPEC.tga
-illum 2
-
-newmtl Box002_85Mat
-Kd 0.8 0.8 0.8
-Ka 1 1 1
-Ks 1 1 1
-map_Kd ./objMap/texture/Concrete.tga
-map_Kn ./objMap/texture/Concrete_NRM.tga
-map_Ks ./objMap/texture/Concrete_SPEC.tga
-illum 2
-
-newmtl BIG_WINDOW_83Mat
-Kd 0.8 0.8 0.8
-Ka 1 1 1
-Ks 1 1 1
-map_Kd ./objMap/texture/owt_diffuse.tga
-map_Kn ./objMap/texture/owt_diffuse_NRM.tga
-map_Ks ./objMap/texture/owt_diffuse_SPEC.tga
-illum 2
-
-newmtl BIG_WINDOW_46Mat
-Kd 0.8 0.8 0.8
-Ka 1 1 1
-Ks 1 1 1
-map_Kd ./objMap/texture/owt_diffuse.tga
-map_Kn ./objMap/texture/owt_diffuse_NRM.tga
-map_Ks ./objMap/texture/owt_diffuse_SPEC.tga
-illum 2
-
-newmtl Cylinder001_86Mat
-Kd 0.8 0.8 0.8
-Ka 1 1 1
-Ks 1 1 1
-illum 2
-
-newmtl BIG_WINDOW_11Mat
-Kd 0.8 0.8 0.8
-Ka 1 1 1
-Ks 1 1 1
-map_Kd ./objMap/texture/owt_diffuse.tga
-map_Kn ./objMap/texture/owt_diffuse_NRM.tga
-map_Ks ./objMap/texture/owt_diffuse_SPEC.tga
-illum 2
-
-newmtl Cylinder_44Mat
-Kd 0.8 0.8 0.8
-Ka 1 1 1
-Ks 1 1 1
-illum 2
-
-newmtl BIG_WINDOW_57Mat
-Kd 0.8 0.8 0.8
-Ka 1 1 1
-Ks 1 1 1
-map_Kd ./objMap/texture/owt_diffuse.tga
-map_Kn ./objMap/texture/owt_diffuse_NRM.tga
-map_Ks ./objMap/texture/owt_diffuse_SPEC.tga
 illum 2
 

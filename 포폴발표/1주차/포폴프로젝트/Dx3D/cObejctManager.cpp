@@ -180,7 +180,7 @@ void cObejctManager::Update()
 
 void cObejctManager::Render()
 {
-
+	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
 	for (int i = 0; i < object.size(); i++)
 	{
 		object[i]->ObjRender();

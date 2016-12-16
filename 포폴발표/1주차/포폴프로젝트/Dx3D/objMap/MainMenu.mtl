@@ -1,28 +1,10 @@
-newmtl Blood_BaseColor
+newmtl Concrete
 Kd 1 1 1
 Ka 1 1 1
 Ks 1 1 1
-map_Kd ./objMap/texture/Blood.tga
-map_Kn ./objMap/texture/Blood_NRM.tga
-map_Ks ./objMap/texture/Blood_SPEC.tga
-illum 2
-
-newmtl Frame_Material
-Kd 1 1 1
-Ka 1 1 1
-Ks 1 1 1
-map_Kd ./objMap/texture/Blood.tga
-map_Kn ./objMap/texture/Blood_NRM.tga
-map_Ks ./objMap/texture/Blood_SPEC.tga
-illum 2
-
-newmtl Door_Material
-Kd 1 1 1
-Ka 1 1 1
-Ks 1 1 1
-map_Kd ./objMap/texture/Door.tga
-map_Kn ./objMap/texture/Door_NRM.tga
-map_Ks ./objMap/texture/Door_SPEC.tga
+map_Kd ./objMap/texture/Concrete.tga
+map_Kn ./objMap/texture/Concrete_NRM.tga
+map_Ks ./objMap/texture/Concrete_SPEC.tga
 illum 2
 
 newmtl wordwall
@@ -34,21 +16,30 @@ map_Kn ./objMap/texture/wordwall_NRM.tga
 map_Ks ./objMap/texture/wordwall_SPEC.tga
 illum 2
 
-newmtl Concrete
+newmtl Blood
 Kd 1 1 1
 Ka 1 1 1
 Ks 1 1 1
-map_Kd ./objMap/texture/Concrete.tga
-map_Kn ./objMap/texture/Concrete_NRM.tga
-map_Ks ./objMap/texture/Concrete_SPEC.tga
+map_Kd ./objMap/texture/Blood.tga
+map_Kn ./objMap/texture/Blood_NRM.tga
+map_Ks ./objMap/texture/Blood_SPEC.tga
 illum 2
 
-newmtl Floor
+newmtl NewFloor
 Kd 1 1 1
 Ka 1 1 1
 Ks 1 1 1
 map_Kd ./objMap/texture/Floor.tga
 map_Kn ./objMap/texture/Floor_NRM.tga
 map_Ks ./objMap/texture/Floor_SPEC.tga
+illum 2
+
+newmtl Door
+Kd 1 1 1
+Ka 1 1 1
+Ks 1 1 1
+map_Kd ./objMap/texture/Door.tga
+map_Kn ./objMap/texture/Door_NRM.tga
+map_Ks ./objMap/texture/Door_SPEC.tga
 illum 2
 
