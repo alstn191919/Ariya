@@ -246,8 +246,6 @@ void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size , float Angle)
 
 	D3DXMatrixRotationY(&matR, Angle);
 	
-
-
 	D3DXMatrixIdentity(&m_wolrd);
 
 	//m_wolrd = matS * mat *m_wolrd;

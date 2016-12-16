@@ -192,9 +192,6 @@
     <ClInclude Include="c2FScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="cEvent.h">
-      <Filter>컨트롤러</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -334,9 +331,6 @@
     </ClCompile>
     <ClCompile Include="c2FScene.cpp">
       <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="cEvent.cpp">
-      <Filter>컨트롤러</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

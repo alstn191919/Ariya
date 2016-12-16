@@ -31,7 +31,6 @@ public:
 	void Render();
 	void ObjRender();
 	void ObjVIEWRender();
-	void ObjVIEWRender(D3DXVECTOR3 pogi);
 	void ObjEvent();
 	void SetAnimationIndex(int n);
 	void SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size);

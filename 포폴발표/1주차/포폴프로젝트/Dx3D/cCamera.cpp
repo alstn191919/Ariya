@@ -65,6 +65,7 @@ void cCamera::Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection)
 		
 	}
 
+
 	D3DXMatrixLookAtLH(&m_matView, &m_vEye, &m_vLookAt, &m_vUp);
 	g_pD3DDevice->SetTransform(D3DTS_VIEW, &m_matView);
 
@@ -85,11 +86,12 @@ D3DXMATRIXA16* cCamera::GetProjMatrix()
 void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 {
 	//마우스 가두기
-	if (GetAsyncKeyState(VK_CONTROL) & 0x8001)
+	if (GetAsyncKeyState(VK_CONTROL) & 1)
 	{
 		if(m_LockupMouse) m_LockupMouse = false;
 		else m_LockupMouse = true;
 	}
+
 	if (GetAsyncKeyState(VK_ESCAPE) & 0x8001)
 	{
 		ObjectManager->SetNonSelect();

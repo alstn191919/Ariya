@@ -114,15 +114,13 @@ void cObejctManager::Update()
 	pt.y = (rc.bottom - rc.top) / 2;
 	int index;
 	Event1();
-
 	std::map<std::string, cEvent *>::iterator it;
 	for (it=m_Event.begin(); it != m_Event.end(); it++)
 	{
 		m_Event[it->first]->update();
 		
 		//it->second->update();
-	}
-	cRay r = cRay::RayAtWorldSpace(pt.x, pt.y);
+	}	cRay r = cRay::RayAtWorldSpace(pt.x, pt.y);
 	for (size_t i = 0; i < object.size(); ++i)
 	{
 		if (object[i]->GetInter())
@@ -137,17 +135,10 @@ void cObejctManager::Update()
 						if (object[index]->GetisOpen())	object[index]->SetisOpen(false);
 						else object[index]->SetisOpen(true);
 					}
-
 				}
 			}
-
-
 		}
-		
 	}
-
-
-	
 
 	//문열고 닫고 
 	if (object[0]->GetisOpen() == true)
@@ -193,7 +184,6 @@ void cObejctManager::Render()
 	for (int i = 0; i < object.size(); i++)
 	{
 		object[i]->ObjRender();
-	
 
 		if (GetAsyncKeyState(VK_F1)&0x8001)
 		{
@@ -209,6 +199,7 @@ void cObejctManager::Render()
 
 
 
+
 	if (m_select_index != NonSlect && object[m_select_index]->GetObjType()==item)
 	{
 		object[m_select_index]->ObjVIEWRender();
@@ -221,10 +212,14 @@ void cObejctManager::Render()
 
 float cObejctManager::getAngleX()
 {
+
+
 	return	object[m_select_index]->GetAngleX();
 }
 float cObejctManager::getAngleY()
 {
+
+
 	return	object[m_select_index]->GetAngleX();
 }
 
@@ -237,7 +232,6 @@ bool cObejctManager::isPinked()		//카메라 처리용입니다.
 		{
 			return true;
 		}
-
 	}
 
 	return false;
@@ -251,6 +245,7 @@ int cObejctManager::getIndex()
 		{
 			return i;
 		}
+
 	}
 	return NonSlect;
 }
@@ -264,6 +259,7 @@ void cObejctManager::SetSelect()
 		{
 			m_select_index = i;
 		}
+
 	}
 
 	return;
@@ -287,7 +283,8 @@ void  cObejctManager::Destroy()
 	for each(auto it in object)
 	{
 		SAFE_DELETE(it);
-	}	
+	}
+
 }
 
 
@@ -311,7 +308,7 @@ void cObejctManager::SetMouseAngle(float x, float y)
 				}
 			}
 		}
-	}	
+	}
 }
 
 
@@ -353,7 +350,6 @@ bool cObejctManager::getOpen()
 	}
 	return false;
 }
-
 
 bool cObejctManager::getIndexOpen(int _index)
 {

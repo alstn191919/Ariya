@@ -3,7 +3,7 @@
 class cMapRender;
 class cCamera;
 class cCrtController;
-class cUIButton;
+class cGrid;
 
 class cStartScene
 {
@@ -11,10 +11,8 @@ private:
 	cMapRender*			pMap;
 	cCamera*			pCamera;
 	cCrtController*		m_pController;
-	LPD3DXSPRITE		LogoSprite;
-	LPDIRECT3DTEXTURE9	Texture;
-	cUIButton*			Button;
-	ST_SIZE				_imgSize;
+	cGrid*						m_pGrid;
+
 private:
 
 public:
