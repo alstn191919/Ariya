@@ -96,7 +96,7 @@ int cSound::LoadWAV(char *FileName, int Flags)
 	m_DSBufDesc.lpwfxFormat = lpwfmtx;
 
 	//사운드 버퍼 생성
-	m_pDS->CreateSoundBuffer(&m_DSBufDesc, &lpdsBuffer, NULL);
+	m_pDS->CreateSoundBuffer(&m_DSBufDesc, &m_pDSBuffer, NULL);
 
 	m_nSize = Child.cksize;
 	m_isPlay = SND_STOPPED;
@@ -106,7 +106,7 @@ int cSound::LoadWAV(char *FileName, int Flags)
 	ReadWaveFile(hWAV, m_nSize, WholeSndBuff, &Child, &cbWavSize);
 
 	// 사운드 버퍼 락
-	lpdsBuffer->Lock(0, m_DSBufDesc.dwBufferBytes,
+	m_pDSBuffer->Lock(0, m_DSBufDesc.dwBufferBytes,
 		(LPVOID*)&PrimarySndBuff, &PrimaryLength,
 		&SecondarySndBuff, &SecondaryLength, 0L);
 
@@ -114,7 +114,7 @@ int cSound::LoadWAV(char *FileName, int Flags)
 	memcpy(SecondarySndBuff, (WholeSndBuff + PrimaryLength), SecondaryLength);
 
 	//사운드 버퍼 락 해제
-	lpdsBuffer->Unlock(PrimarySndBuff, m_DSBufDesc.dwBufferBytes, NULL, 0);
+	m_pDSBuffer->Unlock(PrimarySndBuff, m_DSBufDesc.dwBufferBytes, NULL, 0);
 
 	memcpy(&m_WaveFmtX, lpwfmtx, sizeof(WAVEFORMATEX));
 	SAFE_DELETE(WholeSndBuff);
