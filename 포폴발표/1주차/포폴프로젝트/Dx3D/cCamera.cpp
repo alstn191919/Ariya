@@ -11,7 +11,7 @@ cCamera::cCamera(void)
 	, m_fAngleX(-D3DX_PI/1.9f)
 	, m_fAngleY(D3DX_PI/1.2f)
 	, m_fDistance(10.0f)
-	, m_LockupMouse(false){
+	, m_LockupMouse(false){{
 }
 
 cCamera::~cCamera(void)
@@ -65,7 +65,6 @@ void cCamera::Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection)
 		
 	}
 
-
 	D3DXMatrixLookAtLH(&m_matView, &m_vEye, &m_vLookAt, &m_vUp);
 	g_pD3DDevice->SetTransform(D3DTS_VIEW, &m_matView);
 
@@ -91,7 +90,6 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		if(m_LockupMouse) m_LockupMouse = false;
 		else m_LockupMouse = true;
 	}
-
 	if (GetAsyncKeyState(VK_ESCAPE) & 0x8001)
 	{
 		ObjectManager->SetNonSelect();
@@ -167,7 +165,7 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		break;
 	case WM_MOUSEMOVE:
 	{
-		if (!m_isLButtonOBJDown)
+		if (!m_isLButtonOBJDown || ObjectManager->Getselect_index()==NonSlect)
 			{
 			POINT pt;
 			pt.x = LOWORD(lParam);
@@ -210,8 +208,6 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 
 				m_ptPrevMouse = pt;
 			}
-
-		}
 
 			if (m_isLButtonOBJDown)
 			{

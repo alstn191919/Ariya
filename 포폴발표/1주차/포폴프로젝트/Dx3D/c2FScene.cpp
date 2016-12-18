@@ -122,6 +122,7 @@ void c2FScene::SetUITest()
 	D3DXCreateText(g_pD3DDevice, hdc, "2", 0.1f, 0.01f, &m_vecText[1], 0, 0);
 	D3DXCreateText(g_pD3DDevice, hdc, "3", 0.1f, 0.01f, &m_vecText[2], 0, 0);
 	D3DXCreateText(g_pD3DDevice, hdc, "4", 0.1f, 0.01f, &m_vecText[3], 0, 0);
+ObjectManager->getOpen();
 
 	ZeroMemory(&m_TextMtl, sizeof(_D3DMATERIAL9));
 	m_TextMtl.Ambient = m_TextMtl.Diffuse = m_TextMtl.Specular = D3DXCOLOR(0.6f, 0.1f, 0.1f, 1.0f);
@@ -134,6 +135,37 @@ void c2FScene::SetUITest()
 
 	//2.상호작용 오브젝트 추가
 	//인자값이 좀더 많이 필요합니다.
+
+	/*p.y = -658 * 0.7;
+	p.x = 357 * 0.7;
+	p.z = 680 * 0.7;
+	ObjectManager->ADDobject("door", "door.X", p		,	0.7, pt,			OBJ_TYPE::door, "문 왼쪽마우스 클릭");*/
+	//인자값				 폴더명    파일명   위치벡터, 크기 ,구(체크용),	 오브젝트 타입 , 충돌시 메세지
+	//오브젝트 타입은 OBJ_TYPE:: 하시면 보실수있습니다. 그냥 door 라고 써도 물론 됩니다.(보기 편하시라고 했어요)
+
+	p.y = 10;
+	p.x = 0;
+	p.z = 0;
+
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, pt, OBJ_TYPE::Switch, "E버튼을 눌러주세요");
+	//스위치 타입 이벤트 처리는 각각 다른 처리할것같아 따로 안하고 메시지 출력만 해놨습니다.
+	//해당 인덱스 얻어오셔서 처리해 주시면 되겠습니다!
+
+	/*p.y = 0;
+	p.x = 0;
+	p.z = 1;
+
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 10;
+
+	ObjectManager->ADDobject("door3", "Door.obj", p, 1, pt, OBJ_TYPE::Switch, "문인것같다.");*/
 
 	//화장실문
 	p.z = 0;
@@ -152,6 +184,17 @@ void c2FScene::SetUITest()
 
 	Scal = D3DXVECTOR3(0.8, 0.65, 0.7);
 	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max,NULL);
+	//ObjectManager->ADDobject("Beds", "screen.x", p, 0.1, pt, OBJ_TYPE::door, "문인것같다.");
+
+	Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
+	p = D3DXVECTOR3(0, 0, 0);
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::item, "");
+	//         아이템 타입은 충돌시 클릭하게 되면 카메라 고정될텐데 esc 누르면 풀리게 해놨습니다.
 	//처음방 문
 
 	p.z = 5;
@@ -312,7 +355,7 @@ void c2FScene::SetUITest()
 	p.y = -17.5;
 	p.z = -57;
 
-	//0.468685;07.50739;5.85491;
+	//0.468685;07.50739;5.85491;ㄴㅁ
 	pt.vCenter = p;
 //	pt.vCenter.x = pt.vCenter.x + 2;
 	pt.vCenter.y = pt.vCenter.y + 4;
@@ -327,6 +370,74 @@ void c2FScene::SetUITest()
 	Scal = D3DXVECTOR3(1.5, 1, 0.7);
 	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2);
 
+	Min = D3DXVECTOR3(3, -2, -0.5);
+	Max = D3DXVECTOR3(-3, 1, 0);
+
+	Scal = D3DXVECTOR3(2, 2, 2);
+	p = D3DXVECTOR3(-65.5, 1, -29.1);
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, -D3DX_PI / 2);
+
+
+
+	Scal = D3DXVECTOR3(2, 2, 2);
+	p = D3DXVECTOR3(59.6, 1, -29);
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI / 2);
+
+	Scal = D3DXVECTOR3(2, 2, 2);
+	p = D3DXVECTOR3(59.6, 1, -36);
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI / 2);
+
+
+	Scal = D3DXVECTOR3(2, 2, 2);
+	p = D3DXVECTOR3(3, -16, -64.7);
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI);
+
+	Scal = D3DXVECTOR3(2, 2, 2);
+	p = D3DXVECTOR3(16.6, -16, -64.7);
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI);
+
+	Scal = D3DXVECTOR3(2, 2, 2);
+	p = D3DXVECTOR3(43.4, -16, -64.7);
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI);
+
+	Scal = D3DXVECTOR3(2, 2, 2);
+	p = D3DXVECTOR3(68, -16, -64.7);
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI);
 
 	//밑에는 UI설정
 
@@ -356,6 +467,10 @@ void c2FScene::SetUITest()
 	pTextView->AutoRelease();
 	//	m_pUIRoot = pTextView;
 	m_pUIRoot->AddChild(pTextView);
+
+
+
+
 	//ObjectManager->evt();
 	//ObjectManager->v_Event[0]->update();
 	//ObjectManager->m_Event["유지현"]->update();
@@ -441,7 +556,7 @@ void c2FScene::Render()
 	m_pHero->SetPosition(D3DXVECTOR3(_zMat._41, _zMat._42, _zMat._43));
 	m_pHero->UpdateAndRender(&_zMat);	
 	
-
+	
 	// 그리드
 	//m_pGrid->Render();
 	//
@@ -623,6 +738,7 @@ void c2FScene::Render()
 
 
 }
+
 
 
 void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

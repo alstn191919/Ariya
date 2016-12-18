@@ -34,7 +34,6 @@
 #pragma comment(lib, "dxguid")
 #pragma comment(lib, "winmm.lib")
 #pragma comment(lib, "dsound")
-
 extern HWND	g_hWnd;
 
 #define NonSlect 9999									//오브젝트 선택안함
@@ -48,12 +47,10 @@ extern HWND	g_hWnd;
 
 #define SND_STOPPED  0				//사운드 정지
 #define SND_PLAYING   1				//사운드 재생
-
 #define SAFE_ADD_REF(p) if(p) { (p)->AddRef(); }
 #define SAFE_RELEASE(p) if(p) { (p)->Release(); (p) = NULL; }
 #define SAFE_DELETE(p) if(p) { delete (p); (p) = NULL; }
 #define SAFE_DELETE_ARRAY(p) if(p) { delete [] (p); }
-
 
 #define SINGLETONE(class_name) private:\
 	class_name(void);\
@@ -174,7 +171,9 @@ enum OBJ_TYPE{
 	door,			//문
 	item,			//아이템
 	Room,		//방
-	Eledoor};
+	Eledoor,
+	OBJECT		//OBB충돌 타입 오브젝트(기능은 없음)
+};
 
 enum CRT_STATE
 {
