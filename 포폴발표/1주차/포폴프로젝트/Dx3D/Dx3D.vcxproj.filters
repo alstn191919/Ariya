@@ -195,6 +195,12 @@
     <ClInclude Include="cEvent.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="cSound.h">
+      <Filter>매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="cSoundManager.h">
+      <Filter>매니저</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -326,9 +332,6 @@
     <ClCompile Include="cSkinnedMesh.cpp">
       <Filter>캐릭터</Filter>
     </ClCompile>
-    <ClCompile Include="cSceneManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="cStartScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -337,6 +340,15 @@
     </ClCompile>
     <ClCompile Include="cEvent.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cSound.cpp">
+      <Filter>매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="cSoundManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cSceneManager.cpp">
+      <Filter>매니저</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
