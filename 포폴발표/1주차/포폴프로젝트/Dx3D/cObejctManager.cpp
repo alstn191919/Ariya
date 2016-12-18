@@ -462,10 +462,10 @@ void cObejctManager::evt()//이벤트 사용예제
 
 void cObejctManager::Event1()
 {
-	
+
 	//printf("qqqqqqqq");
 
-	
+
 
 	class 이벤트1 :public cEvent
 	{
@@ -482,7 +482,8 @@ void cObejctManager::Event1()
 
 
 	m_Event["이벤트1"] = _event;
+}
 void cObejctManager::setIndexOpen(bool _isOpen)
 {
 	object[0]->SetisOpen(_isOpen);
-}}
+}

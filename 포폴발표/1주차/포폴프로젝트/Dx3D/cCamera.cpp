@@ -8,10 +8,11 @@ cCamera::cCamera(void)
 	, m_vUp(0, 1, 0)
 	, m_isLButtonDown(false)
 	, m_isLButtonOBJDown(false)
-	, m_fAngleX(-D3DX_PI/1.9f)
-	, m_fAngleY(D3DX_PI/1.2f)
+	, m_fAngleX(-D3DX_PI / 1.9f)
+	, m_fAngleY(D3DX_PI / 1.2f)
 	, m_fDistance(10.0f)
-	, m_LockupMouse(false){{
+	, m_LockupMouse(false)
+{
 }
 
 cCamera::~cCamera(void)
@@ -52,7 +53,6 @@ void cCamera::Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection)
 
 	//D3DXVec3TransformNormal(&m_vLookAt, &D3DXVECTOR3(0, 0, 1), &mat);
 
-
 	//D3DXVec3TransformCoord(&m_vEye, &m_vEye, &mat);
 
 
@@ -82,12 +82,12 @@ D3DXMATRIXA16* cCamera::GetProjMatrix()
 	return &m_matProj;
 }
 
-void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
+void cCamera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	//마우스 가두기
 	if (GetAsyncKeyState(VK_CONTROL) & 1)
 	{
-		if(m_LockupMouse) m_LockupMouse = false;
+		if (m_LockupMouse) m_LockupMouse = false;
 		else m_LockupMouse = true;
 	}
 	if (GetAsyncKeyState(VK_ESCAPE) & 0x8001)
@@ -97,76 +97,76 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 	}
 	if (GetAsyncKeyState(VK_LBUTTON) & 1)
 	{
-		
+
 		GetCursorPos(&temp);
 		m_fTempX = m_fAngleX;
 		m_fTempY = m_fAngleY;
 	}
-	switch(message)
+	switch (message)
 	{
 	case WM_LBUTTONDOWN:
+	{
+		m_isLButtonDown = true;
+		m_ptPrevMouse.x = LOWORD(lParam);
+		m_ptPrevMouse.y = HIWORD(lParam);
+
+		if (ObjectManager->isPinked())
 		{
-			m_isLButtonDown = true;
-			m_ptPrevMouse.x = LOWORD(lParam);
-			m_ptPrevMouse.y = HIWORD(lParam);
+			m_ptOBJPrevMouse.x = LOWORD(lParam);
+			m_ptOBJPrevMouse.y = HIWORD(lParam);
+			m_isLButtonDown = false;
+			m_isLButtonOBJDown = true;
 
-			if (ObjectManager->isPinked())
+
+
+
+			if (ObjectManager->Getselect_index() == NonSlect && ObjectManager->getPinkedObjType() == OBJ_TYPE::item || ObjectManager->getPinkedObjType() == OBJ_TYPE::door)
 			{
-				m_ptOBJPrevMouse.x = LOWORD(lParam);
-				m_ptOBJPrevMouse.y = HIWORD(lParam);
-				m_isLButtonDown = false;
-				m_isLButtonOBJDown = true;
-
-				
-
-
-				if (ObjectManager->Getselect_index() == NonSlect && ObjectManager->getPinkedObjType() == OBJ_TYPE::item || ObjectManager->getPinkedObjType() == OBJ_TYPE::door)
-				{
-					ObjectManager->SetSelect();
-					//else
-					//{
-					//	m_isLButtonOBJDown = false;
-					//	//ObjectManager->SetNonSelect();
-					//}
-					m_fAngleX_obj = ObjectManager->getAngleX();
-					m_fAngleY_obj = ObjectManager->getAngleY();
-
-
-
-					break;
-				}
-			}
-
-			//오브젝트  선택 되어있을시 해당 오브젝트의 앵글값을 계속 받아옴
-			if (ObjectManager->Getselect_index() != NonSlect)
-			{
-				m_ptOBJPrevMouse.x = LOWORD(lParam);
-				m_ptOBJPrevMouse.y = HIWORD(lParam);
-				m_isLButtonDown = false;
-				m_isLButtonOBJDown = true;
-
+				ObjectManager->SetSelect();
+				//else
+				//{
+				//	m_isLButtonOBJDown = false;
+				//	//ObjectManager->SetNonSelect();
+				//}
 				m_fAngleX_obj = ObjectManager->getAngleX();
 				m_fAngleY_obj = ObjectManager->getAngleY();
-			}
 
-		}
-		break;
-	case WM_LBUTTONUP:
-		{
-			if (m_isLButtonOBJDown)
-			{
-				SetCursorPos(temp.x, temp.y);
+
+
+				break;
 			}
-			
-			m_isLButtonDown = false;
-			m_isLButtonOBJDown = false;
-			if (ObjectManager->getPinkedObjType() == door)ObjectManager->SetNonSelect();
 		}
-		break;
+
+		//오브젝트  선택 되어있을시 해당 오브젝트의 앵글값을 계속 받아옴
+		if (ObjectManager->Getselect_index() != NonSlect)
+		{
+			m_ptOBJPrevMouse.x = LOWORD(lParam);
+			m_ptOBJPrevMouse.y = HIWORD(lParam);
+			m_isLButtonDown = false;
+			m_isLButtonOBJDown = true;
+
+			m_fAngleX_obj = ObjectManager->getAngleX();
+			m_fAngleY_obj = ObjectManager->getAngleY();
+		}
+
+	}
+	break;
+	case WM_LBUTTONUP:
+	{
+		if (m_isLButtonOBJDown)
+		{
+			SetCursorPos(temp.x, temp.y);
+		}
+
+		m_isLButtonDown = false;
+		m_isLButtonOBJDown = false;
+		if (ObjectManager->getPinkedObjType() == door)ObjectManager->SetNonSelect();
+	}
+	break;
 	case WM_MOUSEMOVE:
 	{
-		if (!m_isLButtonOBJDown || ObjectManager->Getselect_index()==NonSlect)
-			{
+		if (!m_isLButtonOBJDown)
+		{
 			POINT pt;
 			pt.x = LOWORD(lParam);
 			pt.y = HIWORD(lParam);
@@ -208,6 +208,7 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 
 				m_ptPrevMouse = pt;
 			}
+		}
 
 			if (m_isLButtonOBJDown)
 			{
@@ -219,8 +220,8 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 				int nDeltaY = pt.y - m_ptOBJPrevMouse.y;
 
 				m_fAngleX_obj += nDeltaY * 0.01f;
-				
-				if (ObjectManager->getPinkedObjType()==OBJ_TYPE::door)
+
+				if (ObjectManager->getPinkedObjType() == OBJ_TYPE::door)
 				{
 					if (ObjectManager->getOpen())
 					{
@@ -264,4 +265,5 @@ void cCamera::WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 		}
 		break;
 	}
+	
 }
