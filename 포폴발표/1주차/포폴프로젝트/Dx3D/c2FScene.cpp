@@ -252,7 +252,7 @@ ObjectManager->getOpen();
 
 	p.z = -23.5;
 	p.y = -0.6;
-	p.x = -30;
+	p.x = -28.5;
 	//0.468685;07.50739;5.85491;
 	pt.vCenter = p;
 	pt.vCenter.x = pt.vCenter.x + 2;
@@ -264,7 +264,7 @@ ObjectManager->getOpen();
 	Min = D3DXVECTOR3(0, 0, -1);
 	Max = D3DXVECTOR3(-0.5, 3, 3);
 
-	Scal = D3DXVECTOR3(1.9, 0.65, 0.7);
+	Scal = D3DXVECTOR3(1.1, 0.65, 0.7);
 	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, NULL);
 
 
