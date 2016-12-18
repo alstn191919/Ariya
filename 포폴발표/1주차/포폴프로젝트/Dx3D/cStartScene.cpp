@@ -11,6 +11,9 @@ cStartScene::cStartScene() : pMap(NULL)
 , m_pController(NULL)
 , LogoSprite(NULL)
 , Button(NULL)
+, State(Button_NULL)
+, CameraPosition(D3DXVECTOR3(40,10,80))
+, CameraDirection(D3DXVECTOR3(-3, 0, -10))
 {
 
 }
@@ -23,34 +26,28 @@ cStartScene::~cStartScene()
 
 	SAFE_RELEASE(Button);
 	SAFE_RELEASE(LogoSprite);
-	while (true)
-	{
-		SAFE_RELEASE(Button);
-		if (!Button)
-			break;
-	}
 }
 
 void cStartScene::Setup()
 {
 	pMap = new cMapRender;
 	pMap->Setup("./objMap/MainMenu.obj", 
-		NULL,
-		D3DXVECTOR3(0, 0, 0), 
+		NULL,D3DXVECTOR3(0, 0, 0), 
 		D3DXVECTOR3(0, 0, 0), 
 		D3DXVECTOR3(15.0f, 50.0f, 80.0f),
 		5.0f);
 
 	pCamera = new cCamera;
 	pCamera->Setup();
-	pCamera->Update(&D3DXVECTOR3(40, 10, 80), &D3DXVECTOR3(-3, 0, -10));
+	pCamera->Update(&CameraPosition, &CameraDirection);
 
 	m_pController = new cCrtController;
 	m_pController->Setup();
 
 	Button = new cUIButton;
+	Button->SetDelegate(this);
 	Button->SetTexture("./Logo/main_m_over.png", "./Logo/main_m_in.png", "./Logo/main_m_in.png");
-	//Button->GetDelegate()->OnClick(;
+
 	D3DXMATRIXA16 _mat;
 	D3DXMatrixTranslation(&_mat, 100, 200, 0);
 	Button->SetLocalPos(D3DXVECTOR3(80, 200, 0));
@@ -59,17 +56,19 @@ void cStartScene::Setup()
 	D3DXIMAGE_INFO _info;
 	ZeroMemory(&_info, sizeof(D3DXIMAGE_INFO));
 	Texture = g_pTextureManager->GetSpriteTexture("./Logo/Main_Logo.png", &_info);
-	//Texture = g_pTextureManager->GetSpriteTexture("./Logo/Start_Logo.png", &_info);
 	_imgSize.fWidth = _info.Width;
 	_imgSize.fHeight = _info.Height;
+	State = Button_MAIN;
 }
 void cStartScene::Update()
 {
 	pMap->Update();
 	Button->Update();
-	//m_pController->Update(NULL, NULL);
-	//pCamera->Update(&D3DXVECTOR3(43,20,90), &D3DXVECTOR3(-4,0,-10));
-	//m_pController->SetfAngleX(pCamera->GetfAngleY());
+	if (State == Button_END)
+	{
+		CameraPosition = D3DXVECTOR3(40, 15, -25);
+		pCamera->Update(&CameraPosition, &CameraDirection);
+	}
 }
 void cStartScene::Render()
 {
@@ -96,5 +95,26 @@ void cStartScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	if (pCamera)
 	{
 		pCamera->WndProc(hWnd, message, wParam, lParam);
+	}
+}
+
+void cStartScene:: OnClick(cUIButton* pSender)
+{
+	D3DXIMAGE_INFO _info;
+	if (State == Button_MAIN)
+	{
+		Button->SetLocalPos(D3DXVECTOR3(80, 250, 0));
+		Texture = g_pTextureManager->GetSpriteTexture("./Logo/Start_Logo.png", &_info);
+		Button->SetTexture("./Logo/start_m_over.png",
+			"./Logo/start_m_in.png",
+			"./Logo/start_m_in.png");
+		_imgSize.fWidth = _info.Width;
+		_imgSize.fHeight = _info.Height;
+		State = Button_START;
+	}
+	else if (State == Button_START)
+	{
+		State = Button_END;
+		//g_pSceneManager->ChangeScene(Scene_2F);
 	}
 }
