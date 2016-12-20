@@ -1,0 +1,9 @@
+newmtl Floor
+Kd 1 1 1
+illum 2
+
+newmtl Concrete
+Kd 1 1 1
+map_Kd null
+illum 2
+
