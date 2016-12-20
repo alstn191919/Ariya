@@ -1,6 +1,8 @@
 #pragma once
 class cSkinnedMesh;
 
+//주인공 클래스
+//maingame 클래스에서 키입력을 받아 변경하는 방식
 //오브젝트에서 입력을 받아 사용하고 싶을 때에는 외부에서 m_enumInteraction을 변경합니다.
 //메소드는 SetInteraction(CRT_INTERACTION interaction)
 

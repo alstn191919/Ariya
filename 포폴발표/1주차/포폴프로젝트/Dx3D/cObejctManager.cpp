@@ -13,6 +13,8 @@ cObejctManager::cObejctManager()
 	, b_Collision(false)
 	
 {
+	Event1();
+	EventDefinitions();
 }
 
 
@@ -113,7 +115,7 @@ void cObejctManager::Update()
 	pt.x = (rc.right - rc.left) / 2;
 	pt.y = (rc.bottom - rc.top) / 2;
 	int index;
-	Event1();
+
 
 	std::map<std::string, cEvent *>::iterator it;
 	for (it=m_Event.begin(); it != m_Event.end(); it++)
@@ -149,32 +151,32 @@ void cObejctManager::Update()
 
 	
 
-	//문열고 닫고 
-	if (object[0]->GetisOpen() == true)
-	{
-		object[2]->SetWolrd(D3DXVECTOR3(eleLeft, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
-		eleLeft -= closeSpeed;
-		object[3]->SetWolrd(D3DXVECTOR3(eleRight, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
-		eleRight += closeSpeed;
+	////문열고 닫고 
+	//if (object[0]->GetisOpen() == true)
+	//{
+	//	object[2]->SetWolrd(D3DXVECTOR3(eleLeft, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
+	//	eleLeft -= closeSpeed;
+	//	object[3]->SetWolrd(D3DXVECTOR3(eleRight, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
+	//	eleRight += closeSpeed;
 
-		if (eleRight > 64.95f && eleLeft < 58.35f)
-		{
-			eleRight = 64.95f;
-			eleLeft = 58.35f;
-		}
-	}
-	else if (object[0]->GetisOpen() == false)
-	{
-		object[2]->SetWolrd(D3DXVECTOR3(eleLeft, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
-		eleLeft += closeSpeed;
-		object[3]->SetWolrd(D3DXVECTOR3(eleRight, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
-		eleRight -= closeSpeed;
-		if (eleRight <= 62.95f && eleLeft >= 60.35f)
-		{
-			eleRight = 62.95f;
-			eleLeft = 60.35f;
-		}
-	}
+	//	if (eleRight > 64.95f && eleLeft < 58.35f)
+	//	{
+	//		eleRight = 64.95f;
+	//		eleLeft = 58.35f;
+	//	}
+	//}
+	//else if (object[0]->GetisOpen() == false)
+	//{
+	//	object[2]->SetWolrd(D3DXVECTOR3(eleLeft, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
+	//	eleLeft += closeSpeed;
+	//	object[3]->SetWolrd(D3DXVECTOR3(eleRight, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
+	//	eleRight -= closeSpeed;
+	//	if (eleRight <= 62.95f && eleLeft >= 60.35f)
+	//	{
+	//		eleRight = 62.95f;
+	//		eleLeft = 60.35f;
+	//	}
+	//}
 
 
 
@@ -211,7 +213,7 @@ void cObejctManager::Render()
 
 	if (m_select_index != NonSlect && object[m_select_index]->GetObjType()==item)
 	{
-		object[m_select_index]->ObjVIEWRender();
+	//	object[m_select_index]->ObjVIEWRender();
 	}
 
 	
@@ -482,6 +484,123 @@ void cObejctManager::Event1()
 
 
 	m_Event["이벤트1"] = _event;
+}
+
+void cObejctManager::EventDefinitions()
+{
+	class 화장실 :public cEvent
+	{
+		int step;//이벤트 스텝
+		int time;		//시간
+		int Stime;
+		void update()
+		{
+			if (ObjectManager->Getselect_index() == 24)
+			{
+				_switch = true;
+				step = 0;
+				time = 0;
+				Stime = 0;
+			}
+
+			if (_switch)EVENT();
+
+		}
+
+
+
+		void EVENT()
+		{
+			time++;
+			if (time % 4 == 0) {
+
+				if (step == 1)step = 2;
+				else if(step == 2)step = 1;
+			}
+			if (time > 600) step = 3;
+			switch (step)
+				{
+				case 0:
+					ObjectManager->getObject(5)->SetisOpen(false);
+					step = 1;
+					break;
+				case 1:
+					ObjectManager->getObject(5)->SetAngleX(-1.5);
+					break;
+				case 2:
+					ObjectManager->getObject(5)->SetAngleX(-D3DX_PI / 2.0 - EPSILON);
+					break;
+				case 3:
+					ObjectManager->getObject(5)->SetisOpen(true);
+					ObjectManager->getObject(7)->SetisOpen(true);
+					ObjectManager->getObject(10)->SetisOpen(true);
+
+
+				}
+				
+			
+
+		}
+	};
+
+
+
+	class 계단옆 :public cEvent
+	{
+		int step;//이벤트 스텝
+		void update()
+		{
+			if (ObjectManager->Getselect_index() == 23)
+			{
+				_switch = true;
+				step = 0;
+			
+			}
+
+			if (_switch)EVENT();
+
+		}
+
+
+
+		void EVENT()
+		{
+
+			switch (step)
+			{
+			case 0:
+			//	ObjectManager->ADDobject()
+				ObjectManager->getObject(4)->SetWolrd(D3DXVECTOR3(34.0, 0, -40), D3DXVECTOR3(0.1, 0.1, 0.1));
+				step = 1;
+				break;
+			case 1:
+				
+				break;
+			case 2:
+				ObjectManager->getObject(5)->SetAngleX(-D3DX_PI / 2.0 - EPSILON);
+				break;
+			case 3:
+				ObjectManager->getObject(5)->SetisOpen(true);
+				ObjectManager->getObject(7)->SetisOpen(true);
+				ObjectManager->getObject(10)->SetisOpen(true);
+
+
+			}
+
+
+
+		}
+	};
+
+
+
+	cEvent * _event;
+	_event = new 화장실;
+
+	m_Event["화장실"] = _event;
+
+	_event = new 계단옆;
+	m_Event["계단옆"] = _event;
 }
 void cObejctManager::setIndexOpen(bool _isOpen)
 {

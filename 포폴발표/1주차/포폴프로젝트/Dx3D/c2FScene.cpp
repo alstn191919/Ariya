@@ -44,6 +44,8 @@ c2FScene::~c2FScene()
 	SAFE_DELETE(m_pHero);
 	SAFE_DELETE(m_pMap);
 	SAFE_DELETE(m_pSkinnedMesh);
+	SAFE_RELEASE(m_pUIRoot);
+	SAFE_RELEASE(m_pSprite);
 }
 
 /*
@@ -143,16 +145,17 @@ ObjectManager->getOpen();
 	//인자값				 폴더명    파일명   위치벡터, 크기 ,구(체크용),	 오브젝트 타입 , 충돌시 메세지
 	//오브젝트 타입은 OBJ_TYPE:: 하시면 보실수있습니다. 그냥 door 라고 써도 물론 됩니다.(보기 편하시라고 했어요)
 
-	p.y = 10;
+	p.y = 0;
 	p.x = 0;
-	p.z = 0;
+	p.z = 10;
 
+	Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
 
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 1;
 
-	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, pt, OBJ_TYPE::Switch, "E버튼을 눌러주세요");
+	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, pt, OBJ_TYPE::OBJECT, "E버튼을 눌러주세요");
 	//스위치 타입 이벤트 처리는 각각 다른 처리할것같아 따로 안하고 메시지 출력만 해놨습니다.
 	//해당 인덱스 얻어오셔서 처리해 주시면 되겠습니다!
 
@@ -187,7 +190,7 @@ ObjectManager->getOpen();
 	//ObjectManager->ADDobject("Beds", "screen.x", p, 0.1, pt, OBJ_TYPE::door, "문인것같다.");
 
 	Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
-	p = D3DXVECTOR3(0, 0, 0);
+	p = D3DXVECTOR3(0, 0, -3);
 
 	pt.vCenter = p;
 	pt.isPicked = false;
@@ -370,8 +373,8 @@ ObjectManager->getOpen();
 	Scal = D3DXVECTOR3(1.5, 1, 0.7);
 	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2);
 
-	Min = D3DXVECTOR3(3, -2, -0.5);
-	Max = D3DXVECTOR3(-3, 1, 0);
+	Min = D3DXVECTOR3(400, -2, -0.5);
+	Max = D3DXVECTOR3(-400, 1, 0);
 
 	Scal = D3DXVECTOR3(2, 2, 2);
 	p = D3DXVECTOR3(-65.5, 1, -29.1);
@@ -438,7 +441,42 @@ ObjectManager->getOpen();
 	pt.fRadius = 1;
 
 	ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI);
+	//BalanceBarBox
+	Min = D3DXVECTOR3(0, 0, 0);
+	Max = D3DXVECTOR3(0, 0, 0);
+	Scal = D3DXVECTOR3(1, 1, 0.1);
+	p = D3DXVECTOR3(28, 0, -56.2);
+	//28.0,3,-56.2
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
 
+	ObjectManager->ADDobject("BalanceBarBox", "BalanceBox.x", p, Scal, pt, OBJ_TYPE::item, "", Min, Max, D3DX_PI);
+
+	//-16.2,3.3,-3.16
+	Scal = D3DXVECTOR3(1, 1, 0.1);
+	p = D3DXVECTOR3(-16.2, 0, -5.16);
+	//28.0,3,-56.2
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("BalanceBarBox", "BalanceBox.x", p, Scal, pt, OBJ_TYPE::item, "", Min, Max, D3DX_PI);
+
+	//Key_B_02.x
+
+	//Scal = D3DXVECTOR3(1, 1, 1);
+	//p = D3DXVECTOR3(0, 0, 0);
+
+	//pt.vCenter = p;
+	//pt.isPicked = false;
+	//pt.fRadius = 1;
+
+	//ObjectManager->ADDobject("Key_X", "singlkey.x", p, Scal, pt, OBJ_TYPE::item, "");
+
+
+	//ObjectManager->ADDobject("BalanceBarBox", "BalanceBox.x", p, Scal, pt, OBJ_TYPE::item, "");
+	//ObjectManager->ADDobject("BalanceBarBox", "BalanceBox.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max,NULL);
 	//밑에는 UI설정
 
 
@@ -542,10 +580,10 @@ void c2FScene::Render()
 	//맵렌더
 	if (m_pMap)
 		m_pMap->Render(m_pCamera->GetvEye(),1000.0f);
-
-	if (ObjectManager->Getselect_index()==6)
+	int a = ObjectManager->Getselect_index();
+	if ( a!= NonSlect && ObjectManager->getObject(a)->GetObjType()==OBJ_TYPE::item)
 	{
-		ObjectManager->getObject(6)->ObjVIEWRender(m_pCamera->GetvLookat());
+		ObjectManager->getObject(a)->ObjVIEWRender(m_pCamera->GetvLookat());
 	}
 	//
 
