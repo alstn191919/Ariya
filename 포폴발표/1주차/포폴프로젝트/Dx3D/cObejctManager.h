@@ -54,6 +54,7 @@ public:
 
 
 	void Event1();
+	void EventDefinitions();
 
 	std::vector<cEvent *>v_Event;
 	std::map<std::string, cEvent *>m_Event;

@@ -53,6 +53,7 @@ void cCamera::Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection)
 
 	//D3DXVec3TransformNormal(&m_vLookAt, &D3DXVECTOR3(0, 0, 1), &mat);
 
+
 	//D3DXVec3TransformCoord(&m_vEye, &m_vEye, &mat);
 
 

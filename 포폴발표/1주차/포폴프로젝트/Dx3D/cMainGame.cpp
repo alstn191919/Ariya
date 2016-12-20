@@ -13,8 +13,9 @@ cMainGame::~cMainGame(void)
 	g_pSkinnedMeshManager->Destroy();
 	g_pSceneManager->Destroy();
 	g_pObjectManager->Destroy();
-	g_pDeviceManager->Destroy();
 	g_pLightShaderManager->Destroy();
+	g_pDeviceManager->Destroy();
+	
 }
 
 
