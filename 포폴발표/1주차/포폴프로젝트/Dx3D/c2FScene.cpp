@@ -373,8 +373,8 @@ ObjectManager->getOpen();
 	Scal = D3DXVECTOR3(1.5, 1, 0.7);
 	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2);
 
-	Min = D3DXVECTOR3(400, -2, -0.5);
-	Max = D3DXVECTOR3(-400, 1, 0);
+	Min = D3DXVECTOR3(3, -2, -0.5);
+	Max = D3DXVECTOR3(-3, 1, 0);
 
 	Scal = D3DXVECTOR3(2, 2, 2);
 	p = D3DXVECTOR3(-65.5, 1, -29.1);
@@ -533,7 +533,7 @@ void c2FScene::Setup()
 	m_pMap->Setup("objMap/objmap.obj",
 		"objMap/2FsurFace.obj",
 		D3DXVECTOR3(-30.94f, -255.0f, 38.5f),
-		D3DXVECTOR3(15.0f, -126.5f, 7.0f),D3DXVECTOR3(2.1f, 4.0f, 3.1f), 1.0f);
+		D3DXVECTOR3(15.0f, -126.5f, 7.0f), 1.0f);
 
 	//오브젝트 매니져 사용 메뉴얼 
 	SetUITest();
@@ -579,7 +579,7 @@ void c2FScene::Render()
 
 	//맵렌더
 	if (m_pMap)
-		m_pMap->Render(m_pCamera->GetvEye(),1000.0f);
+		m_pMap->Render(D3DXVECTOR3(0.7f, 4.3f, -3.4f), D3DXVECTOR3(-10.6f, 2.3f, 4.9f), m_pCamera->GetvEye(), 1000.0f, 0.8f);
 	int a = ObjectManager->Getselect_index();
 	if ( a!= NonSlect && ObjectManager->getObject(a)->GetObjType()==OBJ_TYPE::item)
 	{
