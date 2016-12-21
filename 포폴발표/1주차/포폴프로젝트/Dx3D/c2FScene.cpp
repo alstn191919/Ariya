@@ -11,7 +11,7 @@
 #include "cUITextView.h"
 #include "cUIButton.h"
 #include "cOBB.h"
-#include"cHero.h"
+#include "cHero.h"
 
 enum eUITag
 {
@@ -32,6 +32,7 @@ c2FScene::c2FScene() : m_pCamera(NULL)
 , m_fActionTime(2.0f)
 , m_b1stFloor(true)
 , m_bisClicked(false)
+, m_Change(true)
 {
 	//g_bOBBCollision = false;
 }
@@ -145,30 +146,84 @@ ObjectManager->getOpen();
 	//인자값				 폴더명    파일명   위치벡터, 크기 ,구(체크용),	 오브젝트 타입 , 충돌시 메세지
 	//오브젝트 타입은 OBJ_TYPE:: 하시면 보실수있습니다. 그냥 door 라고 써도 물론 됩니다.(보기 편하시라고 했어요)
 
+	//시작할 때 방(침대)
 	p.y = 0;
-	p.x = 0;
-	p.z = 10;
+	p.x = 3.3;
+	p.z = -5.5;
+	Scal = D3DXVECTOR3(0.09, 0.09, 0.09);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 0;
+	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max,NULL);
 
-	Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
+	//시작할 때 방(커튼)
+	p.y = 2;
+	p.x = 2.7f;
+	p.z = -2.5;
+	Scal = D3DXVECTOR3(0.15, 0.15, 0.15);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 0;
+	ObjectManager->ADDobject("Beds", "screen.X", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max,D3DX_PI/2);
 
+	//시작할 때 방(책상)
+	p.y = 0;
+	p.x = 5.99f;
+	p.z = 6.6;
+	Scal = D3DXVECTOR3(0.062, 0.062, 0.062);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 0;
+	ObjectManager->ADDobject("Elivator/door", "desk.X", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
+
+	//시작할 때 방(램프)
+	p.y = 2.3;
+	p.x = 4.99f;
+	p.z = 2.5f;
+	Scal = D3DXVECTOR3(0.022, 0.022, 0.022);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 0;
+	ObjectManager->ADDobject("Lamp", "lamp.X", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI);
+
+
+	//메디킷
+	Scal = D3DXVECTOR3(0.08, 0.08, 0.08);
+	p = D3DXVECTOR3(4.4, 0, 5.8);
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 1;
-
-	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, pt, OBJ_TYPE::OBJECT, "E버튼을 눌러주세요");
-	//스위치 타입 이벤트 처리는 각각 다른 처리할것같아 따로 안하고 메시지 출력만 해놨습니다.
-	//해당 인덱스 얻어오셔서 처리해 주시면 되겠습니다!
-
-	/*p.y = 0;
-	p.x = 0;
-	p.z = 1;
+	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::item, "");
+	//아이템 타입은 충돌시 클릭하게 되면 카메라 고정될텐데 esc 누르면 풀리게 해놨습니다.
 
 
+	//의자
+	Scal = D3DXVECTOR3(0.0092, 0.0092, 0.0092);
+	p = D3DXVECTOR3(3, 0.2, 3.2);
 	pt.vCenter = p;
 	pt.isPicked = false;
-	pt.fRadius = 10;
+	pt.fRadius = 1;
+	ObjectManager->ADDobject("t", "Chair_1.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
 
-	ObjectManager->ADDobject("door3", "Door.obj", p, 1, pt, OBJ_TYPE::Switch, "문인것같다.");*/
+	//캐비넷
+	Scal = D3DXVECTOR3(0.72, 0.72,0.72);
+	p = D3DXVECTOR3(-2.3, 1.3,-5.5);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+	ObjectManager->ADDobject("Basiccabinet", "basic cabinet (X).x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
+
+	//의자 책상셋트
+	Scal = D3DXVECTOR3(0.072, 0.072, 0.072);
+	p = D3DXVECTOR3(40, 0, -25);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+	ObjectManager->ADDobject("chair05_x", "chair05.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
+
+
+
+
 
 	//화장실문
 	p.z = 0;
@@ -197,7 +252,6 @@ ObjectManager->getOpen();
 	pt.fRadius = 1;
 
 	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::item, "");
-	//         아이템 타입은 충돌시 클릭하게 되면 카메라 고정될텐데 esc 누르면 풀리게 해놨습니다.
 	//처음방 문
 
 	p.z = 5;
@@ -535,6 +589,7 @@ void c2FScene::Setup()
 		D3DXVECTOR3(-30.94f, -255.0f, 38.5f),
 		D3DXVECTOR3(15.0f, -126.5f, 7.0f), 1.0f);
 
+
 	//오브젝트 매니져 사용 메뉴얼 
 	SetUITest();
 
@@ -597,7 +652,6 @@ void c2FScene::Render()
 	
 	// 그리드
 	//m_pGrid->Render();
-	//
 
 	//obb 충돌시 처리는 어차피 플레이어에 대한 처리밖에 없으므로 그냥 논리형 반환값으로 가짐
 	//obb 처리는 오브젝트 충돌시 못지나가게 하는용도와 앉을때 장애물 있을시 못일어나게 하는 용도 뿐이라 이렇게 처리함.
@@ -769,6 +823,9 @@ void c2FScene::Render()
 				m_vecText[0]->DrawSubset(0);
 				t = 10;
 				ObjectManager->setIndexOpen(true);
+				if (m_Change)
+					ChangeMap();
+				m_Change = false;
 			}
 
 		}
@@ -776,8 +833,6 @@ void c2FScene::Render()
 
 
 }
-
-
 
 void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -920,4 +975,16 @@ void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	}
 		break;
 	}
+}
+
+void c2FScene::ChangeMap()
+{
+	SAFE_DELETE(m_pMap);
+	m_pMap = new cMapRender;
+	//m_pMap = new cMapRender;
+	//D3DXVECTOR3(-13.84f, -552.6f, 182.5f) //맵.obj 위치
+	m_pMap->Setup("objMap/3FSurface.obj",
+		"objMap/3FSurface.obj",
+		D3DXVECTOR3(-13.84f, -553.4f, 182.5f),
+		D3DXVECTOR3(-13.84f, -553.4f, 182.5f), D3DXVECTOR3(2.1f, 4.0f, 3.1f), 1.0f);
 }

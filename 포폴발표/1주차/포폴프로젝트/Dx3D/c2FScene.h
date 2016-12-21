@@ -34,7 +34,7 @@ private:
 	float						m_fActionTime;
 	bool						m_b1stFloor;
 	bool						m_bisClicked;
-
+	bool						m_Change;
 
 private:
 	bool						m_isCrtRunning;
@@ -44,12 +44,17 @@ private:
 	LPD3DXSPRITE				m_pSprite;
 	cUIObject*					m_pUIRoot;
 	cUITextView*				 pTextView;
+
+
 public:
 	void Setup();
 	void Update();
 	void Render();
 	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	void SetUITest();
+
+	void ChangeMap();
+
 	c2FScene();
 	~c2FScene();
 };

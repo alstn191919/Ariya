@@ -152,31 +152,31 @@ void cObejctManager::Update()
 	
 
 	////¹®¿­°í ´Ý°í 
-	//if (object[0]->GetisOpen() == true)
-	//{
-	//	object[2]->SetWolrd(D3DXVECTOR3(eleLeft, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
-	//	eleLeft -= closeSpeed;
-	//	object[3]->SetWolrd(D3DXVECTOR3(eleRight, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
-	//	eleRight += closeSpeed;
+	if (object[0]->GetisOpen() == true)
+	{
+		object[2]->SetWolrd(D3DXVECTOR3(eleLeft, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
+		eleLeft -= closeSpeed;
+		object[3]->SetWolrd(D3DXVECTOR3(eleRight, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
+		eleRight += closeSpeed;
 
-	//	if (eleRight > 64.95f && eleLeft < 58.35f)
-	//	{
-	//		eleRight = 64.95f;
-	//		eleLeft = 58.35f;
-	//	}
-	//}
-	//else if (object[0]->GetisOpen() == false)
-	//{
-	//	object[2]->SetWolrd(D3DXVECTOR3(eleLeft, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
-	//	eleLeft += closeSpeed;
-	//	object[3]->SetWolrd(D3DXVECTOR3(eleRight, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
-	//	eleRight -= closeSpeed;
-	//	if (eleRight <= 62.95f && eleLeft >= 60.35f)
-	//	{
-	//		eleRight = 62.95f;
-	//		eleLeft = 60.35f;
-	//	}
-	//}
+		if (eleRight > 64.95f && eleLeft < 58.35f)
+		{
+			eleRight = 64.95f;
+			eleLeft = 58.35f;
+		}
+	}
+	else if (object[0]->GetisOpen() == false)
+	{
+		object[2]->SetWolrd(D3DXVECTOR3(eleLeft, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
+		eleLeft += closeSpeed;
+		object[3]->SetWolrd(D3DXVECTOR3(eleRight, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
+		eleRight -= closeSpeed;
+		if (eleRight <= 62.95f && eleLeft >= 60.35f)
+		{
+			eleRight = 62.95f;
+			eleLeft = 60.35f;
+		}
+	}
 
 
 
