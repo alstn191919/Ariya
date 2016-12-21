@@ -191,14 +191,14 @@ float4 ApplyShadowShader_ApplyShadowTorus_Pixel_Shader_ps_main(PS_INPUT Input) :
    float currentDepth = Input.mClipPosition.z / Input.mClipPosition.w;
    
    float2 uv = Input.mClipPosition.xy / Input.mClipPosition.w;
+   
    uv.y = -uv.y;
    uv = uv * 0.5 + 0.5;
-   
    float shadowDepth = tex2D(ShadowSampler, uv).r;
-   
-   if (currentDepth > shadowDepth + 0.0000125f)
+  
+   if (currentDepth > shadowDepth + 0.0100125f && uv.x < 1 && uv.y < 1 && uv.x >= 0 && uv.y >= 0)
    {
-      rgb *= 0.9f;
+      rgb *= 0.3f;
    }
    
    //return( float4( rgb, 1.0f ) );
@@ -213,7 +213,7 @@ float4 ApplyShadowShader_ApplyShadowTorus_Pixel_Shader_ps_main(PS_INPUT Input) :
    float4 albedo = tex2D(DiffuseSampler, Input.mUV);
    float3 lightDir = normalize(Input.mLightDir);
    float3 diffuse = saturate(dot(worldNormal, -lightDir));   
-   diffuse = gLightColor * albedo.rgb * diffuse ;
+   diffuse = albedo.rgb * diffuse;
    
    float3 specular = 0;
    if ( diffuse.x > 0 )
@@ -222,20 +222,17 @@ float4 ApplyShadowShader_ApplyShadowTorus_Pixel_Shader_ps_main(PS_INPUT Input) :
       float3 viewDir = normalize(Input.mViewDir); 
 
       specular = saturate(dot(reflection, -viewDir ));
-      specular = pow(specular, 20.0f);
+      specular = pow(specular, 25.0f);
       
       float4 specularIntensity  = tex2D(SpecularSampler, Input.mUV);
-      specular *= specularIntensity.rgb * gLightColor;
+		  specular *= specularIntensity.rgb ;
    }
 
    float3 ambient = float3(0.1f, 0.1f, 0.1f) * albedo;
       
    float Power = (gRange - length(Input.mDisVec)) / gRange;
-   return float4((ambient + diffuse + specular)*Power*gAlphaBlend *rgb , 1);
+   return float4((ambient + diffuse + specular)*Power*gAlphaBlend * rgb, 1);
 }
-
-
-
 
 //--------------------------------------------------------------//
 // Technique Section for ApplyShadowShader

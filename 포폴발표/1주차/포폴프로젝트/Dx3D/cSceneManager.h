@@ -21,6 +21,7 @@ private:
 private:
 	cStartScene*	pStartScene;
 	c2FScene*		p2FScene;
+
 private:
 	SceneMenu		eMenu;
 public:

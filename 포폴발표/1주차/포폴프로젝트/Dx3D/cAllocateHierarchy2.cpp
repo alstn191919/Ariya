@@ -72,6 +72,10 @@ STDMETHODIMP cAllocateHierarchy2::CreateMeshContainer(
 	pBoneMesh->NumMaterials = NumMaterials;
 	pBoneMesh->pAdjacency = NULL;
 	pBoneMesh->pEffects = NULL;
+
+	//pBoneMesh->pBoneOffsetMatrices = NULL;
+	//pBoneMesh->pCurrentBoneMatrices = NULL;
+	//pBoneMesh->ppBoneMatrixPtrs = NULL;
 	for (DWORD i = 0; i < NumMaterials; ++i)
 	{
 		cMtlTex* pMtlTex = new cMtlTex;
@@ -123,6 +127,8 @@ STDMETHODIMP cAllocateHierarchy2::DestroyMeshContainer(
 	
 	SAFE_RELEASE(pBoneMesh->pOrigMesh);
 	SAFE_RELEASE(pBoneMesh->pWorkMesh);
+
+	
 
 	for each(auto p in pBoneMesh->vecMtlTex)
 	{

@@ -13,6 +13,8 @@ cObejctManager::cObejctManager()
 	, b_Collision(false)
 	
 {
+	Event1();
+	EventDefinitions();
 }
 
 
@@ -113,14 +115,16 @@ void cObejctManager::Update()
 	pt.x = (rc.right - rc.left) / 2;
 	pt.y = (rc.bottom - rc.top) / 2;
 	int index;
-	Event1();
+
+
 	std::map<std::string, cEvent *>::iterator it;
 	for (it=m_Event.begin(); it != m_Event.end(); it++)
 	{
 		m_Event[it->first]->update();
 		
 		//it->second->update();
-	}	cRay r = cRay::RayAtWorldSpace(pt.x, pt.y);
+	}
+	cRay r = cRay::RayAtWorldSpace(pt.x, pt.y);
 	for (size_t i = 0; i < object.size(); ++i)
 	{
 		if (object[i]->GetInter())
@@ -135,12 +139,19 @@ void cObejctManager::Update()
 						if (object[index]->GetisOpen())	object[index]->SetisOpen(false);
 						else object[index]->SetisOpen(true);
 					}
+
 				}
 			}
+
+
 		}
+		
 	}
 
-	//문열고 닫고 
+
+	
+
+	////문열고 닫고 
 	if (object[0]->GetisOpen() == true)
 	{
 		object[2]->SetWolrd(D3DXVECTOR3(eleLeft, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
@@ -184,6 +195,7 @@ void cObejctManager::Render()
 	for (int i = 0; i < object.size(); i++)
 	{
 		object[i]->ObjRender();
+	
 
 		if (GetAsyncKeyState(VK_F1)&0x8001)
 		{
@@ -199,10 +211,9 @@ void cObejctManager::Render()
 
 
 
-
 	if (m_select_index != NonSlect && object[m_select_index]->GetObjType()==item)
 	{
-		object[m_select_index]->ObjVIEWRender();
+	//	object[m_select_index]->ObjVIEWRender();
 	}
 
 	
@@ -212,14 +223,10 @@ void cObejctManager::Render()
 
 float cObejctManager::getAngleX()
 {
-
-
 	return	object[m_select_index]->GetAngleX();
 }
 float cObejctManager::getAngleY()
 {
-
-
 	return	object[m_select_index]->GetAngleX();
 }
 
@@ -232,6 +239,7 @@ bool cObejctManager::isPinked()		//카메라 처리용입니다.
 		{
 			return true;
 		}
+
 	}
 
 	return false;
@@ -245,7 +253,6 @@ int cObejctManager::getIndex()
 		{
 			return i;
 		}
-
 	}
 	return NonSlect;
 }
@@ -259,7 +266,6 @@ void cObejctManager::SetSelect()
 		{
 			m_select_index = i;
 		}
-
 	}
 
 	return;
@@ -283,8 +289,7 @@ void  cObejctManager::Destroy()
 	for each(auto it in object)
 	{
 		SAFE_DELETE(it);
-	}
-
+	}	
 }
 
 
@@ -308,7 +313,7 @@ void cObejctManager::SetMouseAngle(float x, float y)
 				}
 			}
 		}
-	}
+	}	
 }
 
 
@@ -350,6 +355,7 @@ bool cObejctManager::getOpen()
 	}
 	return false;
 }
+
 
 bool cObejctManager::getIndexOpen(int _index)
 {
@@ -458,10 +464,10 @@ void cObejctManager::evt()//이벤트 사용예제
 
 void cObejctManager::Event1()
 {
-	
+
 	//printf("qqqqqqqq");
 
-	
+
 
 	class 이벤트1 :public cEvent
 	{
@@ -480,6 +486,122 @@ void cObejctManager::Event1()
 	m_Event["이벤트1"] = _event;
 }
 
+void cObejctManager::EventDefinitions()
+{
+	class 화장실 :public cEvent
+	{
+		int step;//이벤트 스텝
+		int time;		//시간
+		int Stime;
+		void update()
+		{
+			if (ObjectManager->Getselect_index() == 24)
+			{
+				_switch = true;
+				step = 0;
+				time = 0;
+				Stime = 0;
+			}
+
+			if (_switch)EVENT();
+
+		}
+
+
+
+		void EVENT()
+		{
+			time++;
+			if (time % 4 == 0) {
+
+				if (step == 1)step = 2;
+				else if(step == 2)step = 1;
+			}
+			if (time > 600) step = 3;
+			switch (step)
+				{
+				case 0:
+					ObjectManager->getObject(5)->SetisOpen(false);
+					step = 1;
+					break;
+				case 1:
+					ObjectManager->getObject(5)->SetAngleX(-1.5);
+					break;
+				case 2:
+					ObjectManager->getObject(5)->SetAngleX(-D3DX_PI / 2.0 - EPSILON);
+					break;
+				case 3:
+					ObjectManager->getObject(5)->SetisOpen(true);
+					ObjectManager->getObject(7)->SetisOpen(true);
+					ObjectManager->getObject(10)->SetisOpen(true);
+
+
+				}
+				
+			
+
+		}
+	};
+
+
+
+	class 계단옆 :public cEvent
+	{
+		int step;//이벤트 스텝
+		void update()
+		{
+			if (ObjectManager->Getselect_index() == 23)
+			{
+				_switch = true;
+				step = 0;
+			
+			}
+
+			if (_switch)EVENT();
+
+		}
+
+
+
+		void EVENT()
+		{
+
+			switch (step)
+			{
+			case 0:
+			//	ObjectManager->ADDobject()
+				ObjectManager->getObject(4)->SetWolrd(D3DXVECTOR3(34.0, 0, -40), D3DXVECTOR3(0.1, 0.1, 0.1));
+				step = 1;
+				break;
+			case 1:
+				
+				break;
+			case 2:
+				ObjectManager->getObject(5)->SetAngleX(-D3DX_PI / 2.0 - EPSILON);
+				break;
+			case 3:
+				ObjectManager->getObject(5)->SetisOpen(true);
+				ObjectManager->getObject(7)->SetisOpen(true);
+				ObjectManager->getObject(10)->SetisOpen(true);
+
+
+			}
+
+
+
+		}
+	};
+
+
+
+	cEvent * _event;
+	_event = new 화장실;
+
+	m_Event["화장실"] = _event;
+
+	_event = new 계단옆;
+	m_Event["계단옆"] = _event;
+}
 void cObejctManager::setIndexOpen(bool _isOpen)
 {
 	object[0]->SetisOpen(_isOpen);

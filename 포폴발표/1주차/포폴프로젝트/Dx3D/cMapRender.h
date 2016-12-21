@@ -1,6 +1,7 @@
 #pragma once
 
 class cMtlTex;
+
 class cMapRender
 {
 private:
@@ -18,15 +19,15 @@ private:
 	LPD3DXSPRITE				LogoSprite;				//디버그용
 	std::vector<D3DXVECTOR3>	m_vecSurface;			// 서페이스 STL
 public:
-	void Setup(char* fileName, char* surFace, D3DXVECTOR3 Position, D3DXVECTOR3 sPosition, D3DXVECTOR3 lightPosition,float Scale);
+	void Setup(char* fileName, char* surFace, D3DXVECTOR3 Position, D3DXVECTOR3 sPosition, float Scale);
 	void Update();
-	void Render(D3DXVECTOR3 _gWorldCameraPosition,float lightRange);
+	void Render(D3DXVECTOR3 _gWorldLightPosition, D3DXVECTOR3 _gWorldLightDir, D3DXVECTOR3 _gWorldCameraPosition, float lightRange, float lightPower);
 	bool GetHeight(IN float x, OUT float& y, IN float z);
 private:
 	void Load(char* szSurface, D3DXVECTOR3 Position);
 	void Shadowinit();
 	void DebugRender();
-	void shaderRender(D3DXVECTOR3 _gWorldLightPosition, D3DXVECTOR3 _gWorldCameraPosition, float lightRange);
+	void shaderRender(D3DXVECTOR3 _gWorldLightPosition, D3DXVECTOR3 _gWorldLightDir, D3DXVECTOR3 _gWorldCameraPosition, float lightRange, float lightPower);
 public:
 	cMapRender();
 	~cMapRender();

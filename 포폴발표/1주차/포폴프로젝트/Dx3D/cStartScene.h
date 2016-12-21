@@ -28,6 +28,20 @@ private:
 	D3DXVECTOR3			CameraDirection;;
 	ST_SIZE				_imgSize;
 	ButtonState			State;
+private:
+	float				CamTime;
+	bool				_isCamLerp;
+	D3DXVECTOR3			NextCamPos;
+	D3DXVECTOR3			PrevCamPos;
+private:
+
+	D3DXVECTOR3			lightDir;
+	D3DXVECTOR3			lightPos;
+
+	D3DXVECTOR3			NextlightPos;
+	D3DXVECTOR3			PrevlightPos;
+	float				Time;
+	bool				_isLerp;
 
 private:
 	virtual void OnClick(cUIButton* pSender);
@@ -38,6 +52,6 @@ public:
 	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);	
 	cStartScene();
 	~cStartScene();
-	
+
 };
 

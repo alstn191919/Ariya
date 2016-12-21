@@ -1,0 +1,16 @@
+# Mesh "UpDownIndicator" exported with Unity Assets Bundle Extractor; 3 vertices, 3 indices, 48 bytes per vertex
+g UpDownIndicator
+# SubMesh 0
+# Vertices
+v -0.000000 -0.005000 -0.005000
+vt 0.125000 0.000000
+vn -1.000000 0.000000 0.000000
+v -0.000000 0.005000 0.000000
+vt 0.250000 0.250000
+vn -1.000000 0.000000 0.000000
+v -0.000000 -0.005000 0.005000
+vt 0.375000 0.000000
+vn -1.000000 0.000000 0.000000
+# Faces (1 to 3)
+f -1/-1/-1 -2/-2/-2 -3/-3/-3
+

@@ -13,8 +13,9 @@ cMainGame::~cMainGame(void)
 	g_pSkinnedMeshManager->Destroy();
 	g_pSceneManager->Destroy();
 	g_pObjectManager->Destroy();
-	g_pDeviceManager->Destroy();
 	g_pLightShaderManager->Destroy();
+	g_pDeviceManager->Destroy();
+	
 }
 
 
@@ -40,7 +41,7 @@ void cMainGame::Render()
 	g_pD3DDevice->Clear(NULL,
 		NULL,
 		D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-		D3DCOLOR_XRGB(0, 0, 0),
+		D3DCOLOR_XRGB(0, 0, 255),
 		//D3DCOLOR_XRGB(0, 0, 255),
 		1.0f, 0);
 	g_pD3DDevice->BeginScene();

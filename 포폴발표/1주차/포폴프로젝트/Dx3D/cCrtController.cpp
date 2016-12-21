@@ -109,14 +109,18 @@ void cCrtController::Update(cMapRender* pMap , cOBB * poBB)
 
 	if (pMap)
 	{
-		if (pMap->GetHeight(vPosition.x, vPosition.y, vPosition.z) && col ==false)
+		if (ObjectManager->Getselect_index() == NonSlect)
 		{
-			m_vPosition = vPosition;
-		}
-		else
-		{
-		//	poBB->Update(&m_matWorld);  //ºÎµúÈù À§Ä¡¿¡ »Ñ·ÁÁÜ
-			this;
+
+			if (pMap->GetHeight(vPosition.x, vPosition.y, vPosition.z) && col == false)
+			{
+				m_vPosition = vPosition;
+			}
+			else
+			{
+				//	poBB->Update(&m_matWorld);  //ºÎµúÈù À§Ä¡¿¡ »Ñ·ÁÁÜ
+				this;
+			}
 		}
 	}
 	else

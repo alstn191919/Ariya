@@ -11,7 +11,7 @@
 #include "cUITextView.h"
 #include "cUIButton.h"
 #include "cOBB.h"
-#include"cHero.h"
+#include "cHero.h"
 
 enum eUITag
 {
@@ -32,6 +32,7 @@ c2FScene::c2FScene() : m_pCamera(NULL)
 , m_fActionTime(2.0f)
 , m_b1stFloor(true)
 , m_bisClicked(false)
+, m_Change(true)
 {
 	//g_bOBBCollision = false;
 }
@@ -44,6 +45,8 @@ c2FScene::~c2FScene()
 	SAFE_DELETE(m_pHero);
 	SAFE_DELETE(m_pMap);
 	SAFE_DELETE(m_pSkinnedMesh);
+	SAFE_RELEASE(m_pUIRoot);
+	SAFE_RELEASE(m_pSprite);
 }
 
 /*
@@ -122,6 +125,7 @@ void c2FScene::SetUITest()
 	D3DXCreateText(g_pD3DDevice, hdc, "2", 0.1f, 0.01f, &m_vecText[1], 0, 0);
 	D3DXCreateText(g_pD3DDevice, hdc, "3", 0.1f, 0.01f, &m_vecText[2], 0, 0);
 	D3DXCreateText(g_pD3DDevice, hdc, "4", 0.1f, 0.01f, &m_vecText[3], 0, 0);
+ObjectManager->getOpen();
 
 	ZeroMemory(&m_TextMtl, sizeof(_D3DMATERIAL9));
 	m_TextMtl.Ambient = m_TextMtl.Diffuse = m_TextMtl.Specular = D3DXCOLOR(0.6f, 0.1f, 0.1f, 1.0f);
@@ -134,6 +138,92 @@ void c2FScene::SetUITest()
 
 	//2.상호작용 오브젝트 추가
 	//인자값이 좀더 많이 필요합니다.
+
+	/*p.y = -658 * 0.7;
+	p.x = 357 * 0.7;
+	p.z = 680 * 0.7;
+	ObjectManager->ADDobject("door", "door.X", p		,	0.7, pt,			OBJ_TYPE::door, "문 왼쪽마우스 클릭");*/
+	//인자값				 폴더명    파일명   위치벡터, 크기 ,구(체크용),	 오브젝트 타입 , 충돌시 메세지
+	//오브젝트 타입은 OBJ_TYPE:: 하시면 보실수있습니다. 그냥 door 라고 써도 물론 됩니다.(보기 편하시라고 했어요)
+
+	//시작할 때 방(침대)
+	p.y = 0;
+	p.x = 3.3;
+	p.z = -5.5;
+	Scal = D3DXVECTOR3(0.09, 0.09, 0.09);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 0;
+	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max,NULL);
+
+	//시작할 때 방(커튼)
+	p.y = 2;
+	p.x = 2.7f;
+	p.z = -2.5;
+	Scal = D3DXVECTOR3(0.15, 0.15, 0.15);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 0;
+	ObjectManager->ADDobject("Beds", "screen.X", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max,D3DX_PI/2);
+
+	//시작할 때 방(책상)
+	p.y = 0;
+	p.x = 5.99f;
+	p.z = 6.6;
+	Scal = D3DXVECTOR3(0.062, 0.062, 0.062);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 0;
+	ObjectManager->ADDobject("Elivator/door", "desk.X", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
+
+	//시작할 때 방(램프)
+	p.y = 2.3;
+	p.x = 4.99f;
+	p.z = 2.5f;
+	Scal = D3DXVECTOR3(0.022, 0.022, 0.022);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 0;
+	ObjectManager->ADDobject("Lamp", "lamp.X", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI);
+
+
+	//메디킷
+	Scal = D3DXVECTOR3(0.08, 0.08, 0.08);
+	p = D3DXVECTOR3(4.4, 0, 5.8);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::item, "");
+	//아이템 타입은 충돌시 클릭하게 되면 카메라 고정될텐데 esc 누르면 풀리게 해놨습니다.
+
+
+	//의자
+	Scal = D3DXVECTOR3(0.0092, 0.0092, 0.0092);
+	p = D3DXVECTOR3(3, 0.2, 3.2);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+	ObjectManager->ADDobject("t", "Chair_1.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
+
+	//캐비넷
+	Scal = D3DXVECTOR3(0.72, 0.72,0.72);
+	p = D3DXVECTOR3(-2.3, 1.3,-5.5);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+	ObjectManager->ADDobject("Basiccabinet", "basic cabinet (X).x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
+
+	//의자 책상셋트
+	Scal = D3DXVECTOR3(0.072, 0.072, 0.072);
+	p = D3DXVECTOR3(40, 0, -25);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+	ObjectManager->ADDobject("chair05_x", "chair05.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
+
+
+
+
 
 	//화장실문
 	p.z = 0;
@@ -152,6 +242,16 @@ void c2FScene::SetUITest()
 
 	Scal = D3DXVECTOR3(0.8, 0.65, 0.7);
 	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max,NULL);
+	//ObjectManager->ADDobject("Beds", "screen.x", p, 0.1, pt, OBJ_TYPE::door, "문인것같다.");
+
+	Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
+	p = D3DXVECTOR3(0, 0, -3);
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::item, "");
 	//처음방 문
 
 	p.z = 5;
@@ -209,7 +309,7 @@ void c2FScene::SetUITest()
 
 	p.z = -23.5;
 	p.y = -0.6;
-	p.x = -30;
+	p.x = -28.5;
 	//0.468685;07.50739;5.85491;
 	pt.vCenter = p;
 	pt.vCenter.x = pt.vCenter.x + 2;
@@ -221,7 +321,7 @@ void c2FScene::SetUITest()
 	Min = D3DXVECTOR3(0, 0, -1);
 	Max = D3DXVECTOR3(-0.5, 3, 3);
 
-	Scal = D3DXVECTOR3(1.9, 0.65, 0.7);
+	Scal = D3DXVECTOR3(1.1, 0.65, 0.7);
 	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, NULL);
 
 
@@ -312,7 +412,7 @@ void c2FScene::SetUITest()
 	p.y = -17.5;
 	p.z = -57;
 
-	//0.468685;07.50739;5.85491;
+	//0.468685;07.50739;5.85491;ㄴㅁ
 	pt.vCenter = p;
 //	pt.vCenter.x = pt.vCenter.x + 2;
 	pt.vCenter.y = pt.vCenter.y + 4;
@@ -327,7 +427,110 @@ void c2FScene::SetUITest()
 	Scal = D3DXVECTOR3(1.5, 1, 0.7);
 	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2);
 
+	Min = D3DXVECTOR3(3, -2, -0.5);
+	Max = D3DXVECTOR3(-3, 1, 0);
 
+	Scal = D3DXVECTOR3(2, 2, 2);
+	p = D3DXVECTOR3(-65.5, 1, -29.1);
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, -D3DX_PI / 2);
+
+
+
+	Scal = D3DXVECTOR3(2, 2, 2);
+	p = D3DXVECTOR3(59.6, 1, -29);
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI / 2);
+
+	Scal = D3DXVECTOR3(2, 2, 2);
+	p = D3DXVECTOR3(59.6, 1, -36);
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI / 2);
+
+
+	Scal = D3DXVECTOR3(2, 2, 2);
+	p = D3DXVECTOR3(3, -16, -64.7);
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI);
+
+	Scal = D3DXVECTOR3(2, 2, 2);
+	p = D3DXVECTOR3(16.6, -16, -64.7);
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI);
+
+	Scal = D3DXVECTOR3(2, 2, 2);
+	p = D3DXVECTOR3(43.4, -16, -64.7);
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI);
+
+	Scal = D3DXVECTOR3(2, 2, 2);
+	p = D3DXVECTOR3(68, -16, -64.7);
+
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI);
+	//BalanceBarBox
+	Min = D3DXVECTOR3(0, 0, 0);
+	Max = D3DXVECTOR3(0, 0, 0);
+	Scal = D3DXVECTOR3(1, 1, 0.1);
+	p = D3DXVECTOR3(28, 0, -56.2);
+	//28.0,3,-56.2
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("BalanceBarBox", "BalanceBox.x", p, Scal, pt, OBJ_TYPE::item, "", Min, Max, D3DX_PI);
+
+	//-16.2,3.3,-3.16
+	Scal = D3DXVECTOR3(1, 1, 0.1);
+	p = D3DXVECTOR3(-16.2, 0, -5.16);
+	//28.0,3,-56.2
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+	ObjectManager->ADDobject("BalanceBarBox", "BalanceBox.x", p, Scal, pt, OBJ_TYPE::item, "", Min, Max, D3DX_PI);
+
+	//Key_B_02.x
+
+	//Scal = D3DXVECTOR3(1, 1, 1);
+	//p = D3DXVECTOR3(0, 0, 0);
+
+	//pt.vCenter = p;
+	//pt.isPicked = false;
+	//pt.fRadius = 1;
+
+	//ObjectManager->ADDobject("Key_X", "singlkey.x", p, Scal, pt, OBJ_TYPE::item, "");
+
+
+	//ObjectManager->ADDobject("BalanceBarBox", "BalanceBox.x", p, Scal, pt, OBJ_TYPE::item, "");
+	//ObjectManager->ADDobject("BalanceBarBox", "BalanceBox.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max,NULL);
 	//밑에는 UI설정
 
 
@@ -356,6 +559,10 @@ void c2FScene::SetUITest()
 	pTextView->AutoRelease();
 	//	m_pUIRoot = pTextView;
 	m_pUIRoot->AddChild(pTextView);
+
+
+
+
 	//ObjectManager->evt();
 	//ObjectManager->v_Event[0]->update();
 	//ObjectManager->m_Event["유지현"]->update();
@@ -380,7 +587,8 @@ void c2FScene::Setup()
 	m_pMap->Setup("objMap/objmap.obj",
 		"objMap/2FsurFace.obj",
 		D3DXVECTOR3(-30.94f, -255.0f, 38.5f),
-		D3DXVECTOR3(15.0f, -126.5f, 7.0f),D3DXVECTOR3(2.1f, 4.0f, 3.1f), 1.0f);
+		D3DXVECTOR3(15.0f, -126.5f, 7.0f), 1.0f);
+
 
 	//오브젝트 매니져 사용 메뉴얼 
 	SetUITest();
@@ -426,11 +634,11 @@ void c2FScene::Render()
 
 	//맵렌더
 	if (m_pMap)
-		m_pMap->Render(m_pCamera->GetvEye(),1000.0f);
-
-	if (ObjectManager->Getselect_index()==6)
+		m_pMap->Render(D3DXVECTOR3(0.7f, 4.3f, -3.4f), D3DXVECTOR3(-10.6f, 2.3f, 4.9f), m_pCamera->GetvEye(), 1000.0f, 0.8f);
+	int a = ObjectManager->Getselect_index();
+	if ( a!= NonSlect && ObjectManager->getObject(a)->GetObjType()==OBJ_TYPE::item)
 	{
-		ObjectManager->getObject(6)->ObjVIEWRender(m_pCamera->GetvLookat());
+		ObjectManager->getObject(a)->ObjVIEWRender(m_pCamera->GetvLookat());
 	}
 	//
 
@@ -441,10 +649,9 @@ void c2FScene::Render()
 	m_pHero->SetPosition(D3DXVECTOR3(_zMat._41, _zMat._42, _zMat._43));
 	m_pHero->UpdateAndRender(&_zMat);	
 	
-
+	
 	// 그리드
 	//m_pGrid->Render();
-	//
 
 	//obb 충돌시 처리는 어차피 플레이어에 대한 처리밖에 없으므로 그냥 논리형 반환값으로 가짐
 	//obb 처리는 오브젝트 충돌시 못지나가게 하는용도와 앉을때 장애물 있을시 못일어나게 하는 용도 뿐이라 이렇게 처리함.
@@ -616,6 +823,9 @@ void c2FScene::Render()
 				m_vecText[0]->DrawSubset(0);
 				t = 10;
 				ObjectManager->setIndexOpen(true);
+				if (m_Change)
+					ChangeMap();
+				m_Change = false;
 			}
 
 		}
@@ -623,7 +833,6 @@ void c2FScene::Render()
 
 
 }
-
 
 void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -766,4 +975,16 @@ void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	}
 		break;
 	}
+}
+
+void c2FScene::ChangeMap()
+{
+	SAFE_DELETE(m_pMap);
+	m_pMap = new cMapRender;
+	//m_pMap = new cMapRender;
+	//D3DXVECTOR3(-13.84f, -552.6f, 182.5f) //맵.obj 위치
+	m_pMap->Setup("objMap/3FSurface.obj",
+		"objMap/3FSurface.obj",
+		D3DXVECTOR3(-13.84f, -553.4f, 182.5f),
+		D3DXVECTOR3(-13.84f, -553.4f, 182.5f), D3DXVECTOR3(2.1f, 4.0f, 3.1f), 1.0f);
 }

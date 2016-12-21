@@ -192,7 +192,6 @@ void cSkinnedMesh2::SetAnimationIndex( int n )
 {
 	LPD3DXANIMATIONSET pAnimSet = NULL;
 	m_pAnimController->GetAnimationSet(n, &pAnimSet);
-	//m_pAnimController->SetTrackSpeed(0, -1);
 	m_pAnimController->SetTrackAnimationSet(0, pAnimSet);
 	SAFE_RELEASE(pAnimSet);
 }
@@ -207,9 +206,6 @@ void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size)
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixScaling(&matS, size.x, size.y, size.z);
 	
-	/*mat._41 = p.x;
-	mat._42 = p.y;
-	mat._43 = p.z;*/
 
 	D3DXMatrixTranslation(&mat, p.x, p.y, p.z);
 
@@ -220,11 +216,9 @@ void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size)
 
 	D3DXMatrixIdentity(&m_wolrd);
 
-	//m_wolrd = matS * mat *m_wolrd;
-
 	m_wolrd = matS * matR * mat *m_wolrd;
 
-	//
+
 
 }
 
@@ -237,22 +231,21 @@ void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size , float Angle)
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixScaling(&matS, size.x, size.y, size.z);
 
-	/*mat._41 = p.x;
-	mat._42 = p.y;
-	mat._43 = p.z;*/
+
 
 	D3DXMatrixTranslation(&mat, p.x, p.y, p.z);
 
 
 	D3DXMatrixRotationY(&matR, Angle);
 	
+
+
 	D3DXMatrixIdentity(&m_wolrd);
 
-	//m_wolrd = matS * mat *m_wolrd;
 
 	m_wolrd = matS * matR * mat *m_wolrd;
 
-	//
+
 
 
 
@@ -269,26 +262,20 @@ void cSkinnedMesh2::ObjRender()
 		D3DXMatrixIdentity(&matOBB);
 
 		mat._43 = -3.5;
-		//matOBB._43 = -3.5;
 		D3DXMatrixRotationY(&matRX, -m_fAngleX);
-		D3DXMatrixRotationZ(&matRY, -m_fAngleY);
+		D3DXMatrixRotationX(&matRY, -m_fAngleY);
 
 		mat = ( mat  *  matRX * matRY);
 
 
 		D3DXMatrixRotationY(&matRX, -m_fAngleX);
-		D3DXMatrixRotationZ(&matRY, -m_fAngleY);
+		D3DXMatrixRotationX(&matRY, -m_fAngleY);
 
 		matOBB = (matOBB  *  matRX * matRY);
-		//D3DXMatrixTranslation(&mat, m_wolrd._41, m_wolrd._42, m_wolrd._43);
+		
 
 		mat = mat * m_wolrd;
 		matOBB = matOBB * m_wolrd;
-		//m_wolrd = mat;
-		//m_wolrd = mat* m_wolrd;
-	/*	pt.vCenter = p;
-		pt.vCenter.x = pt.vCenter.x + 2;
-		pt.vCenter.y = pt.vCenter.y + 3;*/
 		D3DXVECTOR3 tempP;
 
 		
@@ -303,7 +290,11 @@ void cSkinnedMesh2::ObjRender()
 	
 	}
 	else
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_wolrd);
+	{
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_wolrd);
+		if (m_Obb)m_Obb->Update(&m_wolrd);
+	}
+	
 
 	if (m_pRootBone == NULL) return;
 	Render(m_pRootBone);
@@ -334,6 +325,14 @@ void cSkinnedMesh2::ObjVIEWRender(D3DXVECTOR3 pogi)
 	mat._42 = pogi.y;
 	mat._43 = pogi.z;
 
+	D3DXMATRIXA16 matRX, matRY, matR;
+	D3DXMatrixRotationY(&matRX, m_fAngleX);
+	D3DXMatrixRotationZ(&matRY, m_fAngleY);
+
+	matR = matRX * matRY;
+
+	mat = matR * mat;
+
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
 
 	if (m_pRootBone == NULL) return;
@@ -354,33 +353,24 @@ void cSkinnedMesh2::ObjVIEWRender()
 
 	D3DXMatrixInverse(&inverview, 0, &viewamat);
 
-		D3DXMATRIXA16 matRX, matRY;
+	D3DXMATRIXA16 matRX, matRY, matR;
 		D3DXMatrixRotationY(&matRX, m_fAngleX);
 		D3DXMatrixRotationZ(&matRY, m_fAngleY);
 
-		mat = inverview;
+		matR = matRX * matRY;
+
+		mat = matR * inverview;
 	
 
 
 		mat._42 = mat._42 + 1;
-	//g_pD3DDevice->GetTransform(D3DTS_WORLD, &mat);
 
-//	D3DXMatrixInverse(&inverview, 0, &viewamat);
-	/*
-
-	*/
-	//D3DXMatrixInverse(&inverProj, 0, &inverProj);
-
-	//mat._43 = -1;
-
-//	viewamat._43 = -viewamat._43 + 5;
 
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
 	
 	if (m_pRootBone == NULL) return;
 	Render(m_pRootBone);
 
-	//g_pD3DDevice->SetTransform(D3DTS_WORLD, &viewmat);
-
+	
 	
 }

@@ -20,6 +20,8 @@
 
 // TODO: 프로그램에 필요한 추가 헤더는 여기에서 참조합니다.
 #include <d3dx9.h>
+#include <mmsystem.h>
+#include <dsound.h>	
 #include <vector>
 #include <map>
 #include <set>
@@ -29,7 +31,9 @@
 
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
-
+#pragma comment(lib, "dxguid")
+#pragma comment(lib, "winmm.lib")
+#pragma comment(lib, "dsound")
 extern HWND	g_hWnd;
 
 #define NonSlect 9999									//오브젝트 선택안함
@@ -41,6 +45,8 @@ extern HWND	g_hWnd;
 #define NEAR_PLANE   1									// 근접 평면
 #define FAR_PLANE    10000								// 원거리 평면
 
+#define SND_STOPPED  0				//사운드 정지
+#define SND_PLAYING   1				//사운드 재생
 #define SAFE_ADD_REF(p) if(p) { (p)->AddRef(); }
 #define SAFE_RELEASE(p) if(p) { (p)->Release(); (p) = NULL; }
 #define SAFE_DELETE(p) if(p) { delete (p); (p) = NULL; }
@@ -165,7 +171,9 @@ enum OBJ_TYPE{
 	door,			//문
 	item,			//아이템
 	Room,		//방
-	Eledoor};
+	Eledoor,
+	OBJECT		//OBB충돌 타입 오브젝트(기능은 없음)
+};
 
 enum CRT_STATE
 {
@@ -220,3 +228,4 @@ struct ST_SHADER
 #include "cUIObject.h"
 #include "cFontManager.h"
 #include "cSceneManager.h"
+#include "cSoundManager.h"
