@@ -204,6 +204,9 @@
     <ClInclude Include="cStartScene.h">
       <Filter>게임씬</Filter>
     </ClInclude>
+    <ClInclude Include="cUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -352,6 +355,9 @@
     </ClCompile>
     <ClCompile Include="cStartScene.cpp">
       <Filter>게임씬</Filter>
+    </ClCompile>
+    <ClCompile Include="cUI.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

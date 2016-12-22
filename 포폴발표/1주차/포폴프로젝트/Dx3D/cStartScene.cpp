@@ -68,7 +68,7 @@ void cStartScene::Setup()
 	ST_SPHERE _sphere;
 	ZeroMemory(&_sphere, sizeof(ST_SPHERE));
 
-	ObjectManager->ADDobject("wheelchar", "wheelchair.x",
+	ObjectManager->ADDobject("Wheelchair", "wheelchair.x",
 		D3DXVECTOR3(-2, 3, 18), D3DXVECTOR3(0.4f, 0.4f, 0.4f), 
 		_sphere, OBJ_TYPE::OBJECT,
 		"", 

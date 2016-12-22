@@ -152,7 +152,7 @@ ObjectManager->getOpen();
 	pt.isPicked = false;
 	pt.fRadius = 1;
 	//std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max, float Angle
-	ObjectManager->ADDobject("Desktop", "wheelchair.x", p, Scal,Min,Max,D3DX_PI);
+	ObjectManager->ADDobject("wheelchar", "wheelchair.x", p, Scal,Min,Max,D3DX_PI);
 
 	//p.y = 0;
 	//p.x = 0;

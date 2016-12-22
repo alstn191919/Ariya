@@ -21,8 +21,8 @@ cMainGame::~cMainGame(void)
 void cMainGame::Setup()
 {
 	SetLight();
-	//g_pSceneManager->ChangeScene(Scene_2F);
-	g_pSceneManager->ChangeScene(Scene_Main);
+	g_pSceneManager->ChangeScene(Scene_2F);
+	//g_pSceneManager->ChangeScene(Scene_Main);
 
 }
 
