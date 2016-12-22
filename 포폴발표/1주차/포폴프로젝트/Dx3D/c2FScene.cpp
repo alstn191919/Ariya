@@ -568,6 +568,25 @@ ObjectManager->getOpen();
 	//ObjectManager->m_Event["유지현"]->update();
 }
 
+/*
+==============================
+cHero 클래스 사용 매뉴얼 : 최하늘
+2016 12 22
+이동 및 모션 변경은 내부적으로 해결합니다.
+==============================
+*/
+void c2FScene::HeroManual()
+{
+	//오브젝트와 충돌하여 어떠한 상호작용을 시키고 싶을 경우
+	
+	//if(충돌시)
+	//SetInteraction(CRT_INTERACTION interaction)
+
+	//CRT_INTERACTION은 stdafx.h에 정의된 이넘문입니다.
+	//ACTION_DOOR, ACTION_DESK, ACTION_ITEM, ACTION_CATCH, ACTION_NONE 이 있습니다.
+	//상호작용이 끝난 뒤에는 반드시! SetInteraction(ACTION_NONE); 을 해 주세요.
+}
+
 void c2FScene::Setup()
 {
 	m_pCamera = new cCamera;
@@ -841,133 +860,55 @@ void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		m_pCamera->WndProc(hWnd, message, wParam, lParam);
 	}
 
+	if (m_pHero)
+	{
+		m_pHero->WndProc(hWnd, message, wParam, lParam);
+	}
+
 	//키보드 처리
-	//현재 임시값 space 누르고 있으면 달린다
+	//현재 임시값 R 누르면 달린다. c누르면 웅크린다
 	switch (message)
 	{
 	case WM_KEYDOWN:
 	{
-		   switch (wParam)
-		   {
-		   case VK_SPACE:
-		   {
-			   m_isCrtRunning = true;
-							m_pHero->SetState(CRT_STATE::CRT_RUN);
-							break;
-		   }
-		   case 'W':
-		   {
-					   //방향 설정 : 정면
-					   m_pHero->SetDirection(ENUM_DIRECTION::DR_FORWARD);
-					   if (!m_isCrtRunning)
-					   {
-						   if (m_isCrtCrawling)
-						   {
-							   m_pHero->SetState(CRT_STATE::CRT_CRAWL);
-						   }
-						   else
-						   {
-							   m_pHero->SetState(CRT_STATE::CRT_WALK);
-						   }
-					   }
-					   break;
-		   }
-		   case 'S':
-		   {
-					   m_pHero->SetDirection(ENUM_DIRECTION::DR_BACKWARD);
-
-					   if (!m_isCrtRunning)
-					   {
-						   if (m_isCrtCrawling)
-						   {
-							   m_pHero->SetState(CRT_STATE::CRT_CRAWL);
-						   }
-						   else
-						   {
-							   m_pHero->SetState(CRT_STATE::CRT_WALK);
-						   }
-					   }
-					   break;
-		   }
-		   case 'A':
-		   {
-					   m_pHero->SetDirection(ENUM_DIRECTION::DR_LEFT);
-
-					   if (!m_isCrtRunning)
-					   {
-						   if (m_isCrtCrawling)
-						   {
-							   m_pHero->SetState(CRT_STATE::CRT_CRAWL);
-						   }
-						   else
-						   {
-							   m_pHero->SetState(CRT_STATE::CRT_WALK);
-						   }
-					   }
-		   }
-		   case 'D':
-		   {
-					   m_pHero->SetDirection(ENUM_DIRECTION::DR_RIGHT);
-
-					   if (!m_isCrtRunning)
-					   {
-						   if (m_isCrtCrawling)
-						   {
-							   m_pHero->SetState(CRT_STATE::CRT_CRAWL);
-						   }
-						   else
-						   {
-							   m_pHero->SetState(CRT_STATE::CRT_WALK);
-						   }
-					   }
-		   }
-	   }
-	}
-		break;
+		switch (wParam)
+		{
+		case 'R':
+		{
+			//m_isCrtRunning = true;
+			m_pController->SetSpeed(0.5f);
+			break;
+		}
+		case 'C':
+		{
+			//m_isCrtRunning = false;
+			//m_isCrtCrawling = true;
+			m_pController->SetSpeed(0.2f);
+			break;
+		}
+		}
+	}//case WM_KEYDOWN:
+	break;
 
 	case WM_KEYUP:
 	{
-					 switch (wParam)
-					 {
-					 case VK_SPACE:
-					 {
-									 m_isCrtRunning = false;
-									  m_pHero->SetState(CRT_STATE::CRT_IDLE);
-									  break;
-					 }
-					 case 'W':
-					 {
-								 if (!m_isCrtCrawling)
-								 {
-									 m_pHero->SetState(CRT_STATE::CRT_IDLE);
-								 }
-								 break;
-					 }
-					 case 'S':
-					 {
-								 if (!m_isCrtCrawling)
-								 {
-									 m_pHero->SetState(CRT_STATE::CRT_IDLE);
-								 }
-								 break;
-					 }
-					 case 'A':
-					 {
-								 if (!m_isCrtCrawling)
-								 {
-									 m_pHero->SetState(CRT_STATE::CRT_IDLE);
-								 }
-					 }
-					 case 'D':
-					 {
-								 if (!m_isCrtCrawling)
-								 {
-									 m_pHero->SetState(CRT_STATE::CRT_IDLE);
-								 }
-					 }
-					 }
-	}
-		break;
+		switch (wParam)
+		{
+		case  'R':
+		{
+			//m_isCrtRunning = false;
+			m_pController->SetSpeed(0.3f);
+			break;
+		}
+		case 'C':
+		{
+			//m_isCrtCrawling = false;
+			m_pController->SetSpeed(0.3f);
+			break;
+		}
+		}
+	}//case WM_KEYUP:
+	break;
 	case WM_LBUTTONDOWN:
 	{
 						   int x = LOWORD(lParam);
@@ -983,8 +924,10 @@ void c2FScene::ChangeMap()
 	m_pMap = new cMapRender;
 	//m_pMap = new cMapRender;
 	//D3DXVECTOR3(-13.84f, -552.6f, 182.5f) //맵.obj 위치
-	m_pMap->Setup("objMap/3FSurface.obj",
-		"objMap/3FSurface.obj",
-		D3DXVECTOR3(-13.84f, -553.4f, 182.5f),
-		D3DXVECTOR3(-13.84f, -553.4f, 182.5f), D3DXVECTOR3(2.1f, 4.0f, 3.1f), 1.0f);
+
+	//하단 함수 컴파일 오류나서 임시로 주석
+	//m_pMap->Setup("objMap/3FSurface.obj",
+	//	"objMap/3FSurface.obj",
+	//	D3DXVECTOR3(-13.84f, -553.4f, 182.5f),
+	//	D3DXVECTOR3(-13.84f, -553.4f, 182.5f), D3DXVECTOR3(2.1f, 4.0f, 3.1f), 1.0f);
 }

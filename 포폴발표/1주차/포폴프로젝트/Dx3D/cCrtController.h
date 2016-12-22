@@ -20,6 +20,11 @@ public:
 	void Setup();
 	void Update(cMapRender* pMap , cOBB * poBB);
 
+	void SetSpeed(float f)
+	{
+		m_fSpeed = f;
+	}
+
 	D3DXVECTOR3* GetPosition()
 	{
 		return &m_vPosition;
