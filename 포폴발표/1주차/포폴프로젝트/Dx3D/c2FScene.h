@@ -8,6 +8,7 @@ class cSkinnedMesh2;
 class cUITextView;
 class cOBB;
 class cHero;
+class cUI;
 
 #include "cUIButton.h"
 
@@ -35,6 +36,7 @@ private:
 	bool						m_b1stFloor;
 	bool						m_bisClicked;
 	bool						m_Change;
+	cUI *						m_pUI;
 
 private:
 	bool						m_isCrtRunning;
