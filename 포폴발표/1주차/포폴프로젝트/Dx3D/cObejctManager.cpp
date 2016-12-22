@@ -16,6 +16,18 @@ cObejctManager::cObejctManager()
 	Event1();
 	EventDefinitions();
 
+	//ÀýµÎÃ¼
+	int n = 0;
+	m_aProjVertex[n++] = D3DXVECTOR3(-1, 1, 0);
+	m_aProjVertex[n++] = D3DXVECTOR3(1, 1, 0);
+	m_aProjVertex[n++] = D3DXVECTOR3(1, -1, 0);
+	m_aProjVertex[n++] = D3DXVECTOR3(-1, -1, 0);
+	m_aProjVertex[n++] = D3DXVECTOR3(-1, 1, 1);
+	m_aProjVertex[n++] = D3DXVECTOR3(1, 1, 1);
+	m_aProjVertex[n++] = D3DXVECTOR3(1, -1, 1);
+	m_aProjVertex[n++] = D3DXVECTOR3(-1, -1, 1);
+	//
+
 }
 
 
@@ -75,16 +87,7 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 }
 
 
-void cObejctManager::ADDobject(std::string sFolder,
-	std::string sFile,
-	D3DXVECTOR3 Pogi, 
-	D3DXVECTOR3 size,
-	ST_SPHERE _Sphre,
-	OBJ_TYPE _objtype, 
-	std::string _Text, 
-	D3DXVECTOR3 Min, 
-	D3DXVECTOR3 Max ,
-	float Angle, D3DXVECTOR3* _LightPositon)
+void cObejctManager::ADDobject(std::string sFolder,std::string sFile,D3DXVECTOR3 Pogi, D3DXVECTOR3 size,ST_SPHERE _Sphre,OBJ_TYPE _objtype, std::string _Text, D3DXVECTOR3 Min, D3DXVECTOR3 Max ,float Angle, D3DXVECTOR3* _LightPositon)
 {
 	cSkinnedMesh2* newobject;
 
@@ -217,7 +220,7 @@ void cObejctManager::Update()
 	{
 		object[m_select_index]->m_sSphre.isPicked = true;
 	}
-
+	CullingUpdate();
 }
 
 
@@ -227,30 +230,25 @@ void cObejctManager::Render()
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
 	for (int i = 0; i < object.size(); i++)
 	{
-		object[i]->ObjRender();
-	
+		if (Culling(object[i]))
+		{
+			object[i]->ObjRender();
+		}
 
 		if (GetAsyncKeyState(VK_F1)&0x8001)
 		{
 			if (object[i]->GetObb())
 			{
-			//	object[i]->ObjRender();
-				
-				
+
 				object[i]->GetObb()->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
 			}
 		}
 	}
 
-
-
 	if (m_select_index != NonSlect && object[m_select_index]->GetObjType()==item)
 	{
 	//	object[m_select_index]->ObjVIEWRender();
 	}
-
-	
-
 }
 
 
@@ -638,4 +636,63 @@ void cObejctManager::EventDefinitions()
 void cObejctManager::setIndexOpen(bool _isOpen)
 {
 	object[0]->SetisOpen(_isOpen);
+}
+
+bool cObejctManager:: Culling(cSkinnedMesh2* _object)
+{
+	for (int i = 0; i < 6; ++i)
+	{
+		
+		if (D3DXPlaneDotCoord(&m_aPlane[i], &D3DXVECTOR3(_object->GetWolrd()->_41, _object->GetWolrd()->_42, _object->GetWolrd()->_43)) > 3.0f)
+			return false;
+	}
+	return true;
+}
+
+void cObejctManager::CullingUpdate()
+{
+	D3DXMATRIXA16 matView, matInvView, matProj, matInvProj, mat;
+	g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProj);
+	g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
+	D3DXMatrixInverse(&matInvProj, 0, &matProj);
+	D3DXMatrixInverse(&matInvView, 0, &matView);
+
+	mat = matInvProj * matInvView;
+
+	D3DXVECTOR3 aFrustumVertex[8];
+	for (int i = 0; i < 8; ++i)
+	{
+		D3DXVec3TransformCoord(&aFrustumVertex[i], &m_aProjVertex[i], &mat);
+	}
+
+	int n = 0;
+	D3DXPlaneFromPoints(&m_aPlane[n++],
+		&aFrustumVertex[0],
+		&aFrustumVertex[1],
+		&aFrustumVertex[2]);
+
+	D3DXPlaneFromPoints(&m_aPlane[n++],
+		&aFrustumVertex[5],
+		&aFrustumVertex[4],
+		&aFrustumVertex[7]);
+
+	D3DXPlaneFromPoints(&m_aPlane[n++],
+		&aFrustumVertex[4],
+		&aFrustumVertex[0],
+		&aFrustumVertex[3]);
+
+	D3DXPlaneFromPoints(&m_aPlane[n++],
+		&aFrustumVertex[1],
+		&aFrustumVertex[5],
+		&aFrustumVertex[6]);
+
+	D3DXPlaneFromPoints(&m_aPlane[n++],
+		&aFrustumVertex[4],
+		&aFrustumVertex[5],
+		&aFrustumVertex[0]);
+
+	D3DXPlaneFromPoints(&m_aPlane[n++],
+		&aFrustumVertex[3],
+		&aFrustumVertex[2],
+		&aFrustumVertex[6]);
 }

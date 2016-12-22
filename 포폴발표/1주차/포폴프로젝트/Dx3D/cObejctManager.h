@@ -16,9 +16,9 @@ private:
 	std::vector<cSkinnedMesh2*> object;			//오브젝트
 	SYNTHESIZE(int, m_select_index, select_index);								//선택된 오브젝트 인덱스
 	SYNTHESIZE(bool, b_Collision, Collision);
-
-	
-		
+private: //컬링
+	D3DXVECTOR3		m_aProjVertex[8];
+	D3DXPLANE		m_aPlane[6];
 public:
 		
 	void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max, float Angle);				//일단 오브젝트 추가
@@ -68,5 +68,8 @@ void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVEC
 
 	std::vector<cEvent *>v_Event;
 	std::map<std::string, cEvent *>m_Event;
+
+	bool Culling(cSkinnedMesh2* _object);
+	void CullingUpdate();
 };
 
