@@ -15,6 +15,7 @@ cObejctManager::cObejctManager()
 {
 	Event1();
 	EventDefinitions();
+
 }
 
 
@@ -25,7 +26,7 @@ cObejctManager::~cObejctManager()
 
 
 
-void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max)
+void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max, float Angle)
 {
 	cSkinnedMesh2* newobject;
 
@@ -33,7 +34,7 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 
 	newobject->Load(sFolder, sFile);
 
-	newobject->SetWolrd(Pogi, size);
+	newobject->SetWolrd(Pogi, size, Angle);
 
 	newobject->SetInter(false);
 
@@ -587,7 +588,7 @@ void cObejctManager::EventDefinitions()
 			{
 			case 0:
 			//	ObjectManager->ADDobject()
-				ObjectManager->getObject(4)->SetWolrd(D3DXVECTOR3(34.0, 0, -40), D3DXVECTOR3(0.1, 0.1, 0.1));
+				ObjectManager->getObject(4)->SetWolrd(D3DXVECTOR3(32.0, 2, -40), D3DXVECTOR3(0.4, 0.4, 0.4),-D3DX_PI/6);
 				step = 1;
 				break;
 			case 1:

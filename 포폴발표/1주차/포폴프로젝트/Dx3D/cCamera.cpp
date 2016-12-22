@@ -166,7 +166,7 @@ void cCamera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	break;
 	case WM_MOUSEMOVE:
 	{
-		if (!m_isLButtonOBJDown)
+		if (!m_isLButtonOBJDown && ObjectManager->Getselect_index() == NonSlect)
 		{
 			POINT pt;
 			pt.x = LOWORD(lParam);

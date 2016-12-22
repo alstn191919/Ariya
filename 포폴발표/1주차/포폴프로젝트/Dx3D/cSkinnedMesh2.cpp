@@ -16,6 +16,7 @@ cSkinnedMesh2::cSkinnedMesh2(void)
 cSkinnedMesh2::~cSkinnedMesh2(void)
 {
 	SAFE_RELEASE(m_pAnimController);
+	SAFE_DELETE(m_Obb);
 
 	cAllocateHierarchy2 alloc;
 	D3DXFrameDestroy(m_pRootBone, &alloc);
@@ -323,7 +324,7 @@ void cSkinnedMesh2::ObjVIEWRender(D3DXVECTOR3 pogi)
 
 	mat._41 = pogi.x;
 	mat._42 = pogi.y;
-	mat._43 = pogi.z;
+	mat._43 = pogi.z-0.5;
 
 	D3DXMATRIXA16 matRX, matRY, matR;
 	D3DXMatrixRotationY(&matRX, m_fAngleX);

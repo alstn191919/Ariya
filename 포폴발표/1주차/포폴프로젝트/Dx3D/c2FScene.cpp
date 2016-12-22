@@ -11,14 +11,10 @@
 #include "cUITextView.h"
 #include "cUIButton.h"
 #include "cOBB.h"
-#include "cHero.h"
+#include"cHero.h"
+#include "cUI.h"
 
-enum eUITag
-{
-	E_TEXTVIEW = 3,
-	E_BUTTON1,
-	E_BUTTON2,
-};
+
 
 c2FScene::c2FScene() : m_pCamera(NULL)
 , m_pGrid(NULL)
@@ -32,7 +28,6 @@ c2FScene::c2FScene() : m_pCamera(NULL)
 , m_fActionTime(2.0f)
 , m_b1stFloor(true)
 , m_bisClicked(false)
-, m_Change(true)
 {
 	//g_bOBBCollision = false;
 }
@@ -47,12 +42,10 @@ c2FScene::~c2FScene()
 	SAFE_DELETE(m_pSkinnedMesh);
 	SAFE_RELEASE(m_pUIRoot);
 	SAFE_RELEASE(m_pSprite);
-
 	for each(auto p in m_vecText)
 	{
 		SAFE_RELEASE(p);
-	}
-}
+	}}
 
 /*
 =============================================================================================================================================
@@ -89,7 +82,6 @@ void c2FScene::SetUITest()
 	Scal = D3DXVECTOR3(1.1, 1.1, 1.1);
 	p = D3DXVECTOR3(62, -17, -108);
 	ObjectManager->ADDobject("Elivator", "Elivator.X", p, Scal, OBJ_TYPE::Room, -D3DX_PI / 2);
-
 	//엘리베이터 문 2개
 	Scal = D3DXVECTOR3(26.0f, 27.0f, 26.0f);
 	p = D3DXVECTOR3(60.35f, -17, -105.5f);
@@ -149,9 +141,43 @@ ObjectManager->getOpen();
 	//오브젝트 타입은 OBJ_TYPE:: 하시면 보실수있습니다. 그냥 door 라고 써도 물론 됩니다.(보기 편하시라고 했어요)
 
 
-	
+
+	Min = D3DXVECTOR3(-0.535, 0, -0.035);
+	Max = D3DXVECTOR3(0.535, 0.075, 0.035);
+
+	Scal = D3DXVECTOR3(0.4, 0.4, 0.4);
+	p = D3DXVECTOR3(0, 2, 10);
+	//28.0,3,-56.2
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+	//std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max, float Angle
+	ObjectManager->ADDobject("Desktop", "wheelchair.x", p, Scal,Min,Max,D3DX_PI);
+
+	//p.y = 0;
+	//p.x = 0;
+	//p.z = 10;
+
+	//Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
+
+	//pt.vCenter = p;
+	//pt.isPicked = false;
+	//pt.fRadius = 1;
+
+	//ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, pt, OBJ_TYPE::OBJECT, "E버튼을 눌러주세요");
+	//스위치 타입 이벤트 처리는 각각 다른 처리할것같아 따로 안하고 메시지 출력만 해놨습니다.
+	//해당 인덱스 얻어오셔서 처리해 주시면 되겠습니다!
+
+	/*p.y = 0;
+	p.x = 0;
+	p.z = 1;
 
 
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 10;
+
+	ObjectManager->ADDobject("door3", "Door.obj", p, 1, pt, OBJ_TYPE::Switch, "문인것같다.");*/
 
 	//화장실문
 	p.z = 0;
@@ -180,6 +206,7 @@ ObjectManager->getOpen();
 	pt.fRadius = 1;
 
 	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::item, "");
+	//         아이템 타입은 충돌시 클릭하게 되면 카메라 고정될텐데 esc 누르면 풀리게 해놨습니다.
 	//처음방 문
 
 	p.z = 5;
@@ -521,6 +548,7 @@ ObjectManager->getOpen();
 	pt.fRadius = 1;
 	ObjectManager->ADDobject("Basiccabinet", "basic cabinet (X).x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
 
+
 	//Key_B_02.x
 
 	//Scal = D3DXVECTOR3(1, 1, 1);
@@ -538,26 +566,32 @@ ObjectManager->getOpen();
 	//밑에는 UI설정
 
 
-
-
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 
 	cUIImageView* pImageView = new cUIImageView;
 	D3DXIMAGE_INFO stImageInfo;
 	ZeroMemory(&stImageInfo, sizeof(D3DXIMAGE_INFO));
 	LPDIRECT3DTEXTURE9 pTexture = g_pTextureManager->GetSpriteTexture(
-		"./UI/panel-info.png.png",
+		//"./UI2/panel-info.png.png",
+		"./UI/UI_IN.tga",
 		&stImageInfo);
 	pImageView->SetTexture(pTexture);
 	pImageView->SetSize(ST_SIZE(stImageInfo.Width, stImageInfo.Height));
-	pImageView->SetLocalPos(D3DXVECTOR3(100, 50, 0));
+	D3DXMATRIXA16 mat;
+	D3DXMatrixIdentity(&mat);
+	D3DXMatrixTranslation(&mat, 100, 0, 0);
+	pImageView->SetWorld(mat);
+	pImageView->SetLocalPos(D3DXVECTOR3(200, 50, 0));
 	m_pUIRoot = pImageView;
 
 
 	pTextView = new cUITextView;
 	pTextView->SetText("");
 	pTextView->SetFont(g_pFontManager->GetFont(cFontManager::E_FT_NORMAL));
-	pTextView->SetLocalPos(D3DXVECTOR3(100, 100, 0));
+	
+	D3DXMatrixIdentity(&mat);
+	D3DXMatrixTranslation(&mat,300, 300, 0);
+	pTextView->SetWorld(mat);
 	pTextView->SetSize(ST_SIZE(321, 200));
 	pTextView->SetDrawTextFormat(DT_CENTER | DT_TOP | DT_WORDBREAK);
 	pTextView->SetTextColor(D3DCOLOR_XRGB(255, 255, 0));
@@ -567,6 +601,9 @@ ObjectManager->getOpen();
 	m_pUIRoot->AddChild(pTextView);
 
 
+	
+	m_pUI = new cUI;
+	m_pUI->Setup();
 
 
 	//ObjectManager->evt();
@@ -592,7 +629,6 @@ void c2FScene::HeroManual()
 	//ACTION_DOOR, ACTION_DESK, ACTION_ITEM, ACTION_CATCH, ACTION_NONE 이 있습니다.
 	//상호작용이 끝난 뒤에는 반드시! SetInteraction(ACTION_NONE); 을 해 주세요.
 }
-
 void c2FScene::Setup()
 {
 	m_pCamera = new cCamera;
@@ -613,7 +649,6 @@ void c2FScene::Setup()
 		"objMap/2FsurFace.obj",
 		D3DXVECTOR3(-30.94f, -255.0f, 38.5f),
 		D3DXVECTOR3(15.0f, -126.5f, 7.0f), 1.0f);
-
 
 	//오브젝트 매니져 사용 메뉴얼 
 	SetUITest();
@@ -638,7 +673,6 @@ void c2FScene::Update()
 	if (m_pMap)
 		m_pMap->Update();
 
-	ObjectManager->Update();
 	
 
 	if (ObjectManager->isPinked() &&
@@ -659,12 +693,20 @@ void c2FScene::Render()
 
 	//맵렌더
 	if (m_pMap)
-		m_pMap->Render(D3DXVECTOR3(0.7f, 4.3f, -3.4f), D3DXVECTOR3(-10.6f, 2.3f, 4.9f), m_pCamera->GetvEye(), 1000.0f, 0.8f);
+	m_pMap->Render(D3DXVECTOR3(0.7f, 4.3f, -3.4f), D3DXVECTOR3(-10.6f, 2.3f, 4.9f), m_pCamera->GetvEye(), 1000.0f, 0.8f);
 	int a = ObjectManager->Getselect_index();
 	if ( a!= NonSlect && ObjectManager->getObject(a)->GetObjType()==OBJ_TYPE::item)
 	{
+		g_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, false);
+		
+		m_pUI->Render();
+		g_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, true);
 		ObjectManager->getObject(a)->ObjVIEWRender(m_pCamera->GetvLookat());
+	
 	}
+
+
+	
 	//
 
 	//캐릭 랜더
@@ -677,6 +719,7 @@ void c2FScene::Render()
 	
 	// 그리드
 	//m_pGrid->Render();
+	//
 
 	//obb 충돌시 처리는 어차피 플레이어에 대한 처리밖에 없으므로 그냥 논리형 반환값으로 가짐
 	//obb 처리는 오브젝트 충돌시 못지나가게 하는용도와 앉을때 장애물 있을시 못일어나게 하는 용도 뿐이라 이렇게 처리함.
@@ -693,7 +736,7 @@ void c2FScene::Render()
 
 	ObjectManager->Render();
 
-
+	
 	/*if (cOBB::IsCollision(m_pObb, ObjectManager->GetInstance()->`))
 	{
 	m_pObbObj->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
@@ -708,6 +751,8 @@ void c2FScene::Render()
 	{
 		m_pUIRoot->Render(m_pSprite);
 	}
+
+	
 
 
 	//여기 엘리베이터 동작하는곳 ( 엘리베이터 밖 )
@@ -858,6 +903,7 @@ void c2FScene::Render()
 
 
 }
+
 
 void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {

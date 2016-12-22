@@ -101,6 +101,14 @@ struct ST_Event
 
 };
 
+
+enum eUITag
+{
+	E_TEXTVIEW = 3,
+	E_BUTTON1,
+	E_BUTTON2,
+};
+
 struct ST_PC_VERTEX
 {
 	D3DXVECTOR3 p;
