@@ -17,7 +17,7 @@ cUITextView::~cUITextView(void)
 void cUITextView::Render( LPD3DXSPRITE pSprite )
 {
 	RECT rc;
-	SetRect(&rc, 0, 0, m_stSize.fWidth, m_stSize.fHeight);
+	SetRect(&rc, 0 , 0, m_stSize.fWidth, m_stSize.fHeight);
 	pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 	pSprite->SetTransform(&m_matWorld);
 	m_pFont->DrawTextA(pSprite, 

@@ -30,6 +30,7 @@ void cMainGame::Update()
 {
 	g_pTimeManager->Update();
 	Getfps(g_pTimeManager->GetDeltaTime());
+	ObjectManager->Update();
 
 
 
