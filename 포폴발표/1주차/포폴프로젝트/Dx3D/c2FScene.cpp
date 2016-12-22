@@ -83,10 +83,7 @@ void c2FScene::SetUITest()
 	//엘리베이터 통
 	Scal = D3DXVECTOR3(1.1, 1.1, 1.1);
 	p = D3DXVECTOR3(62, -17, -108);
-	pt.vCenter = p;
-	pt.isPicked = false;
-	pt.fRadius = 0;
-	ObjectManager->ADDobject("Elivator", "Elivator.X", p, Scal, pt, OBJ_TYPE::Room, "341", D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 0), -D3DX_PI / 2);
+	ObjectManager->ADDobject("Elivator", "Elivator.X", p, Scal, OBJ_TYPE::Room, -D3DX_PI / 2);
 
 	//엘리베이터 문 2개
 	Scal = D3DXVECTOR3(26.0f, 27.0f, 26.0f);
@@ -146,11 +143,14 @@ ObjectManager->getOpen();
 	//인자값				 폴더명    파일명   위치벡터, 크기 ,구(체크용),	 오브젝트 타입 , 충돌시 메세지
 	//오브젝트 타입은 OBJ_TYPE:: 하시면 보실수있습니다. 그냥 door 라고 써도 물론 됩니다.(보기 편하시라고 했어요)
 
+
 	//시작할 때 방(침대)
 	p.y = 0;
 	p.x = 3.3;
 	p.z = -5.5;
 	Scal = D3DXVECTOR3(0.09, 0.09, 0.09);
+	Min = D3DXVECTOR3(5, 3, 5);
+	Max = D3DXVECTOR3(-1, 0, -1);
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 0;
@@ -161,6 +161,8 @@ ObjectManager->getOpen();
 	p.x = 2.7f;
 	p.z = -2.5;
 	Scal = D3DXVECTOR3(0.15, 0.15, 0.15);
+	Min = D3DXVECTOR3(1, 3, 10);
+	Max = D3DXVECTOR3(-1, 0, -10);
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 0;
@@ -171,6 +173,8 @@ ObjectManager->getOpen();
 	p.x = 5.99f;
 	p.z = 6.6;
 	Scal = D3DXVECTOR3(0.062, 0.062, 0.062);
+	Min = D3DXVECTOR3(10, 10, 10);
+	Max = D3DXVECTOR3(-10, 0, -10);
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 0;
@@ -206,21 +210,14 @@ ObjectManager->getOpen();
 	ObjectManager->ADDobject("t", "Chair_1.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
 
 	//캐비넷
+	Min = D3DXVECTOR3(1, 1, 1);
+	Max = D3DXVECTOR3(-1, 0, -1);
 	Scal = D3DXVECTOR3(0.72, 0.72,0.72);
 	p = D3DXVECTOR3(-2.3, 1.3,-5.5);
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 1;
 	ObjectManager->ADDobject("Basiccabinet", "basic cabinet (X).x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
-
-	//의자 책상셋트
-	Scal = D3DXVECTOR3(0.072, 0.072, 0.072);
-	p = D3DXVECTOR3(40, 0, -25);
-	pt.vCenter = p;
-	pt.isPicked = false;
-	pt.fRadius = 1;
-	ObjectManager->ADDobject("chair05_x", "chair05.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
-
 
 
 
@@ -926,8 +923,8 @@ void c2FScene::ChangeMap()
 	//D3DXVECTOR3(-13.84f, -552.6f, 182.5f) //맵.obj 위치
 
 	//하단 함수 컴파일 오류나서 임시로 주석
-	//m_pMap->Setup("objMap/3FSurface.obj",
-	//	"objMap/3FSurface.obj",
-	//	D3DXVECTOR3(-13.84f, -553.4f, 182.5f),
-	//	D3DXVECTOR3(-13.84f, -553.4f, 182.5f), D3DXVECTOR3(2.1f, 4.0f, 3.1f), 1.0f);
+	m_pMap->Setup("objMap/3FMap.obj",
+		"objMap/3Fsurf.obj",
+		D3DXVECTOR3(-13.84f, -553.f, 182.7f),
+		D3DXVECTOR3(-13.84f, -553.f, 182.7f), 1.0f);
 }

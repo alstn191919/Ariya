@@ -104,7 +104,24 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 	object.push_back(newobject);
 }
 
+void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, OBJ_TYPE _objtype, float Angle)	//obb충돌안하는거
+{
+	cSkinnedMesh2* newobject;
 
+	newobject = new cSkinnedMesh2;
+
+	newobject->Load(sFolder, sFile);
+
+	if (Angle)
+		newobject->SetWolrd(Pogi, size, Angle);
+	else newobject->SetWolrd(Pogi, size);
+
+	newobject->SetInter(true);
+
+	newobject->SetObjType(_objtype);
+
+	object.push_back(newobject);
+}
 void cObejctManager::Update()
 {
 	//Ray를 클라이언트 중간에서 쏘기
