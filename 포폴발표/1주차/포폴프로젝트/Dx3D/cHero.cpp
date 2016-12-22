@@ -5,10 +5,10 @@
 cHero::cHero(char* szDirectory, char* szFilename)
 	: m_pSkinnedMesh(NULL)
 	, m_enumState(CRT_STATE::CRT_IDLE)
-	, m_enumDirection(ENUM_DIRECTION::DR_FORWARD)
-	, m_enumPrevState(CRT_STATE::CRT_IDLE)
-	, m_enumPrevDirection(ENUM_DIRECTION::DR_FORWARD)
-	, m_isInteract(false)
+	, m_enumDirection(ENUM_DIRECTION::DR_NONE)
+	, m_enumPrevState(m_enumState)
+	, m_enumPrevDirection(m_enumDirection)
+	//, m_isInteract(false)
 	, m_enumInteraction(CRT_INTERACTION::ACTION_NONE)
 {
 	m_pSkinnedMesh = new cSkinnedMesh(szDirectory, szFilename);
@@ -18,6 +18,8 @@ cHero::cHero(char* szDirectory, char* szFilename)
 	m_Max = D3DXVECTOR3(1, 3, 1);
 	m_pSkinnedMesh->SetMin(m_Min);
 	m_pSkinnedMesh->SetMax(m_Max);
+
+	SetAnimationIndex(CRT_ANIMLIST::ANIM_IDLE);
 }
 
 cHero::~cHero()
@@ -59,6 +61,9 @@ void cHero::UpdateAndRender(D3DXMATRIXA16 * pmat)
 		SetAnimationRun();
 	}
 
+	m_enumPrevState = m_enumState;
+	m_enumPrevDirection = m_enumDirection;
+
 	//메시 바운딩박스 설정
 	m_pSkinnedMesh->SetMin(m_Min);
 	m_pSkinnedMesh->SetMax(m_Max);
@@ -74,19 +79,25 @@ void cHero::SetAnimationCrawl()
 		SetAnimationIndex(ANIM_STAY_CRAWL);
 	}
 
+	if (m_enumPrevDirection == m_enumDirection)
+	{
+		return;
+	}
+
 	//입력에 따른 처리
-	if (m_enumDirection == ENUM_DIRECTION::DR_NONE)
-		{
-			SetAnimationIndex(ANIM_STAY_CRAWL);
-		}
-		else if (m_enumDirection == ENUM_DIRECTION::DR_FORWARD || DR_LEFT || DR_RIGHT)
-		{
-			SetAnimationIndex(ANIM_FORDWALK_CRAWL);
-		}
-		else if (m_enumDirection == ENUM_DIRECTION::DR_BACKWARD)
-		{
-			SetAnimationIndex(ANIM_BACKWALK_CRAWL);
-		}
+	//캐릭터 모델링에 머리 없는 게 보여서 stay로 통일
+	//if (m_enumDirection == ENUM_DIRECTION::DR_NONE)
+	//{
+	//	SetAnimationIndex(ANIM_STAY_CRAWL);
+	//}
+	//else if (m_enumDirection == ENUM_DIRECTION::DR_FORWARD || DR_LEFT || DR_RIGHT)
+	//{
+	//	SetAnimationIndex(ANIM_FORDWALK_CRAWL);
+	//}
+	//else if (m_enumDirection == ENUM_DIRECTION::DR_BACKWARD)
+	//{
+	//	SetAnimationIndex(ANIM_BACKWALK_CRAWL);
+	//}
 }
 
 void cHero::SetAnimationIdle()
@@ -97,122 +108,262 @@ void cHero::SetAnimationIdle()
 		SetAnimationIndex(ANIM_IDLE);
 	}
 
-	if (m_isInteract)	//상호작용의 처리
-	{
-		if (m_enumInteraction == CRT_INTERACTION::ACTION_DOOR)
-			{
-				SetAnimationIndex(ANIM_OPEN_FAST);
-				m_isInteract = false;
-			}
-			else if (m_enumInteraction == CRT_INTERACTION::ACTION_DESK)
-			{
-				SetAnimationIndex(ANIM_JUMPOVER_FAST);
-				m_isInteract = false;
-			}
-			else if (m_enumInteraction == CRT_INTERACTION::ACTION_CATCH)
-			{
-				SetAnimationIndex(ANIM_CATCH);
-				m_isInteract = false;
-			}
-	}
-	else	//입력에 따른 처리
-	{
-		if (m_enumDirection == ENUM_DIRECTION::DR_NONE)
-			{
-				SetAnimationIndex(ANIM_IDLE);
-			}
-			else if (m_enumDirection == ENUM_DIRECTION::DR_FORWARD)
-			{
-				SetAnimationIndex(ANIM_FORDWALK);
-			}
-			else if (m_enumDirection == ENUM_DIRECTION::DR_BACKWARD)
-			{
-				SetAnimationIndex(ANIM_BACKWALK);
-			}
-			else if (m_enumDirection == ENUM_DIRECTION::DR_LEFT || DR_RIGHT)
-			{
-				SetAnimationIndex(ANIM_LEFTWALK);
-			}
-		}
-}
-
-void cHero::SetAnimationWalk()
-{
-	SetAnimationIndex(ANIM_FORDWALK);
-
-	if (m_isInteract)	//상호작용의 처리
+	//상호작용의 처리
+	if (m_enumInteraction != CRT_INTERACTION::ACTION_NONE)
 	{
 		if (m_enumInteraction == CRT_INTERACTION::ACTION_DOOR)
 		{
 			SetAnimationIndex(ANIM_OPEN_FAST);
+			return;
 		}
 		else if (m_enumInteraction == CRT_INTERACTION::ACTION_DESK)
 		{
 			SetAnimationIndex(ANIM_JUMPOVER);
+			return;
 		}
 		else if (m_enumInteraction == CRT_INTERACTION::ACTION_CATCH)
 		{
 			SetAnimationIndex(ANIM_CATCH);
+			return;
 		}
 	}
-	else	//입력에 따른 처리
+
+	//입력에 따른 처리
+	if (m_enumPrevDirection == m_enumDirection)
 	{
-		if (m_enumDirection == ENUM_DIRECTION::DR_NONE)
+		return;
+	}
+	if (m_enumDirection == ENUM_DIRECTION::DR_NONE)
+	{
+		SetAnimationIndex(ANIM_IDLE);
+	}
+	else if (m_enumDirection == ENUM_DIRECTION::DR_FORWARD)
+	{
+		SetAnimationIndex(ANIM_FORDWALK);
+	}
+	else if (m_enumDirection == ENUM_DIRECTION::DR_BACKWARD)
+	{
+		SetAnimationIndex(ANIM_BACKWALK);
+	}
+	else if (m_enumDirection == ENUM_DIRECTION::DR_LEFT || DR_RIGHT)
+	{
+		SetAnimationIndex(ANIM_LEFTWALK);
+	}
+}
+
+void cHero::SetAnimationWalk()
+{
+	if (m_enumState != m_enumPrevState)
+	{
+		//기본 상태
+		SetAnimationIndex(ANIM_FORDWALK);
+	}
+
+	//상호작용의 처리
+	if (m_enumInteraction != CRT_INTERACTION::ACTION_NONE)
+	{
+		if (m_enumInteraction == CRT_INTERACTION::ACTION_DOOR)
 		{
-			SetAnimationIndex(ANIM_FORDWALK);
+			SetAnimationIndex(ANIM_OPEN_FAST);
+			return;
 		}
-		else if (m_enumDirection == ENUM_DIRECTION::DR_FORWARD)
+		else if (m_enumInteraction == CRT_INTERACTION::ACTION_DESK)
 		{
-			SetAnimationIndex(ANIM_FORDWALK);
+			SetAnimationIndex(ANIM_JUMPOVER);
+			return;
 		}
-		else if (m_enumDirection == ENUM_DIRECTION::DR_BACKWARD)
+		else if (m_enumInteraction == CRT_INTERACTION::ACTION_CATCH)
 		{
-			SetAnimationIndex(ANIM_BACKWALK);
+			SetAnimationIndex(ANIM_CATCH);
+			return;
 		}
-		else if (m_enumDirection == ENUM_DIRECTION::DR_LEFT || DR_RIGHT)
-		{
-			SetAnimationIndex(ANIM_LEFTWALK);
-		}
+	}
+
+	//입력에 따른 처리
+	if (m_enumPrevDirection == m_enumDirection)
+	{
+		return;
+	}
+	if (m_enumDirection == ENUM_DIRECTION::DR_NONE)
+	{
+		SetAnimationIndex(ANIM_FORDWALK);
+	}
+	else if (m_enumDirection == ENUM_DIRECTION::DR_FORWARD)
+	{
+		SetAnimationIndex(ANIM_FORDWALK);
+	}
+	else if (m_enumDirection == ENUM_DIRECTION::DR_BACKWARD)
+	{
+		SetAnimationIndex(ANIM_BACKWALK);
+	}
+	else if (m_enumDirection == ENUM_DIRECTION::DR_LEFT || DR_RIGHT)
+	{
+		SetAnimationIndex(ANIM_LEFTWALK);
 	}
 }
 
 void cHero::SetAnimationRun()
 {
-	SetAnimationIndex(ANIM_RUN);
+	if (m_enumState != m_enumPrevState)
+	{
+		//기본 상태
+		SetAnimationIndex(ANIM_RUN);
+	}
 
-	if (m_isInteract)	//상호작용의 처리
+	//상호작용의 처리
+	if (m_enumInteraction != CRT_INTERACTION::ACTION_NONE)
 	{
 		if (m_enumInteraction == CRT_INTERACTION::ACTION_DOOR)
 		{
 			SetAnimationIndex(ANIM_OPEN_FAST);
+			return;
 		}
 		else if (m_enumInteraction == CRT_INTERACTION::ACTION_DESK)
 		{
 			SetAnimationIndex(ANIM_JUMPOVER_FAST);
+			return;
 		}
 		else if (m_enumInteraction == CRT_INTERACTION::ACTION_CATCH)
 		{
 			SetAnimationIndex(ANIM_CATCH);
+			return;
 		}
 	}
-	else	//입력에 따른 처리
+
+	//입력에 따른 처리
+	if (m_enumPrevDirection == m_enumDirection)
 	{
-		if (m_enumDirection == ENUM_DIRECTION::DR_NONE)
+		return;
+	}
+	if (m_enumDirection == ENUM_DIRECTION::DR_NONE)
+	{
+		SetAnimationIndex(ANIM_RUN);
+	}
+	else if (m_enumDirection == ENUM_DIRECTION::DR_FORWARD)
+	{
+		SetAnimationIndex(ANIM_FORDWALK);
+	}
+	else if (m_enumDirection == ENUM_DIRECTION::DR_BACKWARD)
+	{
+		SetAnimationIndex(ANIM_BACKWALK);
+	}
+	else if (m_enumDirection == ENUM_DIRECTION::DR_LEFT || DR_RIGHT)
+	{
+		SetAnimationIndex(ANIM_LEFTWALK);
+	}
+}
+
+void cHero::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+	case WM_KEYDOWN:
+	{
+		switch (wParam)
 		{
-			SetAnimationIndex(ANIM_RUN);
-		}
-		else if (m_enumDirection == ENUM_DIRECTION::DR_FORWARD)
+		case 'C':
 		{
-			SetAnimationIndex(ANIM_FORDWALK);
+			m_enumState = CRT_STATE::CRT_CRAWL;
+			break;
 		}
-		else if (m_enumDirection == ENUM_DIRECTION::DR_BACKWARD)
+		case  'R':
 		{
-			SetAnimationIndex(ANIM_BACKWALK);
+			if (m_enumState != CRT_STATE::CRT_CRAWL)
+				m_enumState = CRT_STATE::CRT_RUN;
+			break;
 		}
-		else if (m_enumDirection == ENUM_DIRECTION::DR_LEFT || DR_RIGHT)
+
+		case 'W':
 		{
-			SetAnimationIndex(ANIM_LEFTWALK);
+			if (m_enumState != CRT_STATE::CRT_RUN && m_enumState != CRT_STATE::CRT_CRAWL)
+			{
+				m_enumState = CRT_STATE::CRT_WALK;
+			}
+			//방향 설정 : 정면
+			m_enumDirection = ENUM_DIRECTION::DR_FORWARD;
+			break;
 		}
+		case 'S':
+		{
+			if (m_enumState != CRT_STATE::CRT_RUN&& m_enumState != CRT_STATE::CRT_CRAWL)
+			{
+				m_enumState = CRT_STATE::CRT_WALK;
+			}
+			m_enumDirection = ENUM_DIRECTION::DR_BACKWARD;
+			break;
+		}
+		case 'A':
+		{
+			if (m_enumState != CRT_STATE::CRT_RUN&& m_enumState != CRT_STATE::CRT_CRAWL)
+			{
+				m_enumState = CRT_STATE::CRT_WALK;
+			}
+			m_enumDirection = ENUM_DIRECTION::DR_LEFT;
+			break;
+		}
+		case 'D':
+		{
+			if (m_enumState != CRT_STATE::CRT_RUN&& m_enumState != CRT_STATE::CRT_CRAWL)
+			{
+				m_enumState = CRT_STATE::CRT_WALK;
+			}
+			m_enumDirection = ENUM_DIRECTION::DR_RIGHT;
+			break;
+		}
+		}
+	}//case WM_KEYDOWN:
+	break;
+
+	case WM_KEYUP:
+	{
+		switch (wParam)
+		{
+		case 'C':
+		{
+			m_enumState = CRT_STATE::CRT_IDLE;
+			break;
+		}
+		case  'R':
+		{
+			if (m_enumState != CRT_STATE::CRT_CRAWL)
+				m_enumState = CRT_STATE::CRT_WALK;
+			break;
+		}
+		case 'W':
+		{
+			if (m_enumState != CRT_STATE::CRT_CRAWL)
+				m_enumState = CRT_STATE::CRT_IDLE;
+
+			m_enumDirection = ENUM_DIRECTION::DR_NONE;
+			break;
+		}
+		case 'S':
+		{
+			if (m_enumState != CRT_STATE::CRT_CRAWL)
+				m_enumState = CRT_STATE::CRT_IDLE;
+
+			m_enumDirection = ENUM_DIRECTION::DR_NONE;
+			break;
+		}
+		case 'A':
+		{
+			if (m_enumState != CRT_STATE::CRT_CRAWL)
+				m_enumState = CRT_STATE::CRT_IDLE;
+
+			m_enumDirection = ENUM_DIRECTION::DR_NONE;
+			break;
+		}
+		case 'D':
+		{
+			if (m_enumState != CRT_STATE::CRT_CRAWL)
+				m_enumState = CRT_STATE::CRT_IDLE;
+
+			m_enumDirection = ENUM_DIRECTION::DR_NONE;
+			break;
+		}
+		}
+	}//case WM_KEYUP:
+	break;
 	}
 }
 
@@ -238,7 +389,7 @@ void cHero::SetDirection(ENUM_DIRECTION direction)
 
 void cHero::SetInteraction(CRT_INTERACTION interaction)
 {
-	m_isInteract = true;
+	//m_isInteract = true;
 	m_enumInteraction = interaction;
 }
 

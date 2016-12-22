@@ -21,7 +21,7 @@ private:
 		
 public:
 		
-	void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max);				//일단 오브젝트 추가
+	void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max, float Angle);				//일단 오브젝트 추가
 	void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, ST_SPHERE _Sphre, OBJ_TYPE _objtype, std::string _Text);	//상호작용 오브젝트 추가
 	void ADDobject(std::string sFolder,
 		std::string sFile,
@@ -34,7 +34,7 @@ public:
 		D3DXVECTOR3 Max,
 		float Angle,
 		D3DXVECTOR3* _LightPositon = NULL);	//상호 작용 + obb + 로테이션 타입
-
+void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, OBJ_TYPE _objtype, float Angle);	//obb충돌안하는거
 	void Update();
 
 	void Render();

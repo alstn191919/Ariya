@@ -15,6 +15,7 @@ cObejctManager::cObejctManager()
 {
 	Event1();
 	EventDefinitions();
+
 }
 
 
@@ -25,7 +26,7 @@ cObejctManager::~cObejctManager()
 
 
 
-void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max)
+void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max, float Angle)
 {
 	cSkinnedMesh2* newobject;
 
@@ -33,7 +34,7 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 
 	newobject->Load(sFolder, sFile);
 
-	newobject->SetWolrd(Pogi, size);
+	newobject->SetWolrd(Pogi, size, Angle);
 
 	newobject->SetInter(false);
 
@@ -116,7 +117,24 @@ void cObejctManager::ADDobject(std::string sFolder,
 	object.push_back(newobject);
 }
 
+void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, OBJ_TYPE _objtype, float Angle)	//obb충돌안하는거
+{
+	cSkinnedMesh2* newobject;
 
+	newobject = new cSkinnedMesh2;
+
+	newobject->Load(sFolder, sFile);
+
+	if (Angle)
+		newobject->SetWolrd(Pogi, size, Angle);
+	else newobject->SetWolrd(Pogi, size);
+
+	newobject->SetInter(true);
+
+	newobject->SetObjType(_objtype);
+
+	object.push_back(newobject);
+}
 void cObejctManager::Update()
 {
 	//Ray를 클라이언트 중간에서 쏘기
@@ -164,31 +182,31 @@ void cObejctManager::Update()
 	
 
 	////문열고 닫고 
-	//if (object[0]->GetisOpen() == true)
-	//{
-	//	object[2]->SetWolrd(D3DXVECTOR3(eleLeft, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
-	//	eleLeft -= closeSpeed;
-	//	object[3]->SetWolrd(D3DXVECTOR3(eleRight, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
-	//	eleRight += closeSpeed;
+	if (object[0]->GetisOpen() == true)
+	{
+		object[2]->SetWolrd(D3DXVECTOR3(eleLeft, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
+		eleLeft -= closeSpeed;
+		object[3]->SetWolrd(D3DXVECTOR3(eleRight, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
+		eleRight += closeSpeed;
 
-	//	if (eleRight > 64.95f && eleLeft < 58.35f)
-	//	{
-	//		eleRight = 64.95f;
-	//		eleLeft = 58.35f;
-	//	}
-	//}
-	//else if (object[0]->GetisOpen() == false)
-	//{
-	//	object[2]->SetWolrd(D3DXVECTOR3(eleLeft, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
-	//	eleLeft += closeSpeed;
-	//	object[3]->SetWolrd(D3DXVECTOR3(eleRight, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
-	//	eleRight -= closeSpeed;
-	//	if (eleRight <= 62.95f && eleLeft >= 60.35f)
-	//	{
-	//		eleRight = 62.95f;
-	//		eleLeft = 60.35f;
-	//	}
-	//}
+		if (eleRight > 64.95f && eleLeft < 58.35f)
+		{
+			eleRight = 64.95f;
+			eleLeft = 58.35f;
+		}
+	}
+	else if (object[0]->GetisOpen() == false)
+	{
+		object[2]->SetWolrd(D3DXVECTOR3(eleLeft, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
+		eleLeft += closeSpeed;
+		object[3]->SetWolrd(D3DXVECTOR3(eleRight, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
+		eleRight -= closeSpeed;
+		if (eleRight <= 62.95f && eleLeft >= 60.35f)
+		{
+			eleRight = 62.95f;
+			eleLeft = 60.35f;
+		}
+	}
 
 
 
@@ -582,7 +600,7 @@ void cObejctManager::EventDefinitions()
 			{
 			case 0:
 			//	ObjectManager->ADDobject()
-				ObjectManager->getObject(4)->SetWolrd(D3DXVECTOR3(34.0, 0, -40), D3DXVECTOR3(0.1, 0.1, 0.1));
+				ObjectManager->getObject(4)->SetWolrd(D3DXVECTOR3(32.0, 2, -40), D3DXVECTOR3(0.4, 0.4, 0.4),-D3DX_PI/6);
 				step = 1;
 				break;
 			case 1:

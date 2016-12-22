@@ -12,13 +12,9 @@
 #include "cUIButton.h"
 #include "cOBB.h"
 #include"cHero.h"
+#include "cUI.h"
 
-enum eUITag
-{
-	E_TEXTVIEW = 3,
-	E_BUTTON1,
-	E_BUTTON2,
-};
+
 
 c2FScene::c2FScene() : m_pCamera(NULL)
 , m_pGrid(NULL)
@@ -46,7 +42,10 @@ c2FScene::~c2FScene()
 	SAFE_DELETE(m_pSkinnedMesh);
 	SAFE_RELEASE(m_pUIRoot);
 	SAFE_RELEASE(m_pSprite);
-}
+	for each(auto p in m_vecText)
+	{
+		SAFE_RELEASE(p);
+	}}
 
 /*
 =============================================================================================================================================
@@ -82,11 +81,7 @@ void c2FScene::SetUITest()
 	//엘리베이터 통
 	Scal = D3DXVECTOR3(1.1, 1.1, 1.1);
 	p = D3DXVECTOR3(62, -17, -108);
-	pt.vCenter = p;
-	pt.isPicked = false;
-	pt.fRadius = 0;
-	ObjectManager->ADDobject("Elivator", "Elivator.X", p, Scal, pt, OBJ_TYPE::Room, "341", D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 0), -D3DX_PI / 2);
-
+	ObjectManager->ADDobject("Elivator", "Elivator.X", p, Scal, OBJ_TYPE::Room, -D3DX_PI / 2);
 	//엘리베이터 문 2개
 	Scal = D3DXVECTOR3(26.0f, 27.0f, 26.0f);
 	p = D3DXVECTOR3(60.35f, -17, -105.5f);
@@ -145,17 +140,31 @@ ObjectManager->getOpen();
 	//인자값				 폴더명    파일명   위치벡터, 크기 ,구(체크용),	 오브젝트 타입 , 충돌시 메세지
 	//오브젝트 타입은 OBJ_TYPE:: 하시면 보실수있습니다. 그냥 door 라고 써도 물론 됩니다.(보기 편하시라고 했어요)
 
-	p.y = 0;
-	p.x = 0;
-	p.z = 10;
 
-	Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
 
+	Min = D3DXVECTOR3(-0.535, 0, -0.035);
+	Max = D3DXVECTOR3(0.535, 0.075, 0.035);
+
+	Scal = D3DXVECTOR3(0.4, 0.4, 0.4);
+	p = D3DXVECTOR3(0, 2, 10);
+	//28.0,3,-56.2
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 1;
+	//std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max, float Angle
+	ObjectManager->ADDobject("Desktop", "wheelchair.x", p, Scal,Min,Max,D3DX_PI);
 
-	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, pt, OBJ_TYPE::OBJECT, "E버튼을 눌러주세요");
+	//p.y = 0;
+	//p.x = 0;
+	//p.z = 10;
+
+	//Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
+
+	//pt.vCenter = p;
+	//pt.isPicked = false;
+	//pt.fRadius = 1;
+
+	//ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, pt, OBJ_TYPE::OBJECT, "E버튼을 눌러주세요");
 	//스위치 타입 이벤트 처리는 각각 다른 처리할것같아 따로 안하고 메시지 출력만 해놨습니다.
 	//해당 인덱스 얻어오셔서 처리해 주시면 되겠습니다!
 
@@ -463,6 +472,83 @@ ObjectManager->getOpen();
 
 	ObjectManager->ADDobject("BalanceBarBox", "BalanceBox.x", p, Scal, pt, OBJ_TYPE::item, "", Min, Max, D3DX_PI);
 
+
+	//시작할 때 방(침대)
+	p.y = 0;
+	p.x = 3.3;
+	p.z = -5.5;
+	Scal = D3DXVECTOR3(0.09, 0.09, 0.09);
+	Min = D3DXVECTOR3(5, 3, 5);
+	Max = D3DXVECTOR3(-1, 0, -1);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 0;
+	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
+
+	//시작할 때 방(커튼)
+	p.y = 2;
+	p.x = 2.7f;
+	p.z = -2.5;
+	Scal = D3DXVECTOR3(0.15, 0.15, 0.15);
+	Min = D3DXVECTOR3(1, 3, 10);
+	Max = D3DXVECTOR3(-1, 0, -10);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 0;
+	ObjectManager->ADDobject("Beds", "screen.X", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI / 2);
+
+	//시작할 때 방(책상)
+	p.y = 0;
+	p.x = 5.99f;
+	p.z = 6.6;
+	Scal = D3DXVECTOR3(0.062, 0.062, 0.062);
+	Min = D3DXVECTOR3(10, 10, 10);
+	Max = D3DXVECTOR3(-10, 0, -10);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 0;
+	ObjectManager->ADDobject("Elivator/door", "desk.X", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
+
+	//시작할 때 방(램프)
+	p.y = 2.3;
+	p.x = 4.99f;
+	p.z = 2.5f;
+	Scal = D3DXVECTOR3(0.022, 0.022, 0.022);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 0;
+	ObjectManager->ADDobject("Lamp", "lamp.X", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI);
+
+
+	//메디킷
+	Scal = D3DXVECTOR3(0.08, 0.08, 0.08);
+	p = D3DXVECTOR3(4.4, 0, 5.8);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::item, "");
+	//아이템 타입은 충돌시 클릭하게 되면 카메라 고정될텐데 esc 누르면 풀리게 해놨습니다.
+
+
+	//의자
+	Scal = D3DXVECTOR3(0.0092, 0.0092, 0.0092);
+	p = D3DXVECTOR3(3, 0.2, 3.2);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+	ObjectManager->ADDobject("t", "Chair_1.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
+
+	//캐비넷
+	Min = D3DXVECTOR3(1, 1, 1);
+	Max = D3DXVECTOR3(-1, 0, -1);
+	Scal = D3DXVECTOR3(0.72, 0.72, 0.72);
+	p = D3DXVECTOR3(-2.3, 1.3, -5.5);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+	ObjectManager->ADDobject("Basiccabinet", "basic cabinet (X).x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
+
+
 	//Key_B_02.x
 
 	//Scal = D3DXVECTOR3(1, 1, 1);
@@ -486,18 +572,26 @@ ObjectManager->getOpen();
 	D3DXIMAGE_INFO stImageInfo;
 	ZeroMemory(&stImageInfo, sizeof(D3DXIMAGE_INFO));
 	LPDIRECT3DTEXTURE9 pTexture = g_pTextureManager->GetSpriteTexture(
-		"./UI/panel-info.png.png",
+		//"./UI2/panel-info.png.png",
+		"./UI/UI_IN.tga",
 		&stImageInfo);
 	pImageView->SetTexture(pTexture);
 	pImageView->SetSize(ST_SIZE(stImageInfo.Width, stImageInfo.Height));
-	pImageView->SetLocalPos(D3DXVECTOR3(100, 50, 0));
+	D3DXMATRIXA16 mat;
+	D3DXMatrixIdentity(&mat);
+	D3DXMatrixTranslation(&mat, 100, 0, 0);
+	pImageView->SetWorld(mat);
+	pImageView->SetLocalPos(D3DXVECTOR3(200, 50, 0));
 	m_pUIRoot = pImageView;
 
 
 	pTextView = new cUITextView;
 	pTextView->SetText("");
 	pTextView->SetFont(g_pFontManager->GetFont(cFontManager::E_FT_NORMAL));
-	pTextView->SetLocalPos(D3DXVECTOR3(100, 100, 0));
+	
+	D3DXMatrixIdentity(&mat);
+	D3DXMatrixTranslation(&mat,300, 300, 0);
+	pTextView->SetWorld(mat);
 	pTextView->SetSize(ST_SIZE(321, 200));
 	pTextView->SetDrawTextFormat(DT_CENTER | DT_TOP | DT_WORDBREAK);
 	pTextView->SetTextColor(D3DCOLOR_XRGB(255, 255, 0));
@@ -507,6 +601,9 @@ ObjectManager->getOpen();
 	m_pUIRoot->AddChild(pTextView);
 
 
+	
+	m_pUI = new cUI;
+	m_pUI->Setup();
 
 
 	//ObjectManager->evt();
@@ -514,6 +611,24 @@ ObjectManager->getOpen();
 	//ObjectManager->m_Event["유지현"]->update();
 }
 
+/*
+==============================
+cHero 클래스 사용 매뉴얼 : 최하늘
+2016 12 22
+이동 및 모션 변경은 내부적으로 해결합니다.
+==============================
+*/
+void c2FScene::HeroManual()
+{
+	//오브젝트와 충돌하여 어떠한 상호작용을 시키고 싶을 경우
+	
+	//if(충돌시)
+	//SetInteraction(CRT_INTERACTION interaction)
+
+	//CRT_INTERACTION은 stdafx.h에 정의된 이넘문입니다.
+	//ACTION_DOOR, ACTION_DESK, ACTION_ITEM, ACTION_CATCH, ACTION_NONE 이 있습니다.
+	//상호작용이 끝난 뒤에는 반드시! SetInteraction(ACTION_NONE); 을 해 주세요.
+}
 void c2FScene::Setup()
 {
 	m_pCamera = new cCamera;
@@ -558,7 +673,6 @@ void c2FScene::Update()
 	if (m_pMap)
 		m_pMap->Update();
 
-	ObjectManager->Update();
 	
 
 	if (ObjectManager->isPinked() &&
@@ -579,12 +693,20 @@ void c2FScene::Render()
 
 	//맵렌더
 	if (m_pMap)
-		m_pMap->Render(D3DXVECTOR3(0.7f, 4.3f, -3.4f), D3DXVECTOR3(-10.6f, 2.3f, 4.9f), m_pCamera->GetvEye(), 1000.0f, 0.8f);
+	m_pMap->Render(D3DXVECTOR3(0.7f, 4.3f, -3.4f), D3DXVECTOR3(-10.6f, 2.3f, 4.9f), m_pCamera->GetvEye(), 1000.0f, 0.8f);
 	int a = ObjectManager->Getselect_index();
 	if ( a!= NonSlect && ObjectManager->getObject(a)->GetObjType()==OBJ_TYPE::item)
 	{
+		g_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, false);
+		
+		m_pUI->Render();
+		g_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, true);
 		ObjectManager->getObject(a)->ObjVIEWRender(m_pCamera->GetvLookat());
+	
 	}
+
+
+	
 	//
 
 	//캐릭 랜더
@@ -614,7 +736,7 @@ void c2FScene::Render()
 
 	ObjectManager->Render();
 
-
+	
 	/*if (cOBB::IsCollision(m_pObb, ObjectManager->GetInstance()->`))
 	{
 	m_pObbObj->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
@@ -629,6 +751,8 @@ void c2FScene::Render()
 	{
 		m_pUIRoot->Render(m_pSprite);
 	}
+
+	
 
 
 	//여기 엘리베이터 동작하는곳 ( 엘리베이터 밖 )
@@ -769,6 +893,9 @@ void c2FScene::Render()
 				m_vecText[0]->DrawSubset(0);
 				t = 10;
 				ObjectManager->setIndexOpen(true);
+				if (m_Change)
+					ChangeMap();
+				m_Change = false;
 			}
 
 		}
@@ -778,7 +905,6 @@ void c2FScene::Render()
 }
 
 
-
 void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (m_pCamera)
@@ -786,133 +912,55 @@ void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		m_pCamera->WndProc(hWnd, message, wParam, lParam);
 	}
 
+	if (m_pHero)
+	{
+		m_pHero->WndProc(hWnd, message, wParam, lParam);
+	}
+
 	//키보드 처리
-	//현재 임시값 space 누르고 있으면 달린다
+	//현재 임시값 R 누르면 달린다. c누르면 웅크린다
 	switch (message)
 	{
 	case WM_KEYDOWN:
 	{
-		   switch (wParam)
-		   {
-		   case VK_SPACE:
-		   {
-			   m_isCrtRunning = true;
-							m_pHero->SetState(CRT_STATE::CRT_RUN);
-							break;
-		   }
-		   case 'W':
-		   {
-					   //방향 설정 : 정면
-					   m_pHero->SetDirection(ENUM_DIRECTION::DR_FORWARD);
-					   if (!m_isCrtRunning)
-					   {
-						   if (m_isCrtCrawling)
-						   {
-							   m_pHero->SetState(CRT_STATE::CRT_CRAWL);
-						   }
-						   else
-						   {
-							   m_pHero->SetState(CRT_STATE::CRT_WALK);
-						   }
-					   }
-					   break;
-		   }
-		   case 'S':
-		   {
-					   m_pHero->SetDirection(ENUM_DIRECTION::DR_BACKWARD);
-
-					   if (!m_isCrtRunning)
-					   {
-						   if (m_isCrtCrawling)
-						   {
-							   m_pHero->SetState(CRT_STATE::CRT_CRAWL);
-						   }
-						   else
-						   {
-							   m_pHero->SetState(CRT_STATE::CRT_WALK);
-						   }
-					   }
-					   break;
-		   }
-		   case 'A':
-		   {
-					   m_pHero->SetDirection(ENUM_DIRECTION::DR_LEFT);
-
-					   if (!m_isCrtRunning)
-					   {
-						   if (m_isCrtCrawling)
-						   {
-							   m_pHero->SetState(CRT_STATE::CRT_CRAWL);
-						   }
-						   else
-						   {
-							   m_pHero->SetState(CRT_STATE::CRT_WALK);
-						   }
-					   }
-		   }
-		   case 'D':
-		   {
-					   m_pHero->SetDirection(ENUM_DIRECTION::DR_RIGHT);
-
-					   if (!m_isCrtRunning)
-					   {
-						   if (m_isCrtCrawling)
-						   {
-							   m_pHero->SetState(CRT_STATE::CRT_CRAWL);
-						   }
-						   else
-						   {
-							   m_pHero->SetState(CRT_STATE::CRT_WALK);
-						   }
-					   }
-		   }
-	   }
-	}
-		break;
+		switch (wParam)
+		{
+		case 'R':
+		{
+			//m_isCrtRunning = true;
+			m_pController->SetSpeed(0.5f);
+			break;
+		}
+		case 'C':
+		{
+			//m_isCrtRunning = false;
+			//m_isCrtCrawling = true;
+			m_pController->SetSpeed(0.2f);
+			break;
+		}
+		}
+	}//case WM_KEYDOWN:
+	break;
 
 	case WM_KEYUP:
 	{
-					 switch (wParam)
-					 {
-					 case VK_SPACE:
-					 {
-									 m_isCrtRunning = false;
-									  m_pHero->SetState(CRT_STATE::CRT_IDLE);
-									  break;
-					 }
-					 case 'W':
-					 {
-								 if (!m_isCrtCrawling)
-								 {
-									 m_pHero->SetState(CRT_STATE::CRT_IDLE);
-								 }
-								 break;
-					 }
-					 case 'S':
-					 {
-								 if (!m_isCrtCrawling)
-								 {
-									 m_pHero->SetState(CRT_STATE::CRT_IDLE);
-								 }
-								 break;
-					 }
-					 case 'A':
-					 {
-								 if (!m_isCrtCrawling)
-								 {
-									 m_pHero->SetState(CRT_STATE::CRT_IDLE);
-								 }
-					 }
-					 case 'D':
-					 {
-								 if (!m_isCrtCrawling)
-								 {
-									 m_pHero->SetState(CRT_STATE::CRT_IDLE);
-								 }
-					 }
-					 }
-	}
-		break;
+		switch (wParam)
+		{
+		case  'R':
+		{
+			//m_isCrtRunning = false;
+			m_pController->SetSpeed(0.3f);
+			break;
+		}
+		case 'C':
+		{
+			//m_isCrtCrawling = false;
+			m_pController->SetSpeed(0.3f);
+			break;
+		}
+		}
+	}//case WM_KEYUP:
+	break;
 	case WM_LBUTTONDOWN:
 	{
 						   int x = LOWORD(lParam);
@@ -920,4 +968,18 @@ void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	}
 		break;
 	}
+}
+
+void c2FScene::ChangeMap()
+{
+	SAFE_DELETE(m_pMap);
+	m_pMap = new cMapRender;
+	//m_pMap = new cMapRender;
+	//D3DXVECTOR3(-13.84f, -552.6f, 182.5f) //맵.obj 위치
+
+	//하단 함수 컴파일 오류나서 임시로 주석
+	m_pMap->Setup("objMap/3FMap.obj",
+		"objMap/3Fsurf.obj",
+		D3DXVECTOR3(-13.84f, -553.f, 182.7f),
+		D3DXVECTOR3(-13.84f, -553.f, 182.7f), 1.0f);
 }

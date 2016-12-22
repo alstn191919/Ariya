@@ -324,7 +324,7 @@ void cSkinnedMesh2::ObjVIEWRender(D3DXVECTOR3 pogi)
 
 	mat._41 = pogi.x;
 	mat._42 = pogi.y;
-	mat._43 = pogi.z;
+	mat._43 = pogi.z-0.5;
 
 	D3DXMATRIXA16 matRX, matRY, matR;
 	D3DXMatrixRotationY(&matRX, m_fAngleX);
