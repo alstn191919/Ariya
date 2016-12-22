@@ -8,23 +8,21 @@ cMainGame::cMainGame(void) : FPS(0.0f), FrameCnt(0), TimeElapsed(0.0f)
 
 cMainGame::~cMainGame(void)
 {
-	ObjectManager->Destroy();
 	g_pTextureManager->Destroy();
 	g_pSkinnedMeshManager->Destroy();
-	g_pSceneManager->Destroy();
-	g_pObjectManager->Destroy();
 	g_pLightShaderManager->Destroy();
+	ObjectManager->Destroy();
+	g_pSceneManager->Destroy();
+
+	g_pObjectManager->Destroy();
 	g_pDeviceManager->Destroy();
-	
 }
-
-
 
 void cMainGame::Setup()
 {
 	SetLight();
-	g_pSceneManager->ChangeScene(Scene_2F);
-	//g_pSceneManager->ChangeScene(Scene_Main);
+	//g_pSceneManager->ChangeScene(Scene_2F);
+	g_pSceneManager->ChangeScene(Scene_Main);
 
 }
 
@@ -33,6 +31,10 @@ void cMainGame::Update()
 	g_pTimeManager->Update();
 	Getfps(g_pTimeManager->GetDeltaTime());
 
+
+
+
+	ObjectManager->Update();
 	g_pSceneManager->Update();
 }
 
@@ -41,14 +43,13 @@ void cMainGame::Render()
 	g_pD3DDevice->Clear(NULL,
 		NULL,
 		D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-		D3DCOLOR_XRGB(0, 0, 255),
+		D3DCOLOR_XRGB(255, 0, 0),
 		//D3DCOLOR_XRGB(0, 0, 255),
 		1.0f, 0);
 	g_pD3DDevice->BeginScene();
 
 	g_pSceneManager->Render();
-
-
+	ObjectManager->Render();
 
 	// fps
 	char str[1024];

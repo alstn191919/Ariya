@@ -24,11 +24,6 @@ cMapRender::~cMapRender()
 {
 	SAFE_RELEASE(m_pMapMesh);
 
-	/*for each(auto p in gpLightingShader)
-	{
-	SAFE_RELEASE(p.Shader);
-	}*/
-
 	for each(auto p in m_vecMtlTex)
 	{
 		SAFE_RELEASE(p);
@@ -285,13 +280,11 @@ void cMapRender:: DebugRender()
 
 void cMapRender:: Shadowinit()
 {
-	RECT rc;
-	GetClientRect(g_hWnd, &rc);
 	gpApplyShadowShader = g_pLightShaderManager->Getshader("./shader/ApplyShadow.fx");
 	gpCreateShadowShader = g_pLightShaderManager->Getshader("./shader/CreateShadow.fx");
 	// ·»´õÅ¸±êÀ» ¸¸µç´Ù.
 	const int shadowMapSize = 1024;
-	if (FAILED(g_pD3DDevice->CreateTexture(rc.right, rc.bottom,
+	if (FAILED(g_pD3DDevice->CreateTexture(shadowMapSize, shadowMapSize,
 		1, D3DUSAGE_RENDERTARGET, D3DFMT_R32F,
 		D3DPOOL_DEFAULT, &gpShadowRenderTarget, NULL)))
 	{

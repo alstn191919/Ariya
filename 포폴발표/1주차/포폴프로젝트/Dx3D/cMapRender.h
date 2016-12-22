@@ -10,12 +10,13 @@ private:
 	std::vector<ST_SHADER>		gpLightingShader;		// 쉐이더구조체	
 	D3DXVECTOR3					gWorldLightPosition;	// 빛의 위치
 	D3DXVECTOR4					gLightColor;			// 빛 컬러
+private://셰이더
 	LPDIRECT3DTEXTURE9			gpShadowRenderTarget;
 	LPDIRECT3DSURFACE9			gpShadowDepthStencil;
 	LPD3DXEFFECT				gpApplyShadowShader;
 	LPD3DXEFFECT				gpCreateShadowShader;
-	LPD3DXFONT					gpFont;
 private:
+	LPD3DXFONT					gpFont;
 	LPD3DXSPRITE				LogoSprite;				//디버그용
 	std::vector<D3DXVECTOR3>	m_vecSurface;			// 서페이스 STL
 public:

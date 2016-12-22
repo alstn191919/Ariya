@@ -3,22 +3,32 @@
 #include "cMtlTex.h"
 
 cSkinnedMesh2::cSkinnedMesh2(void)
-	: m_pRootBone(NULL)
-	, m_pAnimController(NULL)
-	, m_fAngleX(-D3DX_PI / 2.0f + EPSILON)  //3.14/2
-	, m_fAngleY(0.0)
-	, m_Obb(NULL)
-	, b_isOpen(false)
+: m_pRootBone(NULL)
+, m_pAnimController(NULL)
+, m_fAngleX(-D3DX_PI / 2.0f + EPSILON)  //3.14/2
+, m_fAngleY(0.0)
+, m_Obb(NULL)
+, b_isOpen(false)
+, gpShadowRenderTarget(NULL)
+, gpShadowDepthStencil(NULL)
+, gpApplyShadowShader(NULL)
+, gpCreateShadowShader(NULL)
+, vLightPosition(0, 0, 0)
 {
 	D3DXMatrixIdentity(&m_wolrd);
 }
 
 cSkinnedMesh2::~cSkinnedMesh2(void)
 {
+	SAFE_DELETE(m_Obb);
 	SAFE_RELEASE(m_pAnimController);
+	SAFE_RELEASE(gpShadowDepthStencil);
+	SAFE_RELEASE(gpShadowRenderTarget);
+
 
 	cAllocateHierarchy2 alloc;
 	D3DXFrameDestroy(m_pRootBone, &alloc);
+	
 }
 
 void cSkinnedMesh2::Load( std::string sFolder, std::string sFile )
@@ -40,6 +50,8 @@ void cSkinnedMesh2::Load( std::string sFolder, std::string sFile )
 
 	if(m_pRootBone)
 		SetupBoneMatrixPtrs(m_pRootBone);
+
+	ShaderInit();
 }
 
 void cSkinnedMesh2::Update(ST_BONE2* pBone, D3DXMATRIX* pParent)
@@ -103,7 +115,7 @@ void cSkinnedMesh2::Render(ST_BONE2* pBone)
 void cSkinnedMesh2::Render()
 {
 	if (m_pRootBone == NULL) return;
-	Render(m_pRootBone);
+	//Render(m_pRootBone);
 }
 
 void cSkinnedMesh2::SetupBoneMatrixPtrs(ST_BONE2* pBone)
@@ -196,7 +208,6 @@ void cSkinnedMesh2::SetAnimationIndex( int n )
 	SAFE_RELEASE(pAnimSet);
 }
 
-
 void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size)
 {
 	D3DXMATRIXA16 mat,matS,matR;
@@ -217,9 +228,6 @@ void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size)
 	D3DXMatrixIdentity(&m_wolrd);
 
 	m_wolrd = matS * matR * mat *m_wolrd;
-
-
-
 }
 
 void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size , float Angle)
@@ -231,25 +239,13 @@ void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size , float Angle)
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixScaling(&matS, size.x, size.y, size.z);
 
-
-
 	D3DXMatrixTranslation(&mat, p.x, p.y, p.z);
-
 
 	D3DXMatrixRotationY(&matR, Angle);
 	
-
-
 	D3DXMatrixIdentity(&m_wolrd);
 
-
 	m_wolrd = matS * matR * mat *m_wolrd;
-
-
-
-
-
-
 }
 
 void cSkinnedMesh2::ObjRender()
@@ -287,17 +283,22 @@ void cSkinnedMesh2::ObjRender()
 		//m_sSphre.vCenter= tempP;
 		D3DXMATRIXA16 a = m_Obb->GetmatWorldTM();
 		m_Obb->Update(&matOBB);
-	
+		ShaderRender(m_pRootBone, vLightPosition,
+			D3DXVECTOR3(mat._41, mat._42, mat._43),
+			D3DXVECTOR3(mat._41, mat._42 + 2.0f, mat._43),mat);
 	}
 	else
 	{
 		g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_wolrd);
 		if (m_Obb)m_Obb->Update(&m_wolrd);
+		ShaderRender(m_pRootBone, vLightPosition,
+			D3DXVECTOR3(m_wolrd._41, m_wolrd._42, m_wolrd._43),
+			D3DXVECTOR3(m_wolrd._41, m_wolrd._42 + 2.0f, m_wolrd._43),m_wolrd);
 	}
 	
 
 	if (m_pRootBone == NULL) return;
-	Render(m_pRootBone);
+	//Render(m_pRootBone);
 }
 
 
@@ -370,7 +371,185 @@ void cSkinnedMesh2::ObjVIEWRender()
 	
 	if (m_pRootBone == NULL) return;
 	Render(m_pRootBone);
+}
 
-	
-	
+void cSkinnedMesh2:: ShaderInit()
+{
+	RECT rc;
+	GetClientRect(g_hWnd, &rc);
+	gpApplyShadowShader = g_pLightShaderManager->Getshader("./shader/ApplyShadow.fx");
+	gpCreateShadowShader = g_pLightShaderManager->Getshader("./shader/CreateShadow.fx");
+	// 렌더타깃을 만든다.
+	const int shadowMapSize = 1024;
+	if (FAILED(g_pD3DDevice->CreateTexture(rc.right, rc.bottom,
+		1, D3DUSAGE_RENDERTARGET, D3DFMT_R32F,
+		D3DPOOL_DEFAULT, &gpShadowRenderTarget, NULL)))
+	{
+		assert("렌더타깃 생성실패", false);
+	}
+
+	// 그림자 맵과 동일한 크기의 깊이버퍼도 만들어줘야 한다.
+	if (FAILED(g_pD3DDevice->CreateDepthStencilSurface(shadowMapSize, shadowMapSize,
+		D3DFMT_D24X8, D3DMULTISAMPLE_NONE, 0, TRUE,
+		&gpShadowDepthStencil, NULL)))
+	{
+		assert("깊이버퍼 생성실패", false);
+	}
+}
+
+void cSkinnedMesh2::ShaderRender(ST_BONE2* pBone,D3DXVECTOR3 _gWorldLightPosition,
+	D3DXVECTOR3 _gWorldLightDir,
+	D3DXVECTOR3 _gWorldCameraPosition, D3DXMATRIX _gBoneWorld)
+{
+	ST_BONE_MESH2* pBoneMesh = (ST_BONE_MESH2*)pBone->pMeshContainer;
+
+	// 광원-뷰 행렬을 만든다.
+	D3DXMATRIXA16 matLightView;
+	{
+		D3DXVECTOR3 vRight;
+		D3DXVECTOR3 vLookAt = _gWorldLightDir - _gWorldLightPosition;
+		D3DXVECTOR3 vEyePt(_gWorldLightPosition.x, _gWorldLightPosition.y, _gWorldLightPosition.z);
+		D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f);
+		D3DXVec3Cross(&vRight, &vUpVec, &vLookAt);
+		D3DXVec3Cross(&vUpVec, &vLookAt, &vRight);
+		D3DXMatrixLookAtLH(&matLightView, &vEyePt, &vLookAt, &vUpVec);
+	}
+	//g_pD3DDevice->GetTransform(D3DTS_VIEW, &matLightView);
+	// 광원-투영 행렬을 만든다.
+	D3DXMATRIXA16 matLightProjection;
+	{
+		D3DXMatrixPerspectiveFovLH(&matLightProjection, D3DX_PI / 4.0f, 1, 1, 1000);
+	}
+
+	// 뷰/투영행렬을 만든다.
+	D3DXMATRIXA16 matViewProjection;
+	{
+		// 뷰 행렬을 만든다.
+		D3DXMATRIXA16 matView;
+		D3DXMATRIXA16 matProjection;
+		g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
+		g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
+		D3DXMatrixMultiply(&matViewProjection, &matView, &matProjection);
+	}
+
+	// 현재 하드웨어 벡버퍼와 깊이버퍼
+	LPDIRECT3DSURFACE9 pHWBackBuffer = NULL;
+	LPDIRECT3DSURFACE9 pHWDepthStencilBuffer = NULL;
+	g_pD3DDevice->GetRenderTarget(0, &pHWBackBuffer);
+	g_pD3DDevice->GetDepthStencilSurface(&pHWDepthStencilBuffer);
+
+	// 그림자 맵의 렌더타깃과 깊이버퍼를 사용한다.
+	LPDIRECT3DSURFACE9 pShadowSurface = NULL;
+	if (SUCCEEDED(gpShadowRenderTarget->GetSurfaceLevel(0, &pShadowSurface)))
+	{
+		g_pD3DDevice->SetRenderTarget(0, pShadowSurface);
+		pShadowSurface->Release();
+		pShadowSurface = NULL;
+	}
+	g_pD3DDevice->SetDepthStencilSurface(gpShadowDepthStencil);
+
+	// 저번 프레임에 그렸던 그림자 정보를 지움
+	g_pD3DDevice->Clear(0, NULL, (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER),
+		0xFFFFFFFF,
+		1.0f, 0);
+
+	D3DXMATRIXA16 matView, matProjection;
+	D3DXMATRIXA16 matWorldView, matWorldViewProjection;
+	g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
+	g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
+	D3DXMatrixMultiply(&matWorldView, &_gBoneWorld, &matView);
+	D3DXMatrixMultiply(&matWorldViewProjection, &matWorldView, &matProjection);
+
+	// 그림자 만들기 쉐이더 전역변수들을 설정
+	gpCreateShadowShader->SetMatrix("gWorldMatrix", &_gBoneWorld);
+	gpCreateShadowShader->SetMatrix("gLightViewMatrix", &matLightView);
+	gpCreateShadowShader->SetMatrix("gLightProjectionMatrix", &matLightProjection);
+
+	while (pBoneMesh)
+	{
+		for (size_t j = 0; j < pBoneMesh->vecMtlTex.size(); ++j)
+		{
+			UINT numPasses = 0;
+			gpCreateShadowShader->Begin(&numPasses, NULL);
+			{
+				for (UINT i = 0; i < numPasses; ++i)
+				{
+					gpCreateShadowShader->BeginPass(i);
+					{
+						pBoneMesh->pWorkMesh->DrawSubset(j);
+					}
+					gpCreateShadowShader->EndPass();
+				}
+			}
+			gpCreateShadowShader->End();
+		}
+		pBoneMesh = (ST_BONE_MESH2*)pBoneMesh->pNextMeshContainer;
+	}
+
+	//////////////////////////////
+	// 2. 그림자 입히기
+	//////////////////////////////
+
+	// 하드웨어 백버퍼/깊이버퍼를 사용한다.
+	g_pD3DDevice->SetRenderTarget(0, pHWBackBuffer);
+	g_pD3DDevice->SetDepthStencilSurface(pHWDepthStencilBuffer);
+
+	pHWBackBuffer->Release();
+	pHWBackBuffer = NULL;
+	pHWDepthStencilBuffer->Release();
+	pHWDepthStencilBuffer = NULL;
+
+
+	// 그림자 입히기 쉐이더 전역변수들을 설정
+	gpApplyShadowShader->SetMatrix("gViewProjectionMatrix", &matViewProjection);
+	gpApplyShadowShader->SetMatrix("gLightViewMatrix", &matLightView);
+	gpApplyShadowShader->SetMatrix("gLightProjectionMatrix", &matLightProjection);
+	gpApplyShadowShader->SetMatrix("gWorldMatrix", &_gBoneWorld);
+	gpApplyShadowShader->SetMatrix("gWorldViewProjectionMatrix", &matWorldViewProjection);
+
+	gpApplyShadowShader->SetVector("gWorldLightPosition", &D3DXVECTOR4(_gWorldLightPosition, 1));
+	gpApplyShadowShader->SetVector("gObjectColor", &D3DXVECTOR4(1, 1, 1, 1));
+	gpApplyShadowShader->SetVector("gWorldCameraPosition", &D3DXVECTOR4(_gWorldCameraPosition, 1));
+
+	gpApplyShadowShader->SetTexture("ShadowMap_Tex", gpShadowRenderTarget);
+
+	gpApplyShadowShader->SetFloat("gRange", 100.0f); // 빛 범위 설정
+	gpApplyShadowShader->SetFloat("gAlphaBlend", 1.0f); // 빛 세기 알파값
+
+
+	pBoneMesh = (ST_BONE_MESH2*)pBone->pMeshContainer;
+
+	while (pBoneMesh)
+	{
+		for (size_t j = 0; j < pBoneMesh->vecMtlTex.size(); ++j)
+		{
+			gpApplyShadowShader->SetTexture("DiffuseMap_Tex", pBoneMesh->vecMtlTex[j]->GetTexture());
+			//gpApplyShadowShader->SetTexture("SpecularMap_Tex", pBoneMesh->vecMtlTex[j]->GetTexture());
+			//gpApplyShadowShader->SetTexture("NormalMap_Tex", pBoneMesh->vecMtlTex[j]->GetTexture());
+			UINT numPasses = 0;
+			gpApplyShadowShader->Begin(&numPasses, NULL);
+			{
+				for (UINT i = 0; i < numPasses; ++i)
+				{
+					gpApplyShadowShader->BeginPass(i);
+					{
+						pBoneMesh->pWorkMesh->DrawSubset(j);
+					}
+					gpApplyShadowShader->EndPass();
+				}
+			}
+			gpApplyShadowShader->End();
+		}
+		pBoneMesh = (ST_BONE_MESH2*)pBoneMesh->pNextMeshContainer;
+	}
+
+	if (pBone->pFrameFirstChild)
+	{
+		ShaderRender((ST_BONE2*)pBone->pFrameFirstChild,_gWorldLightPosition,_gWorldLightDir,_gWorldLightPosition,_gBoneWorld);
+	}
+
+	if (pBone->pFrameSibling)
+	{
+		ShaderRender((ST_BONE2*)pBone->pFrameSibling, _gWorldLightPosition, _gWorldLightDir, _gWorldLightPosition, _gBoneWorld);
+	}
 }

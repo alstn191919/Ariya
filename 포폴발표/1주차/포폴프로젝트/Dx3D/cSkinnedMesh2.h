@@ -17,9 +17,12 @@ private:
 	SYNTHESIZE(std::string, M_sText, Text);		//도어 , 스위치 형식 오브젝트는 항상 값을 셋팅해줘야합니다.
 	SYNTHESIZE(cOBB*, m_Obb, Obb);				//obb
 	SYNTHESIZE(bool, b_isOpen, isOpen);			//문열였는지 체크
-
-	
-	
+private:
+	LPDIRECT3DTEXTURE9			gpShadowRenderTarget;
+	LPDIRECT3DSURFACE9			gpShadowDepthStencil;
+	LPD3DXEFFECT				gpApplyShadowShader;
+	LPD3DXEFFECT				gpCreateShadowShader;
+	SYNTHESIZE(D3DXVECTOR3, vLightPosition, LightPositon);
 public:
 	cSkinnedMesh2(void);
 	~cSkinnedMesh2(void);
@@ -44,6 +47,9 @@ private:
 	void Update(ST_BONE2* pBone, D3DXMATRIX* pParent);
 	void UpdateSkinnedMesh(ST_BONE2* pBone);
 	void SetupBoneMatrixPtrs(ST_BONE2* pBone);
-	
+	void ShaderInit();
+	void ShaderRender(ST_BONE2* pBone, D3DXVECTOR3 _gWorldLightPosition,
+		D3DXVECTOR3 _gWorldLightDir,
+		D3DXVECTOR3 _gWorldCameraPosition,D3DXMATRIX _gBoneWorld);
 };
 

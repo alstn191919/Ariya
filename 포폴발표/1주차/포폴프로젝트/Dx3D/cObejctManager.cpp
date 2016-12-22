@@ -74,7 +74,16 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 }
 
 
-void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, ST_SPHERE _Sphre, OBJ_TYPE _objtype, std::string _Text, D3DXVECTOR3 Min, D3DXVECTOR3 Max , float Angle)
+void cObejctManager::ADDobject(std::string sFolder,
+	std::string sFile,
+	D3DXVECTOR3 Pogi, 
+	D3DXVECTOR3 size,
+	ST_SPHERE _Sphre,
+	OBJ_TYPE _objtype, 
+	std::string _Text, 
+	D3DXVECTOR3 Min, 
+	D3DXVECTOR3 Max ,
+	float Angle, D3DXVECTOR3* _LightPositon)
 {
 	cSkinnedMesh2* newobject;
 
@@ -88,7 +97,10 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 	newobject->m_sSphre = _Sphre;
 
 	newobject->SetInter(true);
-
+	if (_LightPositon)
+	{
+		newobject->SetLightPositon(*_LightPositon);
+	}
 	newobject->SetObjType(_objtype);
 
 	if (_Text.size())newobject->SetText(_Text);
@@ -104,24 +116,7 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 	object.push_back(newobject);
 }
 
-void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, OBJ_TYPE _objtype, float Angle)	//obb충돌안하는거
-{
-	cSkinnedMesh2* newobject;
 
-	newobject = new cSkinnedMesh2;
-
-	newobject->Load(sFolder, sFile);
-
-	if (Angle)
-		newobject->SetWolrd(Pogi, size, Angle);
-	else newobject->SetWolrd(Pogi, size);
-
-	newobject->SetInter(true);
-
-	newobject->SetObjType(_objtype);
-
-	object.push_back(newobject);
-}
 void cObejctManager::Update()
 {
 	//Ray를 클라이언트 중간에서 쏘기
@@ -169,31 +164,31 @@ void cObejctManager::Update()
 	
 
 	////문열고 닫고 
-	if (object[0]->GetisOpen() == true)
-	{
-		object[2]->SetWolrd(D3DXVECTOR3(eleLeft, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
-		eleLeft -= closeSpeed;
-		object[3]->SetWolrd(D3DXVECTOR3(eleRight, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
-		eleRight += closeSpeed;
+	//if (object[0]->GetisOpen() == true)
+	//{
+	//	object[2]->SetWolrd(D3DXVECTOR3(eleLeft, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
+	//	eleLeft -= closeSpeed;
+	//	object[3]->SetWolrd(D3DXVECTOR3(eleRight, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
+	//	eleRight += closeSpeed;
 
-		if (eleRight > 64.95f && eleLeft < 58.35f)
-		{
-			eleRight = 64.95f;
-			eleLeft = 58.35f;
-		}
-	}
-	else if (object[0]->GetisOpen() == false)
-	{
-		object[2]->SetWolrd(D3DXVECTOR3(eleLeft, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
-		eleLeft += closeSpeed;
-		object[3]->SetWolrd(D3DXVECTOR3(eleRight, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
-		eleRight -= closeSpeed;
-		if (eleRight <= 62.95f && eleLeft >= 60.35f)
-		{
-			eleRight = 62.95f;
-			eleLeft = 60.35f;
-		}
-	}
+	//	if (eleRight > 64.95f && eleLeft < 58.35f)
+	//	{
+	//		eleRight = 64.95f;
+	//		eleLeft = 58.35f;
+	//	}
+	//}
+	//else if (object[0]->GetisOpen() == false)
+	//{
+	//	object[2]->SetWolrd(D3DXVECTOR3(eleLeft, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
+	//	eleLeft += closeSpeed;
+	//	object[3]->SetWolrd(D3DXVECTOR3(eleRight, -17, -105.5f), D3DXVECTOR3(26.0f, 27.0f, 26.0f));
+	//	eleRight -= closeSpeed;
+	//	if (eleRight <= 62.95f && eleLeft >= 60.35f)
+	//	{
+	//		eleRight = 62.95f;
+	//		eleLeft = 60.35f;
+	//	}
+	//}
 
 
 

@@ -1,68 +1,21 @@
-﻿빌드 시작: 2016-12-21 오후 5:07:22
-     1>2 노드의 "C:\Users\Yoo Ji Hyeon\Desktop\포폴프로젝트1221\Dx3D\Dx3D.vcxproj" 프로젝트(Build 대상)입니다.
+﻿빌드 시작: 2016-12-22 오후 5:26:04
+     1>2 노드의 "C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Dx3D\Dx3D.vcxproj" 프로젝트(Build 대상)입니다.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Dx3D.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt c2FScene.cpp
-         c2FScene.cpp
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(76): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(77): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(84): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(94): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(95): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(107): warning C4244: '=' : 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(108): warning C4244: '=' : 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(115): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(112) : 'strcpy' 선언을 참조하십시오.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(151): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(153): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(163): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(172): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(173): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(180): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(183): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(191): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(192): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(201): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(202): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(209): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(210): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(217): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(230): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(243): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(251): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(257): warning C4244: '=' : 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(265): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(270): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(283): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(287): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(300): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(304): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(317): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(339): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(358): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(378): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(399): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(412): warning C4244: '=' : 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(420): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(427): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(438): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(447): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(457): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(466): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(475): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(484): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(494): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(495): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(504): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(505): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(532): warning C4316: 'cUIImageView': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(539): warning C4244: '인수' : 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(544): warning C4316: 'cUITextView': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(566): warning C4316: 'cCamera': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(569): warning C4316: 'cCrtController': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(589): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트1221\dx3d\c2fscene.cpp(592): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Dx3D.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt cStartScene.cpp
+         cStartScene.cpp
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(48): warning C4316: 'cCamera': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(52): warning C4316: 'cUIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(64): warning C4244: '=' : 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(65): warning C4244: '=' : 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(77): warning C4305: '인수' : 'double'에서 'float'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(96): warning C4244: '+=' : 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(116): warning C4305: '+=' : 'double'에서 'float'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(174): warning C4244: '인수' : 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(205): warning C4316: 'cUIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(214): warning C4244: '=' : 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(215): warning C4244: '=' : 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Yoo Ji Hyeon\Desktop\포폴프로젝트1221\Debug\Dx3D.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Yoo Ji Hyeon\Desktop\포폴프로젝트1221\Debug\Dx3D.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Yoo Ji Hyeon\Desktop\포폴프로젝트1221\Debug\Dx3D.lib" /MACHINE:X86 Debug\Dx3D.res
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Debug\Dx3D.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Debug\Dx3D.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Debug\Dx3D.lib" /MACHINE:X86 Debug\Dx3D.res
          Debug\c2FScene.obj
          Debug\cAction.obj
          Debug\cActionMove.obj
@@ -112,9 +65,9 @@
          Debug\Dx3D.obj
          Debug\iMap.obj
          Debug\stdafx.obj
-         Dx3D.vcxproj -> C:\Users\Yoo Ji Hyeon\Desktop\포폴프로젝트1221\Debug\Dx3D.exe
-     1>"C:\Users\Yoo Ji Hyeon\Desktop\포폴프로젝트1221\Dx3D\Dx3D.vcxproj" 프로젝트를 빌드했습니다(Build 대상).
+         Dx3D.vcxproj -> C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Debug\Dx3D.exe
+     1>"C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Dx3D\Dx3D.vcxproj" 프로젝트를 빌드했습니다(Build 대상).
 
 빌드했습니다.
 
-경과 시간: 00:00:01.04
+경과 시간: 00:00:02.86

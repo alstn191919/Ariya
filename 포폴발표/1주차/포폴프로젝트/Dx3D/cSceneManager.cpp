@@ -173,4 +173,5 @@ void cSceneManager::Destroy()
 {
 	SAFE_DELETE(p2FScene);
 	SAFE_DELETE(pStartScene);
+	int a = 0;
 }

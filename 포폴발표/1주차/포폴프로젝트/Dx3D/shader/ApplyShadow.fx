@@ -194,11 +194,14 @@ float4 ApplyShadowShader_ApplyShadowTorus_Pixel_Shader_ps_main(PS_INPUT Input) :
    
    uv.y = -uv.y;
    uv = uv * 0.5 + 0.5;
+   uv.x = saturate(uv.x);
+   uv.y = saturate(uv.y);
    float shadowDepth = tex2D(ShadowSampler, uv).r;
   
-   if (currentDepth > shadowDepth + 0.0100125f && uv.x < 1 && uv.y < 1 && uv.x >= 0 && uv.y >= 0)
+   //if (currentDepth > shadowDepth + 0.0100125f && uv.x < 1 && uv.y < 1 && uv.x >= 0 && uv.y >= 0)
+   if ((currentDepth > shadowDepth + 0.0100125f) && uv.x < 1 && uv.y < 1 && uv.x >= 0 && uv.y >= 0)
    {
-      rgb *= 0.3f;
+      rgb *= 0.2f;
    }
    
    //return( float4( rgb, 1.0f ) );

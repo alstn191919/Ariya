@@ -59,6 +59,12 @@ STDMETHODIMP cAllocateHierarchy2::CreateMeshContainer(
 		SAFE_ADD_REF(pSkinInfo);
 		pBoneMesh->pSkinInfo = pSkinInfo;
 	}
+	else
+	{
+		pBoneMesh->pBoneOffsetMatrices = NULL;
+		pBoneMesh->pCurrentBoneMatrices = NULL;
+		pBoneMesh->ppBoneMatrixPtrs = NULL;
+	}
 	pBoneMesh->pOrigMesh = pMeshData->pMesh;
 
 	// step 2. 원본 메쉬 복사

@@ -3,7 +3,6 @@
 
 class cMapRender;
 class cCamera;
-class cCrtController;
 class cUIButton;
 class iUIButtonDelegate;
 
@@ -20,10 +19,10 @@ class cStartScene : iUIButtonDelegate
 private:
 	cMapRender*			pMap;
 	cCamera*			pCamera;
-	cCrtController*		m_pController;
 	LPD3DXSPRITE		LogoSprite;
 	LPDIRECT3DTEXTURE9	Texture;
 	cUIButton*			Button;
+
 	D3DXVECTOR3			CameraPosition;
 	D3DXVECTOR3			CameraDirection;;
 	ST_SIZE				_imgSize;
@@ -34,10 +33,8 @@ private:
 	D3DXVECTOR3			NextCamPos;
 	D3DXVECTOR3			PrevCamPos;
 private:
-
 	D3DXVECTOR3			lightDir;
 	D3DXVECTOR3			lightPos;
-
 	D3DXVECTOR3			NextlightPos;
 	D3DXVECTOR3			PrevlightPos;
 	float				Time;
@@ -49,7 +46,7 @@ public:
 	void Setup();
 	void Update();
 	void Render();
-	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);	
+	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	cStartScene();
 	~cStartScene();
 

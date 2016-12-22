@@ -8,9 +8,9 @@
 #include "cUIImageView.h"
 cStartScene::cStartScene() : pMap(NULL)
 , pCamera(NULL)
-, m_pController(NULL)
 , LogoSprite(NULL)
 , Button(NULL)
+, Texture(NULL)
 , State(Button_NULL)
 , CameraPosition(1, 0, 23)
 , CameraDirection(-2, 1, -7)
@@ -31,7 +31,6 @@ cStartScene::~cStartScene()
 {
 	SAFE_DELETE(pMap);
 	SAFE_DELETE(pCamera);
-	SAFE_DELETE(m_pController);
 
 	SAFE_RELEASE(Button);
 	SAFE_RELEASE(LogoSprite);
@@ -50,13 +49,9 @@ void cStartScene::Setup()
 	pCamera->Setup();
 	pCamera->Update(&CameraPosition, &CameraDirection);
 
-	//m_pController = new cCrtController;
-	//m_pController->Setup();
-
 	Button = new cUIButton;
 	Button->SetDelegate(this);
 	Button->SetTexture("./Logo/main_m_over.png", "./Logo/main_m_in.png", "./Logo/main_m_in.png");
-
 	D3DXMATRIXA16 _mat;
 	D3DXMatrixTranslation(&_mat, 100, 200, 0);
 	Button->SetLocalPos(D3DXVECTOR3(80, 200, 0));
@@ -69,6 +64,17 @@ void cStartScene::Setup()
 	_imgSize.fWidth = _info.Width;
 	_imgSize.fHeight = _info.Height;
 	State = Button_MAIN;
+
+	ST_SPHERE _sphere;
+	ZeroMemory(&_sphere, sizeof(ST_SPHERE));
+
+	ObjectManager->ADDobject("wheelchar", "wheelchair.x",
+		D3DXVECTOR3(-2, 3, 18), D3DXVECTOR3(0.4f, 0.4f, 0.4f), 
+		_sphere, OBJ_TYPE::OBJECT,
+		"", 
+		D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(1, 1, 1), 
+		D3DX_PI + D3DX_PI / 2.5, 
+		&lightPos);
 
 }
 void cStartScene::Update()
@@ -93,13 +99,12 @@ void cStartScene::Update()
 			pCamera->Update(&CameraPosition, &CameraDirection);
 			if (T > 1.0f)
 			{
-				_isCamLerp = false;
 				SAFE_DELETE(pMap);
 				SAFE_DELETE(pCamera);
-				SAFE_DELETE(m_pController);
 
 				SAFE_RELEASE(Button);
 				SAFE_RELEASE(LogoSprite);
+				ObjectManager->Destroy();
 				g_pSceneManager->ChangeScene(Scene_2F);
 			}
 		}
@@ -111,6 +116,7 @@ void cStartScene::Update()
 			Time += 0.0167;
 			float T = Time / 6;
 			D3DXVec3Lerp(&lightPos, &PrevlightPos, &NextlightPos, T);
+			ObjectManager->getObject(0)->SetLightPositon(lightPos);
 			if (T > 1.0f)
 			{
 				_isLerp = false;
@@ -162,7 +168,8 @@ void cStartScene::Render()
 	if (State != Button_END)
 	{
 		D3DXMATRIXA16 m_matWorld;
-		g_pD3DDevice->GetTransform(D3DTS_WORLD, &m_matWorld);
+		D3DXMatrixIdentity(&m_matWorld);
+		//g_pD3DDevice->GetTransform(D3DTS_WORLD, &m_matWorld);
 		RECT rc;
 		SetRect(&rc, 0, 0, _imgSize.fWidth, _imgSize.fHeight);
 		LogoSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
