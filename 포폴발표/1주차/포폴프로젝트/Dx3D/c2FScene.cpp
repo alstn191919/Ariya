@@ -47,6 +47,11 @@ c2FScene::~c2FScene()
 	SAFE_DELETE(m_pSkinnedMesh);
 	SAFE_RELEASE(m_pUIRoot);
 	SAFE_RELEASE(m_pSprite);
+
+	for each(auto p in m_vecText)
+	{
+		SAFE_RELEASE(p);
+	}
 }
 
 /*
@@ -144,81 +149,7 @@ ObjectManager->getOpen();
 	//오브젝트 타입은 OBJ_TYPE:: 하시면 보실수있습니다. 그냥 door 라고 써도 물론 됩니다.(보기 편하시라고 했어요)
 
 
-	//시작할 때 방(침대)
-	p.y = 0;
-	p.x = 3.3;
-	p.z = -5.5;
-	Scal = D3DXVECTOR3(0.09, 0.09, 0.09);
-	Min = D3DXVECTOR3(5, 3, 5);
-	Max = D3DXVECTOR3(-1, 0, -1);
-	pt.vCenter = p;
-	pt.isPicked = false;
-	pt.fRadius = 0;
-	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max,NULL);
-
-	//시작할 때 방(커튼)
-	p.y = 2;
-	p.x = 2.7f;
-	p.z = -2.5;
-	Scal = D3DXVECTOR3(0.15, 0.15, 0.15);
-	Min = D3DXVECTOR3(1, 3, 10);
-	Max = D3DXVECTOR3(-1, 0, -10);
-	pt.vCenter = p;
-	pt.isPicked = false;
-	pt.fRadius = 0;
-	ObjectManager->ADDobject("Beds", "screen.X", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max,D3DX_PI/2);
-
-	//시작할 때 방(책상)
-	p.y = 0;
-	p.x = 5.99f;
-	p.z = 6.6;
-	Scal = D3DXVECTOR3(0.062, 0.062, 0.062);
-	Min = D3DXVECTOR3(10, 10, 10);
-	Max = D3DXVECTOR3(-10, 0, -10);
-	pt.vCenter = p;
-	pt.isPicked = false;
-	pt.fRadius = 0;
-	ObjectManager->ADDobject("Elivator/door", "desk.X", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
-
-	//시작할 때 방(램프)
-	p.y = 2.3;
-	p.x = 4.99f;
-	p.z = 2.5f;
-	Scal = D3DXVECTOR3(0.022, 0.022, 0.022);
-	pt.vCenter = p;
-	pt.isPicked = false;
-	pt.fRadius = 0;
-	ObjectManager->ADDobject("Lamp", "lamp.X", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI);
-
-
-	//메디킷
-	Scal = D3DXVECTOR3(0.08, 0.08, 0.08);
-	p = D3DXVECTOR3(4.4, 0, 5.8);
-	pt.vCenter = p;
-	pt.isPicked = false;
-	pt.fRadius = 1;
-	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::item, "");
-	//아이템 타입은 충돌시 클릭하게 되면 카메라 고정될텐데 esc 누르면 풀리게 해놨습니다.
-
-
-	//의자
-	Scal = D3DXVECTOR3(0.0092, 0.0092, 0.0092);
-	p = D3DXVECTOR3(3, 0.2, 3.2);
-	pt.vCenter = p;
-	pt.isPicked = false;
-	pt.fRadius = 1;
-	ObjectManager->ADDobject("t", "Chair_1.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
-
-	//캐비넷
-	Min = D3DXVECTOR3(1, 1, 1);
-	Max = D3DXVECTOR3(-1, 0, -1);
-	Scal = D3DXVECTOR3(0.72, 0.72,0.72);
-	p = D3DXVECTOR3(-2.3, 1.3,-5.5);
-	pt.vCenter = p;
-	pt.isPicked = false;
-	pt.fRadius = 1;
-	ObjectManager->ADDobject("Basiccabinet", "basic cabinet (X).x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
-
+	
 
 
 
@@ -514,6 +445,82 @@ ObjectManager->getOpen();
 
 	ObjectManager->ADDobject("BalanceBarBox", "BalanceBox.x", p, Scal, pt, OBJ_TYPE::item, "", Min, Max, D3DX_PI);
 
+
+	//시작할 때 방(침대)
+	p.y = 0;
+	p.x = 3.3;
+	p.z = -5.5;
+	Scal = D3DXVECTOR3(0.09, 0.09, 0.09);
+	Min = D3DXVECTOR3(5, 3, 5);
+	Max = D3DXVECTOR3(-1, 0, -1);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 0;
+	ObjectManager->ADDobject("cot", "baby_cot.X", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
+
+	//시작할 때 방(커튼)
+	p.y = 2;
+	p.x = 2.7f;
+	p.z = -2.5;
+	Scal = D3DXVECTOR3(0.15, 0.15, 0.15);
+	Min = D3DXVECTOR3(1, 3, 10);
+	Max = D3DXVECTOR3(-1, 0, -10);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 0;
+	ObjectManager->ADDobject("Beds", "screen.X", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI / 2);
+
+	//시작할 때 방(책상)
+	p.y = 0;
+	p.x = 5.99f;
+	p.z = 6.6;
+	Scal = D3DXVECTOR3(0.062, 0.062, 0.062);
+	Min = D3DXVECTOR3(10, 10, 10);
+	Max = D3DXVECTOR3(-10, 0, -10);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 0;
+	ObjectManager->ADDobject("Elivator/door", "desk.X", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
+
+	//시작할 때 방(램프)
+	p.y = 2.3;
+	p.x = 4.99f;
+	p.z = 2.5f;
+	Scal = D3DXVECTOR3(0.022, 0.022, 0.022);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 0;
+	ObjectManager->ADDobject("Lamp", "lamp.X", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI);
+
+
+	//메디킷
+	Scal = D3DXVECTOR3(0.08, 0.08, 0.08);
+	p = D3DXVECTOR3(4.4, 0, 5.8);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::item, "");
+	//아이템 타입은 충돌시 클릭하게 되면 카메라 고정될텐데 esc 누르면 풀리게 해놨습니다.
+
+
+	//의자
+	Scal = D3DXVECTOR3(0.0092, 0.0092, 0.0092);
+	p = D3DXVECTOR3(3, 0.2, 3.2);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+	ObjectManager->ADDobject("t", "Chair_1.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
+
+	//캐비넷
+	Min = D3DXVECTOR3(1, 1, 1);
+	Max = D3DXVECTOR3(-1, 0, -1);
+	Scal = D3DXVECTOR3(0.72, 0.72, 0.72);
+	p = D3DXVECTOR3(-2.3, 1.3, -5.5);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+	ObjectManager->ADDobject("Basiccabinet", "basic cabinet (X).x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
+
 	//Key_B_02.x
 
 	//Scal = D3DXVECTOR3(1, 1, 1);
@@ -529,6 +536,8 @@ ObjectManager->getOpen();
 	//ObjectManager->ADDobject("BalanceBarBox", "BalanceBox.x", p, Scal, pt, OBJ_TYPE::item, "");
 	//ObjectManager->ADDobject("BalanceBarBox", "BalanceBox.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max,NULL);
 	//밑에는 UI설정
+
+
 
 
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
