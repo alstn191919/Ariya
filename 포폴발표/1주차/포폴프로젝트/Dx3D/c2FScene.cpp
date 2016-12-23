@@ -30,6 +30,7 @@ c2FScene::c2FScene() : m_pCamera(NULL)
 , m_bisClicked(false)
 {
 	//g_bOBBCollision = false;
+	g_pSoundManager->Stop("mainTheme");
 }
 
 c2FScene::~c2FScene()
