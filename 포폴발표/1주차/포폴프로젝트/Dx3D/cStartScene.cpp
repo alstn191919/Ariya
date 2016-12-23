@@ -76,6 +76,7 @@ void cStartScene::Setup()
 		D3DX_PI + D3DX_PI / 2.5, 
 		&lightPos);
 
+	SoundManual();
 }
 void cStartScene::Update()
 {
@@ -224,4 +225,47 @@ void cStartScene::OnClick(cUIButton* pSender)
 		PrevCamPos = CameraPosition;
 		PrevCamPos.y -= 3.5f;
 	}
+}
+
+
+/*
+=============================================
+사운드 매니저 매뉴얼 : 최하늘
+2016 12 23
+	g_pSoundManager
+wav 파일만 기능합니다.
+현재 거리 및 충돌에 따른 볼륨/패닝 조절 코드는 추가되지 않았습니다.
+==============================================
+*/
+void cStartScene::SoundManual()
+{
+	//사운드 추가 방법
+	//													LPSTR	LPSTR	D3DXVECTOR3		SOUND_MAP
+	//g_pSoundManager->AddSound("파일명", "경로");
+	//g_pSoundManager->AddSound("파일명", "경로", "맵 상의 위치");
+	//g_pSoundManager->AddSound("파일명", "경로", "맵 상의 위치", "사운드맵");
+	//파일명에는 .wav를 붙이지 않아도 기능합니다.
+	g_pSoundManager->AddSound("mainTheme", "./Sound/");
+
+	//사운드 플레이
+	//DSBPLAY_LOOPING 플래그 지정시 반복 재생합니다.
+	//한 번만 재생시 플래그 인자값을 비워두면 됩니다.
+	//										LPSTR 파일명, DWORD 플래그
+	g_pSoundManager->Play("mainTheme", DSBPLAY_LOOPING);
+
+	//사운드 정지
+	//										LPSTR 파일명
+	//g_pSoundManager->Stop("mainTheme");
+
+	//임의로 볼륨 및 패닝 적용하기
+	//모든 볼륨은 G_SOUND_VOLUME (stdafx.h에 디파인) * 값으로 변경됩니다.
+	//사용시에는 : 1~10 사이의 수로 설정 가능. 소숫점 두 자리까지 적용됩니다.
+	//													LPSTR 파일명,		long 볼륨
+	g_pSoundManager->SetVolume("mainTheme", 10);
+
+	//패닝: 좌우 사운드 소리 크기입니다. 
+	//-10,000 ~ 10,000 까지 설정할 수 있습니다. 
+	//0이 기본값이며, 최소값에 가까울수록 왼쪽에서, 최댓값에 가까울수록 오른쪽에서 소리가 납니다.
+	//										LPSTR 파일명, long 패닝값 
+	//g_pSoundManager->SetPan("mainTheme", 0);
 }

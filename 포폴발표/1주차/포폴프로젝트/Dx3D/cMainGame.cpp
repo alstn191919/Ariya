@@ -13,9 +13,11 @@ cMainGame::~cMainGame(void)
 	g_pLightShaderManager->Destroy();
 	ObjectManager->Destroy();
 	g_pSceneManager->Destroy();
+	g_pSoundManager->Destroy();
 
 	g_pObjectManager->Destroy();
 	g_pDeviceManager->Destroy();
+
 }
 
 void cMainGame::Setup()

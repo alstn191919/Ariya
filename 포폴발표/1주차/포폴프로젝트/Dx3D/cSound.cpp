@@ -1,16 +1,16 @@
 #include "stdafx.h"
 #include "cSound.h"
-//////////////////////
-// 현재 사운드 상태. //
-/////////////////////
 
 cSound::cSound()
+	: m_szPath(NULL)
+	, m_vPosition(0, 0, 0)
+	, m_vMapPosition(SOUND_MAP::SM_NONE)
 { };
 
 cSound::~cSound()
 {};
 
-void cSound::Load(LPSTR FileName)
+void cSound::Load(LPSTR FileName, LPSTR szPath)
 {
 	// DirectSound 객체 생성
 	DirectSoundCreate(NULL, &m_pDS, NULL);
@@ -18,20 +18,45 @@ void cSound::Load(LPSTR FileName)
 	// DirectSound의 협력 레벨 설정
 	m_pDS->SetCooperativeLevel(g_hWnd, DSSCL_NORMAL);
 
+	char* fullPath;
+
+	//사운드 경로 설정 여부에 따라
+	if (strlen(m_szPath) != NULL)
+	{
+		fullPath = new char[strlen(m_szPath) + strlen(FileName)];
+		ZeroMemory(fullPath, strlen(m_szPath) + strlen(FileName));
+		strcpy(fullPath, szPath);
+	}
+	else
+	{
+		if (szPath == NULL)
+		{
+			assert("경로가 설정되지 않았습니다.");
+		}
+		fullPath = new char[strlen(szPath) + strlen(FileName)];
+		ZeroMemory(fullPath, strlen(szPath) + strlen(FileName));
+		strcpy(fullPath, szPath);
+	}
+	strncat(fullPath, FileName, strlen(FileName));
+	char* type = ".wav";
+	strncat(fullPath, type, strlen(type));
+
 	// WAV 파일 로드 및 DirectSoundBuffer 생성
-	LoadWAV(FileName, DSBCAPS_STATIC | DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME);
+	LoadWAV(fullPath, DSBCAPS_STATIC | DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME);
 }
 
 void cSound::Play(DWORD dwFlags)
 {
 	//DSBPLAY_LOOPING : stop 때까지 반복재생
+	if (m_isPlay)
+		return;
 
 	m_pDSBuffer->SetCurrentPosition(0);
 	if (FAILED(m_pDSBuffer->Play(0, 0, dwFlags)))
 	{
 		assert("음악 재생 실패");
 	}
-	m_isPlay = SND_PLAYING; // 현재 사운드의 상태 - "플레이 중".
+	m_isPlay = SND_PLAYING;
 }
 
 void cSound::Stop()
@@ -40,12 +65,31 @@ void cSound::Stop()
 	{
 		assert("음악 정지 실패");
 	}
-	m_isPlay = SND_STOPPED; // 현재 사운드의 상태 - "플레이 중".
+	m_isPlay = SND_STOPPED;
 }
 
 void cSound::SetVolume(LONG lVolume)
 {
-	if (FAILED(m_pDSBuffer->SetVolume(DSVOLUME_TO_DB(lVolume))))
+	float volume = G_SOUND_VOLUME * lVolume;
+	if (volume >= 100)
+		volume = 100;
+
+	if (volume < 0)
+		volume = 0;
+
+	if (FAILED(m_pDSBuffer->SetVolume(DSVOLUME_TO_DB(volume))))
+	{
+		assert("볼륨 조정 실패");
+	}
+}
+
+void cSound::SetVolume(D3DXVECTOR3 vCRTPosition)
+{
+	D3DXVECTOR3 vDist = m_vPosition - vCRTPosition;
+	float distance = sqrtf(vDist.x * vDist.x + vDist.y * vDist.y + vDist.z * vDist.z);
+	long volume = G_SOUND_VOLUME * fabs(10 - (distance * 0.1));
+
+	if (FAILED(m_pDSBuffer->SetVolume(DSVOLUME_TO_DB(volume))))
 	{
 		assert("볼륨 조정 실패");
 	}
@@ -59,12 +103,38 @@ void cSound::SetPan(LONG lPan)
 	}
 }
 
+void cSound::SetPan(D3DXVECTOR3 vCRTPosition)
+{
+	//L(-10,000 ~ 10,000)R
+	float distance = m_vPosition.x - vCRTPosition.x;
+	long	pan;
+
+	pan = distance * 10;
+	if (pan > 10000)
+		pan = 10000;
+	else if (pan < -10000)
+		pan = -10000;
+
+	if (FAILED(m_pDSBuffer->SetPan(pan)))
+	{
+		assert("팬 조정 실패");
+	}
+}
+
 DWORD cSound::GetBufferStatus()
 {
 	DWORD Status;
 	m_pDSBuffer->GetStatus(&Status);
 
 	return Status;
+}
+
+DWORD cSound::GetCurPlayPosition()
+{
+	DWORD curPlayPosition;
+	m_pDSBuffer->GetCurrentPosition(&curPlayPosition, NULL);
+
+	return curPlayPosition;
 }
 
 int cSound::Release()
