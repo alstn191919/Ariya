@@ -46,7 +46,7 @@ private:
 	LPD3DXSPRITE				m_pSprite;
 	cUIObject*					m_pUIRoot;
 	cUITextView*				 pTextView;
-
+	LPD3DXFONT					gpFont;
 
 public:
 	void Setup();

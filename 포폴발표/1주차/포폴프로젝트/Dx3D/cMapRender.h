@@ -24,9 +24,9 @@ public:
 	void Update();
 	void Render(D3DXVECTOR3 _gWorldLightPosition, D3DXVECTOR3 _gWorldLightDir, D3DXVECTOR3 _gWorldCameraPosition, float lightRange, float lightPower);
 	bool GetHeight(IN float x, OUT float& y, IN float z);
+	void Shadowinit(char* ApplyShaderFilename, char* CreateShaderFilename);
 private:
 	void Load(char* szSurface, D3DXVECTOR3 Position);
-	void Shadowinit();
 	void DebugRender();
 	void shaderRender(D3DXVECTOR3 _gWorldLightPosition, D3DXVECTOR3 _gWorldLightDir, D3DXVECTOR3 _gWorldCameraPosition, float lightRange, float lightPower);
 public:

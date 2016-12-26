@@ -21,20 +21,10 @@ private: //컬링
 	D3DXPLANE		m_aPlane[6];
 public:
 		
-	void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max, float Angle);				//일단 오브젝트 추가
-	void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, ST_SPHERE _Sphre, OBJ_TYPE _objtype, std::string _Text);	//상호작용 오브젝트 추가
-	void ADDobject(std::string sFolder,
-		std::string sFile,
-		D3DXVECTOR3 Pogi,
-		D3DXVECTOR3 size,
-		ST_SPHERE _Sphre, 
-		OBJ_TYPE _objtype,
-		std::string _Text,
-		D3DXVECTOR3 Min,
-		D3DXVECTOR3 Max,
-		float Angle,
-		D3DXVECTOR3* _LightPositon = NULL);	//상호 작용 + obb + 로테이션 타입
-void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, OBJ_TYPE _objtype, float Angle);	//obb충돌안하는거
+	void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max, float Angle, D3DXVECTOR3 _LightPositon);				//일단 오브젝트 추가
+	void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, ST_SPHERE _Sphre, OBJ_TYPE _objtype, std::string _Text, D3DXVECTOR3 _LightPositon);	//상호작용 오브젝트 추가
+	void ADDobject(std::string sFolder,std::string sFile,D3DXVECTOR3 Pogi,D3DXVECTOR3 size,ST_SPHERE _Sphre, OBJ_TYPE _objtype,std::string _Text,D3DXVECTOR3 Min,D3DXVECTOR3 Max,float Angle,D3DXVECTOR3 _LightPositon);	//상호 작용 + obb + 로테이션 타입
+	void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, OBJ_TYPE _objtype, float Angle, D3DXVECTOR3 _LightPositon);	//obb충돌안하는거
 	void Update();
 
 	void Render();
@@ -44,10 +34,6 @@ void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVEC
 	void SetSelect();
 	void SetNonSelect() { m_select_index = NonSlect; }			//셀렉트 초기화	
 	void Destroy();
-	void DestroyObject(){ 
-	//	for (int i = 0; i < object.size(); i++)object[i]->~cSkinnedMesh2();
-		object.clear();
-		m_Event.clear(); }
 	void evt();
 
 	OBJ_TYPE getPinkedObjType();
@@ -70,8 +56,9 @@ void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVEC
 	void Event1();
 	void EventDefinitions();
 
-	//std::vector<cEvent *>v_Event;
+	std::vector<cEvent *>v_Event;
 	std::map<std::string, cEvent *>m_Event;
+
 	bool Culling(cSkinnedMesh2* _object);
 	void CullingUpdate();
 };

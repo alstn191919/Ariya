@@ -18,7 +18,7 @@ void cSoundManager::Play(LPSTR szFileName, DWORD flag)
 	cSound* data;
 	if (m_mapSound.empty())
 	{
-		assert("map is empty");
+		//assert("map is empty");
 	}
 
 	if (data = m_mapSound.find(szFileName)->second)
@@ -36,7 +36,8 @@ void cSoundManager::Stop(LPSTR szFileName)
 	cSound* data;
 	if (m_mapSound.empty())
 	{
-		assert("map is empty");
+		return;
+		//assert("map is empty");
 	}
 
 	if (data = m_mapSound.find(szFileName)->second)
@@ -58,7 +59,7 @@ void cSoundManager::SetVolume(LPSTR szFileName, long lVolume)
 	cSound* data;
 	if (m_mapSound.empty())
 	{
-		assert("map is empty");
+		//assert("map is empty");
 	}
 
 	if (data = m_mapSound.find(szFileName)->second)
@@ -76,7 +77,7 @@ void cSoundManager::SetPan(LPSTR szFileName, long lPan)
 	cSound* data;
 	if (m_mapSound.empty())
 	{
-		assert("map is empty");
+		//assert("map is empty");
 	}
 
 	if (data = m_mapSound.find(szFileName)->second)
@@ -126,7 +127,7 @@ void cSoundManager::SetPosition(LPSTR szFileName, D3DXVECTOR3 vPosition)
 	cSound* data;
 	if (m_mapSound.empty())
 	{
-		assert("map is empty");
+		//assert("map is empty");
 	}
 
 	if (data = m_mapSound.find(szFileName)->second)
@@ -145,7 +146,7 @@ D3DXVECTOR3 cSoundManager::GetPosition(LPSTR szFileName)
 	D3DXVECTOR3 position;
 	if (m_mapSound.empty())
 	{
-		assert("map is empty");
+		//assert("map is empty");
 	}
 
 	if (data = m_mapSound.find(szFileName)->second)
@@ -163,7 +164,7 @@ SOUND_MAP cSoundManager::WhichMapIn(LPSTR szFileName)
 	cSound* data;
 	if (m_mapSound.empty())
 	{
-		assert("map is empty");
+		//assert("map is empty");
 	}
 
 	if (data = m_mapSound.find(szFileName)->second)
@@ -183,7 +184,7 @@ SOUND_MAP cSoundManager::IsInSameMap(LPSTR szFileName, D3DXVECTOR3 vPosition)
 
 	if (m_mapSound.empty())
 	{
-		assert("map is empty");
+		//assert("map is empty");
 	}
 
 	if (data = m_mapSound.find(szFileName)->second)
@@ -208,7 +209,7 @@ bool cSoundManager::GetState(LPSTR szFileName)
 	cSound* data;
 	if (m_mapSound.empty())
 	{
-		assert("map is empty");
+		//assert("map is empty");
 	}
 
 	if (data = m_mapSound.find(szFileName)->second)
@@ -250,7 +251,8 @@ void cSoundManager::Release(LPSTR szFileName)
 	cSound* data;
 	if (m_mapSound.empty())
 	{
-		assert("map is empty");
+		//assert("map is empty");
+		return;
 	}
 
 	if (data = m_mapSound.find(szFileName)->second)

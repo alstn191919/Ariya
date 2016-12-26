@@ -145,12 +145,19 @@ void cSceneManager:: WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 	}
 	case Scene_Main:
 	{
-					   pStartScene->WndProc(hWnd, message, wParam, lParam);
+					   if (pStartScene)
+					   {
+						   pStartScene->WndProc(hWnd, message, wParam, lParam);
+					   }
+
 					   break;
 	}
 	case Scene_2F:
 	{
-					 p2FScene->WndProc(hWnd, message, wParam, lParam);
+					 if (p2FScene)
+					 {
+						 p2FScene->WndProc(hWnd, message, wParam, lParam);
+					 }
 					 break;
 	}
 	case Scene_3F:

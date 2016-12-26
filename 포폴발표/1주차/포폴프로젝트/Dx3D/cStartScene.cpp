@@ -44,6 +44,7 @@ void cStartScene::Setup()
 		D3DXVECTOR3(10.94f, -250.0f, -220.5f),
 		D3DXVECTOR3(0, 0, 0),
 		1.01f);
+	pMap->Shadowinit("./shader/ApplyShadow.fx", "./shader/CreateShadow.fx");
 
 	pCamera = new cCamera;
 	pCamera->Setup();
@@ -74,7 +75,7 @@ void cStartScene::Setup()
 		"", 
 		D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(1, 1, 1), 
 		D3DX_PI + D3DX_PI / 2.5, 
-		&lightPos);
+		lightPos);
 
 	SoundManual();
 }
@@ -125,7 +126,7 @@ void cStartScene::Update()
 			}
 		}
 	}
-
+/*
 	if (GetKeyState(VK_UP) & 8888)
 	{
 		lightDir.z += 0.2f;
@@ -157,7 +158,7 @@ void cStartScene::Update()
 	else if (GetKeyState('D') & 8888)
 	{
 		lightPos.x += 0.2f;
-	}
+	}*/
 }
 void cStartScene::Render()
 {

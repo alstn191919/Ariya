@@ -21,17 +21,18 @@ cSkinnedMesh2::cSkinnedMesh2(void)
 cSkinnedMesh2::~cSkinnedMesh2(void)
 {
 	SAFE_DELETE(m_Obb);
+
+
 	SAFE_RELEASE(m_pAnimController);
 	SAFE_RELEASE(gpShadowDepthStencil);
 	SAFE_RELEASE(gpShadowRenderTarget);
-
 
 	cAllocateHierarchy2 alloc;
 	D3DXFrameDestroy(m_pRootBone, &alloc);
 
 }
 
-void cSkinnedMesh2::Load( std::string sFolder, std::string sFile )
+void cSkinnedMesh2::Load(std::string sFolder, std::string sFile)
 {
 	std::string sFullPath = sFolder + "/" + sFile;
 	cAllocateHierarchy2 alloc;
@@ -48,13 +49,15 @@ void cSkinnedMesh2::Load( std::string sFolder, std::string sFile )
 
 	assert(m_pRootBone && "뿌리가 없어요!");
 
-	if(m_pRootBone)
+	if (m_pRootBone)
 		SetupBoneMatrixPtrs(m_pRootBone);
+	
+	ShaderInit();
 }
 
 void cSkinnedMesh2::Update(ST_BONE2* pBone, D3DXMATRIX* pParent)
 {
-	if(pParent)
+	if (pParent)
 	{
 		pBone->CombinedTransformationMatrix = pBone->TransformationMatrix * *pParent;
 	}
@@ -78,7 +81,7 @@ void cSkinnedMesh2::Update()
 {
 	if (m_pRootBone == NULL)
 		return;
-	
+
 	m_pAnimController->AdvanceTime(g_pTimeManager->GetDeltaTime(), NULL);
 
 	Update(m_pRootBone, NULL);
@@ -88,7 +91,7 @@ void cSkinnedMesh2::Update()
 void cSkinnedMesh2::Render(ST_BONE2* pBone)
 {
 	ST_BONE_MESH2* pBoneMesh = (ST_BONE_MESH2*)pBone->pMeshContainer;
-	while(pBoneMesh)
+	while (pBoneMesh)
 	{
 		for (size_t i = 0; i < pBoneMesh->vecMtlTex.size(); ++i)
 		{
@@ -128,7 +131,7 @@ void cSkinnedMesh2::SetupBoneMatrixPtrs(ST_BONE2* pBone)
 	{
 		ST_BONE_MESH2* pBoneMesh = (ST_BONE_MESH2*)pBone->pMeshContainer;
 		LPD3DXSKININFO pSkinInfo = pBoneMesh->pSkinInfo;
-		if(pSkinInfo)
+		if (pSkinInfo)
 		{
 			DWORD dwNumBones = pSkinInfo->GetNumBones();
 			for (DWORD i = 0; i < dwNumBones; ++i)
@@ -145,7 +148,7 @@ void cSkinnedMesh2::SetupBoneMatrixPtrs(ST_BONE2* pBone)
 	{
 		SetupBoneMatrixPtrs((ST_BONE2*)pBone->pFrameFirstChild);
 	}
-	
+
 	if (pBone->pFrameSibling)
 	{
 		SetupBoneMatrixPtrs((ST_BONE2*)pBone->pFrameSibling);
@@ -161,12 +164,12 @@ void cSkinnedMesh2::UpdateSkinnedMesh(ST_BONE2* pBone)
 	{
 		ST_BONE_MESH2* pBoneMesh = (ST_BONE_MESH2*)pBone->pMeshContainer;
 		LPD3DXSKININFO pSkinInfo = pBoneMesh->pSkinInfo;
-		if(pSkinInfo)
+		if (pSkinInfo)
 		{
 			DWORD dwNumBones = pSkinInfo->GetNumBones();
 			for (DWORD i = 0; i < dwNumBones; ++i)
 			{
-				pBoneMesh->pCurrentBoneMatrices[i] = 
+				pBoneMesh->pCurrentBoneMatrices[i] =
 					pBoneMesh->pBoneOffsetMatrices[i] *
 					*(pBoneMesh->ppBoneMatrixPtrs[i]);
 			}
@@ -174,12 +177,12 @@ void cSkinnedMesh2::UpdateSkinnedMesh(ST_BONE2* pBone)
 			BYTE* src = NULL;
 			BYTE* dest = NULL;
 
-			pBoneMesh->pOrigMesh->LockVertexBuffer( D3DLOCK_READONLY, (void**)&src );
-			pBoneMesh->pWorkMesh->LockVertexBuffer( 0, (void**)&dest );
+			pBoneMesh->pOrigMesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&src);
+			pBoneMesh->pWorkMesh->LockVertexBuffer(0, (void**)&dest);
 
 			//pWorkMesh을 업데이트 시켜준다.
 			pSkinInfo->UpdateSkinnedMesh(
-				pBoneMesh->pCurrentBoneMatrices, NULL, src, dest );
+				pBoneMesh->pCurrentBoneMatrices, NULL, src, dest);
 
 			pBoneMesh->pWorkMesh->UnlockVertexBuffer();
 			pBoneMesh->pOrigMesh->UnlockVertexBuffer();
@@ -198,7 +201,7 @@ void cSkinnedMesh2::UpdateSkinnedMesh(ST_BONE2* pBone)
 	}
 }
 
-void cSkinnedMesh2::SetAnimationIndex( int n )
+void cSkinnedMesh2::SetAnimationIndex(int n)
 {
 	LPD3DXANIMATIONSET pAnimSet = NULL;
 	m_pAnimController->GetAnimationSet(n, &pAnimSet);
@@ -206,16 +209,15 @@ void cSkinnedMesh2::SetAnimationIndex( int n )
 	SAFE_RELEASE(pAnimSet);
 }
 
-
 void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size)
 {
-	D3DXMATRIXA16 mat,matS,matR;
-	
+	D3DXMATRIXA16 mat, matS, matR;
+
 	D3DXMatrixIdentity(&mat);
 	D3DXMatrixIdentity(&matR);
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixScaling(&matS, size.x, size.y, size.z);
-	
+
 
 	D3DXMatrixTranslation(&mat, p.x, p.y, p.z);
 
@@ -227,12 +229,9 @@ void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size)
 	D3DXMatrixIdentity(&m_wolrd);
 
 	m_wolrd = matS * matR * mat *m_wolrd;
-
-
-
 }
 
-void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size , float Angle)
+void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size, float Angle)
 {
 	D3DXMATRIXA16 mat, matS, matR;
 
@@ -241,28 +240,21 @@ void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size , float Angle)
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixScaling(&matS, size.x, size.y, size.z);
 
-
-
 	D3DXMatrixTranslation(&mat, p.x, p.y, p.z);
 
-
 	D3DXMatrixRotationY(&matR, Angle);
-	
-
 
 	D3DXMatrixIdentity(&m_wolrd);
 
-
 	m_wolrd = matS * matR * mat *m_wolrd;
-
 }
 
 void cSkinnedMesh2::ObjRender()
 {
 	if (m_eObjType == door)
-	{	
+	{
 
-		D3DXMATRIXA16 matRX, matRY, mat , matOBB;
+		D3DXMATRIXA16 matRX, matRY, mat, matOBB;
 		D3DXMatrixIdentity(&mat);
 		D3DXMatrixIdentity(&matOBB);
 
@@ -270,45 +262,39 @@ void cSkinnedMesh2::ObjRender()
 		D3DXMatrixRotationY(&matRX, -m_fAngleX);
 		D3DXMatrixRotationX(&matRY, -m_fAngleY);
 
-		mat = ( mat  *  matRX * matRY);
+		mat = (mat  *  matRX * matRY);
 
 
 		D3DXMatrixRotationY(&matRX, -m_fAngleX);
 		D3DXMatrixRotationX(&matRY, -m_fAngleY);
 
 		matOBB = (matOBB  *  matRX * matRY);
-		
+
 
 		mat = mat * m_wolrd;
 		matOBB = matOBB * m_wolrd;
 		D3DXVECTOR3 tempP;
 
-		
+
 		tempP.x = matOBB._41 + 4;
 		tempP.y = matOBB._42 + 3;
 		tempP.z = matOBB._43;
-		
+
 		g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
 		//m_sSphre.vCenter= tempP;
 		D3DXMATRIXA16 a = m_Obb->GetmatWorldTM();
 		m_Obb->Update(&matOBB);
 		if (!m_pRootBone) return;
-		ShaderRender(m_pRootBone, vLightPosition,
-			D3DXVECTOR3(mat._41, mat._42, mat._43),
-			D3DXVECTOR3(mat._41, mat._42 + 2.0f, mat._43), mat);
+		ShaderRender(m_pRootBone, vLightPosition, mat);
 	}
 	else
 	{
 		if (!m_pRootBone) return;
 		g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_wolrd);
 		if (m_Obb)m_Obb->Update(&m_wolrd);
-		ShaderRender(m_pRootBone, vLightPosition,
-			D3DXVECTOR3(m_wolrd._41, m_wolrd._42, m_wolrd._43),
-			D3DXVECTOR3(m_wolrd._41, m_wolrd._42 + 2.0f, m_wolrd._43), m_wolrd);
+		ShaderRender(m_pRootBone, vLightPosition,m_wolrd);
 	}
-	
-
-	if (m_pRootBone == NULL) return;
+	if (!m_pRootBone) return;
 	//Render(m_pRootBone);
 }
 
@@ -328,14 +314,14 @@ void cSkinnedMesh2::ObjEvent()
 
 void cSkinnedMesh2::ObjVIEWRender(D3DXVECTOR3 pogi)
 {
-	
+
 	D3DXMATRIXA16 mat;
 
 	mat = m_wolrd;
 
 	mat._41 = pogi.x;
 	mat._42 = pogi.y;
-	mat._43 = pogi.z-0.5;
+	mat._43 = pogi.z;
 
 	D3DXMATRIXA16 matRX, matRY, matR;
 	D3DXMatrixRotationY(&matRX, m_fAngleX);
@@ -352,7 +338,7 @@ void cSkinnedMesh2::ObjVIEWRender(D3DXVECTOR3 pogi)
 }
 void cSkinnedMesh2::ObjVIEWRender()
 {
-	D3DXMATRIXA16 mat ,viewamat, inverview,inverProj;
+	D3DXMATRIXA16 mat, viewamat, inverview, inverProj;
 
 	D3DXMatrixIdentity(&mat);
 
@@ -366,20 +352,20 @@ void cSkinnedMesh2::ObjVIEWRender()
 	D3DXMatrixInverse(&inverview, 0, &viewamat);
 
 	D3DXMATRIXA16 matRX, matRY, matR;
-		D3DXMatrixRotationY(&matRX, m_fAngleX);
-		D3DXMatrixRotationZ(&matRY, m_fAngleY);
+	D3DXMatrixRotationY(&matRX, m_fAngleX);
+	D3DXMatrixRotationZ(&matRY, m_fAngleY);
 
-		matR = matRX * matRY;
+	matR = matRX * matRY;
 
-		mat = matR * inverview;
-	
+	mat = matR * inverview;
 
 
-		mat._42 = mat._42 + 1;
+
+	mat._42 = mat._42 + 1;
 
 
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
-	
+
 	if (m_pRootBone == NULL) return;
 	Render(m_pRootBone);
 }
@@ -408,18 +394,18 @@ void cSkinnedMesh2::ShaderInit()
 	}
 }
 
-void cSkinnedMesh2::ShaderRender(ST_BONE2* pBone, D3DXVECTOR3 _gWorldLightPosition,
-	D3DXVECTOR3 _gWorldLightDir,
-	D3DXVECTOR3 _gWorldCameraPosition, D3DXMATRIX _gBoneWorld)
+void cSkinnedMesh2::ShaderRender(ST_BONE2* pBone, D3DXVECTOR3 _gWorldCameraPosition, D3DXMATRIX _gBoneWorld)
 {
+	if (!pBone) return;
 	ST_BONE_MESH2* pBoneMesh = (ST_BONE_MESH2*)pBone->pMeshContainer;
 
 	// 광원-뷰 행렬을 만든다.
 	D3DXMATRIXA16 matLightView;
 	{
+		D3DXVECTOR3 dir = D3DXVECTOR3(_gBoneWorld._41, _gBoneWorld._42, _gBoneWorld._43);
 		D3DXVECTOR3 vRight;
-		D3DXVECTOR3 vLookAt = _gWorldLightDir - _gWorldLightPosition;
-		D3DXVECTOR3 vEyePt(_gWorldLightPosition.x, _gWorldLightPosition.y, _gWorldLightPosition.z);
+		D3DXVECTOR3 vLookAt = dir - vLightPosition;
+		D3DXVECTOR3 vEyePt(vLightPosition.x, vLightPosition.y, vLightPosition.z);
 		D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f);
 		D3DXVec3Cross(&vRight, &vUpVec, &vLookAt);
 		D3DXVec3Cross(&vUpVec, &vLookAt, &vRight);
@@ -518,14 +504,14 @@ void cSkinnedMesh2::ShaderRender(ST_BONE2* pBone, D3DXVECTOR3 _gWorldLightPositi
 	gpApplyShadowShader->SetMatrix("gWorldMatrix", &_gBoneWorld);
 	gpApplyShadowShader->SetMatrix("gWorldViewProjectionMatrix", &matWorldViewProjection);
 
-	gpApplyShadowShader->SetVector("gWorldLightPosition", &D3DXVECTOR4(_gWorldLightPosition, 1));
+	gpApplyShadowShader->SetVector("gWorldLightPosition", &D3DXVECTOR4(vLightPosition, 1));
 	gpApplyShadowShader->SetVector("gObjectColor", &D3DXVECTOR4(1, 1, 1, 1));
 	gpApplyShadowShader->SetVector("gWorldCameraPosition", &D3DXVECTOR4(_gWorldCameraPosition, 1));
 
 	gpApplyShadowShader->SetTexture("ShadowMap_Tex", gpShadowRenderTarget);
 
-	gpApplyShadowShader->SetFloat("gRange", 100.0f); // 빛 범위 설정
-	gpApplyShadowShader->SetFloat("gAlphaBlend", 1.0f); // 빛 세기 알파값
+	gpApplyShadowShader->SetFloat("gRange", 200.0f); // 빛 범위 설정
+	gpApplyShadowShader->SetFloat("gAlphaBlend", 2.0f); // 빛 세기 알파값
 
 
 	pBoneMesh = (ST_BONE_MESH2*)pBone->pMeshContainer;
@@ -556,11 +542,11 @@ void cSkinnedMesh2::ShaderRender(ST_BONE2* pBone, D3DXVECTOR3 _gWorldLightPositi
 
 	if (pBone->pFrameFirstChild)
 	{
-		ShaderRender((ST_BONE2*)pBone->pFrameFirstChild, _gWorldLightPosition, _gWorldLightDir, _gWorldLightPosition, _gBoneWorld);
+		ShaderRender((ST_BONE2*)pBone->pFrameFirstChild, vLightPosition, _gBoneWorld);
 	}
-
+	
 	if (pBone->pFrameSibling)
 	{
-		ShaderRender((ST_BONE2*)pBone->pFrameSibling, _gWorldLightPosition, _gWorldLightDir, _gWorldLightPosition, _gBoneWorld);
+		ShaderRender((ST_BONE2*)pBone->pFrameSibling, vLightPosition, _gBoneWorld);
 	}
 }

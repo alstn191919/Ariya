@@ -49,7 +49,6 @@ void cMapRender::Setup(char* fileName, char* surFace,
 	{
 		Load(surFace, sPosition);
 	}
-	Shadowinit();
 	D3DXCreateFont(g_pD3DDevice, 20, 10, FW_BOLD, 1, FALSE, DEFAULT_CHARSET,
 		OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, (DEFAULT_PITCH | FF_DONTCARE),
 		"Arial", &gpFont);
@@ -146,10 +145,6 @@ void cMapRender::shaderRender(D3DXVECTOR3 _gWorldLightPosition,D3DXVECTOR3 _gWor
 	g_pD3DDevice->GetTransform(D3DTS_WORLD, &matTorusWorld);
 	D3DXMatrixIdentity(&matTorusWorld);
 
-	// 디스크의 월드행렬을 만든다.
-	D3DXMATRIXA16			matDiscWorld;
-	D3DXMatrixIdentity(&matDiscWorld);
-
 	// 현재 하드웨어 벡버퍼와 깊이버퍼
 	LPDIRECT3DSURFACE9 pHWBackBuffer = NULL;
 	LPDIRECT3DSURFACE9 pHWDepthStencilBuffer = NULL;
@@ -233,6 +228,7 @@ void cMapRender::shaderRender(D3DXVECTOR3 _gWorldLightPosition,D3DXVECTOR3 _gWor
 	gpApplyShadowShader->SetTexture("ShadowMap_Tex", gpShadowRenderTarget);
 
 	gpApplyShadowShader->SetFloat("gRange", lightRange); // 빛 범위 설정
+	//gpApplyShadowShader->SetFloat("ApplyShadowShader_ApplyShadowTorus_Pixel_Shader_gRange", lightRange);
 	gpApplyShadowShader->SetFloat("gAlphaBlend", lightPower); // 빛 세기 알파값
 
 	for (size_t j = 0; j < m_vecMtlTex.size(); j++)
@@ -278,11 +274,12 @@ void cMapRender:: DebugRender()
 	LogoSprite->End();
 }
 
-void cMapRender:: Shadowinit()
+void cMapRender::Shadowinit(char* ApplyShaderFilename, char* CreateShaderFilename)
 {
-	gpApplyShadowShader = g_pLightShaderManager->Getshader("./shader/ApplyShadow.fx");
-	gpCreateShadowShader = g_pLightShaderManager->Getshader("./shader/CreateShadow.fx");
+	gpApplyShadowShader = g_pLightShaderManager->Getshader(ApplyShaderFilename);
+	gpCreateShadowShader = g_pLightShaderManager->Getshader(CreateShaderFilename);
 	// 렌더타깃을 만든다.
+
 	const int shadowMapSize = 1024;
 	if (FAILED(g_pD3DDevice->CreateTexture(shadowMapSize, shadowMapSize,
 		1, D3DUSAGE_RENDERTARGET, D3DFMT_R32F,

@@ -27,6 +27,7 @@ cObejctManager::cObejctManager()
 	m_aProjVertex[n++] = D3DXVECTOR3(1, -1, 1);
 	m_aProjVertex[n++] = D3DXVECTOR3(-1, -1, 1);
 	//
+
 }
 
 
@@ -37,13 +38,15 @@ cObejctManager::~cObejctManager()
 
 
 
-void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max, float Angle)
+void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max, float Angle, D3DXVECTOR3 _LightPositon)
 {
 	cSkinnedMesh2* newobject;
 
 	newobject = new cSkinnedMesh2;
 
 	newobject->Load(sFolder, sFile);
+
+	newobject->SetLightPositon(_LightPositon);
 
 	newobject->SetWolrd(Pogi, size, Angle);
 
@@ -62,7 +65,7 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 	//SAFE_DELETE(newobject);
 }
 										  //폴더명            파일명          위치          사이즈     구(충돌용)   오브젝트 타입  출력텍스트(door , switch는 할당해줘야함) , item
-void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, ST_SPHERE _Sphre, OBJ_TYPE _objtype, std::string _Text = NULL)
+void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, ST_SPHERE _Sphre, OBJ_TYPE _objtype, std::string _Text , D3DXVECTOR3 _LightPositon)
 {									
 	cSkinnedMesh2* newobject;
 
@@ -76,6 +79,9 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 
 	newobject->SetInter(true);
 
+	newobject->SetLightPositon(_LightPositon);
+
+
 	newobject->SetObjType(_objtype);
 
 	if(_Text.size())newobject->SetText(_Text);
@@ -86,7 +92,7 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 }
 
 
-void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, ST_SPHERE _Sphre, OBJ_TYPE _objtype, std::string _Text, D3DXVECTOR3 Min, D3DXVECTOR3 Max , float Angle)
+void cObejctManager::ADDobject(std::string sFolder,std::string sFile,D3DXVECTOR3 Pogi, D3DXVECTOR3 size,ST_SPHERE _Sphre,OBJ_TYPE _objtype, std::string _Text, D3DXVECTOR3 Min, D3DXVECTOR3 Max ,float Angle, D3DXVECTOR3 _LightPositon)
 {
 	cSkinnedMesh2* newobject;
 
@@ -100,10 +106,9 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 	newobject->m_sSphre = _Sphre;
 
 	newobject->SetInter(true);
-	if (_LightPositon)
-	{
-		newobject->SetLightPositon(*_LightPositon);
-	}
+
+	newobject->SetLightPositon(_LightPositon);
+
 	newobject->SetObjType(_objtype);
 
 	if (_Text.size())newobject->SetText(_Text);
@@ -119,7 +124,7 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 	object.push_back(newobject);
 }
 
-void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, OBJ_TYPE _objtype, float Angle)	//obb충돌안하는거
+void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, OBJ_TYPE _objtype, float Angle, D3DXVECTOR3 _LightPositon)	//obb충돌안하는거
 {
 	cSkinnedMesh2* newobject;
 
@@ -132,6 +137,8 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 	else newobject->SetWolrd(Pogi, size);
 
 	newobject->SetInter(true);
+
+	newobject->SetLightPositon(_LightPositon);
 
 	newobject->SetObjType(_objtype);
 
@@ -147,7 +154,6 @@ void cObejctManager::Update()
 	pt.x = (rc.right - rc.left) / 2;
 	pt.y = (rc.bottom - rc.top) / 2;
 	int index;
-
 
 	std::map<std::string, cEvent *>::iterator it;
 	for (it=m_Event.begin(); it != m_Event.end(); it++)
@@ -215,7 +221,6 @@ void cObejctManager::Update()
 	}
 
 
-
 	if (m_select_index != NonSlect && object[m_select_index]->GetObjType()==OBJ_TYPE::item)
 	{
 		object[m_select_index]->m_sSphre.isPicked = true;
@@ -227,35 +232,52 @@ void cObejctManager::Update()
 
 void cObejctManager::Render()
 {
-	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
-	for (int i = 0; i < object.size(); i++)
+	if (object.size() > 1)
 	{
-		if (Culling(object[i]))
+		for (int i = 0; i < 4; i++)
 		{
 			object[i]->ObjRender();
 		}
-
-		if (GetAsyncKeyState(VK_F1)&0x8001)
+		for (int i = 4; i < object.size(); i++)
 		{
-			if (object[i]->GetObb())
+			if (Culling(object[i]))
 			{
-			//	object[i]->ObjRender();
-				
-				
-				object[i]->GetObb()->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
+				object[i]->ObjRender();
+			}
+			if (GetAsyncKeyState(VK_F1) & 0x8001)
+			{
+				if (object[i]->GetObb())
+				{
+
+					object[i]->GetObb()->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
+				}
 			}
 		}
 	}
+	else
+	{
+		for (int i = 0; i < object.size(); i++)
+		{
+			if (Culling(object[i]))
+			{
+				object[i]->ObjRender();
+			}
+			if (GetAsyncKeyState(VK_F1) & 0x8001)
+			{
+				if (object[i]->GetObb())
+				{
 
-
+					object[i]->GetObb()->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
+				}
+			}
+		}
+	}
+	
 
 	if (m_select_index != NonSlect && object[m_select_index]->GetObjType()==item)
 	{
 	//	object[m_select_index]->ObjVIEWRender();
 	}
-
-	
-
 }
 
 
@@ -328,6 +350,7 @@ void  cObejctManager::Destroy()
 	{
 		SAFE_DELETE(it);
 	}	
+	object.clear();
 }
 
 
@@ -401,103 +424,103 @@ bool cObejctManager::getIndexOpen(int _index)
 }
 
 
-//보고 싶으면 해더 가서 v_Event 주석 같이 풀어주세요.
-//void cObejctManager::evt()//이벤트 사용예제
-//{
-//	
-//
-//	class bac:public cEvent
-//	{
-//		virtual void EVENT(){assert(false && "얍얍");}
-//
-//	};
-//
-//	cEvent * test;
-//
-//	test = new bac;
-//
-//
-//	cOBB * obb;
-//
-//	obb = new cOBB;
-//
-//	obb->Setup(D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(1, 1, 1));
-//
-//	test->obb = obb;
-//
-//
-//	test->_switch = false;
-//	
-//
-//	v_Event.push_back(test);
-//
-//	class atoz :public cEvent
-//	{
-//		virtual void EVENT(){ assert(false && "2번컨테이너"); }
-//
-//	};
-//
-//	
-//
-//	test = new atoz;
-//
-//
-//	cOBB * obb2;
-//
-//	obb2 = new cOBB;
-//
-//	obb->Setup(D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(1, 1, 1));
-//
-//	test->obb = obb2;
-//
-//
-//	test->_switch = true;
-//
-//
-//	
-//
-//
-//	v_Event.push_back(test);
-//
-//
-//	class asd :public cEvent
-//	{
-//		virtual void EVENT(){ assert(false && "asd클라스"); }
-//
-//	};
-//
-//
-//
-//	test = new asd;
-//
-//
-//	test->obb = obb2;
-//
-//
-//	test->_switch = true;
-//	std::string a = "이벤트";
-//	
-//	m_Event.insert(std::pair<std::string, cEvent *> (a, test));
-//
-//	class 유지현 :public cEvent
-//	{
-//		virtual void EVENT(){ assert(false && "유지현클라스"); }
-//
-//	};
-//
-//
-//	test = new 유지현;
-//
-//	test->obb = obb2;
-//
-//	test->_switch = true;
-//
-//	m_Event["유지현"] = test;
-//
-//
-//
-//
-//}
+
+void cObejctManager::evt()//이벤트 사용예제
+{
+	
+
+	class bac:public cEvent
+	{
+		virtual void EVENT(){assert(false && "얍얍");}
+
+	};
+
+	cEvent * test;
+
+	test = new bac;
+
+
+	cOBB * obb;
+
+	obb = new cOBB;
+
+	obb->Setup(D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(1, 1, 1));
+
+	test->obb = obb;
+
+
+	test->_switch = false;
+	
+
+	v_Event.push_back(test);
+
+	class atoz :public cEvent
+	{
+		virtual void EVENT(){ assert(false && "2번컨테이너"); }
+
+	};
+
+	
+
+	test = new atoz;
+
+
+	cOBB * obb2;
+
+	obb2 = new cOBB;
+
+	obb->Setup(D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(1, 1, 1));
+
+	test->obb = obb2;
+
+
+	test->_switch = true;
+
+
+	
+
+
+	v_Event.push_back(test);
+
+
+	class asd :public cEvent
+	{
+		virtual void EVENT(){ assert(false && "asd클라스"); }
+
+	};
+
+
+
+	test = new asd;
+
+
+	test->obb = obb2;
+
+
+	test->_switch = true;
+	std::string a = "이벤트";
+	
+	m_Event.insert(std::pair<std::string, cEvent *> (a, test));
+
+	class 유지현 :public cEvent
+	{
+		virtual void EVENT(){ assert(false && "유지현클라스"); }
+
+	};
+
+
+	test = new 유지현;
+
+	test->obb = obb2;
+
+	test->_switch = true;
+
+	m_Event["유지현"] = test;
+
+
+
+
+}
 
 
 void cObejctManager::Event1()

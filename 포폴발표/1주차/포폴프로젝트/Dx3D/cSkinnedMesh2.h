@@ -48,8 +48,6 @@ private:
 	void UpdateSkinnedMesh(ST_BONE2* pBone);
 	void SetupBoneMatrixPtrs(ST_BONE2* pBone);
 	void ShaderInit();
-	void ShaderRender(ST_BONE2* pBone, D3DXVECTOR3 _gWorldLightPosition,
-		D3DXVECTOR3 _gWorldLightDir,
-		D3DXVECTOR3 _gWorldCameraPosition,D3DXMATRIX _gBoneWorld);
+	void ShaderRender(ST_BONE2* pBone,D3DXVECTOR3 _gWorldCameraPosition,D3DXMATRIX _gBoneWorld);
 };
 
