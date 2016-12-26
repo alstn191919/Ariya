@@ -44,6 +44,10 @@ void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVEC
 	void SetSelect();
 	void SetNonSelect() { m_select_index = NonSlect; }			//셀렉트 초기화	
 	void Destroy();
+	void DestroyObject(){ 
+	//	for (int i = 0; i < object.size(); i++)object[i]->~cSkinnedMesh2();
+		object.clear();
+		m_Event.clear(); }
 	void evt();
 
 	OBJ_TYPE getPinkedObjType();
@@ -66,9 +70,8 @@ void ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVEC
 	void Event1();
 	void EventDefinitions();
 
-	std::vector<cEvent *>v_Event;
+	//std::vector<cEvent *>v_Event;
 	std::map<std::string, cEvent *>m_Event;
-
 	bool Culling(cSkinnedMesh2* _object);
 	void CullingUpdate();
 };

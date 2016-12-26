@@ -53,10 +53,12 @@ public:
 	void Update();
 	void Render();
 	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-	void SetUITest();
+	void SetAddObj_2F();
+	void SetAddObj_3F();
 	void HeroManual();
 
 	void ChangeMap();
+	void addElivator();			//엘리베이터 추가 ( 코드가 긴데 2번이상 쓰므로 함수로 따로뺌)  //작성자 : 강병민
 
 	c2FScene();
 	~c2FScene();

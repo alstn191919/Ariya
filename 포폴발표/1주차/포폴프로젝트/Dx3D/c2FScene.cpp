@@ -15,7 +15,6 @@
 #include "cUI.h"
 
 
-
 c2FScene::c2FScene() : m_pCamera(NULL)
 , m_pGrid(NULL)
 , m_pController(NULL)
@@ -58,7 +57,7 @@ ADDobject 만 해주시면 나머지 상호작용 처리및 OBB처리는  다 objectManager가 자동�
 =============================================================================================================================================
 */
 
-void c2FScene::SetUITest()
+void c2FScene::SetAddObj_2F()
 {
 	D3DXVECTOR3 Scal;						//스케일... 
 	D3DXVECTOR3 p(10, 0, 0);				//포지션 위치 설정용
@@ -69,66 +68,10 @@ void c2FScene::SetUITest()
 
 	//1. OBB 충돌 오브젝트 추가 (바운딩 박스 안에 플레이어가 들어올시 이벤트 처리해줄수있습니다.)
 	//ADDobject 오브젝트를 추가합니다.
-
+	addElivator();
 	//여기부터 엘리베이터 부분임돠
 	//엘리베이터 버튼(구피킹용으로 임시로 medkit 가져옴)
-	Scal = D3DXVECTOR3(0.01, 0.01, 0.01);
-	p = D3DXVECTOR3(63.6, -13.5, -105.5);
-	pt.vCenter = p;
-	pt.isPicked = false;
-	pt.fRadius = 1.5f;
-	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::Switch, "E눌러주세요");
-
-	//엘리베이터 통
-	Scal = D3DXVECTOR3(1.1, 1.1, 1.1);
-	p = D3DXVECTOR3(62, -17, -108);
-	ObjectManager->ADDobject("Elivator", "Elivator.X", p, Scal, OBJ_TYPE::Room, -D3DX_PI / 2);
-	//엘리베이터 문 2개
-	Scal = D3DXVECTOR3(26.0f, 27.0f, 26.0f);
-	p = D3DXVECTOR3(60.35f, -17, -105.5f);
-	Min = D3DXVECTOR3(-0.035, 0, -0.035);
-	Max = D3DXVECTOR3(0.035, 0.075, 0.035);
-	//문1 (index 2)
-	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, pt, OBJ_TYPE::Eledoor, "" ,Min, Max, -D3DX_PI / 2);
-	Scal = D3DXVECTOR3(26.0f, 27.0f, 26.0f);
-	p = D3DXVECTOR3(62.95f, -17, -105.5f);
-	//문2 (index 3)
-	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, pt, OBJ_TYPE::Eledoor, "" , Min, Max, -D3DX_PI / 2);
-
-	//엘리베이터 숫자 띄우기위한 폰트설정
-	LOGFONT	lf;
-	HDC hdc = CreateCompatibleDC(0);
-	ZeroMemory(&lf, sizeof(LOGFONT));
-	lf.lfHeight = 0.1;
-	lf.lfWidth = 0.1;
-	lf.lfWeight = 1;
-	lf.lfItalic = false;
-	lf.lfUnderline = false;
-	lf.lfStrikeOut = false;
-	lf.lfCharSet = DEFAULT_CHARSET;
-
-	strcpy(lf.lfFaceName, "Times New Roman");
-
-	HFONT hFont, hFontOld;
-	hFont = CreateFontIndirect(&lf);
-	hFontOld = (HFONT)SelectObject(hdc, hFont);
 	
-
-	m_vecText.resize(4);
-
-	D3DXCreateText(g_pD3DDevice, hdc, "1", 0.1f, 0.01f, &m_vecText[0], 0, 0);
-	D3DXCreateText(g_pD3DDevice, hdc, "2", 0.1f, 0.01f, &m_vecText[1], 0, 0);
-	D3DXCreateText(g_pD3DDevice, hdc, "3", 0.1f, 0.01f, &m_vecText[2], 0, 0);
-	D3DXCreateText(g_pD3DDevice, hdc, "4", 0.1f, 0.01f, &m_vecText[3], 0, 0);
-ObjectManager->getOpen();
-
-	ZeroMemory(&m_TextMtl, sizeof(_D3DMATERIAL9));
-	m_TextMtl.Ambient = m_TextMtl.Diffuse = m_TextMtl.Specular = D3DXCOLOR(0.6f, 0.1f, 0.1f, 1.0f);
-
-	SelectObject(hdc, hFontOld);
-	DeleteObject(hFont);
-	DeleteDC(hdc);
-
 
 
 	//2.상호작용 오브젝트 추가
@@ -611,7 +554,118 @@ ObjectManager->getOpen();
 	//ObjectManager->v_Event[0]->update();
 	//ObjectManager->m_Event["유지현"]->update();
 }
+void c2FScene::SetAddObj_3F()
+{
+	D3DXVECTOR3 Scal(1,1,1);						//스케일... 
+	D3DXVECTOR3 p(39, -17.1, -74.4);		//포지션 위치 설정용
+	ST_SPHERE pt;							//피킹용 구 크기를 잡아줌
 
+	D3DXVECTOR3 Min(-10, 0, -10);			//OBB 크기를 정해줌(위치는 오브젝트 월드좌표 자동으로 따라감)
+	D3DXVECTOR3 Max(12, 30, 10);			//OBB 크기를 정해줌(위치는 오브젝트 월드좌표 자동으로 따라감)
+
+	pt.vCenter = p;
+	pt.vCenter.x = pt.vCenter.x + 4;
+	pt.vCenter.y = pt.vCenter.y + 3;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+
+
+	Min = D3DXVECTOR3(0.25, 0, -1);
+	Max = D3DXVECTOR3(-0.25, 3, 3);
+
+	Scal = D3DXVECTOR3(1.4, 0.65, 0.7);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, NULL);
+
+
+	p = D3DXVECTOR3(84.5, -17, -79.5);
+	pt.vCenter = p;
+	pt.vCenter.z = pt.vCenter.z - 2;
+	pt.vCenter.y = pt.vCenter.y + 3;
+
+
+	Scal = D3DXVECTOR3(1.1, 0.65, 0.7);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI/2);
+
+	p = D3DXVECTOR3(14.5, -17, -74.6);
+	pt.vCenter = p;
+	pt.vCenter.x = pt.vCenter.x + 4;
+	pt.vCenter.y = pt.vCenter.y + 3;
+
+	Scal = D3DXVECTOR3(1.4, 0.65, 0.7);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, NULL);
+
+	//-57, -13.1 , -74.8   문
+	p = D3DXVECTOR3(-58.1, -16.8, -70.6);
+	pt.vCenter = p;
+	pt.vCenter.z = pt.vCenter.z - 3;
+	pt.vCenter.y = pt.vCenter.y + 3;
+
+	Scal = D3DXVECTOR3(1.4, 0.6, 0.7);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2);
+
+	//-52.2  ,-13.1,  -24.9 체어
+	Min = D3DXVECTOR3(-0.535, 0, -0.035);
+	Max = D3DXVECTOR3(0.535, 0.075, 0.035);
+
+	Scal = D3DXVECTOR3(2, 2, 2);
+	p = D3DXVECTOR3(-52, -15.7, -25.9);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 2;
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, Min, Max, NULL);
+	//ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, -D3DX_PI / 2);
+
+	//-60 , -13.1 , -4.7 문
+
+	//달리기 문 3개
+
+	p = D3DXVECTOR3(-62, -16.8, -38.6);
+	pt.vCenter = p;
+	//pt.vCenter.x = pt.vCenter.x - 8;
+	pt.vCenter.y = pt.vCenter.y + 3;
+	pt.vCenter.z = pt.vCenter.z - 4;
+
+	Min = D3DXVECTOR3(0.25, 0, -1);
+	Max = D3DXVECTOR3(-0.25, 3, 3);
+
+
+	Scal = D3DXVECTOR3(1.8, 0.6, 0.7);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2);
+
+	p = D3DXVECTOR3(-74.7, -16.8, -38.4);
+	pt.vCenter = p;
+	pt.vCenter.y = pt.vCenter.y + 3;
+	pt.vCenter.z = pt.vCenter.z - 4;
+
+	Scal = D3DXVECTOR3(1.8, 0.6, 0.7);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2);
+
+	p = D3DXVECTOR3(-92.3, -16.8, -39.0);
+	pt.vCenter = p;
+	pt.vCenter.y = pt.vCenter.y + 3;
+	pt.vCenter.z = pt.vCenter.z - 4;
+
+
+	Scal = D3DXVECTOR3(1.6, 0.6, 0.7);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2);
+	//-60, -13.1, -4.7 문
+
+	//	- 62.7, -13.1, -44.1문
+
+	//	- 81.3, -13.1 - 44.7문
+
+
+
+	//마지막문
+	//-93.1 , -13.1 -44.4
+	p = D3DXVECTOR3(-61.4, -16.8, -3.9);
+	pt.vCenter = p;
+	pt.vCenter.z = pt.vCenter.z + 3;
+	pt.vCenter.y = pt.vCenter.y + 3;
+
+	Scal = D3DXVECTOR3(1.4, 0.6, 0.7);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2);
+}
 /*
 ==============================
 cHero 클래스 사용 매뉴얼 : 최하늘
@@ -652,13 +706,16 @@ void c2FScene::Setup()
 		D3DXVECTOR3(15.0f, -126.5f, 7.0f), 1.0f);
 
 	//오브젝트 매니져 사용 메뉴얼 
-	SetUITest();
+	SetAddObj_2F();
 
 	m_pObb = new cOBB;
 	m_pObb->Setup(m_pHero->GetMesh());
 
 	m_pObbObj = new cOBB;
 	m_pObbObj->Setup(m_pHero->GetMesh());
+
+
+	
 
 }
 void c2FScene::Update()
@@ -674,6 +731,10 @@ void c2FScene::Update()
 	if (m_pMap)
 		m_pMap->Update();
 
+	if (GetAsyncKeyState(VK_F10))
+	{
+		ChangeMap();
+	}
 	
 
 	if (ObjectManager->isPinked() &&
@@ -971,6 +1032,79 @@ void c2FScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	}
 }
 
+
+void c2FScene::addElivator()
+{
+	D3DXVECTOR3 Scal;						//스케일... 
+	D3DXVECTOR3 p(10, 0, 0);				//포지션 위치 설정용
+	ST_SPHERE pt;							//피킹용 구 크기를 잡아줌
+
+	D3DXVECTOR3 Min(-10, 0, -10);			//OBB 크기를 정해줌(위치는 오브젝트 월드좌표 자동으로 따라감)
+	D3DXVECTOR3 Max(12, 30, 10);			//OBB 크기를 정해줌(위치는 오브젝트 월드좌표 자동으로 따라감)
+
+	//1. OBB 충돌 오브젝트 추가 (바운딩 박스 안에 플레이어가 들어올시 이벤트 처리해줄수있습니다.)
+	//ADDobject 오브젝트를 추가합니다.
+
+	//여기부터 엘리베이터 부분임돠
+	//엘리베이터 버튼(구피킹용으로 임시로 medkit 가져옴)
+	Scal = D3DXVECTOR3(0.01, 0.01, 0.01);
+	p = D3DXVECTOR3(63.6, -13.5, -105.5);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1.5f;
+	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::Switch, "E눌러주세요");
+
+	//엘리베이터 통
+	Scal = D3DXVECTOR3(1.1, 1.1, 1.1);
+	p = D3DXVECTOR3(62, -17, -108);
+	ObjectManager->ADDobject("Elivator", "Elivator.X", p, Scal, OBJ_TYPE::Room, -D3DX_PI / 2);
+	//엘리베이터 문 2개
+	Scal = D3DXVECTOR3(26.0f, 27.0f, 26.0f);
+	p = D3DXVECTOR3(60.35f, -17, -105.5f);
+	Min = D3DXVECTOR3(-0.035, 0, -0.035);
+	Max = D3DXVECTOR3(0.035, 0.075, 0.035);
+	//문1 (index 2)
+	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, pt, OBJ_TYPE::Eledoor, "", Min, Max, -D3DX_PI / 2);
+	Scal = D3DXVECTOR3(26.0f, 27.0f, 26.0f);
+	p = D3DXVECTOR3(62.95f, -17, -105.5f);
+	//문2 (index 3)
+	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, pt, OBJ_TYPE::Eledoor, "", Min, Max, -D3DX_PI / 2);
+
+	//엘리베이터 숫자 띄우기위한 폰트설정
+	LOGFONT	lf;
+	HDC hdc = CreateCompatibleDC(0);
+	ZeroMemory(&lf, sizeof(LOGFONT));
+	lf.lfHeight = 0.1;
+	lf.lfWidth = 0.1;
+	lf.lfWeight = 1;
+	lf.lfItalic = false;
+	lf.lfUnderline = false;
+	lf.lfStrikeOut = false;
+	lf.lfCharSet = DEFAULT_CHARSET;
+
+	strcpy(lf.lfFaceName, "Times New Roman");
+
+	HFONT hFont, hFontOld;
+	hFont = CreateFontIndirect(&lf);
+	hFontOld = (HFONT)SelectObject(hdc, hFont);
+
+
+	m_vecText.resize(4);
+
+	D3DXCreateText(g_pD3DDevice, hdc, "1", 0.1f, 0.01f, &m_vecText[0], 0, 0);
+	D3DXCreateText(g_pD3DDevice, hdc, "2", 0.1f, 0.01f, &m_vecText[1], 0, 0);
+	D3DXCreateText(g_pD3DDevice, hdc, "3", 0.1f, 0.01f, &m_vecText[2], 0, 0);
+	D3DXCreateText(g_pD3DDevice, hdc, "4", 0.1f, 0.01f, &m_vecText[3], 0, 0);
+	ObjectManager->getOpen();
+
+	ZeroMemory(&m_TextMtl, sizeof(_D3DMATERIAL9));
+	m_TextMtl.Ambient = m_TextMtl.Diffuse = m_TextMtl.Specular = D3DXCOLOR(0.6f, 0.1f, 0.1f, 1.0f);
+
+	SelectObject(hdc, hFontOld);
+	DeleteObject(hFont);
+	DeleteDC(hdc);
+}
+
 void c2FScene::ChangeMap()
 {
 	SAFE_DELETE(m_pMap);
@@ -983,4 +1117,11 @@ void c2FScene::ChangeMap()
 		"objMap/3Fsurf.obj",
 		D3DXVECTOR3(-13.84f, -553.f, 182.7f),
 		D3DXVECTOR3(-13.84f, -553.f, 182.7f), 1.0f);
+
+	ObjectManager->DestroyObject();
+
+	addElivator();
+
+	SetAddObj_3F();
+	
 }

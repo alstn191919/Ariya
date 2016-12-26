@@ -8,17 +8,19 @@ cMainGame::cMainGame(void) : FPS(0.0f), FrameCnt(0), TimeElapsed(0.0f)
 
 cMainGame::~cMainGame(void)
 {
+	
 	g_pTextureManager->Destroy();
 	g_pSkinnedMeshManager->Destroy();
 	g_pLightShaderManager->Destroy();
 	ObjectManager->Destroy();
 	g_pSceneManager->Destroy();
 	g_pSoundManager->Destroy();
-
 	g_pObjectManager->Destroy();
 	g_pDeviceManager->Destroy();
-
+	
 }
+
+
 
 void cMainGame::Setup()
 {
@@ -34,10 +36,6 @@ void cMainGame::Update()
 	Getfps(g_pTimeManager->GetDeltaTime());
 	ObjectManager->Update();
 
-
-
-
-	ObjectManager->Update();
 	g_pSceneManager->Update();
 }
 
@@ -52,7 +50,9 @@ void cMainGame::Render()
 	g_pD3DDevice->BeginScene();
 
 	g_pSceneManager->Render();
-	ObjectManager->Render();
+	//ObjectManager->Render();
+
+
 
 	// fps
 	char str[1024];

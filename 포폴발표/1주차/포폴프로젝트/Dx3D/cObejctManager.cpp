@@ -27,7 +27,6 @@ cObejctManager::cObejctManager()
 	m_aProjVertex[n++] = D3DXVECTOR3(1, -1, 1);
 	m_aProjVertex[n++] = D3DXVECTOR3(-1, -1, 1);
 	//
-
 }
 
 
@@ -87,7 +86,7 @@ void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTO
 }
 
 
-void cObejctManager::ADDobject(std::string sFolder,std::string sFile,D3DXVECTOR3 Pogi, D3DXVECTOR3 size,ST_SPHERE _Sphre,OBJ_TYPE _objtype, std::string _Text, D3DXVECTOR3 Min, D3DXVECTOR3 Max ,float Angle, D3DXVECTOR3* _LightPositon)
+void cObejctManager::ADDobject(std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, ST_SPHERE _Sphre, OBJ_TYPE _objtype, std::string _Text, D3DXVECTOR3 Min, D3DXVECTOR3 Max , float Angle)
 {
 	cSkinnedMesh2* newobject;
 
@@ -216,6 +215,7 @@ void cObejctManager::Update()
 	}
 
 
+
 	if (m_select_index != NonSlect && object[m_select_index]->GetObjType()==OBJ_TYPE::item)
 	{
 		object[m_select_index]->m_sSphre.isPicked = true;
@@ -239,16 +239,23 @@ void cObejctManager::Render()
 		{
 			if (object[i]->GetObb())
 			{
-
+			//	object[i]->ObjRender();
+				
+				
 				object[i]->GetObb()->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
 			}
 		}
 	}
 
+
+
 	if (m_select_index != NonSlect && object[m_select_index]->GetObjType()==item)
 	{
 	//	object[m_select_index]->ObjVIEWRender();
 	}
+
+	
+
 }
 
 
@@ -394,103 +401,103 @@ bool cObejctManager::getIndexOpen(int _index)
 }
 
 
-
-void cObejctManager::evt()//이벤트 사용예제
-{
-	
-
-	class bac:public cEvent
-	{
-		virtual void EVENT(){assert(false && "얍얍");}
-
-	};
-
-	cEvent * test;
-
-	test = new bac;
-
-
-	cOBB * obb;
-
-	obb = new cOBB;
-
-	obb->Setup(D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(1, 1, 1));
-
-	test->obb = obb;
-
-
-	test->_switch = false;
-	
-
-	v_Event.push_back(test);
-
-	class atoz :public cEvent
-	{
-		virtual void EVENT(){ assert(false && "2번컨테이너"); }
-
-	};
-
-	
-
-	test = new atoz;
-
-
-	cOBB * obb2;
-
-	obb2 = new cOBB;
-
-	obb->Setup(D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(1, 1, 1));
-
-	test->obb = obb2;
-
-
-	test->_switch = true;
-
-
-	
-
-
-	v_Event.push_back(test);
-
-
-	class asd :public cEvent
-	{
-		virtual void EVENT(){ assert(false && "asd클라스"); }
-
-	};
-
-
-
-	test = new asd;
-
-
-	test->obb = obb2;
-
-
-	test->_switch = true;
-	std::string a = "이벤트";
-	
-	m_Event.insert(std::pair<std::string, cEvent *> (a, test));
-
-	class 유지현 :public cEvent
-	{
-		virtual void EVENT(){ assert(false && "유지현클라스"); }
-
-	};
-
-
-	test = new 유지현;
-
-	test->obb = obb2;
-
-	test->_switch = true;
-
-	m_Event["유지현"] = test;
-
-
-
-
-}
+//보고 싶으면 해더 가서 v_Event 주석 같이 풀어주세요.
+//void cObejctManager::evt()//이벤트 사용예제
+//{
+//	
+//
+//	class bac:public cEvent
+//	{
+//		virtual void EVENT(){assert(false && "얍얍");}
+//
+//	};
+//
+//	cEvent * test;
+//
+//	test = new bac;
+//
+//
+//	cOBB * obb;
+//
+//	obb = new cOBB;
+//
+//	obb->Setup(D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(1, 1, 1));
+//
+//	test->obb = obb;
+//
+//
+//	test->_switch = false;
+//	
+//
+//	v_Event.push_back(test);
+//
+//	class atoz :public cEvent
+//	{
+//		virtual void EVENT(){ assert(false && "2번컨테이너"); }
+//
+//	};
+//
+//	
+//
+//	test = new atoz;
+//
+//
+//	cOBB * obb2;
+//
+//	obb2 = new cOBB;
+//
+//	obb->Setup(D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(1, 1, 1));
+//
+//	test->obb = obb2;
+//
+//
+//	test->_switch = true;
+//
+//
+//	
+//
+//
+//	v_Event.push_back(test);
+//
+//
+//	class asd :public cEvent
+//	{
+//		virtual void EVENT(){ assert(false && "asd클라스"); }
+//
+//	};
+//
+//
+//
+//	test = new asd;
+//
+//
+//	test->obb = obb2;
+//
+//
+//	test->_switch = true;
+//	std::string a = "이벤트";
+//	
+//	m_Event.insert(std::pair<std::string, cEvent *> (a, test));
+//
+//	class 유지현 :public cEvent
+//	{
+//		virtual void EVENT(){ assert(false && "유지현클라스"); }
+//
+//	};
+//
+//
+//	test = new 유지현;
+//
+//	test->obb = obb2;
+//
+//	test->_switch = true;
+//
+//	m_Event["유지현"] = test;
+//
+//
+//
+//
+//}
 
 
 void cObejctManager::Event1()
