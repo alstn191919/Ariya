@@ -253,6 +253,18 @@ void cHero::SetAnimationRun()
 	}
 }
 
+bool cHero::IsCrawl()
+{
+	if (m_enumState == CRT_STATE::CRT_CRAWL)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void cHero::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
