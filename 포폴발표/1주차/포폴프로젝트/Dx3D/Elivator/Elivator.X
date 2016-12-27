@@ -101,7 +101,7 @@ Material Material__25 {
  0.000000;0.000000;0.000000;;
 
  TextureFilename {
-  "Floor.tga";
+  "image.tga";
  }
 }
 

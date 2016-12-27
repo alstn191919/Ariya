@@ -782,7 +782,81 @@ void cObejctManager::add3FEvent()
 		}
 	};
 
+	class °øÆ¨±â±â :public cEvent
+	{
+		float gravity;
+		float time;
+		float Downspeed;
+		float Upvalue;
+		float Upspeed;
+		float height;
+		float BallPosition;
+		bool IsDown;
+
+		//°øÀ§Ä¡ -13.7, -13.11, -83
+		
+		void update()
+		{
+			if (ObjectManager->GettargetPosition().x >= -3.3f && ObjectManager->GettargetPosition().y <= -13.f)
+			{
+				_switch = true;
+				gravity = 0.7f;
+				Downspeed = 0.f;
+				Upspeed = 0.22f;
+				Upvalue = 0.02f;
+				height = -10.91f;
+				BallPosition = -10.91f;
+				IsDown = true;
+			}
+			if (_switch)
+			{
+				EVENT();
+			}
+		}
+		void EVENT()
+		{
+			if (BallPosition <= -16.11f)
+			{
+				BallPosition = -16.11;
+				ObjectManager->getObject(14)->SetWolrd(D3DXVECTOR3(-13.7f, BallPosition, -83.f), D3DXVECTOR3(1.2f, 1.2f, 1.2f));
+				_switch = false;
+			}
+
+			if (IsDown)
+			{
+				height -= Downspeed;
+				Downspeed += 0.01f;
+				if (height <= -16.11f)
+				{
+					Downspeed = 0.f;
+					IsDown = false;
+					BallPosition -= gravity;
+				}
+			}
+			else
+			{
+				height += Upspeed;
+				Upspeed -= 0.005f;
+				if (Upspeed < 0 || height >= BallPosition)
+				{
+					IsDown = true;
+					Upspeed = 0.22f;
+					Upspeed -= Upvalue;
+					Upvalue += 0.02f;
+				}
+			}
+			ObjectManager->getObject(14)->SetWolrd(D3DXVECTOR3(-13.7f, height, -83.f), D3DXVECTOR3(1.2f, 1.2f, 1.2f));
+		}
+	};
+
+
 	cEvent * _event;
+
 	_event = new ÆÞ·°ÆÞ·°ÈÙÃ¼¾î;
 	m_Event["ÆÞ·°ÆÞ·°ÈÙÃ¼¾î"] = _event;
+
+	_event = new °øÆ¨±â±â;
+	m_Event["°øÆ¨±â±â"] = _event;
+
+	
 }
