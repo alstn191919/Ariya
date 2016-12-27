@@ -654,56 +654,6 @@ void cObejctManager::EventDefinitions()
 	};
 
 
-	class ∆ﬁ∑∞∆ﬁ∑∞»Ÿ√ºæÓ :public cEvent
-	{
-		float speed;
-		float Position;
-		int randomX;
-		int randomY;
-		int _time;
-		POINT temp;
-
-		void update()
-		{
-			_time++;
-			if (ObjectManager->GettargetPosition().x >= -38.f && ObjectManager->GettargetPosition().y <= -13.f)
-			{
-				srand((unsigned int)time(NULL));
-
-				_switch = true;
-				speed = -0.35f;
-				Position = -62.f;
-				_time = 0;
-				RECT rc;
-				GetClientRect(g_hWnd, &rc);
-				randomX = (rc.right - rc.left) / 2;
-				randomY = (rc.bottom - rc.top) / 2;
-
-			}
-			if (_switch)
-			{
-				Position += speed;
-				EVENT();
-			}
-		}
-		void EVENT()
-		{
-			ObjectManager->getObject(16)->SetWolrd(D3DXVECTOR3(-52.f, -14.91, Position), D3DXVECTOR3(0.4f, 0.4f, 0.4f));
-			if (Position <= -92.f)
-			{
-				//∫Æø° ∫Œµ˙«˚¿Ω »≠∏È »ÁµÈ∏Æ∞Ì ƒÙ!«œ¥¬ º“∏Æ ≥™æﬂ«‘
-
-				ObjectManager->getObject(16)->SetAngleX(D3DX_PI / 2);
-				ObjectManager->getObject(16)->SetAngleY(D3DX_PI / 2);
-
-				Position = -92.f;
-				ObjectManager->getObject(16)->SetWolrd(D3DXVECTOR3(-52.f, -14.91, Position), D3DXVECTOR3(0.4f, 0.4f, 0.4f));
-
-				_switch = false;
-			}
-		}
-	};
-
 
 	cEvent * _event;
 	_event = new »≠¿ÂΩ«;
@@ -713,8 +663,7 @@ void cObejctManager::EventDefinitions()
 	_event = new ∞Ë¥‹ø∑;
 	m_Event["∞Ë¥‹ø∑"] = _event;
 
-	_event = new ∆ﬁ∑∞∆ﬁ∑∞»Ÿ√ºæÓ;
-	m_Event["∆ﬁ∑∞∆ﬁ∑∞»Ÿ√ºæÓ"] = _event;
+
 
 }
 void cObejctManager::setIndexOpen(bool _isOpen)
@@ -779,4 +728,61 @@ void cObejctManager::CullingUpdate()
 		&aFrustumVertex[3],
 		&aFrustumVertex[2],
 		&aFrustumVertex[6]);
+}
+
+void cObejctManager::add3FEvent()
+{
+	class ∆ﬁ∑∞∆ﬁ∑∞»Ÿ√ºæÓ :public cEvent
+	{
+		float speed;
+		float Position;
+		int randomX;
+		int randomY;
+		int _time;
+		POINT temp;
+
+		void update()
+		{
+			_time++;
+			if (ObjectManager->GettargetPosition().x >= -38.f && ObjectManager->GettargetPosition().y <= -13.f)
+			{
+				srand((unsigned int)time(NULL));
+
+				_switch = true;
+				speed = -0.75f;
+				Position = -62.f;
+				_time = 0;
+				RECT rc;
+				GetClientRect(g_hWnd, &rc);
+				randomX = (rc.right - rc.left) / 2;
+				randomY = (rc.bottom - rc.top) / 2;
+
+			}
+			if (_switch)
+			{
+				Position += speed;
+				EVENT();
+			}
+		}
+		void EVENT()
+		{
+			ObjectManager->getObject(13)->SetWolrd(D3DXVECTOR3(-52.f, -14.91, Position), D3DXVECTOR3(0.4f, 0.4f, 0.4f));
+			if (Position <= -92.f)
+			{
+				//∫Æø° ∫Œµ˙«˚¿Ω »≠∏È »ÁµÈ∏Æ∞Ì ƒÙ!«œ¥¬ º“∏Æ ≥™æﬂ«‘
+
+				ObjectManager->getObject(13)->SetAngleX(D3DX_PI / 2);
+				ObjectManager->getObject(13)->SetAngleY(D3DX_PI / 2);
+										  
+				Position = -92.f;		  
+				ObjectManager->getObject(13)->SetWolrd(D3DXVECTOR3(-52.f, -14.91, Position), D3DXVECTOR3(0.4f, 0.4f, 0.4f));
+
+				_switch = false;
+			}
+		}
+	};
+
+	cEvent * _event;
+	_event = new ∆ﬁ∑∞∆ﬁ∑∞»Ÿ√ºæÓ;
+	m_Event["∆ﬁ∑∞∆ﬁ∑∞»Ÿ√ºæÓ"] = _event;
 }

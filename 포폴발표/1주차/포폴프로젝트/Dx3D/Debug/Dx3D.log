@@ -1,4 +1,4 @@
-﻿빌드 시작: 2016-12-27 오후 1:29:16
+﻿빌드 시작: 2016-12-27 오후 2:10:58
      1>2 노드의 "C:\Users\Yoo Ji Hyeon\Desktop\포폴프로젝트\Dx3D\Dx3D.vcxproj" 프로젝트(Build 대상)입니다.
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Dx3D.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt cObejctManager.cpp
@@ -24,8 +24,8 @@
      1>c:\users\yoo ji hyeon\desktop\포폴프로젝트\dx3d\cobejctmanager.cpp(592): warning C4305: '인수' : 'double'에서 'float'(으)로 잘립니다.
      1>c:\users\yoo ji hyeon\desktop\포폴프로젝트\dx3d\cobejctmanager.cpp(634): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
      1>c:\users\yoo ji hyeon\desktop\포폴프로젝트\dx3d\cobejctmanager.cpp(641): warning C4305: '인수' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트\dx3d\cobejctmanager.cpp(691): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트\dx3d\cobejctmanager.cpp(700): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트\dx3d\cobejctmanager.cpp(769): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트\dx3d\cobejctmanager.cpp(778): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
      1>c:\users\yoo ji hyeon\desktop\포폴프로젝트\dx3d\cobejctmanager.cpp(344): warning C4715: 'cObejctManager::getText' : 모든 제어 경로에서 값을 반환하지는 않습니다.
      1>c:\users\yoo ji hyeon\desktop\포폴프로젝트\dx3d\cobejctmanager.cpp(390): warning C4715: 'cObejctManager::getPinkedObjType' : 모든 제어 경로에서 값을 반환하지는 않습니다.
        Link:
@@ -85,4 +85,4 @@
 
 빌드했습니다.
 
-경과 시간: 00:00:01.34
+경과 시간: 00:00:01.56

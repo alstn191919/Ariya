@@ -667,7 +667,7 @@ void c2FScene::SetAddObj_3F()
 	Scal = D3DXVECTOR3(1.4, 0.6, 0.7);
 	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2, D3DXVECTOR3(0, 0, 0));
 
-	//휠체어 16번
+	//휠체어 13번
 	Min = D3DXVECTOR3(-0.535, 0, -0.035);
 	Max = D3DXVECTOR3(0.535, 0.075, 0.035);
 
@@ -1182,5 +1182,6 @@ void c2FScene::ChangeMap()
 
 	addElivator();
 	SetAddObj_3F();
+	ObjectManager->add3FEvent();
 
 }

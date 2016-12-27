@@ -62,6 +62,7 @@ public:
 
 	void Event1();
 	void EventDefinitions();
+	void add3FEvent();
 
 	std::vector<cEvent *>v_Event;
 	std::map<std::string, cEvent *>m_Event;
