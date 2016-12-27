@@ -14,8 +14,6 @@
 #include"cHero.h"
 #include "cUI.h"
 
-
-
 c2FScene::c2FScene() : m_pCamera(NULL)
 , m_pGrid(NULL)
 , m_pController(NULL)
@@ -751,7 +749,9 @@ void c2FScene::Update()
 		m_pController->Update(m_pMap, m_pObb);
 
 	if (m_pCamera)
-		m_pCamera->Update(&m_pHero->GetPosition(), &m_pController->GetDirection());
+		m_pCamera->Update(&m_pHero->GetPosition(), &m_pController->GetDirection(), m_pHero->IsCrawl());
+	
+	ObjectManager->SettargetPosition(m_pHero->GetPosition());
 
 	m_pController->SetfAngleX(m_pCamera->GetfAngleY());
 

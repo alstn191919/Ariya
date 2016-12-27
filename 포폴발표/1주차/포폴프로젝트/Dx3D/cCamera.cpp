@@ -8,8 +8,8 @@ cCamera::cCamera(void)
 	, m_vUp(0, 1, 0)
 	, m_isLButtonDown(false)
 	, m_isLButtonOBJDown(false)
-	, m_fAngleX(-D3DX_PI / 1.9f)
-	, m_fAngleY(D3DX_PI / 1.2f)
+	, m_fAngleX(0.0f)
+	, m_fAngleY(0.0f)
 	, m_fDistance(10.0f)
 	, m_LockupMouse(false)
 {
@@ -36,7 +36,7 @@ void cCamera::Setup()
 	SetCursorPos(m_ptPrevMouse.x, m_ptPrevMouse.y);
 }
 
-void cCamera::Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection)
+void cCamera::Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection,bool IsCrawl)
 {
 	//마우스 가두기
 	if (m_LockupMouse)
@@ -59,17 +59,25 @@ void cCamera::Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection)
 
 	if (pTarget)
 	{
-		pTarget->y += 3.5f;
-		m_vEye = *pTarget;
-		m_vLookAt = *pTarget + *pDirection + templook;
+		if (IsCrawl)
+		{
+			pTarget->y += 2.5f;
+			pTarget->x -= sinf(m_fAngleY);
+			pTarget->z -= cosf(m_fAngleY);
+			m_vEye = *pTarget;
+			
+		}
+		else
+		{
+			pTarget->y += 3.5f;
+			m_vEye = *pTarget;
+		}
 
-		
+		m_vLookAt = *pTarget + *pDirection + templook;
 	}
 
 	D3DXMatrixLookAtLH(&m_matView, &m_vEye, &m_vLookAt, &m_vUp);
 	g_pD3DDevice->SetTransform(D3DTS_VIEW, &m_matView);
-
-
 
 }
 

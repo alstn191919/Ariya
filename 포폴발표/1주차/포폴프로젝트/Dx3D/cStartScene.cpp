@@ -48,7 +48,7 @@ void cStartScene::Setup()
 
 	pCamera = new cCamera;
 	pCamera->Setup();
-	pCamera->Update(&CameraPosition, &CameraDirection);
+	pCamera->Update(&CameraPosition, &CameraDirection, NULL);
 
 	Button = new cUIButton;
 	Button->SetDelegate(this);
@@ -98,7 +98,7 @@ void cStartScene::Update()
 			CamTime += (0.0167 + (CamTime * 0.1f));
 			float T = CamTime / 20;
 			D3DXVec3Lerp(&CameraPosition, &PrevCamPos, &NextCamPos, T);
-			pCamera->Update(&CameraPosition, &CameraDirection);
+			pCamera->Update(&CameraPosition, &CameraDirection, NULL);
 			if (T > 1.0f)
 			{
 				SAFE_DELETE(pMap);

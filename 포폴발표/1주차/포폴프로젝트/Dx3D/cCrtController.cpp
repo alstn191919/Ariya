@@ -4,7 +4,7 @@
 
 cCrtController::cCrtController(void)
 	: m_vPosition(0, 0, 0)
-	, m_vDirection(0, 0, -1)
+	, m_vDirection(0, 0, 0)
 	, m_fSpeed(0.3f)
 	, m_fAngleX(0.0f)
 	, m_isRight(false)

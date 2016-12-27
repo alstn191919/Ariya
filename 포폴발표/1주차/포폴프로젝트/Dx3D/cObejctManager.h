@@ -16,6 +16,8 @@ private:
 	std::vector<cSkinnedMesh2*> object;			//오브젝트
 	SYNTHESIZE(int, m_select_index, select_index);								//선택된 오브젝트 인덱스
 	SYNTHESIZE(bool, b_Collision, Collision);
+	SYNTHESIZE(D3DXVECTOR3, m_targetPosition, targetPosition);
+
 private: //컬링
 	D3DXVECTOR3		m_aProjVertex[8];
 	D3DXPLANE		m_aPlane[6];

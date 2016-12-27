@@ -31,7 +31,7 @@ public:
 	~cCamera(void);
 
 	void Setup();
-	void Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection);
+	void Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection, bool IsCrawl = NULL);
 
 
 	D3DXMATRIXA16* GetViewMatrix();
