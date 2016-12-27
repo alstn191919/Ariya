@@ -688,15 +688,17 @@ void cObejctManager::EventDefinitions()
 		}
 		void EVENT()
 		{
-			ObjectManager->getObject(4)->SetWolrd(D3DXVECTOR3(-52.f, -14.91, Position), D3DXVECTOR3(0.4f, 0.4f, 0.4f));
+			ObjectManager->getObject(16)->SetWolrd(D3DXVECTOR3(-52.f, -14.91, Position), D3DXVECTOR3(0.4f, 0.4f, 0.4f));
 			if (Position <= -92.f)
 			{
 				//º®¿¡ ºÎµúÇûÀ½ È­¸é Èçµé¸®°í Äô!ÇÏ´Â ¼Ò¸® ³ª¾ßÇÔ
 
-				ObjectManager->getObject(4)->SetAngleX(D3DX_PI / 2);
-				ObjectManager->getObject(4)->SetAngleY(D3DX_PI / 2);
+				ObjectManager->getObject(16)->SetAngleX(D3DX_PI / 2);
+				ObjectManager->getObject(16)->SetAngleY(D3DX_PI / 2);
 
 				Position = -92.f;
+				ObjectManager->getObject(16)->SetWolrd(D3DXVECTOR3(-52.f, -14.91, Position), D3DXVECTOR3(0.4f, 0.4f, 0.4f));
+
 				_switch = false;
 			}
 		}

@@ -666,6 +666,19 @@ void c2FScene::SetAddObj_3F()
 
 	Scal = D3DXVECTOR3(1.4, 0.6, 0.7);
 	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2, D3DXVECTOR3(0, 0, 0));
+
+	//휠체어 16번
+	Min = D3DXVECTOR3(-0.535, 0, -0.035);
+	Max = D3DXVECTOR3(0.535, 0.075, 0.035);
+
+	Scal = D3DXVECTOR3(0.4, 0.4, 0.4);
+	p = D3DXVECTOR3(0, 2, 10);
+	//28.0,3,-56.2
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+	//std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max, float Angle
+	ObjectManager->ADDobject("Wheelchair", "wheelchair.x", p, Scal, Min, Max, D3DX_PI, D3DXVECTOR3(39.4, 3.3, -28.2));
 }
 /*
 ==============================
@@ -769,6 +782,7 @@ void c2FScene::Update()
 	{
 		pTextView->SetText(ObjectManager->getText());
 	}
+
 
 	g_pAutoReleasePool->Drain();
 }
@@ -1162,11 +1176,11 @@ void c2FScene::ChangeMap()
 		"objMap/3Fsurf.obj",
 		D3DXVECTOR3(-13.84f, -553.f, 182.7f),
 		D3DXVECTOR3(-13.84f, -553.f, 182.7f), 1.0f);
+	m_pMap->Shadowinit("./shader/ApplyShadow.fx", "./shader/CreateShadow.fx");
 
 	ObjectManager->DestroyObject();
 
 	addElivator();
-
 	SetAddObj_3F();
-	
+
 }
