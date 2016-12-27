@@ -577,7 +577,7 @@ void c2FScene::SetAddObj_3F()
 	Max = D3DXVECTOR3(-0.25, 3, 3);
 
 	Scal = D3DXVECTOR3(1.4, 0.65, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, NULL);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, NULL,D3DXVECTOR3(0,0,0));
 
 
 	p = D3DXVECTOR3(84.5, -17, -79.5);
@@ -587,7 +587,7 @@ void c2FScene::SetAddObj_3F()
 
 
 	Scal = D3DXVECTOR3(1.1, 0.65, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI/2);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2, D3DXVECTOR3(0, 0, 0));
 
 	p = D3DXVECTOR3(14.5, -17, -74.6);
 	pt.vCenter = p;
@@ -595,7 +595,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter.y = pt.vCenter.y + 3;
 
 	Scal = D3DXVECTOR3(1.4, 0.65, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, NULL);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, NULL, D3DXVECTOR3(0, 0, 0));
 
 	//-57, -13.1 , -74.8   문
 	p = D3DXVECTOR3(-58.1, -16.8, -70.6);
@@ -604,7 +604,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter.y = pt.vCenter.y + 3;
 
 	Scal = D3DXVECTOR3(1.4, 0.6, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2, D3DXVECTOR3(0, 0, 0));
 
 	//-52.2  ,-13.1,  -24.9 체어
 	Min = D3DXVECTOR3(-0.535, 0, -0.035);
@@ -615,7 +615,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 2;
-	ObjectManager->ADDobject("t", "chair.x", p, Scal, Min, Max, NULL);
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, Min, Max, NULL, D3DXVECTOR3(0, 0, 0));
 	//ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, -D3DX_PI / 2);
 
 	//-60 , -13.1 , -4.7 문
@@ -633,7 +633,7 @@ void c2FScene::SetAddObj_3F()
 
 
 	Scal = D3DXVECTOR3(1.8, 0.6, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2, D3DXVECTOR3(0, 0, 0));
 
 	p = D3DXVECTOR3(-74.7, -16.8, -38.4);
 	pt.vCenter = p;
@@ -641,7 +641,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter.z = pt.vCenter.z - 4;
 
 	Scal = D3DXVECTOR3(1.8, 0.6, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2, D3DXVECTOR3(0, 0, 0));
 
 	p = D3DXVECTOR3(-92.3, -16.8, -39.0);
 	pt.vCenter = p;
@@ -650,7 +650,7 @@ void c2FScene::SetAddObj_3F()
 
 
 	Scal = D3DXVECTOR3(1.6, 0.6, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2, D3DXVECTOR3(0, 0, 0));
 	//-60, -13.1, -4.7 문
 
 	//	- 62.7, -13.1, -44.1문
@@ -667,7 +667,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter.y = pt.vCenter.y + 3;
 
 	Scal = D3DXVECTOR3(1.4, 0.6, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2);
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2, D3DXVECTOR3(0, 0, 0));
 }
 /*
 ==============================
@@ -1094,23 +1094,26 @@ void c2FScene::addElivator()
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 1.5f;
-	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::Switch, "E눌러주세요");
+	ObjectManager->ADDobject("Medkit", "medkit1.x", p, Scal, pt, OBJ_TYPE::Switch, "E눌러주세요", D3DXVECTOR3(-2.3f, 6.0f, -2.3f));
 
 	//엘리베이터 통
 	Scal = D3DXVECTOR3(1.1, 1.1, 1.1);
 	p = D3DXVECTOR3(62, -17, -108);
-	ObjectManager->ADDobject("Elivator", "Elivator.X", p, Scal, OBJ_TYPE::Room, -D3DX_PI / 2);
+	ObjectManager->ADDobject("Elivator", "Elivator.X", p, Scal, OBJ_TYPE::Room, -D3DX_PI / 2, D3DXVECTOR3(63.5f, -14.3f, -102.1f));
+
 	//엘리베이터 문 2개
 	Scal = D3DXVECTOR3(26.0f, 27.0f, 26.0f);
 	p = D3DXVECTOR3(60.35f, -17, -105.5f);
 	Min = D3DXVECTOR3(-0.035, 0, -0.035);
 	Max = D3DXVECTOR3(0.035, 0.075, 0.035);
+
 	//문1 (index 2)
-	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, pt, OBJ_TYPE::Eledoor, "", Min, Max, -D3DX_PI / 2);
+	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, pt, OBJ_TYPE::Eledoor, "", Min, Max, -D3DX_PI / 2, D3DXVECTOR3(56.0f, -11.4f, -97.2f));
 	Scal = D3DXVECTOR3(26.0f, 27.0f, 26.0f);
 	p = D3DXVECTOR3(62.95f, -17, -105.5f);
 	//문2 (index 3)
-	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, pt, OBJ_TYPE::Eledoor, "", Min, Max, -D3DX_PI / 2);
+
+	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, pt, OBJ_TYPE::Eledoor, "", Min, Max, -D3DX_PI / 2, D3DXVECTOR3(56.0f, -11.4f, -97.2f));
 
 	//엘리베이터 숫자 띄우기위한 폰트설정
 	LOGFONT	lf;
