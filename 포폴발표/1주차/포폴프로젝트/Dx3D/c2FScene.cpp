@@ -13,11 +13,13 @@
 #include "cOBB.h"
 #include"cHero.h"
 #include "cUI.h"
+#include"Monster.h"
 
 c2FScene::c2FScene() : m_pCamera(NULL)
 , m_pGrid(NULL)
 , m_pController(NULL)
 , m_pHero(NULL)
+, m_pMonster(NULL)
 , m_pMap(NULL)
 , m_isCrtRunning(false)
 , m_isCrtCrawling(false)
@@ -27,6 +29,7 @@ c2FScene::c2FScene() : m_pCamera(NULL)
 , m_b1stFloor(true)
 , m_bisClicked(false)
 , gpFont(NULL)
+,time(0)
 {
 	//g_bOBBCollision = false;
 	g_pSoundManager->Stop("mainTheme");
@@ -41,6 +44,7 @@ c2FScene::~c2FScene()
 	SAFE_DELETE(m_pGrid);
 	SAFE_DELETE(m_pController);
 	SAFE_DELETE(m_pHero);
+	SAFE_DELETE(m_pMonster);
 	SAFE_DELETE(m_pMap);
 	SAFE_DELETE(m_pSkinnedMesh);
 	SAFE_RELEASE(m_pUIRoot);
@@ -90,8 +94,8 @@ void c2FScene::SetAddObj_2F()
 
 
 
-	Min = D3DXVECTOR3(-0.535, 0, -0.035);
-	Max = D3DXVECTOR3(0.535, 0.075, 0.035);
+	Min = D3DXVECTOR3(-3, 0, -3);
+	Max = D3DXVECTOR3(3, 1, 3);
 
 	Scal = D3DXVECTOR3(0.4, 0.4, 0.4);
 	p = D3DXVECTOR3(0, 2, 10);
@@ -119,7 +123,7 @@ void c2FScene::SetAddObj_2F()
 	/*p.y = 0;
 	p.x = 0;
 	p.z = 1;
-	
+
 
 	pt.vCenter = p;
 	pt.isPicked = false;
@@ -137,6 +141,7 @@ void c2FScene::SetAddObj_2F()
 	pt.vCenter.y = pt.vCenter.y + 3;
 	pt.isPicked = false;
 	pt.fRadius = 1;
+
 
 	Min = D3DXVECTOR3(0, 0, -1);
 	Max = D3DXVECTOR3(-0.5, 3, 3);
@@ -496,7 +501,20 @@ void c2FScene::SetAddObj_2F()
 	ObjectManager->ADDobject("Basiccabinet", "basic cabinet (X).x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL, D3DXVECTOR3(-2.3f, 6.0f, -2.3f));
 
 
-	
+
+	////Bedside cabinet
+
+	Min = D3DXVECTOR3(1, 1, 1);
+	Max = D3DXVECTOR3(-1, 0, -1);
+	Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
+	p = D3DXVECTOR3(0, 0, -5.5);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
+
+
+
 	//Key_B_02.x
 
 	//Scal = D3DXVECTOR3(1, 1, 1);
@@ -521,7 +539,7 @@ void c2FScene::SetAddObj_2F()
 	ZeroMemory(&stImageInfo, sizeof(D3DXIMAGE_INFO));
 	LPDIRECT3DTEXTURE9 pTexture = g_pTextureManager->GetSpriteTexture(
 		//"./UI2/panel-info.png.png",
-		"./UI/UI_IN.tga",
+		"./UI/UI_SAS.tga",
 		&stImageInfo);
 	pImageView->SetTexture(pTexture);
 	pImageView->SetSize(ST_SIZE(stImageInfo.Width, stImageInfo.Height));
@@ -548,9 +566,13 @@ void c2FScene::SetAddObj_2F()
 	//	m_pUIRoot = pTextView;
 	m_pUIRoot->AddChild(pTextView);
 
+
+	
 	m_pUI = new cUI;
 	m_pUI->Setup();
 
+
+	
 
 	//ObjectManager->evt();
 	//ObjectManager->v_Event[0]->update();
@@ -668,53 +690,74 @@ void c2FScene::SetAddObj_3F()
 	Scal = D3DXVECTOR3(1.4, 0.6, 0.7);
 	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2, D3DXVECTOR3(0, 0, 0));
 
-	//휠체어 13번
-	Min = D3DXVECTOR3(-0.535, 0, -0.035);
-	Max = D3DXVECTOR3(0.535, 0.075, 0.035);
+		- 2.9 - 13.1, -78.1
 
-	Scal = D3DXVECTOR3(0.4, 0.4, 0.4);
-	p = D3DXVECTOR3(0, 2, 10);
-	//28.0,3,-56.2
+		- 3.2, -12, -82*/
+
+
+	//13번째 인덱스
+	Min = D3DXVECTOR3(-1, 0, -1);
+	Max = D3DXVECTOR3(1, 4, 1);
+	Scal = D3DXVECTOR3(0.1, 0.1, 0.08);
+	p = D3DXVECTOR3(-2, -15.8, -82.8);
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 1;
-	//std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max, float Angle
-	ObjectManager->ADDobject("Wheelchair", "wheelchair.x", p, Scal, Min, Max, D3DX_PI, D3DXVECTOR3(39.4, 3.3, -28.2));
+	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "", Min*10, Max*10, NULL);
+	//ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI / 2);
+
+	ObjectManager->getObject(13)->SetAngleX(-D3DX_PI/2);
+	ObjectManager->getObject(13)->SetAngleY(D3DX_PI / 2);
 
 
+	//- 2.9 - 13.1, -78.1
 
-	//14번 공
-	Min = D3DXVECTOR3(-0.3, -0.2, -0.6);
-	Max = D3DXVECTOR3(0.1, 0.2, -0.2);
-	Scal = D3DXVECTOR3(1.2, 1.2, 1.2);
-	p = D3DXVECTOR3(0, 3, 3);
-	//28.0,3,-56.2
+	Max = D3DXVECTOR3(1, 4, 1);
+	Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
+	p = D3DXVECTOR3(-2.9, -15.8, -75.8);
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 1;
-	//std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max, float Angle
-	ObjectManager->ADDobject("Ball", "Ball.X", p, Scal, Min, Max, D3DX_PI, D3DXVECTOR3(39.4, 3.3, -28.2));
+	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "", Min * 10, Max * 10, NULL);
 
-	//마지막 넓은 공터 쪽 의자 2개
-	Min = D3DXVECTOR3(-0.535, 0, -0.035);
-	Max = D3DXVECTOR3(0.535, 0.075, 0.035);
+	ObjectManager->getObject(14)->SetAngleX(D3DX_PI+0.1);
+	ObjectManager->getObject(14)->SetAngleY(D3DX_PI / 2);
 
-	Scal = D3DXVECTOR3(2, 2, 2);
-	p = D3DXVECTOR3(-85.27, -15.71, -15.62);
+	/*	- 3.2, -12, -82*/
+	Max = D3DXVECTOR3(1, 4, 1);
+	Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
+	p = D3DXVECTOR3(-3.2, -14.3, -79);
 	pt.vCenter = p;
 	pt.isPicked = false;
-	pt.fRadius = 2;
-	ObjectManager->ADDobject("t", "chair.x", p, Scal, Min, Max, -D3DX_PI/2, D3DXVECTOR3(0, 0, 0));
+	pt.fRadius = 1;
+	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "", Min * 10, Max * 10, NULL);
 
-	Min = D3DXVECTOR3(-0.535, 0, -0.035);
-	Max = D3DXVECTOR3(0.535, 0.075, 0.035);
+	ObjectManager->getObject(15)->SetAngleX(-D3DX_PI+0.4);
+	ObjectManager->getObject(15)->SetAngleY(D3DX_PI/2);
 
-	Scal = D3DXVECTOR3(2, 2, 2);
-	p = D3DXVECTOR3(-85.27, -15.71, -1.62);
+
+	//-24.8 , -13.1 , -80.2
+	Max = D3DXVECTOR3(1, 4, 1);
+	Scal = D3DXVECTOR3(0.1, 0.05, 0.4);
+	p = D3DXVECTOR3(-24.8, -15.8, -72.2);
 	pt.vCenter = p;
 	pt.isPicked = false;
-	pt.fRadius = 2;
-	ObjectManager->ADDobject("t", "chair.x", p, Scal, Min, Max, -D3DX_PI / 2, D3DXVECTOR3(0, 0, 0));
+	pt.fRadius = 1;
+	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "", Min * 10, Max * 10, NULL);
+
+	ObjectManager->getObject(16)->SetAngleX(-D3DX_PI );
+	ObjectManager->getObject(16)->SetAngleY(D3DX_PI / 2);
+
+
+	/*p = D3DXVECTOR3(-61.4, -16.8, -3.9);
+	pt.vCenter = p;
+	pt.vCenter.z = pt.vCenter.z + 3;
+	pt.vCenter.y = pt.vCenter.y + 3;
+
+	Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
+	ObjectManager->ADDobject("monster", "monster.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2);*/
+
+
 }
 /*
 ==============================
@@ -745,8 +788,27 @@ void c2FScene::Setup()
 	m_pGrid = new cGrid;
 	m_pGrid->Setup(30);
 
+	m_pMonster = new Monster("monster/", "monster.X");
+	m_pMonster->SetAnimationIndex(6);
+	//m_pMonster->SetPosition(D3DXVECTOR3(0, 0, 0));
+	m_pMonster->SetPosition(D3DXVECTOR3(-52.5, -16.1, -81.8));
+
+
+	/*
+	귀신 처음 등장 -52.5 , -13.1 , -81.8
+
+			2번째 -54.0 , -13.1 , -41.4
+
+			마지막 -73 , -13.1 , 16.4
+
+			라스트 -55.4,-13.1 , -2.14
+	
+	*/
+
+
+	//m_pHero = new cHero("monster/", "monster.X");
 	m_pHero = new cHero("Character/", "hero.X");
-	m_pHero->SetAnimationIndex(5);							//기본(제자리)
+	m_pHero->SetAnimationIndex(11);							//기본(제자리)
 	m_pHero->SetPosition(D3DXVECTOR3(0, 0, 0));
 
 	m_pMap = new cMapRender;
@@ -768,6 +830,7 @@ void c2FScene::Setup()
 void c2FScene::Update()
 {
 
+	m_pObb->Setup(m_pHero->GetMesh()->GetMin(), m_pHero->GetMesh()->GetMax());
 	if (GetKeyState(VK_UP) & 8888)
 	{
 		ObjectManager->getObject(1)->SetLightPositon(ObjectManager->getObject(1)->GetLightPositon() + D3DXVECTOR3(0, 0, 1));
@@ -794,12 +857,12 @@ void c2FScene::Update()
 	}
 
 
+
 	if (m_pController)
 		m_pController->Update(m_pMap, m_pObb);
 
 	if (m_pCamera)
 		m_pCamera->Update(&m_pHero->GetPosition(), &m_pController->GetDirection(), m_pHero->IsCrawl());
-	
 	ObjectManager->SettargetPosition(m_pHero->GetPosition());
 
 	m_pController->SetfAngleX(m_pCamera->GetfAngleY());
@@ -819,11 +882,11 @@ void c2FScene::Update()
 		pTextView->SetText(ObjectManager->getText());
 	}
 
-
 	g_pAutoReleasePool->Drain();
 }
 void c2FScene::Render()
 {
+	time++;
 	D3DXMATRIXA16 matI, matT, matS;
 	D3DXMatrixIdentity(&matI);
 	D3DXMatrixIdentity(&matT);
@@ -870,6 +933,11 @@ void c2FScene::Render()
 	m_pHero->SetPosition(D3DXVECTOR3(_zMat._41, _zMat._42, _zMat._43));
 	m_pHero->UpdateAndRender(&_zMat);	
 	
+	//if (GetAsyncKeyState('P') & 1)
+	if (/*time%20==0 && */(GetKeyState('P') & 0x8001))
+	{
+		MonSterAI();
+	}
 	
 	// 그리드
 	//m_pGrid->Render();
@@ -906,6 +974,7 @@ void c2FScene::Render()
 		m_pUIRoot->Render(m_pSprite);
 	}
 
+	
 	
 
 
@@ -1156,15 +1225,14 @@ void c2FScene::addElivator()
 	p = D3DXVECTOR3(60.35f, -17, -105.5f);
 	Min = D3DXVECTOR3(-0.035, 0, -0.035);
 	Max = D3DXVECTOR3(0.035, 0.075, 0.035);
-
 	//문1 (index 2)
 	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, pt, OBJ_TYPE::Eledoor, "", Min, Max, -D3DX_PI / 2, D3DXVECTOR3(56.0f, -11.4f, -97.2f));
 	Scal = D3DXVECTOR3(26.0f, 27.0f, 26.0f);
 	p = D3DXVECTOR3(62.95f, -17, -105.5f);
 	//문2 (index 3)
 
-	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, pt, OBJ_TYPE::Eledoor, "", Min, Max, -D3DX_PI / 2, D3DXVECTOR3(56.0f, -11.4f, -97.2f));
 
+	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, pt, OBJ_TYPE::Eledoor, "", Min, Max, -D3DX_PI / 2, D3DXVECTOR3(56.0f, -11.4f, -97.2f));
 	//엘리베이터 숫자 띄우기위한 폰트설정
 	LOGFONT	lf;
 	HDC hdc = CreateCompatibleDC(0);
@@ -1217,7 +1285,46 @@ void c2FScene::ChangeMap()
 	ObjectManager->DestroyObject();
 
 	addElivator();
+
 	SetAddObj_3F();
 	ObjectManager->add3FEvent();
+}
+
+
+void c2FScene::MonSterAI()
+{
+	int a = 0;
+	static int index = 0;
+	D3DXMATRIXA16 matP , matS ,matR, m_Wolrd;
+	D3DXVECTOR3 vPosition;
+	D3DXMatrixIdentity(&matR);
+	D3DXMatrixIdentity(&matS);
+	D3DXMatrixIdentity(&matP);
+	D3DXMatrixIdentity(&m_Wolrd);
+	D3DXMatrixScaling(&matS, charsizeX, charsizeY, charsizeZ);
+	//D3DXMatrixTranslation(&m_Wolrd, -26.4, 0, 7.88);
+	
+	//m_pMonster->SetAnimationIndex(4);
+//	m_pMonster->SetPosition(D3DXVECTOR3(-26.4, 0, 7.88));
+	
+	D3DXVECTOR3 m_vPosition = m_pMonster->GetPosition();
+	vPosition = m_vPosition + (m_pMonster->GetDirection() * (0.4 - 0.1f));
+
+
+		D3DXMatrixTranslation(&m_Wolrd, vPosition.x, vPosition.y, vPosition.z);
+
+		D3DXMatrixRotationY(&matR, -D3DX_PI);
+	
+	/*else
+	D3DXMatrixTranslation(&m_Wolrd, m_pMonster->GetPosition().x, m_pMonster->GetPosition().y, m_pMonster->GetPosition().z);*/
+
+	//D3DXMatrixTranslation(&m_Wolrd, vPosition.x, vPosition.y, vPosition.z);
+	m_Wolrd = matS * matR *  m_Wolrd;
+
+
+
+	m_pMonster->UpdateAndRender(&m_Wolrd);
+	m_pMonster->SetPosition(vPosition);
+
 
 }

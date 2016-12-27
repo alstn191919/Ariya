@@ -9,6 +9,7 @@ class cUITextView;
 class cOBB;
 class cHero;
 class cUI;
+class Monster;
 
 #include "cUIButton.h"
 
@@ -28,6 +29,7 @@ private:
 	cMapRender*					m_pMap;
 	cOBB*						m_pObb;
 	cOBB*						m_pObbObj;
+	Monster*					m_pMonster;
 	
 	D3DMATERIAL9				m_TextMtl;
 	std::vector<ID3DXMesh*>		m_vecText;
@@ -37,6 +39,7 @@ private:
 	bool						m_bisClicked;
 	bool						m_Change;
 	cUI *						m_pUI;
+	int							time;
 
 private:
 	bool						m_isCrtRunning;
@@ -59,6 +62,7 @@ public:
 
 	void ChangeMap();
 	void addElivator();			//엘리베이터 추가 ( 코드가 긴데 2번이상 쓰므로 함수로 따로뺌)  //작성자 : 강병민
+	void MonSterAI();			
 
 	c2FScene();
 	~c2FScene();

@@ -155,6 +155,7 @@ void cObejctManager::Update()
 	pt.y = (rc.bottom - rc.top) / 2;
 	int index;
 
+
 	std::map<std::string, cEvent *>::iterator it;
 	for (it=m_Event.begin(); it != m_Event.end(); it++)
 	{
@@ -177,11 +178,8 @@ void cObejctManager::Update()
 						if (object[index]->GetisOpen())	object[index]->SetisOpen(false);
 						else object[index]->SetisOpen(true);
 					}
-
 				}
 			}
-
-
 		}
 		
 	}
@@ -232,6 +230,7 @@ void cObejctManager::Update()
 
 void cObejctManager::Render()
 {
+	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
 	if (object.size() > 1)
 	{
 		for (int i = 0; i < 4; i++)
@@ -521,15 +520,8 @@ void cObejctManager::evt()//이벤트 사용예제
 
 
 }
-
-
 void cObejctManager::Event1()
 {
-
-	//printf("qqqqqqqq");
-
-
-
 	class 이벤트1 :public cEvent
 	{
 		void update(){
@@ -542,7 +534,6 @@ void cObejctManager::Event1()
 
 	cEvent * _event;
 	_event = new 이벤트1;
-
 
 	m_Event["이벤트1"] = _event;
 }
@@ -563,13 +554,8 @@ void cObejctManager::EventDefinitions()
 				time = 0;
 				Stime = 0;
 			}
-
 			if (_switch)EVENT();
-
 		}
-
-
-
 		void EVENT()
 		{
 			time++;
@@ -595,16 +581,9 @@ void cObejctManager::EventDefinitions()
 					ObjectManager->getObject(5)->SetisOpen(true);
 					ObjectManager->getObject(7)->SetisOpen(true);
 					ObjectManager->getObject(10)->SetisOpen(true);
-
-
-				}
-				
-			
-
+			}
 		}
 	};
-
-
 
 	class 계단옆 :public cEvent
 	{
@@ -615,14 +594,9 @@ void cObejctManager::EventDefinitions()
 			{
 				_switch = true;
 				step = 0;
-			
 			}
-
 			if (_switch)EVENT();
-
 		}
-
-
 
 		void EVENT()
 		{
@@ -644,16 +618,9 @@ void cObejctManager::EventDefinitions()
 				ObjectManager->getObject(5)->SetisOpen(true);
 				ObjectManager->getObject(7)->SetisOpen(true);
 				ObjectManager->getObject(10)->SetisOpen(true);
-
-
 			}
-
-
-
 		}
 	};
-
-
 
 	cEvent * _event;
 	_event = new 화장실;
@@ -662,15 +629,11 @@ void cObejctManager::EventDefinitions()
 
 	_event = new 계단옆;
 	m_Event["계단옆"] = _event;
-
-
-
 }
 void cObejctManager::setIndexOpen(bool _isOpen)
 {
 	object[0]->SetisOpen(_isOpen);
 }
-
 bool cObejctManager:: Culling(cSkinnedMesh2* _object)
 {
 	for (int i = 0; i < 6; ++i)

@@ -35,13 +35,13 @@ private:
 	CRT_STATE							m_enumState;					//캐릭터 상태
 	ENUM_DIRECTION				m_enumDirection;				//키보드 방향
 
-	CRT_STATE							m_enumPrevState;			//캐릭터 이전 상태
+	CRT_STATE						m_enumPrevState;			//캐릭터 이전 상태
 	ENUM_DIRECTION				m_enumPrevDirection;		//키보드 이전 방향
 
-	//bool										m_isInteract;					//상호작용 여부
+															//bool										m_isInteract;						//상호작용 여부
 	CRT_INTERACTION				m_enumInteraction;			//상호작용
 
-	//바운딩 박스용
+															//바운딩 박스용
 	D3DXVECTOR3						m_Min;
 	D3DXVECTOR3						m_Max;
 
@@ -55,6 +55,7 @@ public:
 	void SetAnimationIdle();
 	void SetAnimationWalk();
 	void SetAnimationRun();
+	void SetAnimationJump();
 
 	bool IsCrawl();
 
@@ -72,7 +73,6 @@ public:
 	cSkinnedMesh* GetMesh();
 	D3DXVECTOR3 GetPosition();
 	ST_SPHERE* GetBoundingSphere();
-
 };
 
 /*

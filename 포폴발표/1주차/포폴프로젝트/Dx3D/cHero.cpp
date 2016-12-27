@@ -34,7 +34,7 @@ void cHero::UpdateAndRender(D3DXMATRIXA16 * pmat)
 	{
 		//현재 임시값
 		m_Min = D3DXVECTOR3(-1, 0, -1);
-		m_Max = D3DXVECTOR3(1, 1, 1);
+		m_Max = D3DXVECTOR3(1, 0, 1);
 
 		//애니메이션 세팅: ENUM_DIRECTION에 따라 바꿉니다.
 		SetAnimationCrawl();
@@ -59,6 +59,13 @@ void cHero::UpdateAndRender(D3DXMATRIXA16 * pmat)
 		m_Max = D3DXVECTOR3(1, 3, 1);
 
 		SetAnimationRun();
+	}
+	else if (m_enumState == CRT_STATE::CRT_JUMPOVER)
+	{
+		m_Min = D3DXVECTOR3(-1, 2, -1);
+		m_Max = D3DXVECTOR3(1, 3, 1);
+
+		m_pSkinnedMesh->GetPosition();
 	}
 
 	m_enumPrevState = m_enumState;
@@ -269,7 +276,7 @@ void cHero::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
-	case WM_KEYDOWN:
+		case WM_KEYDOWN:
 	{
 		switch (wParam)
 		{
@@ -372,6 +379,14 @@ void cHero::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 			m_enumDirection = ENUM_DIRECTION::DR_NONE;
 			break;
+		}
+		case VK_SPACE:
+		{
+			//	m_enumInteraction == CRT_INTERACTION::ACTION_DOOR;
+
+				m_enumState = CRT_STATE::CRT_JUMPOVER;
+				SetAnimationIndex(ANIM_JUMP);
+			
 		}
 		}
 	}//case WM_KEYUP:

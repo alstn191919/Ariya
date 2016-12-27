@@ -19,6 +19,7 @@
 #include <ctime>
 #include <iostream>
 
+
 // TODO: 프로그램에 필요한 추가 헤더는 여기에서 참조합니다.
 #include <d3dx9.h>
 #include <mmsystem.h>
@@ -49,7 +50,6 @@ extern HWND	g_hWnd;
 #define SND_STOPPED  0				//사운드 정지
 #define SND_PLAYING   1				//사운드 재생
 #define G_SOUND_VOLUME	10		//게임 기본 사운드
-
 #define SAFE_ADD_REF(p) if(p) { (p)->AddRef(); }
 #define SAFE_RELEASE(p) if(p) { (p)->Release(); (p) = NULL; }
 #define SAFE_DELETE(p) if(p) { delete (p); (p) = NULL; }
@@ -183,7 +183,8 @@ enum OBJ_TYPE{
 	item,			//아이템
 	Room,		//방
 	Eledoor,
-	OBJECT		//OBB충돌 타입 오브젝트(기능은 없음)
+	OBJECT,		//OBB충돌 타입 오브젝트(기능은 없음)
+	OBJECT_R	// 회전타입 오브젝트
 };
 
 enum CRT_STATE
@@ -192,6 +193,7 @@ enum CRT_STATE
 	CRT_WALK,				//걷기
 	CRT_RUN,				//뛰기
 	CRT_CRAWL,			//기어가기
+	CRT_JUMPOVER,		//뛰어넘기
 	CRT_NONE
 };
 
