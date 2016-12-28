@@ -32,6 +32,7 @@ cSkinnedMesh2::~cSkinnedMesh2(void)
 
 void cSkinnedMesh2::Load( std::string sFolder, std::string sFile )
 {
+
 	std::string sFullPath = sFolder + "/" + sFile;
 	cAllocateHierarchy2 alloc;
 	alloc.SetFolder(sFolder);
@@ -49,6 +50,8 @@ void cSkinnedMesh2::Load( std::string sFolder, std::string sFile )
 
 	if(m_pRootBone)
 		SetupBoneMatrixPtrs(m_pRootBone);
+
+	ShaderInit();
 }
 
 void cSkinnedMesh2::Update(ST_BONE2* pBone, D3DXMATRIX* pParent)
@@ -263,7 +266,7 @@ void cSkinnedMesh2::SetWolrd(D3DXVECTOR3 p, D3DXVECTOR3 size , float Angle)
 
 void cSkinnedMesh2::ObjRender()
 {
-	if (m_eObjType == door)
+	if (m_eObjType == door || m_eObjType == OBJ_TYPE::OBJECT_R)
 	{	
 
 		D3DXMATRIXA16 matRX, matRY, mat , matOBB;
@@ -398,7 +401,7 @@ void cSkinnedMesh2::ShaderInit()
 		1, D3DUSAGE_RENDERTARGET, D3DFMT_R32F,
 		D3DPOOL_DEFAULT, &gpShadowRenderTarget, NULL)))
 	{
-		assert("렌더타깃 생성실패", false);
+		assert("렌더타깃 생성실패"&& false);
 	}
 
 	// 그림자 맵과 동일한 크기의 깊이버퍼도 만들어줘야 한다.
@@ -406,7 +409,7 @@ void cSkinnedMesh2::ShaderInit()
 		D3DFMT_D24X8, D3DMULTISAMPLE_NONE, 0, TRUE,
 		&gpShadowDepthStencil, NULL)))
 	{
-		assert("깊이버퍼 생성실패", false);
+		assert("깊이버퍼 생성실패" && false);
 	}
 }
 

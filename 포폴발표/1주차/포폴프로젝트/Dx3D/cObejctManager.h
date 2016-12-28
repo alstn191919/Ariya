@@ -65,7 +65,7 @@ public:
 	void EventDefinitions();
 	void add3FEvent();
 
-	//std::vector<cEvent *>v_Event;
+	std::vector<cEvent *>v_Event;
 	std::map<std::string, cEvent *>m_Event;
 
 	bool Culling(cSkinnedMesh2* _object);

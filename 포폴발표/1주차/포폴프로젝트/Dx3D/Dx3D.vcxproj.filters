@@ -207,6 +207,9 @@
     <ClInclude Include="cUI.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>캐릭터</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -358,6 +361,9 @@
     </ClCompile>
     <ClCompile Include="cUI.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>캐릭터</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -815,11 +815,11 @@ void cObejctManager::add3FEvent()
 
 	cEvent * _event;
 
-	_event = new ÆŞ·°ÆŞ·°ÈÙÃ¼¾î;
+	/*_event = new ÆŞ·°ÆŞ·°ÈÙÃ¼¾î;
 	m_Event["ÆŞ·°ÆŞ·°ÈÙÃ¼¾î"] = _event;
 
 	_event = new °øÆ¨±â±â;
-	m_Event["°øÆ¨±â±â"] = _event;
+	m_Event["°øÆ¨±â±â"] = _event;*/
 
 	
 }

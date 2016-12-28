@@ -1,272 +1,47 @@
 #include "stdafx.h"
-#include "cStartScene.h"
-#include "cMapRender.h"
-#include "cCamera.h"
-#include "cCrtController.h"
-#include "cGrid.h"
-#include "cUIButton.h"
-#include "cUIImageView.h"
-cStartScene::cStartScene() : pMap(NULL)
-, pCamera(NULL)
-, LogoSprite(NULL)
-, Button(NULL)
-, Texture(NULL)
-, State(Button_NULL)
-, CameraPosition(1, 0, 23)
-, CameraDirection(-2, 1, -7)
-, NextCamPos(-1.0f, 0, -2.0f)
-, lightDir(-5.0f, 6.0f, -8.0f)
-, lightPos(3.2f, 3.5f, 23.0f)
-, NextlightPos(1.5f,3.5f,23.0f)
-, PrevlightPos(0,0,0)
-, Time(0.0f)
-, _isLerp(false)
-, CamTime(0.0f)
-, _isCamLerp(false)
+
+#define DSVOLUME_TO_DB(Volume)  ((DWORD)(-30*(100-Volume))) // 볼륨 조정 매크로.
+class cSound
 {
+private:
+	int m_nRate;
+	int m_nSize;
 
-}
+	DSBUFFERDESC					m_DSBufDesc;
+	WAVEFORMATEX				m_WaveFmtX;
 
-cStartScene::~cStartScene()
-{
-	SAFE_DELETE(pMap);
-	SAFE_DELETE(pCamera);
+	LPDIRECTSOUND					m_pDS;
+	LPDIRECTSOUNDBUFFER    m_pDSBuffer;
 
-	SAFE_RELEASE(Button);
-	SAFE_RELEASE(LogoSprite);
-}
+	SYNTHESIZE_PASS_BY_REF(LPSTR, m_szPath, Path);
+	SYNTHESIZE(bool, m_isPlay, State);
+	SYNTHESIZE(D3DXVECTOR3, m_vPosition, Position);							//플레이어 시야에서의 position. 시야 밖일 경우
+	SYNTHESIZE(SOUND_MAP, m_vMapPosition, MapPosition);					//어느 SOUND_MAP에 존재하는지
 
-void cStartScene::Setup()
-{
-	pMap = new cMapRender;
-	pMap->Setup("./objMap/MainMenu.obj",
-		NULL, 
-		D3DXVECTOR3(10.94f, -250.0f, -220.5f),
-		D3DXVECTOR3(0, 0, 0),
-		1.01f);
-	pMap->Shadowinit("./shader/ApplyShadow.fx", "./shader/CreateShadow.fx");
+private:
+	int LoadWAV(char *FileName, int Flags);
 
-	pCamera = new cCamera;
-	pCamera->Setup();
-	pCamera->Update(&CameraPosition, &CameraDirection, NULL);
+	int ReadMMIO(HMMIO hmmioIn, MMCKINFO* pckInRIFF, LPWAVEFORMATEX* lplpwfxInfo);
+	int OpenWaveFile(LPSTR FileName, HMMIO* phmmioIn, LPWAVEFORMATEX* lplpwfxInfo, MMCKINFO* pckInRIFF);
+	int DescendIntoChunk(HMMIO* phmmioIn, MMCKINFO* pckIn, MMCKINFO* pckInRIFF);
+	int ReadWaveFile(HMMIO hmmioIn, UINT cbRead, BYTE* pbDest, MMCKINFO* pckIn, UINT* cbActualRead);
 
-	Button = new cUIButton;
-	Button->SetDelegate(this);
-	Button->SetTexture("./Logo/main_m_over.png", "./Logo/main_m_in.png", "./Logo/main_m_in.png");
-	D3DXMATRIXA16 _mat;
-	D3DXMatrixTranslation(&_mat, 100, 200, 0);
-	Button->SetLocalPos(D3DXVECTOR3(80, 200, 0));
-	Button->SetWorld(_mat);
-	D3DXCreateSprite(g_pD3DDevice, &LogoSprite);
+public:
+	cSound();
+	~cSound();
 
-	D3DXIMAGE_INFO _info;
-	ZeroMemory(&_info, sizeof(D3DXIMAGE_INFO));
-	Texture = g_pTextureManager->GetSpriteTexture("./Logo/Main_Logo.png", &_info);
-	_imgSize.fWidth = _info.Width;
-	_imgSize.fHeight = _info.Height;
-	State = Button_MAIN;
+	void Load(LPSTR FileName, LPSTR szPath = NULL);					// 사운드 로드
+	void Play(DWORD dwFlags = 0);									// 사운드 재생
+	void Stop();																	// 사운드 정지
+	void SetVolume(LONG lVolume = 10);							// 볼륨 설정
+	void SetVolume(D3DXVECTOR3 vCRTPosition);
+	void SetPan(LONG lPan);												// 패닝 설정 
+	void SetPan(D3DXVECTOR3 vCRTPosition);
 
-	ST_SPHERE _sphere;
-	ZeroMemory(&_sphere, sizeof(ST_SPHERE));
+	DWORD GetBufferStatus();
 
-	ObjectManager->ADDobject("Wheelchair", "wheelchair.x",
-		D3DXVECTOR3(-2, 3, 18), D3DXVECTOR3(0.4f, 0.4f, 0.4f), 
-		_sphere, OBJ_TYPE::OBJECT,
-		"", 
-		D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(1, 1, 1), 
-		D3DX_PI + D3DX_PI / 2.5, 
-		lightPos);
+	DWORD GetCurPlayPosition();
 
-	SoundManual();
-}
-void cStartScene::Update()
-{
-	if (pMap)
-	{
-		pMap->Update();
-	}
+	int Release();
 
-	if (Button)
-	{
-		Button->Update();
-	}
-
-	if (State == Button_END)
-	{
-		if (_isCamLerp)
-		{
-			CamTime += (0.0167 + (CamTime * 0.1f));
-			float T = CamTime / 20;
-			D3DXVec3Lerp(&CameraPosition, &PrevCamPos, &NextCamPos, T);
-			pCamera->Update(&CameraPosition, &CameraDirection, NULL);
-			if (T > 1.0f)
-			{
-				SAFE_DELETE(pMap);
-				SAFE_DELETE(pCamera);
-
-				SAFE_RELEASE(Button);
-				SAFE_RELEASE(LogoSprite);
-				ObjectManager->Destroy();
-				g_pSceneManager->ChangeScene(Scene_2F);
-			}
-		}
-	}
-	else if (State == Button_START || State == Button_END)
-	{
-		if (_isLerp)
-		{
-			Time += 0.0167;
-			float T = Time / 6;
-			D3DXVec3Lerp(&lightPos, &PrevlightPos, &NextlightPos, T);
-			ObjectManager->getObject(0)->SetLightPositon(lightPos);
-			if (T > 1.0f)
-			{
-				_isLerp = false;
-				Time = false;
-			}
-		}
-	}
-/*
-	if (GetKeyState(VK_UP) & 8888)
-	{
-		lightDir.z += 0.2f;
-	}
-	else if (GetKeyState(VK_DOWN) & 8888)
-	{
-		lightDir.z -= 0.2f;
-	}
-	else if (GetKeyState(VK_LEFT) & 8888)
-	{
-		lightDir.x += 0.2f;
-	}
-	else if (GetKeyState(VK_RIGHT) & 8888)
-	{
-		lightDir.x -= 0.2f;
-	}
-	else if (GetKeyState('W') & 8888)
-	{
-		lightPos.z += 0.2f;
-	}
-	else if (GetKeyState('S') & 8888)
-	{
-		lightPos.z -= 0.2f;
-	}
-	else if (GetKeyState('A') & 8888)
-	{
-		lightPos.x -= 0.2f;
-	}
-	else if (GetKeyState('D') & 8888)
-	{
-		lightPos.x += 0.2f;
-	}*/
-}
-void cStartScene::Render()
-{
-	if (pMap)
-	{
-		pMap->Render(lightPos, lightDir, CameraPosition, 33.0f, 1.0f);
-	}
-
-	if (State != Button_END)
-	{
-		D3DXMATRIXA16 m_matWorld;
-		D3DXMatrixIdentity(&m_matWorld);
-		//g_pD3DDevice->GetTransform(D3DTS_WORLD, &m_matWorld);
-		RECT rc;
-		SetRect(&rc, 0, 0, _imgSize.fWidth, _imgSize.fHeight);
-		LogoSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-		LogoSprite->SetTransform(&m_matWorld);
-		LogoSprite->Draw(Texture,
-			&rc,
-			&D3DXVECTOR3(0, 0, 0),
-			&D3DXVECTOR3(0, 0, 0),
-			D3DCOLOR_XRGB(255, 255, 255));
-		LogoSprite->End();
-		if (Button)
-		{
-			Button->Render(LogoSprite);
-		}
-	}
-}
-
-void cStartScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	if (pCamera)
-	{
-		pCamera->WndProc(hWnd, message, wParam, lParam);
-	}
-}
-
-void cStartScene::OnClick(cUIButton* pSender)
-{
-	D3DXIMAGE_INFO _info;
-	if (State == Button_MAIN)
-	{
-		Texture = g_pTextureManager->GetSpriteTexture("./Logo/Start_Logo.png", &_info);
-		SAFE_RELEASE(Button);
-		Button = new cUIButton;
-		Button->SetDelegate(this);
-		Button->SetTexture("./Logo/start_m_over.png",
-			"./Logo/start_m_in.png",
-			"./Logo/start_m_in.png");
-		D3DXMATRIXA16 _mat;
-		D3DXMatrixTranslation(&_mat, 80, 250, 0);
-		Button->SetLocalPos(D3DXVECTOR3(80, 250, 0));
-		Button->SetWorld(_mat);
-		_imgSize.fWidth = _info.Width;
-		_imgSize.fHeight = _info.Height;
-		State = Button_START;
-		PrevlightPos = lightPos;
-		_isLerp = true;
-	}
-	else if (State == Button_START)
-	{
-		State = Button_END;
-		_isCamLerp = true;
-		PrevCamPos = CameraPosition;
-		PrevCamPos.y -= 3.5f;
-	}
-}
-
-
-/*
-=============================================
-사운드 매니저 매뉴얼 : 최하늘
-2016 12 23
-	g_pSoundManager
-wav 파일만 기능합니다.
-현재 거리 및 충돌에 따른 볼륨/패닝 조절 코드는 추가되지 않았습니다.
-==============================================
-*/
-void cStartScene::SoundManual()
-{
-	//사운드 추가 방법
-	//													LPSTR	LPSTR	D3DXVECTOR3		SOUND_MAP
-	//g_pSoundManager->AddSound("파일명", "경로");
-	//g_pSoundManager->AddSound("파일명", "경로", "맵 상의 위치");
-	//g_pSoundManager->AddSound("파일명", "경로", "맵 상의 위치", "사운드맵");
-	//파일명에는 .wav를 붙이지 않아도 기능합니다.
-	g_pSoundManager->AddSound("mainTheme", "./Sound/");
-
-	//사운드 플레이
-	//DSBPLAY_LOOPING 플래그 지정시 반복 재생합니다.
-	//한 번만 재생시 플래그 인자값을 비워두면 됩니다.
-	//										LPSTR 파일명, DWORD 플래그
-	g_pSoundManager->Play("mainTheme", DSBPLAY_LOOPING);
-
-	//사운드 정지
-	//										LPSTR 파일명
-	//g_pSoundManager->Stop("mainTheme");
-
-	//임의로 볼륨 및 패닝 적용하기
-	//모든 볼륨은 G_SOUND_VOLUME (stdafx.h에 디파인) * 값으로 변경됩니다.
-	//사용시에는 : 1~10 사이의 수로 설정 가능. 소숫점 두 자리까지 적용됩니다.
-	//													LPSTR 파일명,		long 볼륨
-	g_pSoundManager->SetVolume("mainTheme", 10);
-
-	//패닝: 좌우 사운드 소리 크기입니다. 
-	//-10,000 ~ 10,000 까지 설정할 수 있습니다. 
-	//0이 기본값이며, 최소값에 가까울수록 왼쪽에서, 최댓값에 가까울수록 오른쪽에서 소리가 납니다.
-	//										LPSTR 파일명, long 패닝값 
-	//g_pSoundManager->SetPan("mainTheme", 0);
-}
+};

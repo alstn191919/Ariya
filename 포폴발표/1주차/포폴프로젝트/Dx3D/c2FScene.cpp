@@ -511,7 +511,7 @@ void c2FScene::SetAddObj_2F()
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 1;
-	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL);
+	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, NULL,D3DXVECTOR3(0,0,0));
 
 
 
@@ -690,9 +690,9 @@ void c2FScene::SetAddObj_3F()
 	Scal = D3DXVECTOR3(1.4, 0.6, 0.7);
 	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2, D3DXVECTOR3(0, 0, 0));
 
-		- 2.9 - 13.1, -78.1
+		//- 2.9 - 13.1, -78.1
 
-		- 3.2, -12, -82*/
+		//- 3.2, -12, -82*/
 
 
 	//13번째 인덱스
@@ -703,7 +703,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 1;
-	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "", Min*10, Max*10, NULL);
+	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "", Min * 10, Max * 10, NULL, D3DXVECTOR3(0, 0, 0));
 	//ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI / 2);
 
 	ObjectManager->getObject(13)->SetAngleX(-D3DX_PI/2);
@@ -718,7 +718,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 1;
-	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "", Min * 10, Max * 10, NULL);
+	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "", Min * 10, Max * 10, NULL, D3DXVECTOR3(0, 0, 0));
 
 	ObjectManager->getObject(14)->SetAngleX(D3DX_PI+0.1);
 	ObjectManager->getObject(14)->SetAngleY(D3DX_PI / 2);
@@ -730,7 +730,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 1;
-	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "", Min * 10, Max * 10, NULL);
+	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "", Min * 10, Max * 10, NULL, D3DXVECTOR3(0, 0, 0));
 
 	ObjectManager->getObject(15)->SetAngleX(-D3DX_PI+0.4);
 	ObjectManager->getObject(15)->SetAngleY(D3DX_PI/2);
@@ -743,7 +743,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 1;
-	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "", Min * 10, Max * 10, NULL);
+	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "", Min * 10, Max * 10, NULL, D3DXVECTOR3(0, 0, 0));
 
 	ObjectManager->getObject(16)->SetAngleX(-D3DX_PI );
 	ObjectManager->getObject(16)->SetAngleY(D3DX_PI / 2);
@@ -870,10 +870,10 @@ void c2FScene::Update()
 	if (m_pMap)
 		m_pMap->Update();
 
-	if (GetAsyncKeyState(VK_F10))
+	/*if (GetAsyncKeyState(VK_F10))
 	{
 		ChangeMap();
-	}
+	}*/
 	
 
 	if (ObjectManager->isPinked() &&
