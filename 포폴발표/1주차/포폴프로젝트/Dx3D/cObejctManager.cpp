@@ -759,16 +759,16 @@ void cObejctManager::add3FEvent()
 		}
 		void EVENT()
 		{
-			ObjectManager->getObject(13)->SetWolrd(D3DXVECTOR3(-52.f, -14.91, Position), D3DXVECTOR3(0.4f, 0.4f, 0.4f));
+			ObjectManager->getObject(17)->SetWolrd(D3DXVECTOR3(-52.f, -14.91, Position), D3DXVECTOR3(0.4f, 0.4f, 0.4f));
 			if (Position <= -92.f)
 			{
 				//º®¿¡ ºÎµúÇûÀ½ È­¸é Èçµé¸®°í Äô!ÇÏ´Â ¼Ò¸® ³ª¾ßÇÔ
 
-				ObjectManager->getObject(13)->SetAngleX(D3DX_PI / 2);
-				ObjectManager->getObject(13)->SetAngleY(D3DX_PI / 2);
+				ObjectManager->getObject(17)->SetAngleX(D3DX_PI / 2);
+				ObjectManager->getObject(17)->SetAngleY(D3DX_PI / 2);
 										  
 				Position = -92.f;		  
-				ObjectManager->getObject(13)->SetWolrd(D3DXVECTOR3(-52.f, -14.91, Position), D3DXVECTOR3(0.4f, 0.4f, 0.4f));
+				ObjectManager->getObject(17)->SetWolrd(D3DXVECTOR3(-52.f, -14.91, Position), D3DXVECTOR3(0.4f, 0.4f, 0.4f));
 
 				_switch = false;
 			}
@@ -811,7 +811,7 @@ void cObejctManager::add3FEvent()
 			if (BallPosition <= -16.11f)
 			{
 				BallPosition = -16.11;
-				ObjectManager->getObject(14)->SetWolrd(D3DXVECTOR3(-13.7f, BallPosition, -83.f), D3DXVECTOR3(1.2f, 1.2f, 1.2f));
+				ObjectManager->getObject(18)->SetWolrd(D3DXVECTOR3(-13.7f, BallPosition, -83.f), D3DXVECTOR3(1.2f, 1.2f, 1.2f));
 				_switch = false;
 			}
 
@@ -838,18 +838,18 @@ void cObejctManager::add3FEvent()
 					Upvalue += 0.02f;
 				}
 			}
-			ObjectManager->getObject(14)->SetWolrd(D3DXVECTOR3(-13.7f, height, -83.f), D3DXVECTOR3(1.2f, 1.2f, 1.2f));
+			ObjectManager->getObject(18)->SetWolrd(D3DXVECTOR3(-13.7f, height, -83.f), D3DXVECTOR3(1.2f, 1.2f, 1.2f));
 		}
 	};
 
 
 	cEvent * _event;
 
-	/*_event = new ÆÞ·°ÆÞ·°ÈÙÃ¼¾î;
+	_event = new ÆÞ·°ÆÞ·°ÈÙÃ¼¾î;
 	m_Event["ÆÞ·°ÆÞ·°ÈÙÃ¼¾î"] = _event;
 
 	_event = new °øÆ¨±â±â;
-	m_Event["°øÆ¨±â±â"] = _event;*/
+	m_Event["°øÆ¨±â±â"] = _event;
 
 	
 }

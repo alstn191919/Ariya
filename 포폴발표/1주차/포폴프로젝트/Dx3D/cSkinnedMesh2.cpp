@@ -253,7 +253,6 @@ void cSkinnedMesh2::ObjRender()
 {
 	if (m_eObjType == door || m_eObjType == OBJ_TYPE::OBJECT_R)
 	{	
-
 		D3DXMATRIXA16 matRX, matRY, mat, matOBB;
 		D3DXMatrixIdentity(&mat);
 		D3DXMatrixIdentity(&matOBB);

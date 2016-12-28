@@ -750,7 +750,7 @@ void c2FScene::SetAddObj_3F()
 	Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
 	ObjectManager->ADDobject("monster", "monster.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2);*/
 
-	//휠체어 13번
+	//휠체어
 	Min = D3DXVECTOR3(-0.535, 0, -0.035);
 	Max = D3DXVECTOR3(0.535, 0.075, 0.035);
 
@@ -759,13 +759,11 @@ void c2FScene::SetAddObj_3F()
 	//28.0,3,-56.2
 	pt.vCenter = p;
 	pt.isPicked = false;
-	pt.fRadius = 1;
+	pt.fRadius = 0;
 	//std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max, float Angle
-	ObjectManager->ADDobject("Wheelchair", "wheelchair.x", p, Scal, Min, Max, D3DX_PI, D3DXVECTOR3(39.4, 3.3, -28.2));
+	ObjectManager->ADDobject("Wheelchair", "wheelchair.x", p, Scal,pt,OBJ_TYPE::OBJECT_R,"휠체어",Min,Max, D3DX_PI, D3DXVECTOR3(39.4, 3.3, -28.2));
 
-
-
-	//14번 공
+	//공
 	Min = D3DXVECTOR3(-0.3, -0.2, -0.6);
 	Max = D3DXVECTOR3(0.1, 0.2, -0.2);
 	Scal = D3DXVECTOR3(1.2, 1.2, 1.2);
