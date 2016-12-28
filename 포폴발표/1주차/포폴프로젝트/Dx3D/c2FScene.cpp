@@ -688,11 +688,6 @@ void c2FScene::SetAddObj_3F()
 	Scal = D3DXVECTOR3(1.4, 0.6, 0.7);
 	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2, D3DXVECTOR3(0, 0, 0));
 
-		//- 2.9 - 13.1, -78.1
-
-		//- 3.2, -12, -82*/
-
-
 	//13번째 인덱스
 	Min = D3DXVECTOR3(-1, 0, -1);
 	Max = D3DXVECTOR3(1, 4, 1);
@@ -755,7 +750,53 @@ void c2FScene::SetAddObj_3F()
 	Scal = D3DXVECTOR3(0.1, 0.1, 0.1);
 	ObjectManager->ADDobject("monster", "monster.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2);*/
 
+	//휠체어 13번
+	Min = D3DXVECTOR3(-0.535, 0, -0.035);
+	Max = D3DXVECTOR3(0.535, 0.075, 0.035);
 
+	Scal = D3DXVECTOR3(0.4, 0.4, 0.4);
+	p = D3DXVECTOR3(0, 2, 10);
+	//28.0,3,-56.2
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+	//std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max, float Angle
+	ObjectManager->ADDobject("Wheelchair", "wheelchair.x", p, Scal, Min, Max, D3DX_PI, D3DXVECTOR3(39.4, 3.3, -28.2));
+
+
+
+	//14번 공
+	Min = D3DXVECTOR3(-0.3, -0.2, -0.6);
+	Max = D3DXVECTOR3(0.1, 0.2, -0.2);
+	Scal = D3DXVECTOR3(1.2, 1.2, 1.2);
+	p = D3DXVECTOR3(0, 3, 3);
+	//28.0,3,-56.2
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 1;
+	//std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max, float Angle
+	ObjectManager->ADDobject("Ball", "Ball.X", p, Scal, Min, Max, D3DX_PI, D3DXVECTOR3(39.4, 3.3, -28.2));
+
+	//마지막 넓은 공터 쪽 의자 2개
+	Min = D3DXVECTOR3(-2, 0, -0.035);
+	Max = D3DXVECTOR3(2, 0.075, 0.035);
+
+	Scal = D3DXVECTOR3(2, 2, 2);
+	p = D3DXVECTOR3(-85.27, -15.71, -15.62);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 2;
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, Min, Max, -D3DX_PI/2, D3DXVECTOR3(0, 0, 0));
+
+	Min = D3DXVECTOR3(-2, 0, -0.035);
+	Max = D3DXVECTOR3(2, 0.075, 0.035);
+
+	Scal = D3DXVECTOR3(2, 2, 2);
+	p = D3DXVECTOR3(-85.27, -15.71, -1.62);
+	pt.vCenter = p;
+	pt.isPicked = false;
+	pt.fRadius = 2;
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, Min, Max, -D3DX_PI / 2, D3DXVECTOR3(0, 0, 0));
 }
 /*
 ==============================
