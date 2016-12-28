@@ -39,8 +39,10 @@ private:
 	bool						m_bisClicked;
 	bool						m_Change;
 	cUI *						m_pUI;
-	int							time;
-
+int							time;
+	D3DXVECTOR4					v_LightPos[10];
+	D3DXVECTOR4					v_LightDir[10];
+	float						v_LightPow[10];
 private:
 	bool						m_isCrtRunning;
 	bool						m_isCrtCrawling;

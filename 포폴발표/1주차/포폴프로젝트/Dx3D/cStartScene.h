@@ -3,9 +3,9 @@
 
 class cMapRender;
 class cCamera;
-class cCrtController;
 class cUIButton;
 class iUIButtonDelegate;
+
 enum ButtonState
 {
 	Button_NULL,
@@ -27,6 +27,10 @@ private:
 	D3DXVECTOR3			CameraDirection;;
 	ST_SIZE				_imgSize;
 	ButtonState			State;
+
+	D3DXVECTOR4			v_LightPos[10];
+	D3DXVECTOR4			v_LightDir[10];
+	float				v_LightPow[10];
 private:
 	float				CamTime;
 	bool				_isCamLerp;
@@ -51,4 +55,6 @@ public:
 	void SoundManual();
 	cStartScene();
 	~cStartScene();
+
 };
+

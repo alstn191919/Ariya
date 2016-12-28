@@ -39,6 +39,7 @@ LPD3DXEFFECT cShaderManager::Getshader(std::string szPath)
 				char* str = new char[size];
 				sprintf_s(str, size,(const char*)ack);
 				OutputDebugString(str);
+				assert(str && false);
 				delete[] str;
 			}
 		}

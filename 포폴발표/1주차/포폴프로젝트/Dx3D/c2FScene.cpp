@@ -15,6 +15,8 @@
 #include "cUI.h"
 #include"Monster.h"
 
+
+
 c2FScene::c2FScene() : m_pCamera(NULL)
 , m_pGrid(NULL)
 , m_pController(NULL)
@@ -123,7 +125,7 @@ void c2FScene::SetAddObj_2F()
 	/*p.y = 0;
 	p.x = 0;
 	p.z = 1;
-
+	
 
 	pt.vCenter = p;
 	pt.isPicked = false;
@@ -141,7 +143,6 @@ void c2FScene::SetAddObj_2F()
 	pt.vCenter.y = pt.vCenter.y + 3;
 	pt.isPicked = false;
 	pt.fRadius = 1;
-
 
 	Min = D3DXVECTOR3(0, 0, -1);
 	Max = D3DXVECTOR3(-0.5, 3, 3);
@@ -566,13 +567,9 @@ void c2FScene::SetAddObj_2F()
 	//	m_pUIRoot = pTextView;
 	m_pUIRoot->AddChild(pTextView);
 
-
-	
 	m_pUI = new cUI;
 	m_pUI->Setup();
 
-
-	
 
 	//ObjectManager->evt();
 	//ObjectManager->v_Event[0]->update();
@@ -580,6 +577,40 @@ void c2FScene::SetAddObj_2F()
 }
 void c2FScene::SetAddObj_3F()
 {
+	////////////////////조명 위치///////////////////////
+	v_LightPos[0] = D3DXVECTOR4(-2.3f, 6.0f, -2.3f, 1);
+	v_LightPos[1] = D3DXVECTOR4(-8.7f, 6.0f, 3.5f, 1);
+	v_LightPos[2] = D3DXVECTOR4(-27.3f, 6.0f, -8.5f, 1);
+	v_LightPos[3] = D3DXVECTOR4(-13.2f, 6.0f, -28.6f, 1);
+	v_LightPos[4] = D3DXVECTOR4(39.4f, 6.0f, -28.2f, 1);
+	v_LightPos[5] = D3DXVECTOR4(35.8f, -2.8f, -93.9f, 1);
+	v_LightPos[6] = D3DXVECTOR4(32.7f, -11.4f, -55.2f, 1);
+	v_LightPos[7] = D3DXVECTOR4(56.0f, -11.4f, -97.2f, 1);
+	v_LightPos[8] = D3DXVECTOR4(61.5f, -11.4f, -107.9f, 1);
+	v_LightPos[9] = D3DXVECTOR4(-49.7f, 6.0f, -28.7f, 1);
+	////////////////////조명 방향///////////////////////
+	v_LightDir[0] = D3DXVECTOR4(-2.1f, 0, 0.04f, 0);
+	v_LightDir[1] = D3DXVECTOR4(-20.6f, 0, 3.46f, 0);
+	v_LightDir[2] = D3DXVECTOR4(-26.9f, 0, -18.2f, 0);
+	v_LightDir[3] = D3DXVECTOR4(15.3f, 0, -29.0f, 0);
+	v_LightDir[4] = D3DXVECTOR4(36.9f, 0, -41.0f, 0);
+	v_LightDir[5] = D3DXVECTOR4(43.2f, 0, -66.0f, 0);
+	v_LightDir[6] = D3DXVECTOR4(35.4f, 0, -80.7f, 0);
+	v_LightDir[7] = D3DXVECTOR4(61.2f, 0, -54.8f, 0);
+	v_LightDir[8] = D3DXVECTOR4(61.4f, 0, -103.7f, 0);
+	v_LightDir[9] = D3DXVECTOR4(32.5f, 0, -39.3f, 0);
+	////////////////////조명 세기////////////////////////
+	v_LightPow[0] = 2.0f;
+	v_LightPow[1] = 2.0f;
+	v_LightPow[2] = 2.0f;
+	v_LightPow[3] = 2.0f;
+	v_LightPow[4] = 2.0f;
+	v_LightPow[5] = 2.0f;
+	v_LightPow[6] = 2.0f;
+	v_LightPow[7] = 2.0f;
+	v_LightPow[8] = 2.0f;
+	v_LightPow[9] = 2.0f;
+	/////////////////////////////////////////////////////
 	D3DXVECTOR3 Scal(1,1,1);						//스케일... 
 	D3DXVECTOR3 p(39, -17.1, -74.4);		//포지션 위치 설정용
 	ST_SPHERE pt;							//피킹용 구 크기를 잡아줌
@@ -816,7 +847,42 @@ void c2FScene::Setup()
 		"objMap/2FsurFace.obj",
 		D3DXVECTOR3(-30.94f, -255.0f, 38.5f),
 		D3DXVECTOR3(15.0f, -126.5f, 7.0f), 1.0f);
-	m_pMap->Shadowinit("./shader/ApplyShadow.fx", "./shader/CreateShadow.fx");
+	////////////////////조명 위치///////////////////////
+	v_LightPos[0] = D3DXVECTOR4(-2.3f, 6.0f, -2.3f,1);
+	v_LightPos[1] = D3DXVECTOR4(-8.7f, 6.0f, 3.5f, 1);
+	v_LightPos[2] = D3DXVECTOR4(-27.3f, 6.0f, -8.5f, 1);
+	v_LightPos[3] = D3DXVECTOR4(-13.2f, 6.0f, -28.6f, 1);
+	v_LightPos[4] = D3DXVECTOR4(39.4f, 6.0f, -28.2f, 1);
+	v_LightPos[5] = D3DXVECTOR4(35.8f, -2.8f, -93.9f, 1);
+	v_LightPos[6] = D3DXVECTOR4(32.7f, -11.4f, -55.2f, 1);
+	v_LightPos[7] = D3DXVECTOR4(56.0f, -11.4f, -97.2f, 1);
+	v_LightPos[8] = D3DXVECTOR4(61.5f, -11.4f, -107.9f, 1);
+	v_LightPos[9] = D3DXVECTOR4(-49.7f, 6.0f, -28.7f, 1);
+	////////////////////조명 방향///////////////////////
+	v_LightDir[0] = D3DXVECTOR4(-2.1f, 0, 0.04f, 0);
+	v_LightDir[1] = D3DXVECTOR4(-20.6f, 0, 3.46f, 0);
+	v_LightDir[2] = D3DXVECTOR4(-26.9f, 0, -18.2f, 0);
+	v_LightDir[3] = D3DXVECTOR4(15.3f, 0, -29.0f, 0);
+	v_LightDir[4] = D3DXVECTOR4(36.9f, 0, -41.0f, 0);
+	v_LightDir[5] = D3DXVECTOR4(43.2f, 0, -66.0f, 0);
+	v_LightDir[6] = D3DXVECTOR4(35.4f, 0, -80.7f, 0);
+	v_LightDir[7] = D3DXVECTOR4(61.2f, 0, -54.8f, 0);
+	v_LightDir[8] = D3DXVECTOR4(61.4f, 0, -103.7f, 0);
+	v_LightDir[9] = D3DXVECTOR4(32.5f, 0, -39.3f, 0);
+	////////////////////조명 세기////////////////////////
+	v_LightPow[0] = 2.0f;
+	v_LightPow[1] = 2.0f;
+	v_LightPow[2] = 2.0f;
+	v_LightPow[3] = 2.0f;
+	v_LightPow[4] = 2.0f;
+	v_LightPow[5] = 2.0f;
+	v_LightPow[6] = 2.0f;
+	v_LightPow[7] = 2.0f;
+	v_LightPow[8] = 2.0f;
+	v_LightPow[9] = 2.0f;
+	/////////////////////////////////////////////////////
+	m_pMap->Shadowinit("./shader/ApplyShadow_array.fx", "./shader/CreateShadow_array.fx", "./shader/BackCreateShadow_array.fx");
+
 	//오브젝트 매니져 사용 메뉴얼 
 	SetAddObj_2F();
 
@@ -857,7 +923,6 @@ void c2FScene::Update()
 	}
 
 
-
 	if (m_pController)
 		m_pController->Update(m_pMap, m_pObb);
 
@@ -895,7 +960,9 @@ void c2FScene::Render()
 
 	//맵렌더
 	if (m_pMap)
-	m_pMap->Render(D3DXVECTOR3(0.7f, 4.3f, -3.4f), D3DXVECTOR3(-10.6f, 2.3f, 4.9f), m_pCamera->GetvEye(), 1000.0f, 0.8f);
+		m_pMap->Render(v_LightPos,v_LightDir,
+		m_pCamera->GetvEye(), 40.0f, v_LightPow);
+
 	int a = ObjectManager->Getselect_index();
 	if ( a!= NonSlect && ObjectManager->getObject(a)->GetObjType()==OBJ_TYPE::item)
 	{
@@ -974,7 +1041,6 @@ void c2FScene::Render()
 		m_pUIRoot->Render(m_pSprite);
 	}
 
-	
 	
 
 
@@ -1225,14 +1291,15 @@ void c2FScene::addElivator()
 	p = D3DXVECTOR3(60.35f, -17, -105.5f);
 	Min = D3DXVECTOR3(-0.035, 0, -0.035);
 	Max = D3DXVECTOR3(0.035, 0.075, 0.035);
+
 	//문1 (index 2)
 	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, pt, OBJ_TYPE::Eledoor, "", Min, Max, -D3DX_PI / 2, D3DXVECTOR3(56.0f, -11.4f, -97.2f));
 	Scal = D3DXVECTOR3(26.0f, 27.0f, 26.0f);
 	p = D3DXVECTOR3(62.95f, -17, -105.5f);
 	//문2 (index 3)
 
-
 	ObjectManager->ADDobject("Elivator/door", "elidoor.X", p, Scal, pt, OBJ_TYPE::Eledoor, "", Min, Max, -D3DX_PI / 2, D3DXVECTOR3(56.0f, -11.4f, -97.2f));
+
 	//엘리베이터 숫자 띄우기위한 폰트설정
 	LOGFONT	lf;
 	HDC hdc = CreateCompatibleDC(0);

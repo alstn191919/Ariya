@@ -44,8 +44,40 @@ void cStartScene::Setup()
 		D3DXVECTOR3(10.94f, -250.0f, -220.5f),
 		D3DXVECTOR3(0, 0, 0),
 		1.01f);
-	pMap->Shadowinit("./shader/ApplyShadow.fx", "./shader/CreateShadow.fx");
-
+	pMap->Shadowinit("./shader/ApplyShadow.fx", "./shader/CreateShadow.fx", "./shader/CreateShadow.fx");
+	////////////////////조명 위치///////////////////////
+	v_LightPos[0] = D3DXVECTOR4(3.2f, 3.5f, 23.0f,1.0f);
+	v_LightPos[1] = D3DXVECTOR4(3.2f, 3.5f, 23.0f,1.0f);
+	v_LightPos[2] = D3DXVECTOR4(3.2f, 3.5f, 23.0f,1.0f);
+	v_LightPos[3] = D3DXVECTOR4(3.2f, 3.5f, 23.0f,1.0f);
+	v_LightPos[4] = D3DXVECTOR4(3.2f, 3.5f, 23.0f,1.0f);
+	v_LightPos[5] = D3DXVECTOR4(3.2f, 3.5f, 23.0f,1.0f);
+	v_LightPos[6] = D3DXVECTOR4(3.2f, 3.5f, 23.0f,1.0f);
+	v_LightPos[7] = D3DXVECTOR4(3.2f, 3.5f, 23.0f,1.0f);
+	v_LightPos[8] = D3DXVECTOR4(3.2f, 3.5f, 23.0f,1.0f);
+	v_LightPos[9] = D3DXVECTOR4(3.2f, 3.5f, 23.0f,1.0f);
+	////////////////////조명 방향///////////////////////
+	v_LightDir[0] = D3DXVECTOR4(-5.0f, 6.0f, -8.0f,0);
+	v_LightDir[1] = D3DXVECTOR4(-5.0f, 6.0f, -8.0f,0);
+	v_LightDir[2] = D3DXVECTOR4(-5.0f, 6.0f, -8.0f,0);
+	v_LightDir[3] = D3DXVECTOR4(-5.0f, 6.0f, -8.0f,0);
+	v_LightDir[4] = D3DXVECTOR4(-5.0f, 6.0f, -8.0f,0);
+	v_LightDir[5] = D3DXVECTOR4(-5.0f, 6.0f, -8.0f,0);
+	v_LightDir[6] = D3DXVECTOR4(-5.0f, 6.0f, -8.0f,0);
+	v_LightDir[7] = D3DXVECTOR4(-5.0f, 6.0f, -8.0f,0);
+	v_LightDir[8] = D3DXVECTOR4(-5.0f, 6.0f, -8.0f,0);
+	v_LightDir[9] = D3DXVECTOR4(-5.0f, 6.0f, -8.0f,0);
+	////////////////////조명 세기////////////////////////
+	v_LightPow[0] = 1.0f;
+	v_LightPow[1] = 1.0f;
+	v_LightPow[2] = 1.0f;
+	v_LightPow[3] = 1.0f;
+	v_LightPow[4] = 1.0f;
+	v_LightPow[5] = 1.0f;
+	v_LightPow[6] = 1.0f;
+	v_LightPow[7] = 1.0f;
+	v_LightPow[8] = 1.0f;
+	v_LightPow[9] = 1.0f;
 	pCamera = new cCamera;
 	pCamera->Setup();
 	pCamera->Update(&CameraPosition, &CameraDirection, NULL);
@@ -164,7 +196,7 @@ void cStartScene::Render()
 {
 	if (pMap)
 	{
-		pMap->Render(lightPos, lightDir, CameraPosition, 33.0f, 1.0f);
+		pMap->Render(v_LightPos, v_LightDir, CameraPosition, 33.0f, v_LightPow);
 	}
 
 	if (State != Button_END)

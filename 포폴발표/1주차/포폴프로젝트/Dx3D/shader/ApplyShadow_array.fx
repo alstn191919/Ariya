@@ -20,16 +20,27 @@
 //--------------------------------------------------------------//
 // ApplyShadowTorus
 //--------------------------------------------------------------//
-string ApplyShadowShader_ApplyShadowTorus_Torus : ModelData = "..\\..\\..\\..\\..\\..\\Program Files (x86)\\AMD\\RenderMonkey 1.82\\Examples\\Media\\Models\\Torus.3ds";
+string ApplyShadowShader_ApplyShadowTorus_Torus : ModelData = "..\\..\\..\\..\\..\\..\\..\\..\\Program Files (x86)\\AMD\\RenderMonkey 1.82\\Examples\\Media\\Models\\Torus.3ds";
 
 float4x4 gWorldMatrix : World;
-float4x4 gLightViewMatrix
-<
-   string UIName = "gLightViewMatrix";
-   string UIWidget = "Numeric";
-   bool UIVisible =  false;
-> = float4x4( 1.00, 0.00, 0.00, 0.00, 0.00, 1.00, 0.00, 0.00, 0.00, 0.00, 1.00, 0.00, 0.00, 0.00, 0.00, 1.00 );
+float4x4 LightViewMatrix[10] = 
+{
+      float4x4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1),
+      float4x4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1),
+      float4x4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1),
+      float4x4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1),
+      float4x4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1),
+      float4x4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1),
+      float4x4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1),
+      float4x4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1),
+      float4x4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1),
+      float4x4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1)
+};
 float4x4 gLightProjectionMatrix : Projection;
+
+float4x4 gViewProjectionMatrix : ViewProjection;
+
+float4 gWorldCameraPosition : ViewPosition;
 
 float4 WorldLightPosition[10] = 
 {
@@ -45,9 +56,14 @@ float4 WorldLightPosition[10] =
       float4(-300, 500, -500,1)
 };
 
-float4 gWorldCameraPosition : ViewPosition;
-
-float4x4 gViewProjectionMatrix : ViewProjection;
+float gRange
+<
+   string UIName = "gRange";
+   string UIWidget = "Numeric";
+   bool UIVisible =  false;
+   float UIMin = -1.00;
+   float UIMax = 1.00;
+> = float( 5500.00 );
 
 struct VS_INPUT 
 {
@@ -71,49 +87,50 @@ struct VS_OUTPUT
    float3 B : TEXCOORD7;
    float3 N : TEXCOORD8;
    float3 mDisVec : TEXCOORD9;
+   float Index : TEXCOORD10;
 };
-
-float gRange
-<
-   string UIName = "gRange";
-   string UIWidget = "Numeric";
-   bool UIVisible =  false;
-   float UIMin = -1.00;
-   float UIMax = 1.00;
-> = float( 4000.00 );
 
 VS_OUTPUT ApplyShadowShader_ApplyShadowTorus_Vertex_Shader_vs_main( VS_INPUT Input )
 {
    VS_OUTPUT Output;
-   float4x4 lightViewMatrix = gLightViewMatrix;
-
-   float4 worldPosition = mul(Input.mPosition, gWorldMatrix);
-   Output.mPosition = mul(worldPosition, gViewProjectionMatrix);
-
-   Output.mClipPosition = mul(worldPosition, lightViewMatrix);
-   Output.mClipPosition = mul(Output.mClipPosition, gLightProjectionMatrix);
-   float3 lightDir = float3(0,0,0);
+   
+   Output.Index = 0;
+      
+   float3 lightDir;
    float MinLen = gRange;
-   for (int i = 0; i<10;i++)
+   float4 worldPosition = mul(Input.mPosition, gWorldMatrix);
+   float4 Pos = mul(worldPosition, gViewProjectionMatrix);
+   Output.mPosition = Pos;
+   
+   Output.mClipPosition = mul(worldPosition, LightViewMatrix[0]);
+   Output.mClipPosition = mul(Output.mClipPosition, gLightProjectionMatrix);
+   
+   for (int i = 0; i < 10; i++)
    {
-      float3 DisVec = (Input.mPosition.xyz - WorldLightPosition[i].xyz);
+      float4 DisVec = (Pos - WorldLightPosition[i]);
       float Len = length(DisVec);
-      if(MinLen > Len)
-      {
-         MinLen = Len;
-         lightDir = normalize(DisVec);
-         Output.mDisVec = DisVec;
-      }
+      
+      if(MinLen >= Len)
+        {  
+            MinLen = Len;
+            Output.mDisVec = DisVec;
+            lightDir = normalize(DisVec);
+            Output.Index = i;
+            worldPosition = mul(Input.mPosition, gWorldMatrix);
+            Output.mClipPosition = mul(worldPosition, LightViewMatrix[i]);
+            Output.mClipPosition = mul(Output.mClipPosition, gLightProjectionMatrix);
+        }
    }
+   
+   float3 viewDir = normalize(worldPosition.xyz - gWorldCameraPosition.xyz);
+   Output.mViewDir = viewDir;
+   
    float3 worldNormal = normalize(mul(Input.mNormal, (float3x3)gWorldMatrix));
    Output.mDiffuse = dot(-lightDir, worldNormal);
    
    Output.mUV = Input.mUV;
 
    Output.mLightDir = lightDir;
-   
-   float3 viewDir = normalize(worldPosition.xyz - gWorldCameraPosition.xyz);
-   Output.mViewDir = viewDir;
    
    Output.N = worldNormal;
    
@@ -123,28 +140,21 @@ VS_OUTPUT ApplyShadowShader_ApplyShadowTorus_Vertex_Shader_vs_main( VS_INPUT Inp
    float3 worldBinormal = mul(Input.mBinormal, (float3x3)gWorldMatrix );
    Output.B = normalize(worldBinormal);
 
-
    return Output;
 }
 texture ShadowMap_Tex
 <
-   string ResourceName = "..\\..\\..\\";
+   string ResourceName = ".\\";
 >;
 sampler2D ShadowSampler = sampler_state
 {
    Texture = (ShadowMap_Tex);
 };
-texture BackShadowMap_Tex
-<
-   string ResourceName = "..\\..\\..\\";
->;
-sampler2D BackShadowSampler = sampler_state
-{
-   Texture = (BackShadowMap_Tex);
-};
+sampler2D BackShadowSampler;
+
 texture DiffuseMap_Tex
 <
-   string ResourceName = "..\\..\\..\\10_ShadowMapping\\Fieldstone_DM.tga";
+   string ResourceName = ".\\Fieldstone_DM.tga";
 >;
 sampler2D DiffuseSampler = sampler_state
 {
@@ -152,7 +162,7 @@ sampler2D DiffuseSampler = sampler_state
 };
 texture SpecularMap_Tex
 <
-   string ResourceName = "..\\..\\..\\10_ShadowMapping\\fieldstone_SM.tga";
+   string ResourceName = ".\\fieldstone_SM.tga";
 >;
 sampler2D SpecularSampler = sampler_state
 {
@@ -160,7 +170,7 @@ sampler2D SpecularSampler = sampler_state
 };
 texture NormalMap_Tex
 <
-   string ResourceName = "..\\..\\..\\10_ShadowMapping\\fieldstone_NM.tga";
+   string ResourceName = ".\\fieldstone_NM.tga";
 >;
 sampler2D NormalSampler = sampler_state
 {
@@ -174,15 +184,20 @@ float ApplyShadowShader_ApplyShadowTorus_Pixel_Shader_gRange
    bool UIVisible =  false;
    float UIMin = -1.00;
    float UIMax = 1.00;
-> = float( 4000.00 );
-float gAlphaBlend
-<
-   string UIName = "gAlphaBlend";
-   string UIWidget = "Numeric";
-   bool UIVisible =  false;
-   float UIMin = -1.00;
-   float UIMax = 1.00;
-> = float( 0.80 );
+> = float( 5500.00 );
+float AlphaBlend[10] =
+{
+   float (0.8f),
+   float (0.8f),
+   float (0.8f),
+   float (0.8f),
+   float (0.8f),
+   float (0.8f),
+   float (0.8f),
+   float (0.8f),
+   float (0.8f),
+   float (0.8f),
+};
 
 struct PS_INPUT
 {
@@ -196,6 +211,7 @@ struct PS_INPUT
    float3 B : TEXCOORD7;
    float3 N : TEXCOORD8;
    float3 mDisVec : TEXCOORD9;
+   float Index : TEXCOORD10;
 };
 
 float4 ApplyShadowShader_ApplyShadowTorus_Pixel_Shader_ps_main(PS_INPUT Input) : COLOR
@@ -206,17 +222,17 @@ float4 ApplyShadowShader_ApplyShadowTorus_Pixel_Shader_ps_main(PS_INPUT Input) :
    
    float2 uv = Input.mClipPosition.xy / Input.mClipPosition.w;
    
-   uv.y = - uv.y;
+   uv.y = -uv.y;
    uv = uv * 0.5f + 0.5f;
-
+   
    float shadowDepth = tex2D(ShadowSampler, uv).r; 
    float BackshadowDepth = tex2D(BackShadowSampler, uv).r;
-  
-   if ((currentDepth > shadowDepth + 0.0100125f) && uv.x < 1 && uv.y < 1 && uv.x > 0 && uv.y > 0)
+
+   if ((currentDepth >= shadowDepth + 0.0100125f) && uv.x < 1 && uv.y < 1 && uv.x > 0 && uv.y > 0)
    {
        rgb *= 0.5f;
    }
-   else if((currentDepth > BackshadowDepth + 0.0100125f) && uv.x < 1 && uv.y < 1 && uv.x > 0 && uv.y > 0)
+   else if((currentDepth >= BackshadowDepth + 0.0100125f) && uv.x < 1 && uv.y < 1 && uv.x > 0 && uv.y > 0)
    {
        rgb *= 0.5f;
        Input.mLightDir.x =  -Input.mLightDir.x;
@@ -232,8 +248,9 @@ float4 ApplyShadowShader_ApplyShadowTorus_Pixel_Shader_ps_main(PS_INPUT Input) :
    
    float4 albedo = tex2D(DiffuseSampler, Input.mUV);
    float3 lightDir = normalize(Input.mLightDir);
-   float3 diffuse = saturate(dot(worldNormal, -lightDir));   
-   diffuse = albedo.rgb * diffuse * rgb  ;
+   float3 diffuse = saturate(dot(worldNormal, -lightDir));  
+    
+   diffuse = albedo.rgb * diffuse * rgb;
    
    float3 specular = 0;
    if ( diffuse.x > 0 )
@@ -242,7 +259,7 @@ float4 ApplyShadowShader_ApplyShadowTorus_Pixel_Shader_ps_main(PS_INPUT Input) :
       float3 viewDir = normalize(Input.mViewDir); 
 
       specular = saturate(dot(reflection, -viewDir ));
-      specular = pow(specular, 20.0f);
+      specular = pow(specular, 25.0f);
       
       float4 specularIntensity  = tex2D(SpecularSampler, Input.mUV);
       specular *= specularIntensity.rgb;
@@ -251,12 +268,8 @@ float4 ApplyShadowShader_ApplyShadowTorus_Pixel_Shader_ps_main(PS_INPUT Input) :
    float3 ambient = float3(0.1f, 0.1f, 0.1f) * albedo;
       
    float Power = (ApplyShadowShader_ApplyShadowTorus_Pixel_Shader_gRange - length(Input.mDisVec)) / ApplyShadowShader_ApplyShadowTorus_Pixel_Shader_gRange;
-   return float4((ambient + diffuse + specular)*Power*gAlphaBlend  , 1);
+   return float4((ambient + diffuse + specular)*Power*AlphaBlend[(int)Input.Index] , 1);
 }
-
-
-
-
 //--------------------------------------------------------------//
 // Technique Section for ApplyShadowShader
 //--------------------------------------------------------------//
