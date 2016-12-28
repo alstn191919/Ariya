@@ -1344,27 +1344,29 @@ void c2FScene::addElivator()
 void c2FScene::ChangeMap()
 {
 	////////////////////조명 위치///////////////////////
-	v_LightPos[0] = D3DXVECTOR4(-2.3f, 6.0f, -2.3f, 1);
-	v_LightPos[1] = D3DXVECTOR4(-8.7f, 6.0f, 3.5f, 1);
-	v_LightPos[2] = D3DXVECTOR4(-27.3f, 6.0f, -8.5f, 1);
-	v_LightPos[3] = D3DXVECTOR4(-13.2f, 6.0f, -28.6f, 1);
-	v_LightPos[4] = D3DXVECTOR4(39.4f, 6.0f, -28.2f, 1);
-	v_LightPos[5] = D3DXVECTOR4(35.8f, -2.8f, -93.9f, 1);
-	v_LightPos[6] = D3DXVECTOR4(32.7f, -11.4f, -55.2f, 1);
-	v_LightPos[7] = D3DXVECTOR4(56.0f, -11.4f, -97.2f, 1);
-	v_LightPos[8] = D3DXVECTOR4(61.5f, -11.4f, -107.9f, 1);
-	v_LightPos[9] = D3DXVECTOR4(-49.7f, 6.0f, -28.7f, 1);
+	v_LightPos[0] = D3DXVECTOR4(61.8f, -12.1f, -104.0f, 1);
+	v_LightPos[1] = D3DXVECTOR4(30.8f, -12.1f, -80.5f, 1);
+	v_LightPos[2] = D3DXVECTOR4(-32.3f,-12.1f, -80.2f, 1);
+	v_LightPos[3] = D3DXVECTOR4(-52.8f,-12.1f, -79.8f, 1);
+	v_LightPos[4] = D3DXVECTOR4(-52.6f, -12.1f, -62.3f, 1);
+	v_LightPos[5] = D3DXVECTOR4(-52.7f, -12.1f, -41.8f, 1);
+	v_LightPos[6] = D3DXVECTOR4(-77.0f, -12.1f, -40.4f, 1);
+	v_LightPos[7] = D3DXVECTOR4(97.3f, -12.1f, -26.7f, 1);
+	v_LightPos[8] = D3DXVECTOR4(75.9f, -12.1f, -2.6f, 1);
+	v_LightPos[9] = D3DXVECTOR4(-52.0f,-12.1f, -2.6f, 1);
+
 	////////////////////조명 방향///////////////////////
-	v_LightDir[0] = D3DXVECTOR4(-2.1f, 0, 0.04f, 0);
-	v_LightDir[1] = D3DXVECTOR4(-20.6f, 0, 3.46f, 0);
-	v_LightDir[2] = D3DXVECTOR4(-26.9f, 0, -18.2f, 0);
-	v_LightDir[3] = D3DXVECTOR4(15.3f, 0, -29.0f, 0);
-	v_LightDir[4] = D3DXVECTOR4(36.9f, 0, -41.0f, 0);
-	v_LightDir[5] = D3DXVECTOR4(43.2f, 0, -66.0f, 0);
-	v_LightDir[6] = D3DXVECTOR4(35.4f, 0, -80.7f, 0);
-	v_LightDir[7] = D3DXVECTOR4(61.2f, 0, -54.8f, 0);
-	v_LightDir[8] = D3DXVECTOR4(61.4f, 0, -103.7f, 0);
-	v_LightDir[9] = D3DXVECTOR4(32.5f, 0, -39.3f, 0);
+	v_LightDir[0] = D3DXVECTOR4(61.8f,  -6.1f, -76.9f, 0);
+	v_LightDir[1] = D3DXVECTOR4(0.6f, -6.1f, -81.2f, 0);
+	v_LightDir[2] = D3DXVECTOR4(-57.8f, -6.1f, -76.8f, 0);
+	v_LightDir[3] = D3DXVECTOR4(52.6f, -6.1f, -27.0f, 0);
+	v_LightDir[4] = D3DXVECTOR4(52.6f, -6.1f, -27.0f, 0);
+	v_LightDir[5] = D3DXVECTOR4(52.6f, -6.1f, -27.0f, 0);
+	v_LightDir[6] = D3DXVECTOR4(-77.8f, -6.1f, -59.3f, 0);
+	v_LightDir[7] = D3DXVECTOR4(-80.8f, -6.1f, -27.5f, 0);
+	v_LightDir[8] = D3DXVECTOR4(61.1f, -6.1f, -1.9f, 0);
+	v_LightDir[9] = D3DXVECTOR4(61.1f, -6.1f, -1.9f, 0);
+
 	////////////////////조명 세기////////////////////////
 	v_LightPow[0] = 2.0f;
 	v_LightPow[1] = 2.0f;
