@@ -3,7 +3,7 @@
 
 cMainGame::cMainGame(void) : FPS(0.0f), FrameCnt(0), TimeElapsed(0.0f)
 {
-	
+	G_SOUND_VOLUME = 10.0f;
 }
 
 cMainGame::~cMainGame(void)
