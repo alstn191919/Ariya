@@ -55,7 +55,8 @@ c2FScene::~c2FScene()
 	for each(auto p in m_vecText)
 	{
 		SAFE_RELEASE(p);
-	}}
+	}
+}
 
 /*
 =============================================================================================================================================
@@ -577,40 +578,6 @@ void c2FScene::SetAddObj_2F()
 }
 void c2FScene::SetAddObj_3F()
 {
-	////////////////////조명 위치///////////////////////
-	v_LightPos[0] = D3DXVECTOR4(-2.3f, 6.0f, -2.3f, 1);
-	v_LightPos[1] = D3DXVECTOR4(-8.7f, 6.0f, 3.5f, 1);
-	v_LightPos[2] = D3DXVECTOR4(-27.3f, 6.0f, -8.5f, 1);
-	v_LightPos[3] = D3DXVECTOR4(-13.2f, 6.0f, -28.6f, 1);
-	v_LightPos[4] = D3DXVECTOR4(39.4f, 6.0f, -28.2f, 1);
-	v_LightPos[5] = D3DXVECTOR4(35.8f, -2.8f, -93.9f, 1);
-	v_LightPos[6] = D3DXVECTOR4(32.7f, -11.4f, -55.2f, 1);
-	v_LightPos[7] = D3DXVECTOR4(56.0f, -11.4f, -97.2f, 1);
-	v_LightPos[8] = D3DXVECTOR4(61.5f, -11.4f, -107.9f, 1);
-	v_LightPos[9] = D3DXVECTOR4(-49.7f, 6.0f, -28.7f, 1);
-	////////////////////조명 방향///////////////////////
-	v_LightDir[0] = D3DXVECTOR4(-2.1f, 0, 0.04f, 0);
-	v_LightDir[1] = D3DXVECTOR4(-20.6f, 0, 3.46f, 0);
-	v_LightDir[2] = D3DXVECTOR4(-26.9f, 0, -18.2f, 0);
-	v_LightDir[3] = D3DXVECTOR4(15.3f, 0, -29.0f, 0);
-	v_LightDir[4] = D3DXVECTOR4(36.9f, 0, -41.0f, 0);
-	v_LightDir[5] = D3DXVECTOR4(43.2f, 0, -66.0f, 0);
-	v_LightDir[6] = D3DXVECTOR4(35.4f, 0, -80.7f, 0);
-	v_LightDir[7] = D3DXVECTOR4(61.2f, 0, -54.8f, 0);
-	v_LightDir[8] = D3DXVECTOR4(61.4f, 0, -103.7f, 0);
-	v_LightDir[9] = D3DXVECTOR4(32.5f, 0, -39.3f, 0);
-	////////////////////조명 세기////////////////////////
-	v_LightPow[0] = 2.0f;
-	v_LightPow[1] = 2.0f;
-	v_LightPow[2] = 2.0f;
-	v_LightPow[3] = 2.0f;
-	v_LightPow[4] = 2.0f;
-	v_LightPow[5] = 2.0f;
-	v_LightPow[6] = 2.0f;
-	v_LightPow[7] = 2.0f;
-	v_LightPow[8] = 2.0f;
-	v_LightPow[9] = 2.0f;
-	/////////////////////////////////////////////////////
 	D3DXVECTOR3 Scal(1,1,1);						//스케일... 
 	D3DXVECTOR3 p(39, -17.1, -74.4);		//포지션 위치 설정용
 	ST_SPHERE pt;							//피킹용 구 크기를 잡아줌
@@ -836,7 +803,6 @@ void c2FScene::Setup()
 	
 	*/
 
-
 	//m_pHero = new cHero("monster/", "monster.X");
 	m_pHero = new cHero("Character/", "hero.X");
 	m_pHero->SetAnimationIndex(11);							//기본(제자리)
@@ -897,6 +863,7 @@ void c2FScene::Update()
 {
 
 	m_pObb->Setup(m_pHero->GetMesh()->GetMin(), m_pHero->GetMesh()->GetMax());
+/*
 	if (GetKeyState(VK_UP) & 8888)
 	{
 		ObjectManager->getObject(1)->SetLightPositon(ObjectManager->getObject(1)->GetLightPositon() + D3DXVECTOR3(0, 0, 1));
@@ -920,7 +887,7 @@ void c2FScene::Update()
 	else if (GetKeyState('L') & 8888)
 	{
 		ObjectManager->getObject(1)->SetLightPositon(ObjectManager->getObject(1)->GetLightPositon() + D3DXVECTOR3(0, -1, 0));
-	}
+	}*/
 
 
 	if (m_pController)
@@ -1337,6 +1304,40 @@ void c2FScene::addElivator()
 
 void c2FScene::ChangeMap()
 {
+	////////////////////조명 위치///////////////////////
+	v_LightPos[0] = D3DXVECTOR4(-2.3f, 6.0f, -2.3f, 1);
+	v_LightPos[1] = D3DXVECTOR4(-8.7f, 6.0f, 3.5f, 1);
+	v_LightPos[2] = D3DXVECTOR4(-27.3f, 6.0f, -8.5f, 1);
+	v_LightPos[3] = D3DXVECTOR4(-13.2f, 6.0f, -28.6f, 1);
+	v_LightPos[4] = D3DXVECTOR4(39.4f, 6.0f, -28.2f, 1);
+	v_LightPos[5] = D3DXVECTOR4(35.8f, -2.8f, -93.9f, 1);
+	v_LightPos[6] = D3DXVECTOR4(32.7f, -11.4f, -55.2f, 1);
+	v_LightPos[7] = D3DXVECTOR4(56.0f, -11.4f, -97.2f, 1);
+	v_LightPos[8] = D3DXVECTOR4(61.5f, -11.4f, -107.9f, 1);
+	v_LightPos[9] = D3DXVECTOR4(-49.7f, 6.0f, -28.7f, 1);
+	////////////////////조명 방향///////////////////////
+	v_LightDir[0] = D3DXVECTOR4(-2.1f, 0, 0.04f, 0);
+	v_LightDir[1] = D3DXVECTOR4(-20.6f, 0, 3.46f, 0);
+	v_LightDir[2] = D3DXVECTOR4(-26.9f, 0, -18.2f, 0);
+	v_LightDir[3] = D3DXVECTOR4(15.3f, 0, -29.0f, 0);
+	v_LightDir[4] = D3DXVECTOR4(36.9f, 0, -41.0f, 0);
+	v_LightDir[5] = D3DXVECTOR4(43.2f, 0, -66.0f, 0);
+	v_LightDir[6] = D3DXVECTOR4(35.4f, 0, -80.7f, 0);
+	v_LightDir[7] = D3DXVECTOR4(61.2f, 0, -54.8f, 0);
+	v_LightDir[8] = D3DXVECTOR4(61.4f, 0, -103.7f, 0);
+	v_LightDir[9] = D3DXVECTOR4(32.5f, 0, -39.3f, 0);
+	////////////////////조명 세기////////////////////////
+	v_LightPow[0] = 2.0f;
+	v_LightPow[1] = 2.0f;
+	v_LightPow[2] = 2.0f;
+	v_LightPow[3] = 2.0f;
+	v_LightPow[4] = 2.0f;
+	v_LightPow[5] = 2.0f;
+	v_LightPow[6] = 2.0f;
+	v_LightPow[7] = 2.0f;
+	v_LightPow[8] = 2.0f;
+	v_LightPow[9] = 2.0f;
+	/////////////////////////////////////////////////////
 	SAFE_DELETE(m_pMap);
 	m_pMap = new cMapRender;
 	//m_pMap = new cMapRender;
@@ -1347,7 +1348,7 @@ void c2FScene::ChangeMap()
 		"objMap/3Fsurf.obj",
 		D3DXVECTOR3(-13.84f, -553.f, 182.7f),
 		D3DXVECTOR3(-13.84f, -553.f, 182.7f), 1.0f);
-	m_pMap->Shadowinit("./shader/ApplyShadow.fx", "./shader/CreateShadow.fx");
+	m_pMap->Shadowinit("./shader/ApplyShadow_array.fx", "./shader/CreateShadow_array.fx", "./shader/BackCreateShadow_array.fx");
 
 	ObjectManager->DestroyObject();
 

@@ -1,120 +1,101 @@
-﻿빌드 시작: 2016-12-28 오전 10:15:15
+﻿빌드 시작: 2016-12-28 오후 1:35:54
      1>2 노드의 "C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Dx3D\Dx3D.vcxproj" 프로젝트(Build 대상)입니다.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Dx3D.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt c2FScene.cpp cCrtController.cpp cMapRender.cpp cSceneManager.cpp cStartScene.cpp
-         cStartScene.cpp
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(81): warning C4316: 'cCamera': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(85): warning C4316: 'cUIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(97): warning C4244: '=' : 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(98): warning C4244: '=' : 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(110): warning C4305: '인수' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(130): warning C4244: '+=' : 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(150): warning C4305: '+=' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(208): warning C4244: '인수' : 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(239): warning C4316: 'cUIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(248): warning C4244: '=' : 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(249): warning C4244: '=' : 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-         cMapRender.cpp
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cmaprender.cpp(88): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(356) : 'sprintf' 선언을 참조하십시오.
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Dx3D.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt c2FScene.cpp
          c2FScene.cpp
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(95): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(96): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(98): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(105): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(134): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(146): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(150): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(162): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(168): warning C4244: '=' : 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(176): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(181): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(194): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(198): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(211): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(215): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(228): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(250): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(269): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(289): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(310): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(323): warning C4244: '=' : 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(331): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(338): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(349): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(358): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(368): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(377): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(386): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(395): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(405): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(406): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(415): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(416): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(427): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(429): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(441): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(452): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(453): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(462): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(465): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(473): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(474): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(483): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(484): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(493): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(494): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(520): warning C4316: 'cUIImageView': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(528): warning C4244: '인수' : 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(537): warning C4316: 'cUITextView': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(563): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(579): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(589): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(592): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(597): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(601): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(606): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(610): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(103): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(110): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(139): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(151): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(155): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(167): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(173): warning C4244: '=' : 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(181): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(186): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(199): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(203): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(216): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(220): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(233): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(255): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(274): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(294): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(315): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(328): warning C4244: '=' : 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(336): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(343): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(354): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(363): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(373): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(382): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(391): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(400): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(410): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(411): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(420): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(421): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(432): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(434): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(446): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(457): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(458): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(467): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(470): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(478): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(479): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(488): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(489): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(498): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(499): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(511): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(539): warning C4316: 'cUIImageView': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(547): warning C4244: '인수' : 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(556): warning C4316: 'cUITextView': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(582): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(598): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(608): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
      1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(611): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(614): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(616): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(620): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
      1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(625): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(635): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(638): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(643): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(646): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(652): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(664): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(669): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(692): warning C4316: 'cCamera': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(695): warning C4316: 'cCrtController': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(749): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(752): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(846): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(629): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(630): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(633): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(644): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(654): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(657): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(662): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(665): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(671): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(683): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(688): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(699): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(700): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(714): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(715): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(721): warning C4305: '인수' : 'double'에서 'float'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(726): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(727): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(733): warning C4305: '인수' : 'double'에서 'float'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(739): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(740): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(780): warning C4316: 'cCamera': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(783): warning C4316: 'cCrtController': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(792): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(855): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(858): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(956): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(356) : 'sprintf' 선언을 참조하십시오.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(1129): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(1130): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(1137): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(1144): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(1145): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(1159): warning C4244: '=' : 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(1160): warning C4244: '=' : 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(1167): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(1244): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(1245): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(1252): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(1259): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(1260): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(1274): warning C4244: '=' : 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(1275): warning C4244: '=' : 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(1282): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(112) : 'strcpy' 선언을 참조하십시오.
-         코드를 생성하고 있습니다...
-         컴파일하고 있습니다...
-         cSceneManager.cpp
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cscenemanager.cpp(24): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cscenemanager.cpp(53): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cscenemanager.cpp(64): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cscenemanager.cpp(93): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cscenemanager.cpp(106): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cscenemanager.cpp(117): warning C4316: 'c2FScene': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cscenemanager.cpp(131): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cscenemanager.cpp(143): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
-     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cscenemanager.cpp(173): warning C4002: 'assert' 매크로의 실제 매개 변수가 너무 많습니다.
-         코드를 생성하고 있습니다...
-         건너뛰고 있습니다... (관련된 변경 내용 없음)
-         cCrtController.cpp
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\c2fscene.cpp(1379): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Debug\Dx3D.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Debug\Dx3D.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Debug\Dx3D.lib" /MACHINE:X86 Debug\Dx3D.res
          Debug\c2FScene.obj
@@ -166,10 +147,11 @@
          Debug\cUITextView.obj
          Debug\Dx3D.obj
          Debug\iMap.obj
+         Debug\Monster.obj
          Debug\stdafx.obj
          Dx3D.vcxproj -> C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Debug\Dx3D.exe
      1>"C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Dx3D\Dx3D.vcxproj" 프로젝트를 빌드했습니다(Build 대상).
 
 빌드했습니다.
 
-경과 시간: 00:00:03.50
+경과 시간: 00:00:01.15
