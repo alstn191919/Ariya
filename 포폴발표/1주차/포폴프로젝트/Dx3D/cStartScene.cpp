@@ -304,7 +304,7 @@ void cStartScene::SoundManual()
 	//										LPSTR 파일명, long 패닝값 
 	//g_pSoundManager->SetPan("mainTheme", 0);
 
-	////현재 코드에서 모든 포지션값은 기능하지 않습니다!
+	//포지션이 설정되지 않은 사운드는 이하 함수를 사용할 수 없습니다. (에러남)
 
 	//사운드 포지션 설정
 	//사운드 포지션으로 캐릭터 위치값에 따른 볼륨/패닝 변경이 가능합니다.
