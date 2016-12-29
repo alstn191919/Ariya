@@ -1,0 +1,155 @@
+﻿  cObejctManager.cpp
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(45): warning C4316: 'cSkinnedMesh2': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(57): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(72): warning C4316: 'cSkinnedMesh2': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(99): warning C4316: 'cSkinnedMesh2': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(118): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(131): warning C4316: 'cSkinnedMesh2': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(242): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(260): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(297): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(311): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(324): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(338): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(367): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(384): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(397): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(411): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(446): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(471): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(588): warning C4244: '인수': 'float'에서 'long'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(590): warning C4244: '인수': 'float'에서 'long'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(595): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(644): warning C4244: '인수': 'float'에서 'long'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(645): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(652): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(765): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(767): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(799): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(824): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(834): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(861): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(898): warning C4316: 'cObejctManager::add3FEvent::펄럭펄럭휠체어': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(901): warning C4316: 'cObejctManager::add3FEvent::공튕기기': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  c2FScene.cpp
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(110): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(117): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(146): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(158): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(162): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(174): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(180): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(188): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(193): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(206): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(210): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(223): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(227): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(240): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(262): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(281): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(301): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(322): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(335): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(343): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(350): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(361): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(370): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(380): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(389): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(398): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(407): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(417): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(418): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(427): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(428): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(439): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(441): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(453): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(464): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(465): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(474): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(477): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(485): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(486): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(495): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(496): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(505): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(506): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(518): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(546): warning C4316: 'cUIImageView': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(554): warning C4244: '인수': 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(563): warning C4316: 'cUITextView': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(589): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(604): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(614): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(617): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(622): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(626): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(631): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(632): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(635): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(636): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(639): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(650): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(660): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(663): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(668): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(671): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(677): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(689): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(694): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(705): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(706): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(720): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(721): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(727): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(732): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(733): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(739): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(745): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(746): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(765): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(766): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(768): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(778): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(779): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(780): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(790): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(791): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(794): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(800): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(801): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(804): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(831): warning C4244: '인수': 'float'에서 'long'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(833): warning C4244: '인수': 'float'에서 'long'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(906): warning C4244: '인수': 'float'에서 'long'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(917): warning C4316: 'cCamera': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(920): warning C4316: 'cCrtController': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(929): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(992): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(995): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(1108): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: 'sprintf' 선언을 참조하십시오.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(1410): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(1411): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(1418): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(1425): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(1426): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(1440): warning C4244: '=': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(1441): warning C4244: '=': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(1448): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(119): note: 'strcpy' 선언을 참조하십시오.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(1714): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(1716): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(1719): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(1721): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(1723): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(1749): warning C4244: '인수': 'double'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(1749): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\c2fscene.cpp(1757): warning C4305: '인수': 'double'에서 'FLOAT'(으)로 잘립니다.
+  코드를 생성하고 있습니다...
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(345): warning C4715: 'cObejctManager::getText': 모든 제어 경로에서 값을 반환하지는 않습니다.
+c:\users\user\desktop\ariya\포폴발표\1주차\포폴프로젝트\dx3d\cobejctmanager.cpp(391): warning C4715: 'cObejctManager::getPinkedObjType': 모든 제어 경로에서 값을 반환하지는 않습니다.
+  Dx3D.vcxproj -> C:\Users\user\Desktop\Ariya\포폴발표\1주차\포폴프로젝트\Debug\Dx3D.exe
+  Dx3D.vcxproj -> C:\Users\user\Desktop\Ariya\포폴발표\1주차\포폴프로젝트\Debug\Dx3D.pdb (Full PDB)

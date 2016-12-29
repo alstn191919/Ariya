@@ -1,0 +1,49 @@
+newmtl Blood_BaseColor
+Kd 1 1 1
+Ka 1 1 1
+Ks 1 1 1
+map_Kd ./objMap/texture/
+map_Kn null
+map_Ks null
+illum 2
+
+newmtl Frame_Material
+Kd 1 1 1
+Ka 1 1 1
+Ks 1 1 1
+map_Kd null
+map_Bump null
+illum 2
+
+newmtl Door_Material
+Kd 1 1 1
+Ka 1 1 1
+Ks 1 1 1
+map_Kd null
+map_Bump null
+illum 2
+
+newmtl wordwall
+Kd 1 1 1
+Ka 1 1 1
+Ks 1 1 1
+map_Kd null
+map_Bump null
+illum 2
+
+newmtl Concrete
+Kd 1 1 1
+Ka 1 1 1
+Ks 1 1 1
+map_Kd null
+map_Bump null
+illum 2
+
+newmtl Floor
+Kd 1 1 1
+Ka 1 1 1
+Ks 1 1 1
+map_Kd null
+map_Bump null
+illum 2
+
