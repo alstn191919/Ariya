@@ -591,12 +591,11 @@ void c2FScene::SetAddObj_3F()
 	pt.isPicked = false;
 	pt.fRadius = 1;
 
-
 	Min = D3DXVECTOR3(0.25, 0, -1);
 	Max = D3DXVECTOR3(-0.25, 3, 3);
 
 	Scal = D3DXVECTOR3(1.4, 0.65, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, NULL,D3DXVECTOR3(0,0,0));
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, NULL, D3DXVECTOR3(-30.8f, -12.1f, 80.5f));
 
 
 	p = D3DXVECTOR3(84.5, -17, -79.5);
@@ -606,7 +605,7 @@ void c2FScene::SetAddObj_3F()
 
 
 	Scal = D3DXVECTOR3(1.1, 0.65, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2, D3DXVECTOR3(0, 0, 0));
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2, D3DXVECTOR3(61.8f, -12.1f, 104.0f));
 
 	p = D3DXVECTOR3(14.5, -17, -74.6);
 	pt.vCenter = p;
@@ -614,7 +613,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter.y = pt.vCenter.y + 3;
 
 	Scal = D3DXVECTOR3(1.4, 0.65, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, NULL, D3DXVECTOR3(0, 0, 0));
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, NULL, D3DXVECTOR3(-30.8f, -12.1f, 80.5f));
 
 	//-57, -13.1 , -74.8   문
 	p = D3DXVECTOR3(-58.1, -16.8, -70.6);
@@ -623,7 +622,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter.y = pt.vCenter.y + 3;
 
 	Scal = D3DXVECTOR3(1.4, 0.6, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2, D3DXVECTOR3(0, 0, 0));
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2, D3DXVECTOR3(-62.2, -12.1f, -73.2f));
 
 	//-52.2  ,-13.1,  -24.9 체어
 	Min = D3DXVECTOR3(-0.535, 0, -0.035);
@@ -634,7 +633,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 2;
-	ObjectManager->ADDobject("t", "chair.x", p, Scal, Min, Max, NULL, D3DXVECTOR3(0, 0, 0));
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, Min, Max, NULL, D3DXVECTOR3(-52.8f, -12.1f, -79.8f));
 	//ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, -D3DX_PI / 2);
 
 	//-60 , -13.1 , -4.7 문
@@ -652,7 +651,7 @@ void c2FScene::SetAddObj_3F()
 
 
 	Scal = D3DXVECTOR3(1.8, 0.6, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2, D3DXVECTOR3(0, 0, 0));
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2, D3DXVECTOR3(-66, -12.1f, -42));
 
 	p = D3DXVECTOR3(-74.7, -16.8, -38.4);
 	pt.vCenter = p;
@@ -660,7 +659,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter.z = pt.vCenter.z - 4;
 
 	Scal = D3DXVECTOR3(1.8, 0.6, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2, D3DXVECTOR3(0, 0, 0));
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2, D3DXVECTOR3(-79, -12.1f, -42));
 
 	p = D3DXVECTOR3(-92.3, -16.8, -39.0);
 	pt.vCenter = p;
@@ -669,7 +668,7 @@ void c2FScene::SetAddObj_3F()
 
 
 	Scal = D3DXVECTOR3(1.6, 0.6, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2, D3DXVECTOR3(0, 0, 0));
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, D3DX_PI / 2, D3DXVECTOR3(-97, -12.1f, -42));
 	//-60, -13.1, -4.7 문
 
 	//	- 62.7, -13.1, -44.1문
@@ -686,7 +685,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter.y = pt.vCenter.y + 3;
 
 	Scal = D3DXVECTOR3(1.4, 0.6, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2, D3DXVECTOR3(0, 0, 0));
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2, D3DXVECTOR3(75.9f, -12.1f, 2.6f));
 
 	//13번째 인덱스
 	Min = D3DXVECTOR3(-1, 0, -1);
@@ -696,7 +695,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 1;
-	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "", Min * 10, Max * 10, NULL, D3DXVECTOR3(0, 0, 0));
+	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "", Min * 10, Max * 10, NULL, D3DXVECTOR3(30.8f, -12.1f, -80.5f));
 	//ObjectManager->ADDobject("t", "chair.x", p, Scal, pt, OBJ_TYPE::OBJECT, "", Min, Max, D3DX_PI / 2);
 
 	ObjectManager->getObject(13)->SetAngleX(-D3DX_PI/2);
@@ -711,7 +710,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 1;
-	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "", Min * 10, Max * 10, NULL, D3DXVECTOR3(0, 0, 0));
+	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "", Min * 10, Max * 10, NULL, D3DXVECTOR3(30.8f, -12.1f, -80.5f));
 
 	ObjectManager->getObject(14)->SetAngleX(D3DX_PI+0.1);
 	ObjectManager->getObject(14)->SetAngleY(D3DX_PI / 2);
@@ -723,7 +722,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 1;
-	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "", Min * 10, Max * 10, NULL, D3DXVECTOR3(0, 0, 0));
+	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "", Min * 10, Max * 10, NULL, D3DXVECTOR3(30.8f, -12.1f, -80.5f));
 
 	ObjectManager->getObject(15)->SetAngleX(-D3DX_PI+0.4);
 	ObjectManager->getObject(15)->SetAngleY(D3DX_PI/2);
@@ -736,7 +735,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 1;
-	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "", Min * 10, Max * 10, NULL, D3DXVECTOR3(0, 0, 0));
+	ObjectManager->ADDobject("Bedside cabinet", "bs_cabinet.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "", Min * 10, Max * 10, NULL, D3DXVECTOR3(30.8f, -12.1f, -80.5f));
 
 	ObjectManager->getObject(16)->SetAngleX(-D3DX_PI );
 	ObjectManager->getObject(16)->SetAngleY(D3DX_PI / 2);
@@ -761,7 +760,7 @@ void c2FScene::SetAddObj_3F()
 	pt.isPicked = false;
 	pt.fRadius = 0;
 	//std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max, float Angle
-	ObjectManager->ADDobject("Wheelchair", "wheelchair.x", p, Scal,pt,OBJ_TYPE::OBJECT_R,"휠체어",Min,Max, D3DX_PI, D3DXVECTOR3(39.4, 3.3, -28.2));
+	ObjectManager->ADDobject("Wheelchair", "wheelchair.x", p, Scal, pt, OBJ_TYPE::OBJECT_R, "휠체어", Min, Max, D3DX_PI, D3DXVECTOR3(-35.8f, -9.1f, 0.f));
 
 	//공
 	Min = D3DXVECTOR3(-0.3, -0.2, -0.6);
@@ -773,7 +772,7 @@ void c2FScene::SetAddObj_3F()
 	pt.isPicked = false;
 	pt.fRadius = 1;
 	//std::string sFolder, std::string sFile, D3DXVECTOR3 Pogi, D3DXVECTOR3 size, D3DXVECTOR3 Min, D3DXVECTOR3 Max, float Angle
-	ObjectManager->ADDobject("Ball", "Ball.X", p, Scal, Min, Max, D3DX_PI, D3DXVECTOR3(39.4, 3.3, -28.2));
+	ObjectManager->ADDobject("Ball", "Ball.X", p, Scal, Min, Max, D3DX_PI, D3DXVECTOR3(20.8f, -12.1f, -80.5f));
 
 	//마지막 넓은 공터 쪽 의자 2개
 	Min = D3DXVECTOR3(-2, 0, -0.035);
@@ -784,7 +783,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 2;
-	ObjectManager->ADDobject("t", "chair.x", p, Scal, Min, Max, -D3DX_PI/2, D3DXVECTOR3(0, 0, 0));
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, Min, Max, -D3DX_PI / 2, D3DXVECTOR3(-81.9f, -12.1f, -20.6f));
 
 	Min = D3DXVECTOR3(-2, 0, -0.035);
 	Max = D3DXVECTOR3(2, 0.075, 0.035);
@@ -794,7 +793,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter = p;
 	pt.isPicked = false;
 	pt.fRadius = 2;
-	ObjectManager->ADDobject("t", "chair.x", p, Scal, Min, Max, -D3DX_PI / 2, D3DXVECTOR3(0, 0, 0));
+	ObjectManager->ADDobject("t", "chair.x", p, Scal, Min, Max, -D3DX_PI / 2, D3DXVECTOR3(-82.f, -12.1f, -7.6f));
 }
 /*
 ==============================
@@ -836,7 +835,7 @@ void c2FScene::Setup()
 
 			2번째 -54.0 , -13.1 , -41.4
 
-			마지막 -73 , -13.1 , 16.4
+			마지막 -73 , -13.1 , 16.4 
 
 			라스트 -55.4,-13.1 , -2.14
 	
@@ -1351,8 +1350,8 @@ void c2FScene::ChangeMap()
 	v_LightPos[4] = D3DXVECTOR4(-52.6f, -12.1f, -62.3f, 1);
 	v_LightPos[5] = D3DXVECTOR4(-52.7f, -12.1f, -41.8f, 1);
 	v_LightPos[6] = D3DXVECTOR4(-77.0f, -12.1f, -40.4f, 1);
-	v_LightPos[7] = D3DXVECTOR4(97.3f, -12.1f, -26.7f, 1);
-	v_LightPos[8] = D3DXVECTOR4(75.9f, -12.1f, -2.6f, 1);
+	v_LightPos[7] = D3DXVECTOR4(-97.3f, -12.1f, -26.7f, 1);
+	v_LightPos[8] = D3DXVECTOR4(-75.9f, -12.1f, -2.6f, 1);
 	v_LightPos[9] = D3DXVECTOR4(-52.0f,-12.1f, -2.6f, 1);
 
 	////////////////////조명 방향///////////////////////

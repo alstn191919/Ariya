@@ -793,7 +793,7 @@ void cObejctManager::add3FEvent()
 			if (ObjectManager->GettargetPosition().x >= -3.3f && ObjectManager->GettargetPosition().y <= -13.f)
 			{
 				_switch = true;
-				gravity = 0.7f;
+				gravity = 1.2f;
 				Downspeed = 0.f;
 				Upspeed = 0.22f;
 				Upvalue = 0.02f;
