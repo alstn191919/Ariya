@@ -12,9 +12,9 @@ cCamera::cCamera(void)
 	, m_fAngleY(0.0f)
 	, m_fDistance(10.0f)
 	, m_LockupMouse(false)
-	, isPlay(false)
-	, startTime(0.0f)
-	, isOpen(false)
+, isPlay(false)
+, startTime(0.0f)
+, isOpen(false)
 	, m_bisController(true)
 {
 	g_pSoundManager->AddSound("close door", "./Sound/");
@@ -292,6 +292,7 @@ void cCamera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 						
 						if (m_fAngleX_obj < -D3DX_PI / 2.0 - EPSILON)
 							m_fAngleX_obj = -D3DX_PI / 2.0 - EPSILON;
+
 					}
 				}
 				else

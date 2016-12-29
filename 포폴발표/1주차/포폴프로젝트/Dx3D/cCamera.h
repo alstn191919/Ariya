@@ -28,7 +28,6 @@ private:
 	bool				isOpen;
 	float				startTime;
 	SYNTHESIZE(BOOL, m_bisController, isController);
-
 public:
 	cCamera(void);
 	~cCamera(void);
