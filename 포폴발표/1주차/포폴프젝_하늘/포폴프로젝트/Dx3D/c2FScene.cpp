@@ -833,7 +833,7 @@ void c2FScene::SetSound()
 	g_pSoundManager->SetVolume("thunder", 10.0f);
 	g_pSoundManager->SetPosition("woman crying", D3DXVECTOR3(-45, 0, -30));
 	g_pSoundManager->SetSpeed("monster footstep", 1.4f);
-
+	g_pSoundManager->SetSpeed("punch", 0.5f);
 }
 
 void c2FScene::ThunderEvent()
@@ -848,7 +848,7 @@ void c2FScene::ThunderEvent()
 		return;
 
 	m_fTimeForThunder += g_pTimeManager->GetDeltaTime();
-	if (m_fTimeForThunder < 15.0f)
+	if (m_fTimeForThunder < 10.0f)
 	{
 		return;
 	}
@@ -1670,7 +1670,7 @@ void c2FScene::MonSterAI()
 		break;
 	case Tag_Phase::EndPhase:
 		CRT_Nervous = true;
-
+		g_pSoundManager->Play("punch", DSBPLAY_LOOPING);
 		g_pSoundManager->Play("male hurt");
 		//
 	

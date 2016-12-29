@@ -106,6 +106,7 @@ void cMainGame::SetSound()
 	g_pSoundManager->AddSound("heavy footstep", "./Sound/");
 	g_pSoundManager->AddSound("monster face", "./Sound/");
 	g_pSoundManager->AddSound("monster footstep", "./Sound/");
+	g_pSoundManager->AddSound("punch", "./Sound/");
 }
 
 void cMainGame:: Getfps(float deltaTime)
