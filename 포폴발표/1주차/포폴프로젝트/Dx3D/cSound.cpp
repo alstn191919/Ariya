@@ -5,7 +5,9 @@ cSound::cSound()
 	: m_szPath(NULL)
 	, m_vPosition(0, 0, 0)
 	, m_vMapPosition(SOUND_MAP::SM_NONE)
-{ };
+{
+	G_SOUND_VOLUME = 10.0f;
+};
 
 cSound::~cSound()
 {};

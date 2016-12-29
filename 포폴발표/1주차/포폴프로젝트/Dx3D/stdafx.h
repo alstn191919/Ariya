@@ -37,7 +37,6 @@
 #pragma comment(lib, "winmm.lib")
 #pragma comment(lib, "dsound")
 extern HWND	g_hWnd;
-
 #define NonSlect 9999									//오브젝트 선택안함
 #define EPSILON 0.00001f								//float 오차값범위
 #define FOV          (D3DX_PI/4.0f)						// 시야각
