@@ -578,6 +578,40 @@ void c2FScene::SetAddObj_2F()
 }
 void c2FScene::SetAddObj_3F()
 {
+	////////////////////조명 위치///////////////////////
+	v_LightPos[0] = D3DXVECTOR4(-2.3f, 6.0f, -2.3f, 1);
+	v_LightPos[1] = D3DXVECTOR4(-8.7f, 6.0f, 3.5f, 1);
+	v_LightPos[2] = D3DXVECTOR4(-27.3f, 6.0f, -8.5f, 1);
+	v_LightPos[3] = D3DXVECTOR4(-13.2f, 6.0f, -28.6f, 1);
+	v_LightPos[4] = D3DXVECTOR4(39.4f, 6.0f, -28.2f, 1);
+	v_LightPos[5] = D3DXVECTOR4(35.8f, -2.8f, -93.9f, 1);
+	v_LightPos[6] = D3DXVECTOR4(32.7f, -11.4f, -55.2f, 1);
+	v_LightPos[7] = D3DXVECTOR4(56.0f, -11.4f, -97.2f, 1);
+	v_LightPos[8] = D3DXVECTOR4(61.5f, -11.4f, -107.9f, 1);
+	v_LightPos[9] = D3DXVECTOR4(-49.7f, 6.0f, -28.7f, 1);
+	////////////////////조명 방향///////////////////////
+	v_LightDir[0] = D3DXVECTOR4(-2.1f, 0, 0.04f, 0);
+	v_LightDir[1] = D3DXVECTOR4(-20.6f, 0, 3.46f, 0);
+	v_LightDir[2] = D3DXVECTOR4(-26.9f, 0, -18.2f, 0);
+	v_LightDir[3] = D3DXVECTOR4(15.3f, 0, -29.0f, 0);
+	v_LightDir[4] = D3DXVECTOR4(36.9f, 0, -41.0f, 0);
+	v_LightDir[5] = D3DXVECTOR4(43.2f, 0, -66.0f, 0);
+	v_LightDir[6] = D3DXVECTOR4(35.4f, 0, -80.7f, 0);
+	v_LightDir[7] = D3DXVECTOR4(61.2f, 0, -54.8f, 0);
+	v_LightDir[8] = D3DXVECTOR4(61.4f, 0, -103.7f, 0);
+	v_LightDir[9] = D3DXVECTOR4(32.5f, 0, -39.3f, 0);
+	////////////////////조명 세기////////////////////////
+	v_LightPow[0] = 2.0f;
+	v_LightPow[1] = 2.0f;
+	v_LightPow[2] = 2.0f;
+	v_LightPow[3] = 2.0f;
+	v_LightPow[4] = 2.0f;
+	v_LightPow[5] = 2.0f;
+	v_LightPow[6] = 2.0f;
+	v_LightPow[7] = 2.0f;
+	v_LightPow[8] = 2.0f;
+	v_LightPow[9] = 2.0f;
+	/////////////////////////////////////////////////////
 	D3DXVECTOR3 Scal(1,1,1);						//스케일... 
 	D3DXVECTOR3 p(39, -17.1, -74.4);		//포지션 위치 설정용
 	ST_SPHERE pt;							//피킹용 구 크기를 잡아줌
@@ -638,7 +672,7 @@ void c2FScene::SetAddObj_3F()
 
 	//-60 , -13.1 , -4.7 문
 
-	//달리기 문 3개
+	//달리기 문 3개(9,10,11)
 
 	p = D3DXVECTOR3(-62, -16.8, -38.6);
 	pt.vCenter = p;
@@ -677,7 +711,7 @@ void c2FScene::SetAddObj_3F()
 
 
 
-	//마지막문
+	//마지막문(12)
 	//-93.1 , -13.1 -44.4
 	p = D3DXVECTOR3(-61.4, -16.8, -3.9);
 	pt.vCenter = p;
@@ -686,6 +720,11 @@ void c2FScene::SetAddObj_3F()
 
 	Scal = D3DXVECTOR3(1.4, 0.6, 0.7);
 	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2, D3DXVECTOR3(75.9f, -12.1f, 2.6f));
+
+		//- 2.9 - 13.1, -78.1
+
+		//- 3.2, -12, -82*/
+
 
 	//13번째 인덱스
 	Min = D3DXVECTOR3(-1, 0, -1);
@@ -835,7 +874,7 @@ void c2FScene::Setup()
 
 			2번째 -54.0 , -13.1 , -41.4
 
-			마지막 -73 , -13.1 , 16.4 
+			마지막 -73 , -13.1 , 16.4
 
 			라스트 -55.4,-13.1 , -2.14
 	
@@ -893,8 +932,8 @@ void c2FScene::Setup()
 	m_pObb = new cOBB;
 	m_pObb->Setup(m_pHero->GetMesh());
 
-	m_pObbObj = new cOBB;
-	m_pObbObj->Setup(m_pHero->GetMesh());
+	m_pObbEvent = new cOBB;
+	m_pObbEvent->Setup(D3DXVECTOR3(-2, -2, -2), D3DXVECTOR3(2, 2, 2));
 
 }
 void c2FScene::Update()
@@ -940,10 +979,10 @@ void c2FScene::Update()
 	if (m_pMap)
 		m_pMap->Update();
 
-	/*if (GetAsyncKeyState(VK_F10))
+	if (GetAsyncKeyState(VK_F10)&1)
 	{
 		ChangeMap();
-	}*/
+	}
 	
 
 	if (ObjectManager->isPinked() &&
@@ -956,6 +995,7 @@ void c2FScene::Update()
 }
 void c2FScene::Render()
 {
+	MonSterEvent();
 	time++;
 	D3DXMATRIXA16 matI, matT, matS;
 	D3DXMatrixIdentity(&matI);
@@ -1006,7 +1046,7 @@ void c2FScene::Render()
 	m_pHero->UpdateAndRender(&_zMat);	
 	
 	//if (GetAsyncKeyState('P') & 1)
-	if (/*time%20==0 && */(GetKeyState('P') & 0x8001))
+	if (m_pMonster->Getswich_2()||(GetKeyState('P') & 0x8001))
 	{
 		MonSterAI();
 	}
@@ -1031,14 +1071,6 @@ void c2FScene::Render()
 	ObjectManager->Render();
 
 	
-	/*if (cOBB::IsCollision(m_pObb, ObjectManager->GetInstance()->`))
-	{
-	m_pObbObj->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
-	}
-	else
-	{
-	m_pObbObj->DebugRender(D3DCOLOR_XRGB(255, 255, 255));
-	}*/
 
 	if (m_pUIRoot && ObjectManager->isPinked() &&
 		(ObjectManager->getPinkedObjType() == OBJ_TYPE::Switch) || (ObjectManager->getPinkedObjType() == OBJ_TYPE::door))
@@ -1396,43 +1428,273 @@ void c2FScene::ChangeMap()
 
 	SetAddObj_3F();
 	ObjectManager->add3FEvent();
+
+	m_pMonster->SetPhase(Tag_Phase::stand_by);
+
 }
 
 
 void c2FScene::MonSterAI()
 {
-	int a = 0;
+	
 	static int index = 0;
-	D3DXMATRIXA16 matP , matS ,matR, m_Wolrd;
+	D3DXMATRIXA16 matP, matS, matR, m_Wolrd;
 	D3DXVECTOR3 vPosition;
 	D3DXMatrixIdentity(&matR);
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixIdentity(&matP);
 	D3DXMatrixIdentity(&m_Wolrd);
-	D3DXMatrixScaling(&matS, charsizeX, charsizeY, charsizeZ);
-	//D3DXMatrixTranslation(&m_Wolrd, -26.4, 0, 7.88);
-	
-	//m_pMonster->SetAnimationIndex(4);
-//	m_pMonster->SetPosition(D3DXVECTOR3(-26.4, 0, 7.88));
-	
 	D3DXVECTOR3 m_vPosition = m_pMonster->GetPosition();
-	vPosition = m_vPosition + (m_pMonster->GetDirection() * (0.4 - 0.1f));
+	D3DXVECTOR3 a = m_pMonster->GetPosition();
+	D3DXVECTOR3 b = *m_pController->GetPosition();
+	D3DXVECTOR3 c = b - a;
+	D3DXMatrixScaling(&matS, charsizeX, charsizeY, charsizeZ);
+	switch (m_pMonster->GetPhase())
+	{
+	case Tag_Phase::Phase1:
+	
+	
+	
+
+	
+		
+		vPosition = m_vPosition + (m_pMonster->GetDirection() * (m_pMonster->GetSpeed() - 0.1f));
+
+
+			D3DXMatrixTranslation(&m_Wolrd, vPosition.x, vPosition.y, vPosition.z);
+
+			D3DXMatrixRotationY(&matR, -D3DX_PI);
+	
+
+		m_Wolrd = matS * matR *  m_Wolrd;
+
+
+
+		m_pMonster->UpdateAndRender(&m_Wolrd);
+		m_pMonster->SetPosition(vPosition);
+		break;
+	case Tag_Phase::Phase2:
+		
+
+
+
+		vPosition = m_vPosition + (m_pMonster->GetDirection() * (m_pMonster->GetSpeed() - 0.1f));
 
 
 		D3DXMatrixTranslation(&m_Wolrd, vPosition.x, vPosition.y, vPosition.z);
 
-		D3DXMatrixRotationY(&matR, -D3DX_PI);
+		D3DXMatrixRotationY(&matR, D3DX_PI/2);
+
+
+		m_Wolrd = matS * matR *  m_Wolrd;
+
+
+
+		m_pMonster->UpdateAndRender(&m_Wolrd);
+		m_pMonster->SetPosition(vPosition);
+
+		break;
+	case Tag_Phase::Phase3:
+		
+
+		
+		D3DXVec3Normalize(&c, &c);
+		m_pMonster->SetDirection(c);
+
+		vPosition = m_vPosition + (m_pMonster->GetDirection() * (m_pMonster->GetSpeed() - 0.1f));
+
+
+		D3DXMatrixTranslation(&m_Wolrd, vPosition.x, vPosition.y, vPosition.z);
+
+
+		c.z = -c.z;
+		D3DXMatrixLookAtLH(&matR,
+			&D3DXVECTOR3(0, 0, 0),
+			&c,
+			&D3DXVECTOR3(0, 1, 0));
+
+	//	D3DXMatrixRotationY(&matR, -D3DX_PI/2);
+
+
+		m_Wolrd = matS * matR *  m_Wolrd;
+
+
+
+		m_pMonster->UpdateAndRender(&m_Wolrd);
+		m_pMonster->SetPosition(vPosition);
+
+		break;
 	
-	/*else
-	D3DXMatrixTranslation(&m_Wolrd, m_pMonster->GetPosition().x, m_pMonster->GetPosition().y, m_pMonster->GetPosition().z);*/
-
-	//D3DXMatrixTranslation(&m_Wolrd, vPosition.x, vPosition.y, vPosition.z);
-	m_Wolrd = matS * matR *  m_Wolrd;
+	
+	case Tag_Phase::Phase4:
+		
 
 
+	
 
-	m_pMonster->UpdateAndRender(&m_Wolrd);
-	m_pMonster->SetPosition(vPosition);
+		vPosition = m_pMonster->GetPosition();
+		//vPosition = m_pCamera->GetvLookat();
 
 
+
+	/*	vPosition.y -= 0.0f;
+		vPosition.z -= 1.0f;*/
+
+		D3DXMatrixTranslation(&m_Wolrd, vPosition.x, vPosition.y, vPosition.z);
+
+		D3DXVec3Normalize(&c, &c);
+		m_pMonster->SetDirection(c);
+
+
+		c.z = -c.z;
+
+		D3DXMatrixLookAtLH(&matR,
+			&D3DXVECTOR3(0, 0, 0),
+			&c,
+			&D3DXVECTOR3(0, 1, 0));
+
+
+
+		//D3DXMatrixRotationY(&matR, D3DX_PI/2);
+
+
+		m_Wolrd = matS * matR *  m_Wolrd;
+
+
+
+		m_pMonster->UpdateAndRender(&m_Wolrd);
+		m_pMonster->SetPosition(vPosition);
+
+		break;
+	case Tag_Phase::EndPhase:
+	
+
+	
+		vPosition = m_pCamera->GetvLookat();
+
+
+
+		vPosition.y -= 3.0f;
+		vPosition.z -= 2.0f;
+
+		D3DXMatrixTranslation(&m_Wolrd, vPosition.x, vPosition.y, vPosition.z);
+
+		D3DXVec3Normalize(&c, &c);
+		m_pMonster->SetDirection(c);
+
+		
+		D3DXVECTOR3 c = b - vPosition;
+		c.z = -c.z;
+
+		D3DXMatrixLookAtLH(&matR,
+			&D3DXVECTOR3(0, 0, 0),
+			&c,
+			&D3DXVECTOR3(0, 1, 0));
+
+
+		m_Wolrd = matS * matR *  m_Wolrd;
+
+
+
+		m_pMonster->UpdateAndRender(&m_Wolrd);
+		m_pMonster->SetPosition(vPosition);
+	}
+}
+
+void c2FScene::MonSterEvent()
+{
+	D3DXMATRIXA16 mat;
+	D3DXMatrixIdentity(&mat);
+
+		if (m_pMonster->Getswich_1())
+		D3DXMatrixTranslation(&mat, -52, -15.1, -53.3);
+		else
+		D3DXMatrixTranslation(&mat, -52, -15.1, -41.6);
+
+		if (m_pMonster->Getswich_2() && m_pMonster->GetPhase() == Tag_Phase::Phase1)
+			D3DXMatrixTranslation(&mat, -52, -15.1, -37.5);
+		if (m_pMonster->Getswich_2() && m_pMonster->GetPhase() == Tag_Phase::Phase2)
+			D3DXMatrixTranslation(&mat, -85.6 ,- 13.1, -26.6);
+		if (m_pMonster->Getswich_2() && m_pMonster->GetPhase() == Tag_Phase::Phase3)
+			D3DXMatrixTranslation(&mat, -58.4, -13.1, -2.14);
+
+		m_pObbEvent->Update(&mat);
+
+		if (cOBB::IsCollision(m_pObb, m_pObbEvent))
+		{
+			switch (m_pMonster->GetPhase())
+			{
+			case Tag_Phase::stand_by:
+				if (m_pMonster->Getswich_1())
+				{
+					m_pMonster->Setswich_2(true);
+					m_pMonster->SetPhase(Tag_Phase::Phase1);
+					ObjectManager->getObject(9)->SetisOpen(true);
+					ObjectManager->getObject(10)->SetisOpen(true);
+					ObjectManager->getObject(11)->SetisOpen(true);
+				}
+				else
+					m_pMonster->Setswich_1(true);
+				//assert(false && "이벤트 발생요");
+				break;
+			case Tag_Phase::Phase1:
+			//	m_pMonster->SetPhase(Tag_Phase::Phase2);
+				break;
+			case Tag_Phase::Phase3:
+				m_pMonster->SetPhase(Tag_Phase::Phase4);
+				m_pMonster->SetPosition(D3DXVECTOR3(m_pController->GetPosition()->x+2, -16.6, m_pController->GetPosition()->z-0.5));
+				m_pMonster->SetAnimationIndex(2);
+				m_pMonster->SetDirection(D3DXVECTOR3(-1, 0, 0));
+				m_pCamera->SetisController(false);
+				m_pController->SetisController(false);
+				break;
+			case Tag_Phase::Phase2:
+				m_pMonster->SetPhase(Tag_Phase::Phase3);
+				m_pMonster->SetPosition(D3DXVECTOR3(-74.2, -16.1, 12.2));
+				D3DXVECTOR3 a = m_pMonster->GetPosition();
+				D3DXVECTOR3 b = *m_pController->GetPosition();
+				D3DXVECTOR3 c = b - a;
+				D3DXVec3Normalize(&c, &c);
+				m_pMonster->SetDirection(c);
+				//m_pMonster->SetDirection()
+				break;
+
+
+			}
+
+		}
+
+		if (cOBB::IsCollision(m_pMonster->GetObb(), m_pObbEvent))
+		{
+			switch (m_pMonster->GetPhase())
+			{
+			case Tag_Phase::Phase1:
+				m_pMonster->SetPhase(Tag_Phase::Phase2);
+				m_pMonster->SetDirection(D3DXVECTOR3(-1, 0, 0)); 
+					break;
+			
+
+			}
+		}
+
+
+
+		if (cOBB::IsCollision(m_pObb, m_pMonster->GetObb()))
+		{
+			if (m_pMonster->GetPhase() != Tag_Phase::EndPhase)
+			{
+				m_pMonster->SetPhase(Tag_Phase::EndPhase);
+				m_pMonster->SetAnimationIndex(0);
+				m_pCamera->SetisController(false);
+				m_pController->SetisController(false);
+				m_pMonster->SetPosition(m_pCamera->GetvLookat());
+				//m_pMonster->SetPosition(D3DXVECTOR3(m_pController->GetPosition()->x + 4, -16.6, m_pController->GetPosition()->z - 0.5));
+			}
+		}
+
+	
+	
+
+
+	m_pObbEvent->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
 }

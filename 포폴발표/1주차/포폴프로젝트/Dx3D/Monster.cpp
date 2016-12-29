@@ -9,19 +9,26 @@ Monster::Monster(char* szDirectory, char* szFilename)
 	, m_enumDirection(ENUM_DIRECTION::DR_NONE)
 	, m_enumPrevState(m_enumState)
 	, m_enumPrevDirection(m_enumDirection)
+	, i_Phase(NonPhase)
+	, b_swich_1(false)
+	, b_swich_2(false)
+	, m_fSpeed(0.2f)
 	//, m_isInteract(false)
 	, m_enumInteraction(CRT_INTERACTION::ACTION_NONE)
 {
 	m_pSkinnedMesh = new cSkinnedMesh(szDirectory, szFilename);
 
 	//바운딩 박스 설정
-	m_Min = D3DXVECTOR3(-1, 0, -1);
-	m_Max = D3DXVECTOR3(1, 3, 1);
+	D3DXVECTOR3	m_Min = D3DXVECTOR3(-100, -100, -100);
+	D3DXVECTOR3	m_Max = D3DXVECTOR3(100, 100, 100);
 	m_pSkinnedMesh->SetMin(m_Min);
 	m_pSkinnedMesh->SetMax(m_Max);
 
 	m_Direction = D3DXVECTOR3(0, 0, 1);
 	SetAnimationIndex(4);
+
+	m_Obb = new cOBB;
+	m_Obb->Setup(m_Min, m_Max);
 }
 
 
@@ -36,48 +43,46 @@ void Monster::UpdateAndRender(D3DXMATRIXA16 * pmat)
 	//캐릭터 상태에 따른 바운딩박스, 애니메이션 변화
 	if (m_enumState == CRT_STATE::CRT_CRAWL)					//기어가기
 	{
-		//현재 임시값
-		m_Min = D3DXVECTOR3(-1, 0, -1);
-		m_Max = D3DXVECTOR3(1, 0, 1);
+
 
 		//애니메이션 세팅: ENUM_DIRECTION에 따라 바꿉니다.
 		SetAnimationCrawl();
 	}
 	else if (m_enumState == CRT_STATE::CRT_IDLE)				//기본
 	{
-		m_Min = D3DXVECTOR3(-1, 0, -1);
-		m_Max = D3DXVECTOR3(1, 3, 1);
+
 
 		SetAnimationIdle();
 	}
 	else if (m_enumState == CRT_STATE::CRT_WALK)					//걷기
 	{
-		m_Min = D3DXVECTOR3(-1, 0, -1);
-		m_Max = D3DXVECTOR3(1, 3, 1);
+
 
 		SetAnimationWalk();
 	}
 	else if (m_enumState == CRT_STATE::CRT_RUN)					//뛰기
 	{
-		m_Min = D3DXVECTOR3(-1, 0, -1);
-		m_Max = D3DXVECTOR3(1, 3, 1);
+
 
 		SetAnimationRun();
 	}
 	else if (m_enumState == CRT_STATE::CRT_JUMPOVER)
 	{
-		m_Min = D3DXVECTOR3(-1, 2, -1);
-		m_Max = D3DXVECTOR3(1, 3, 1);
+
 	}
 
 	m_enumPrevState = m_enumState;
 	m_enumPrevDirection = m_enumDirection;
 
 	//메시 바운딩박스 설정
-	m_pSkinnedMesh->SetMin(m_Min);
-	m_pSkinnedMesh->SetMax(m_Max);
 
+	m_Obb->Update(pmat);
 	m_pSkinnedMesh->UpdateAndRender(pmat);
+
+	if (GetAsyncKeyState(VK_F1) & 1)
+	{
+		m_Obb->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
+	}
 }
 
 void Monster::SetAnimationCrawl()

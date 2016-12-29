@@ -28,7 +28,7 @@ private:
 	cHero*						m_pHero;
 	cMapRender*					m_pMap;
 	cOBB*						m_pObb;
-	cOBB*						m_pObbObj;
+	cOBB*						m_pObbEvent;			//쓰지도 않던 OBB Event OBB로 수정
 	Monster*					m_pMonster;
 	
 	D3DMATERIAL9				m_TextMtl;
@@ -64,7 +64,8 @@ public:
 
 	void ChangeMap();
 	void addElivator();			//엘리베이터 추가 ( 코드가 긴데 2번이상 쓰므로 함수로 따로뺌)  //작성자 : 강병민
-	void MonSterAI();			
+	void MonSterAI();			//몬스터 AI
+	void MonSterEvent();		//몬스터 이벤트 시작 판정함
 
 	c2FScene();
 	~c2FScene();

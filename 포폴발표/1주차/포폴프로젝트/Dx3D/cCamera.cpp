@@ -3,18 +3,19 @@
 
 
 cCamera::cCamera(void)
-: m_vEye(0, 0, 10)
-, m_vLookAt(0, 0, 0)
-, m_vUp(0, 1, 0)
-, m_isLButtonDown(false)
-, m_isLButtonOBJDown(false)
-, m_fAngleX(0.0f)
-, m_fAngleY(0.0f)
-, m_fDistance(10.0f)
-, m_LockupMouse(false)
-, isPlay(false)
-, startTime(0.0f)
-, isOpen(false)
+	: m_vEye(0, 0, 10)
+	, m_vLookAt(0, 0, 0)
+	, m_vUp(0, 1, 0)
+	, m_isLButtonDown(false)
+	, m_isLButtonOBJDown(false)
+	, m_fAngleX(0.0f)
+	, m_fAngleY(0.0f)
+	, m_fDistance(10.0f)
+	, m_LockupMouse(false)
+	, isPlay(false)
+	, startTime(0.0f)
+	, isOpen(false)
+	, m_bisController(true)
 {
 	g_pSoundManager->AddSound("close door", "./Sound/");
 	g_pSoundManager->SetVolume("close door", 10);
@@ -47,46 +48,49 @@ void cCamera::Setup()
 
 void cCamera::Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection,bool IsCrawl)
 {
-	//마우스 가두기
-	if (m_LockupMouse)
-		SetCursor(NULL);
-
-	D3DXMATRIXA16 matRX, matRY, matT, mat;
-	D3DXMatrixRotationX(&matRX, m_fAngleX);
-	D3DXMatrixRotationY(&matRY, m_fAngleY);
-
-	mat = matRX * matRY;
-
-	D3DXVECTOR3 templook;
-	D3DXVec3TransformNormal(&templook, &D3DXVECTOR3(0, 0, -1), &mat);
-
-	//D3DXVec3TransformNormal(&m_vLookAt, &D3DXVECTOR3(0, 0, 1), &mat);
-
-
-	//D3DXVec3TransformCoord(&m_vEye, &m_vEye, &mat);
-
-
-	if (pTarget)
+	if (m_bisController)
 	{
-		if (IsCrawl)
+		//마우스 가두기
+		if (m_LockupMouse)
+			SetCursor(NULL);
+
+		D3DXMATRIXA16 matRX, matRY, matT, mat;
+		D3DXMatrixRotationX(&matRX, m_fAngleX);
+		D3DXMatrixRotationY(&matRY, m_fAngleY);
+
+		mat = matRX * matRY;
+
+		D3DXVECTOR3 templook;
+		D3DXVec3TransformNormal(&templook, &D3DXVECTOR3(0, 0, -1), &mat);
+
+		//D3DXVec3TransformNormal(&m_vLookAt, &D3DXVECTOR3(0, 0, 1), &mat);
+
+
+		//D3DXVec3TransformCoord(&m_vEye, &m_vEye, &mat);
+
+
+		if (pTarget)
 		{
-			pTarget->y += 2.5f;
-			pTarget->x -= sinf(m_fAngleY);
-			pTarget->z -= cosf(m_fAngleY);
-			m_vEye = *pTarget;
+			if (IsCrawl)
+			{
+				pTarget->y += 2.5f;
+				pTarget->x -= sinf(m_fAngleY);
+				pTarget->z -= cosf(m_fAngleY);
+				m_vEye = *pTarget;
 			
-		}
-		else
-		{
-			pTarget->y += 3.5f;
-			m_vEye = *pTarget;
+			}
+			else
+			{
+				pTarget->y += 3.5f;
+				m_vEye = *pTarget;
+			}
+
+			m_vLookAt = *pTarget + *pDirection + templook;
 		}
 
-		m_vLookAt = *pTarget + *pDirection + templook;
+		D3DXMatrixLookAtLH(&m_matView, &m_vEye, &m_vLookAt, &m_vUp);
+		g_pD3DDevice->SetTransform(D3DTS_VIEW, &m_matView);
 	}
-
-	D3DXMatrixLookAtLH(&m_matView, &m_vEye, &m_vLookAt, &m_vUp);
-	g_pD3DDevice->SetTransform(D3DTS_VIEW, &m_matView);
 	if (isPlay)
 	{
 		startTime += 0.0167f;
