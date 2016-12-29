@@ -24,8 +24,9 @@ private:
 	POINT               m_ptOBJPrevMouse;
 	float               m_fAngleX_obj;
 	float               m_fAngleY_obj;
-
-
+	bool				isPlay;
+	bool				isOpen;
+	float				startTime;
 public:
 	cCamera(void);
 	~cCamera(void);

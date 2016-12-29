@@ -52,10 +52,6 @@ void cShaderManager::Destroy()
 	for each(auto p in gpLightingShader)
 	{
 		SAFE_RELEASE(p.second);
-		if (p.second)
-		{
-			int a = 0;
-		}
 	}
-
+	gpLightingShader.clear();
 }

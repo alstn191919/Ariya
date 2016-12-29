@@ -1,36 +1,21 @@
-﻿빌드 시작: 2016-12-29 오전 10:42:59
-     1>2 노드의 "C:\Users\Yoo Ji Hyeon\Desktop\포폴프로젝트거의마지막\Dx3D\Dx3D.vcxproj" 프로젝트(Build 대상)입니다.
+﻿빌드 시작: 2016-12-29 오전 10:44:56
+     1>2 노드의 "C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Dx3D\Dx3D.vcxproj" 프로젝트(Build 대상)입니다.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Dx3D.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt cObejctManager.cpp
-         cObejctManager.cpp
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(45): warning C4316: 'cSkinnedMesh2': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(57): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(72): warning C4316: 'cSkinnedMesh2': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(99): warning C4316: 'cSkinnedMesh2': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(118): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(131): warning C4316: 'cSkinnedMesh2': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(242): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(260): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(297): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(311): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(324): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(338): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(367): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(384): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(397): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(411): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(446): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(471): warning C4316: 'cOBB': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(588): warning C4305: '인수' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(630): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(637): warning C4305: '인수' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(762): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(771): warning C4305: '인수' : 'double'에서 'FLOAT'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(813): warning C4305: '=' : 'double'에서 'float'(으)로 잘립니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(345): warning C4715: 'cObejctManager::getText' : 모든 제어 경로에서 값을 반환하지는 않습니다.
-     1>c:\users\yoo ji hyeon\desktop\포폴프로젝트거의마지막\dx3d\cobejctmanager.cpp(391): warning C4715: 'cObejctManager::getPinkedObjType' : 모든 제어 경로에서 값을 반환하지는 않습니다.
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Dx3D.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt cStartScene.cpp
+         cStartScene.cpp
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(81): warning C4316: 'cCamera': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(85): warning C4316: 'cUIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(97): warning C4244: '=' : 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(98): warning C4244: '=' : 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(110): warning C4305: '인수' : 'double'에서 'float'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(130): warning C4244: '+=' : 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(150): warning C4305: '+=' : 'double'에서 'float'(으)로 잘립니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(176): warning C4244: '인수' : 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(207): warning C4316: 'cUIButton': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(216): warning C4244: '=' : 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+     1>c:\users\user\desktop\포폴\2주차\포폴프로젝트\dx3d\cstartscene.cpp(217): warning C4244: '=' : 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Yoo Ji Hyeon\Desktop\포폴프로젝트거의마지막\Debug\Dx3D.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Yoo Ji Hyeon\Desktop\포폴프로젝트거의마지막\Debug\Dx3D.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Yoo Ji Hyeon\Desktop\포폴프로젝트거의마지막\Debug\Dx3D.lib" /MACHINE:X86 Debug\Dx3D.res
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Debug\Dx3D.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Debug\Dx3D.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Debug\Dx3D.lib" /MACHINE:X86 Debug\Dx3D.res
          Debug\c2FScene.obj
          Debug\cAction.obj
          Debug\cActionMove.obj
@@ -82,9 +67,9 @@
          Debug\iMap.obj
          Debug\Monster.obj
          Debug\stdafx.obj
-         Dx3D.vcxproj -> C:\Users\Yoo Ji Hyeon\Desktop\포폴프로젝트거의마지막\Debug\Dx3D.exe
-     1>"C:\Users\Yoo Ji Hyeon\Desktop\포폴프로젝트거의마지막\Dx3D\Dx3D.vcxproj" 프로젝트를 빌드했습니다(Build 대상).
+         Dx3D.vcxproj -> C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Debug\Dx3D.exe
+     1>"C:\Users\user\Desktop\포폴\2주차\포폴프로젝트\Dx3D\Dx3D.vcxproj" 프로젝트를 빌드했습니다(Build 대상).
 
 빌드했습니다.
 
-경과 시간: 00:00:00.78
+경과 시간: 00:00:07.81

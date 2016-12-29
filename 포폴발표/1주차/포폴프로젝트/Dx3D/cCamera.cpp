@@ -3,16 +3,25 @@
 
 
 cCamera::cCamera(void)
-	: m_vEye(0, 0, 10)
-	, m_vLookAt(0, 0, 0)
-	, m_vUp(0, 1, 0)
-	, m_isLButtonDown(false)
-	, m_isLButtonOBJDown(false)
-	, m_fAngleX(0.0f)
-	, m_fAngleY(0.0f)
-	, m_fDistance(10.0f)
-	, m_LockupMouse(false)
+: m_vEye(0, 0, 10)
+, m_vLookAt(0, 0, 0)
+, m_vUp(0, 1, 0)
+, m_isLButtonDown(false)
+, m_isLButtonOBJDown(false)
+, m_fAngleX(0.0f)
+, m_fAngleY(0.0f)
+, m_fDistance(10.0f)
+, m_LockupMouse(false)
+, isPlay(false)
+, startTime(0.0f)
+, isOpen(false)
 {
+	g_pSoundManager->AddSound("close door", "./Sound/");
+	g_pSoundManager->SetVolume("close door", 10);
+	g_pSoundManager->AddSound("slam door", "./Sound/");
+	g_pSoundManager->SetVolume("slam door", 10);
+	g_pSoundManager->AddSound("open door", "./Sound/");
+	g_pSoundManager->SetVolume("open door", 30);
 }
 
 cCamera::~cCamera(void)
@@ -78,7 +87,28 @@ void cCamera::Update(D3DXVECTOR3* pTarget, D3DXVECTOR3* pDirection,bool IsCrawl)
 
 	D3DXMatrixLookAtLH(&m_matView, &m_vEye, &m_vLookAt, &m_vUp);
 	g_pD3DDevice->SetTransform(D3DTS_VIEW, &m_matView);
-
+	if (isPlay)
+	{
+		startTime += 0.0167f;
+	}
+	if (startTime > 0.4f)
+	{
+		isPlay = false;
+		isOpen = false;
+		startTime = 0.0f;
+		if (g_pSoundManager->GetState("close door"))
+		{
+			g_pSoundManager->Stop("close door");
+		}
+		 if (g_pSoundManager->GetState("slam door"))
+		{
+			g_pSoundManager->Stop("slam door");
+		}
+		 if (g_pSoundManager->GetState("open door"))
+		{
+			g_pSoundManager->Stop("open door");
+		}
+	}
 }
 
 D3DXMATRIXA16* cCamera::GetViewMatrix()
@@ -125,10 +155,6 @@ void cCamera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			m_ptOBJPrevMouse.y = HIWORD(lParam);
 			m_isLButtonDown = false;
 			m_isLButtonOBJDown = true;
-
-
-
-
 			if (ObjectManager->Getselect_index() == NonSlect && ObjectManager->getPinkedObjType() == OBJ_TYPE::item || ObjectManager->getPinkedObjType() == OBJ_TYPE::door)
 			{
 				ObjectManager->SetSelect();
@@ -139,9 +165,6 @@ void cCamera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				//}
 				m_fAngleX_obj = ObjectManager->getAngleX();
 				m_fAngleY_obj = ObjectManager->getAngleY();
-
-
-
 				break;
 			}
 		}
@@ -235,19 +258,36 @@ void cCamera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					if (ObjectManager->getOpen())
 					{
 						if (m_fAngleX_obj > -1.5)
+						{
 							m_fAngleX_obj = -1.5;
-
-						if (m_fAngleX_obj < -D3DX_PI - EPSILON)
+							isPlay = true;
+							g_pSoundManager->Play("close door");
+						}
+						else if (m_fAngleX_obj < -1.5 && m_fAngleX_obj > -1.8)
+						{
+							if (!isOpen)
+							{
+								isPlay = true;
+								isOpen = true;
+								g_pSoundManager->Play("open door");
+							}
+						}
+						else if (m_fAngleX_obj < -D3DX_PI - EPSILON)
+						{
 							m_fAngleX_obj = -D3DX_PI - EPSILON;
+						}
 					}
 					else
 					{
 						if (m_fAngleX_obj > -1.5)
+						{
 							m_fAngleX_obj = -1.5;
-
+							isPlay = true;
+							g_pSoundManager->Play("slam door");
+						}
+						
 						if (m_fAngleX_obj < -D3DX_PI / 2.0 - EPSILON)
 							m_fAngleX_obj = -D3DX_PI / 2.0 - EPSILON;
-
 					}
 				}
 				else
