@@ -48,13 +48,13 @@ c2FScene::c2FScene() : m_pCamera(NULL)
 	g_pSoundManager->AddSound("off lamp2", "./sound/");
 	g_pSoundManager->SetVolume("off lamp2", 10);
 	g_pSoundManager->AddSound("gathering darkness", "./sound/");
-	g_pSoundManager->SetVolume("gathering darkness", 10);
+	g_pSoundManager->SetVolume("gathering darkness", 5);
 	g_pSoundManager->AddSound("scream", "./sound/");
-	g_pSoundManager->SetVolume("scream", 10);
+	g_pSoundManager->SetVolume("scream", 5);
 	g_pSoundManager->AddSound("heart beat fast", "./sound/");
 	g_pSoundManager->SetVolume("heart beat fast", 15);
 	g_pSoundManager->AddSound("gameplay be lost", "./sound/");
-	g_pSoundManager->SetVolume("gameplay be lost", 10);
+	g_pSoundManager->SetVolume("gameplay be lost", 5);
 	
 }
 

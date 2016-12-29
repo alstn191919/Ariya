@@ -54,7 +54,9 @@ private:
 	cUITextView*				 pTextView;
 	LPD3DXFONT					gpFont;
 
-	D3DXVECTOR3		m_vCRTPos;
+	bool						_isStartEvent;
+	float						EventTime;
+	D3DXVECTOR3					m_vCRTPos;
 	bool						m_ThunderSwitch;
 	bool						m_isThunderOn;
 	float						m_fThunderTime;
