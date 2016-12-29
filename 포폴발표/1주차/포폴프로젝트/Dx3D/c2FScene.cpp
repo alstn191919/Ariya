@@ -55,7 +55,8 @@ c2FScene::~c2FScene()
 	for each(auto p in m_vecText)
 	{
 		SAFE_RELEASE(p);
-	}}
+	}
+}
 
 /*
 =============================================================================================================================================
@@ -960,7 +961,10 @@ void c2FScene::Update()
 }
 void c2FScene::Render()
 {
-	MonSterEvent();
+	if (m_pMonster->GetPhase() != Tag_Phase::NonPhase)
+	{
+		MonSterEvent();
+	}
 	time++;
 	D3DXMATRIXA16 matI, matT, matS;
 	D3DXMatrixIdentity(&matI);
