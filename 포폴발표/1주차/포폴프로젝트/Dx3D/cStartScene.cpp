@@ -34,6 +34,8 @@ cStartScene::~cStartScene()
 
 	SAFE_RELEASE(Button);
 	SAFE_RELEASE(LogoSprite);
+
+	g_pSoundManager->Stop("mainTheme");
 }
 
 void cStartScene::Setup()
@@ -291,7 +293,7 @@ void cStartScene::SoundManual()
 	//g_pSoundManager->Stop("mainTheme");
 
 	//임의로 볼륨 및 패닝 적용하기
-	//모든 볼륨은 G_SOUND_VOLUME (stdafx.h에 디파인) * 값으로 변경됩니다.
+	//모든 볼륨은 G_SOUND_VOLUME * 값으로 변경됩니다.
 	//사용시에는 : 1~10 사이의 수로 설정 가능. 소숫점 두 자리까지 적용됩니다.
 	//													LPSTR 파일명,		long 볼륨
 	g_pSoundManager->SetVolume("mainTheme", 10);
@@ -301,4 +303,18 @@ void cStartScene::SoundManual()
 	//0이 기본값이며, 최소값에 가까울수록 왼쪽에서, 최댓값에 가까울수록 오른쪽에서 소리가 납니다.
 	//										LPSTR 파일명, long 패닝값 
 	//g_pSoundManager->SetPan("mainTheme", 0);
+
+	//포지션이 설정되지 않은 사운드는 이하 함수를 사용할 수 없습니다. (에러남)
+
+	//사운드 포지션 설정
+	//사운드 포지션으로 캐릭터 위치값에 따른 볼륨/패닝 변경이 가능합니다.
+	//현재 소스에는 추가되어있지 않습니다.
+	//													LPSTR 파일명, 포지션값
+	//g_pSoundManager->SetPosition("mainTheme", D3DXVECTOR3(0, 0, 0));
+
+	//사운드 포지션에 따른 볼륨/패닝 적용
+	//해당 씬 업데이트 부분에 넣어주셔야 합니다. (지속적 업데이트 필요)
+	//												LPSTR 파일명, 듣는 캐릭터/카메라의 위치
+	//g_pSoundManager->SetVolumeAndPan("mainTheme", D3DXVCETOR3(CRTPosition));
+
 }

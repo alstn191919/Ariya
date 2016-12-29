@@ -49,7 +49,7 @@ extern HWND	g_hWnd;
 
 #define SND_STOPPED  0				//사운드 정지
 #define SND_PLAYING   1				//사운드 재생
-#define G_SOUND_VOLUME	10		//게임 기본 사운드
+extern long G_SOUND_VOLUME;//	10		//게임 기본 사운드
 
 #define SAFE_ADD_REF(p) if(p) { (p)->AddRef(); }
 #define SAFE_RELEASE(p) if(p) { (p)->Release(); (p) = NULL; }

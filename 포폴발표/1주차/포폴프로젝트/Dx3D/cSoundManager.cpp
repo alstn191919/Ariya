@@ -12,6 +12,10 @@ cSoundManager::~cSoundManager()
 	Destroy();
 }
 
+void cSoundManager::Update()
+{
+}
+
 void cSoundManager::Play(LPSTR szFileName, DWORD flag)
 {
 	//DSBPLAY_LOOPING : stop 때까지 반복재생
@@ -50,8 +54,23 @@ void cSoundManager::Stop(LPSTR szFileName)
 	}
 }
 
-void cSoundManager::SetVolume(LPSTR szFileName, D3DXVECTOR3 vCRTPosition)
+void cSoundManager::SetVolumeAndPan(LPSTR szFileName, D3DXVECTOR3 vCRTPosition)
 {
+	cSound* data;
+	if (m_mapSound.empty())
+	{
+		//assert("map is empty");
+	}
+
+	if (data = m_mapSound.find(szFileName)->second)
+	{
+		data->SetVolume(vCRTPosition);
+		data->SetPan(vCRTPosition);
+	}
+	else
+	{
+		assert("no such music", szFileName);
+	}
 }
 
 void cSoundManager::SetVolume(LPSTR szFileName, long lVolume)
@@ -138,6 +157,16 @@ void cSoundManager::SetPosition(LPSTR szFileName, D3DXVECTOR3 vPosition)
 	{
 		assert("no such music", szFileName);
 	}
+}
+
+void cSoundManager::SetGameSound(long gSound)
+{
+	if (gSound > 10.0f)
+		G_SOUND_VOLUME = 10.0f;
+	else if (gSound < 0.0f)
+		G_SOUND_VOLUME = 0.0f;
+	else
+		G_SOUND_VOLUME = gSound;
 }
 
 D3DXVECTOR3 cSoundManager::GetPosition(LPSTR szFileName)
