@@ -17,6 +17,7 @@ private:
 	SYNTHESIZE(int, m_select_index, select_index);								//선택된 오브젝트 인덱스
 	SYNTHESIZE(bool, b_Collision, Collision);
 	SYNTHESIZE(D3DXVECTOR3, m_targetPosition, targetPosition);
+	SYNTHESIZE(cOBB*, m_targetObb, targetObb);
 
 private: //컬링
 	D3DXVECTOR3		m_aProjVertex[8];

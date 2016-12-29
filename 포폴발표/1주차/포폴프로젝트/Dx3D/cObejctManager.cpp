@@ -725,51 +725,62 @@ void cObejctManager::CullingUpdate()
 
 void cObejctManager::add3FEvent()
 {
-	class ÆÞ·°ÆÞ·°ÈÙÃ¼¾î :public cEvent
+	class ÆÞ·°ÆÞ·°ÈÙÃ¼¾î : public cEvent
 	{
 		float speed;
 		float Position;
 		int randomX;
 		int randomY;
-		int _time;
 		POINT temp;
+		D3DXMATRIXA16 matT;
+		//-35.5, -13.11, -81.01f
+	public:
+		ÆÞ·°ÆÞ·°ÈÙÃ¼¾î()
+		{
+			_switch = false;
+			speed = -0.75f;
+			Position = -62.f;
+
+			RECT rc;
+			GetClientRect(g_hWnd, &rc);
+			randomX = (rc.right - rc.left) / 2;
+			randomY = (rc.bottom - rc.top) / 2;
+
+			obb = new cOBB;
+			obb->Setup(D3DXVECTOR3(-2, -2, -2), D3DXVECTOR3(2, 2, 2));
+			D3DXMatrixTranslation(&matT, -35.5, -13.11, -81.01f);
+		};
+		~ÆÞ·°ÆÞ·°ÈÙÃ¼¾î(){};
+
 
 		void update()
 		{
-			_time++;
-			if (ObjectManager->GettargetPosition().x >= -38.f && ObjectManager->GettargetPosition().y <= -13.f)
+			obb->Update(&matT);
+			if (obb->IsCollision(obb, ObjectManager->GettargetObb()))
 			{
-				srand((unsigned int)time(NULL));
-
 				_switch = true;
-				speed = -0.75f;
-				Position = -62.f;
-				_time = 0;
-				RECT rc;
-				GetClientRect(g_hWnd, &rc);
-				randomX = (rc.right - rc.left) / 2;
-				randomY = (rc.bottom - rc.top) / 2;
-
 			}
+
 			if (_switch)
 			{
 				Position += speed;
-				ObjectManager->getObject(17)->SetWolrd(D3DXVECTOR3(-52.f, -14.91, Position), D3DXVECTOR3(0.4f, 0.4f, 0.4f));
+				ObjectManager->getObject(17)->SetWolrd(D3DXVECTOR3(-52.f, -14.91f, Position), D3DXVECTOR3(0.4f, 0.4f, 0.4f));
 				EVENT();
+
 			}
 		}
 		void EVENT()
 		{
 			if (Position <= -92.f)
 			{
-				//º®¿¡ ºÎµúÇûÀ½ È­¸é Èçµé¸®°í Äô!ÇÏ´Â ¼Ò¸® ³ª¾ßÇÔ
+				ObjectManager->getObject(17)->SetAngleX(0);
 
-										  
-				Position = -92.f;		  
+				Position = -92.f;
 				ObjectManager->getObject(17)->SetWolrd(D3DXVECTOR3(-52.f, -14.91, Position), D3DXVECTOR3(0.4f, 0.4f, 0.4f));
 
 				_switch = false;
 			}
+
 		}
 	};
 
@@ -783,27 +794,43 @@ void cObejctManager::add3FEvent()
 		float height;
 		float BallPosition;
 		bool IsDown;
+		D3DXMATRIXA16 matT;
 
-		//°øÀ§Ä¡ -13.7, -13.11, -83
-		
+		//obb À§Ä¡
+		//-3.5, -13.11,-81.41
+	public:
+		°øÆ¨±â±â()
+		{
+			obb = new cOBB;
+			obb->Setup(D3DXVECTOR3(-2, -2, -2), D3DXVECTOR3(2, 2, 2));
+			_switch = false;
+			gravity = 1.4f;
+			Downspeed = 0.f;
+			Upspeed = 0.22f;
+			Upvalue = 0.02f;
+			height = -10.91f;
+			BallPosition = -10.91f;
+			IsDown = true;
+			D3DXMatrixTranslation(&matT, -4.0, -13.11, -81.41);
+
+		};
+
+		~°øÆ¨±â±â(){};
+
 		void update()
 		{
-			if (ObjectManager->GettargetPosition().x <= -3.3f && ObjectManager->GettargetPosition().y <= -13.f)
+			obb->Update(&matT);
+			if (obb->IsCollision(obb, ObjectManager->GettargetObb()))
 			{
 				_switch = true;
-				gravity = 1.2f;
-				Downspeed = 0.f;
-				Upspeed = 0.22f;
-				Upvalue = 0.02f;
-				height = -10.91f;
-				BallPosition = -10.91f;
-				IsDown = true;
 			}
 			if (_switch)
 			{
 				EVENT();
 			}
+
 		}
+
 		void EVENT()
 		{
 			if (BallPosition <= -16.11f)

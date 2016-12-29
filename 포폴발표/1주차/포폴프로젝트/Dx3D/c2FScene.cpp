@@ -938,7 +938,6 @@ void c2FScene::Update()
 
 	if (m_pCamera)
 		m_pCamera->Update(&m_pHero->GetPosition(), &m_pController->GetDirection(), m_pHero->IsCrawl());
-	ObjectManager->SettargetPosition(m_pHero->GetPosition());
 
 	m_pController->SetfAngleX(m_pCamera->GetfAngleY());
 
@@ -956,6 +955,9 @@ void c2FScene::Update()
 	{
 		pTextView->SetText(ObjectManager->getText());
 	}
+
+	ObjectManager->SettargetObb(m_pObb);
+	ObjectManager->SettargetPosition(m_pHero->GetPosition());
 
 	g_pAutoReleasePool->Drain();
 }
