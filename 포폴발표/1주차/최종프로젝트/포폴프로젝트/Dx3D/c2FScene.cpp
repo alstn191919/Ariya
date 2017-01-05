@@ -703,7 +703,7 @@ void c2FScene::SetAddObj_3F()
 	pt.vCenter.y = pt.vCenter.y + 3;
 
 	Scal = D3DXVECTOR3(1.4, 0.6, 0.7);
-	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI / 2, D3DXVECTOR3(75.9f, -12.1f, 2.6f));
+	ObjectManager->ADDobject("door", "door.x", p, Scal, pt, OBJ_TYPE::door, "문인것같다.", Min, Max, -D3DX_PI, D3DXVECTOR3(75.9f, -12.1f, 2.6f));
 
 		//- 2.9 - 13.1, -78.1
 
@@ -1117,16 +1117,19 @@ void c2FScene::Render()
 	//obb 충돌시 처리는 어차피 플레이어에 대한 처리밖에 없으므로 그냥 논리형 반환값으로 가짐
 	//obb 처리는 오브젝트 충돌시 못지나가게 하는용도와 앉을때 장애물 있을시 못일어나게 하는 용도 뿐이라 이렇게 처리함.
 
-	g_pD3DDevice->SetTexture(0, NULL);
-	if (ObjectManager->GetCollision())
-	{
-		m_pObb->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
-	}
-	else
-	{
-		m_pObb->DebugRender(D3DCOLOR_XRGB(255, 255, 255));
-	}
 
+	if (GetAsyncKeyState(VK_F2)&1)
+	{
+		g_pD3DDevice->SetTexture(0, NULL);
+		if (ObjectManager->GetCollision())
+		{
+			m_pObb->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
+		}
+		else
+		{
+			m_pObb->DebugRender(D3DCOLOR_XRGB(255, 255, 255));
+		}
+	}
 	ObjectManager->Render();
 
 	
@@ -1480,16 +1483,16 @@ void c2FScene::ChangeMap()
 	v_LightDir[8] = D3DXVECTOR4(61.1f, -6.1f, -1.9f, 0);
 	v_LightDir[9] = D3DXVECTOR4(61.1f, -6.1f, -1.9f, 0);
 	////////////////////조명 세기////////////////////////
-	v_LightPow[0] = 1.5f;
-	v_LightPow[1] = 1.5f;
-	v_LightPow[2] = 1.5f;
-	v_LightPow[3] = 1.5f;
-	v_LightPow[4] = 1.5f;
-	v_LightPow[5] = 1.5f;
-	v_LightPow[6] = 1.5f;
-	v_LightPow[7] = 1.5f;
-	v_LightPow[8] = 1.5f;
-	v_LightPow[9] = 1.5f;
+	v_LightPow[0] = 0.8f;
+	v_LightPow[1] = 0.8f;
+	v_LightPow[2] = 0.8f;
+	v_LightPow[3] = 0.8f;
+	v_LightPow[4] = 0.8f;
+	v_LightPow[5] = 0.8f;
+	v_LightPow[6] = 0.8f;
+	v_LightPow[7] = 0.8f;
+	v_LightPow[8] = 0.8f;
+	v_LightPow[9] = 0.8f;
 	/////////////////////////////////////////////////////
 	SAFE_DELETE(m_pMap);
 	m_pMap = new cMapRender;
@@ -1676,8 +1679,8 @@ void c2FScene::MonSterAI()
 
 
 		vPosition.y -= 3.0f;
-		vPosition.z -= 2.0f;
-
+	//	vPosition.z -= 2.0f;
+		vPosition += m_pController->GetDirection();
 		D3DXMatrixTranslation(&m_Wolrd, vPosition.x, vPosition.y, vPosition.z);
 
 		D3DXVec3Normalize(&c, &c);
@@ -1783,7 +1786,7 @@ void c2FScene::MonSterEvent()
 
 		if (cOBB::IsCollision(m_pObb, m_pMonster->GetObb()))
 		{
-			if (m_pMonster->GetPhase() != Tag_Phase::EndPhase)
+			if (m_pMonster->GetPhase() != Tag_Phase::EndPhase && m_pMonster->GetPhase() != Tag_Phase::Phase4)
 			{
 				m_pMonster->SetPhase(Tag_Phase::EndPhase);
 				m_pMonster->SetAnimationIndex(0);
@@ -1797,6 +1800,8 @@ void c2FScene::MonSterEvent()
 	
 	
 
-
-	m_pObbEvent->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
+		if (GetAsyncKeyState(VK_F2) & 1)
+		{
+			m_pObbEvent->DebugRender(D3DCOLOR_XRGB(255, 0, 0));
+		}
 }

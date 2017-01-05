@@ -831,7 +831,7 @@ void cObejctManager::add3FEvent()
 			height = -10.91f;
 			BallPosition = -10.91f;
 			IsDown = true;
-			D3DXMatrixTranslation(&matT, -4.0, -13.11, -81.41);
+			D3DXMatrixTranslation(&matT, -4.0, -15.11, -81.41);
 
 		};
 
@@ -854,14 +854,7 @@ void cObejctManager::add3FEvent()
 		}
 		void EVENT()
 		{
-			if (BallPosition <= -16.11f)
-			{
-				BallPosition = -16.11;
-				ObjectManager->getObject(18)->SetWolrd(D3DXVECTOR3(-13.7f, BallPosition, -83.f), D3DXVECTOR3(1.2f, 1.2f, 1.2f));
-				_switch = false;
-				g_pSoundManager->Stop("bounce ball");
-				g_pSoundManager->SetSpeedToOrig("bounce ball");
-			}
+
 
 			if (IsDown)
 			{
@@ -885,6 +878,15 @@ void cObejctManager::add3FEvent()
 					Upspeed -= Upvalue;
 					Upvalue += 0.02f;
 				}
+			}
+			if (BallPosition <= -16.11f)
+			{
+				BallPosition = -16.11;
+				height = -16.11f;
+				ObjectManager->getObject(18)->SetWolrd(D3DXVECTOR3(-13.7f, BallPosition, -83.f), D3DXVECTOR3(1.2f, 1.2f, 1.2f));
+				_switch = false;
+				g_pSoundManager->Stop("bounce ball");
+				g_pSoundManager->SetSpeedToOrig("bounce ball");
 			}
 			ObjectManager->getObject(18)->SetWolrd(D3DXVECTOR3(-13.7f, height, -83.f), D3DXVECTOR3(1.2f, 1.2f, 1.2f));
 		}
